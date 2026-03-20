@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Création d'identité visuelle",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "areaServed": "France",
+  "description": "Création d'identité visuelle complète pour TPE et indépendants : logo, charte graphique, couleurs, typographies. À partir de 150 €. Basé à Aix-en-Provence.",
+  "offers": [
+    { "@type": "Offer", "name": "Logo seul",        "priceCurrency": "EUR", "price": "150" },
+    { "@type": "Offer", "name": "Charte graphique", "priceCurrency": "EUR", "price": "100" },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Qu'est-ce qui est inclus dans la création d'un logo ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "La création d'un logo comprend : la conception du logotype (typographie, symbole ou combinaison), la déclinaison en version claire et sombre, les formats livrés (SVG, PNG transparent, PDF), et le guide d'utilisation minimal. Tout est livré prêt à l'emploi sur votre site, vos cartes de visite et vos réseaux sociaux." }},
+    { "@type": "Question", "name": "Quelle est la différence entre un logo et une charte graphique ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le logo est votre signature visuelle : le symbole ou le mot qui vous identifie. La charte graphique va plus loin : elle définit la palette de couleurs complète, les typographies à utiliser (titres, corps de texte), les règles d'utilisation du logo, les espacements et la cohérence visuelle à appliquer sur tous vos supports." }},
+    { "@type": "Question", "name": "Combien de propositions de logo sont faites ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Deux propositions distinctes sont soumises à l'issue du brief créatif. Vous choisissez la direction qui vous correspond, puis deux rondes de retouches sont incluses pour affiner le résultat final. L'objectif est d'arriver à un logo que vous assumez pleinement, pas juste un logo générique." }},
+    { "@type": "Question", "name": "Mon identité visuelle sera-t-elle cohérente avec mon site web ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "C'est précisément l'avantage de travailler avec Aurore sur les deux : le logo et la charte graphique sont conçus dès le départ en tenant compte de votre site, de vos réseaux sociaux et de vos supports imprimés. Tout est pensé ensemble pour une cohérence totale, pas assemblé après coup." }},
+    { "@type": "Question", "name": "Puis-je commander une identité visuelle sans site web ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui, tout à fait. Logo seul (150 €) ou logo + charte graphique (250 € au total) sont disponibles indépendamment de toute création de site. Vous recevez tous les fichiers sources et pouvez les utiliser librement sur votre site existant, vos réseaux ou vos supports imprimés." }},
+  ],
+};
+---
+
+<BaseLayout
+  title="Création d'identité visuelle — Logo et charte graphique | aurore"
+  description="Création de logo et charte graphique sur mesure pour artisans et indépendants. 2 propositions, retouches incluses, fichiers sources livrés. À partir de 150 €. aurore, France."
+  slug="identite-visuelle"
+  schema={[serviceSchema, faqSchema]}
+>
+
+  <section class="service-hero section-aurora-gradient">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center;margin-bottom:24px;">
+        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span aria-current="page">Identité visuelle</span>
+      </nav>
+      <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Identité visuelle · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
+      <h1 class="service-h1">Votre image,<br /><span class="hero-serif">enfin cohérente.</span></h1>
+      <p class="service-sub">Un logo professionnel et une charte graphique qui reflètent vraiment ce que vous faites — pour que vos clients vous reconnaissent partout.</p>
+      <div class="hero-ctas">
+        <a href="/contact/" class="btn btn-primary btn-lg">Demander un devis →</a>
+        <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CE QUI EST LIVRÉ -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Ce qui est livré</span>
+      <h2 class="section-title reveal">Tout ce qu'il faut pour<br />paraître professionnel partout.</h2>
+      <div class="grid-3 reveal-stagger" style="margin-top:48px;">
+        {[
+          { titre:"Logo vectoriel",          desc:"Logotype en SVG, PNG fond transparent et PDF. Redimensionnable à l'infini sans perte de qualité." },
+          { titre:"Versions clair & sombre",  desc:"Votre logo sur fond blanc, fond coloré et fond noir. Prêt pour tous les usages." },
+          { titre:"Palette de couleurs",      desc:"2 à 4 couleurs principales avec leurs codes Hex, RGB et CMJN — pour le web comme pour l'imprimé." },
+          { titre:"Typographies",             desc:"2 polices sélectionnées et paramétrées : une pour les titres, une pour le corps de texte. Libres de droits." },
+          { titre:"Guide d'utilisation",      desc:"Un document simple qui explique comment utiliser votre identité correctement et de façon cohérente." },
+          { titre:"Fichiers sources",         desc:"Vous possédez tout. Les fichiers sources (.ai ou .figma) sont livrés avec votre identité complète." },
+        ].map(item => (
+          <div class="card livraison-card">
+            <div class="livraison-dot" aria-hidden="true"></div>
+            <div>
+              <h3 class="livraison-titre">{item.titre}</h3>
+              <p class="livraison-desc">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSUS -->
+  <section class="section" style="background:var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Comment ça se passe</span>
+      <h2 class="section-title reveal">De zéro à une identité<br />que vous assumez.</h2>
+      <div class="process-grid reveal-stagger" style="margin-top:48px;">
+        {[
+          { n:"01", titre:"Brief créatif",          desc:"On parle de votre activité, vos valeurs, votre cible et vos inspirations visuelles. 30 minutes par email ou en appel." },
+          { n:"02", titre:"2 propositions",         desc:"Deux directions distinctes vous sont soumises. Pas de pré-sélection interne : vous voyez deux vraies options." },
+          { n:"03", titre:"Retouches & validation", desc:"Deux rondes de retouches incluses sur la direction choisie. On affine jusqu'à ce que ce soit juste." },
+          { n:"04", titre:"Livraison des fichiers", desc:"Tous les formats livrés par email ou Dropbox. Logo, charte, fichiers sources — vous êtes propriétaire à 100 %." },
+        ].map(s => (
+          <div class="process-item card">
+            <div class="process-num" aria-hidden="true">{s.n}</div>
+            <h3 class="process-titre">{s.titre}</h3>
+            <p class="process-desc">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BÉNÉFICES -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Pourquoi c'est important</span>
+      <h2 class="section-title reveal">Ce que ça change pour votre activité.</h2>
+      <div class="grid-2 reveal-stagger" style="margin-top:48px;">
+        {[
+          { titre:"Première impression professionnelle", desc:"Vos clients vous jugent en 3 secondes. Un logo soigné et cohérent envoie immédiatement le signal que vous êtes sérieux et compétent." },
+          { titre:"Cohérence sur tous vos supports",    desc:"Même couleurs, même police, même esprit — sur votre site, vos cartes, Instagram, vos devis. La cohérence construit la confiance." },
+          { titre:"Vous vous démarquez",                desc:"90 % des indépendants utilisent un logo générique ou bricolé sur Canva. Une identité sur mesure vous différencie immédiatement de vos concurrents." },
+          { titre:"Vous assumez votre communication",   desc:"Quand vous aimez votre logo, vous le montrez. Vous publiez plus, vous envoyez vos devis avec plus de confiance, vous vous positionnez mieux." },
+        ].map(b => (
+          <div class="card">
+            <h3 style="font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-bottom:8px;">{b.titre}</h3>
+            <p style="font-size:14px;line-height:1.65;margin:0;">{b.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFS -->
+  <section class="section" style="background:var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Tarifs</span>
+      <h2 class="section-title reveal">Simple et transparent.</h2>
+      <div class="grid-2 reveal-stagger" style="margin-top:48px;max-width:800px;margin-left:auto;margin-right:auto;">
+        <div class="pricing-card">
+          <div class="pricing-name">Logo seul</div>
+          <div class="pricing-price"><span class="pricing-currency">€</span><span class="pricing-amount">150</span></div>
+          <p class="pricing-desc">Pour les projets qui ont déjà une direction créative définie.</p>
+          <ul class="pricing-features">
+            {["Logotype sur mesure","2 propositions créatives","2 rondes de retouches","Versions clair & sombre","Formats SVG, PNG, PDF","Fichiers sources inclus"].map(f => (
+              <li class="pricing-feature"><span class="pricing-check" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{f}</li>
+            ))}
+          </ul>
+          <a href="/contact/" class="btn btn-outline" style="width:100%;justify-content:center;">Commander</a>
+        </div>
+        <div class="pricing-card pricing-card-featured">
+          <span class="pricing-badge">Recommandé</span>
+          <div class="pricing-name">Logo + Charte</div>
+          <div class="pricing-price"><span class="pricing-currency">€</span><span class="pricing-amount">250</span></div>
+          <p class="pricing-desc">L'identité visuelle complète pour une cohérence sur tous vos supports.</p>
+          <ul class="pricing-features">
+            {["Tout le pack Logo","Palette de couleurs complète","Typographies sélectionnées","Guide d'utilisation","Déclinaisons supports (digital + print)"].map(f => (
+              <li class="pricing-feature"><span class="pricing-check" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{f}</li>
+            ))}
+          </ul>
+          <a href="/contact/" class="btn btn-aurora" style="width:100%;justify-content:center;">Commander</a>
+        </div>
+      </div>
+      <p class="tarif-note reveal" style="text-align:center;margin-top:24px;font-size:13px;color:var(--gray-500);">Ces tarifs s'appliquent seuls. Inclus dans les packs site web (Essentiel et supérieurs).</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container" style="max-width:720px;">
+      <span class="section-label reveal">FAQ</span>
+      <h2 class="section-title reveal">Questions sur l'identité visuelle.</h2>
+      <div style="margin-top:36px;" class="reveal">
+        {faqSchema.mainEntity.map((item: any) => (
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer">{item.acceptedAnswer.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--gray-50);"><div class="container"><div class="cta-section reveal">
+    <h2>Votre logo vous représente-t-il vraiment ?</h2>
+    <p>Décrivez votre activité et ce que vous souhaitez transmettre. Je vous soumets deux propositions dans les 5 jours.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/contact/" class="btn btn-aurora btn-lg">Lancer mon identité →</a>
+      <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+    </div>
+  </div></div></section>
+
+</BaseLayout>
+
+<style>
+  .service-hero  { padding:160px 0 80px; text-align:center; }
+  .service-h1    { font-family:var(--font-display); font-size:clamp(34px,5vw,62px); font-weight:700; letter-spacing:-0.05em; line-height:1.05; margin:20px 0 16px; }
+  .service-sub   { font-size:clamp(15px,1.3vw,18px); line-height:1.65; max-width:520px; margin:0 auto 32px; }
+
+  .livraison-card  { display:flex; align-items:flex-start; gap:14px; }
+  .livraison-dot   { width:8px; height:8px; border-radius:50%; background:var(--aurora); flex-shrink:0; margin-top:6px; }
+  .livraison-titre { font-size:15px; font-weight:600; letter-spacing:-0.02em; margin-bottom:4px; }
+  .livraison-desc  { font-size:14px; color:var(--gray-500); line-height:1.6; margin:0; }
+
+  .process-grid  { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .process-item  { display:flex; flex-direction:column; gap:12px; }
+  .process-num   { font-family:var(--font-display); font-size:32px; font-weight:800; letter-spacing:-0.06em; color:var(--aurora-pale); line-height:1; }
+  .process-titre { font-size:15px; font-weight:600; letter-spacing:-0.02em; color:var(--black); }
+  .process-desc  { font-size:14px; color:var(--gray-500); line-height:1.6; margin:0; }
+
+  @media (max-width:1024px) { .process-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:768px)  { .service-hero { padding:120px 0 56px; } .process-grid { grid-template-columns:1fr; } }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
+    // @ts-ignore
+    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.5,ease:'power2.out'}).from('.service-h1',{y:24,opacity:0,duration:0.6,ease:'power2.out'},'-=0.25').from('.service-sub',{y:16,opacity:0,duration:0.5,ease:'power2.out'},'-=0.25').from('.hero-ctas',{y:16,opacity:0,duration:0.4,ease:'power2.out'},'-=0.2');
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:40,opacity:0,duration:0.65,ease:'power2.out'}));
+    // @ts-ignore
+    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.from(c.children,{scrollTrigger:{trigger:c,start:'top 80%'},y:24,opacity:0,stagger:0.1,duration:0.55,ease:'power2.out'}));
+  });
+</script>

@@ -1,0 +1,736 @@
+/* ─────────────────────────────────────────
+   components.css — Boutons, cartes, badges, inputs, etc.
+   agence-aurore.fr
+   ───────────────────────────────────────── */
+
+/* ─── BOUTONS ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 13px 24px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  transition: var(--transition);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.btn-sm {
+  font-size: 13px;
+  padding: 10px 18px;
+}
+
+.btn-lg {
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
+.btn-primary {
+  background: var(--black);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--gray-700);
+  transform: translateY(-1px);
+}
+
+.btn-aurora {
+  background: var(--aurora);
+  color: var(--white);
+  font-weight: 600;
+}
+
+.btn-aurora:hover {
+  background: var(--aurora-dark);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--black);
+  border: 1.5px solid var(--gray-300);
+}
+
+.btn-outline:hover {
+  border-color: var(--black);
+}
+
+.btn-ghost {
+  background: var(--gray-100);
+  color: var(--black);
+}
+
+.btn-ghost:hover {
+  background: var(--gray-300);
+}
+
+.btn-link {
+  background: transparent;
+  color: var(--aurora);
+  padding: 0;
+  border-radius: 0;
+  font-weight: 600;
+}
+
+.btn-link:hover {
+  color: var(--aurora-dark);
+}
+
+/* ─── CARTES ─── */
+.card {
+  background: var(--white);
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.card-sm {
+  padding: 20px 24px;
+  border-radius: var(--radius-md);
+}
+
+.card-aurora {
+  background: var(--aurora-pale);
+  border: 1.5px solid rgba(255, 107, 26, 0.2);
+  position: relative;
+}
+
+.card-aurora::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--aurora), transparent);
+  border-radius: 2px;
+}
+
+.card-dark {
+  background: var(--black);
+  border-color: var(--gray-700);
+  color: var(--white);
+}
+
+.card-dark p {
+  color: var(--gray-300);
+}
+
+/* Carte service */
+.service-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.service-card-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--aurora-pale);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.service-card-icon svg {
+  width: 22px;
+  height: 22px;
+  color: var(--aurora);
+}
+
+.service-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--black);
+}
+
+.service-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--gray-500);
+  flex: 1;
+}
+
+.service-card-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--aurora);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition);
+}
+
+.service-card-link:hover {
+  gap: 8px;
+}
+
+/* Carte réalisation */
+.project-card {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--gray-100);
+  background: var(--white);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.10);
+}
+
+.project-card-image {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--gray-100);
+}
+
+.project-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-card-image img {
+  transform: scale(1.04);
+}
+
+.project-card-body {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.project-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.project-card-meta {
+  font-size: 13px;
+  color: var(--gray-500);
+}
+
+/* ─── BADGES ─── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 100px;
+  letter-spacing: -0.01em;
+}
+
+.badge-default {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+
+.badge-aurora {
+  background: var(--aurora-pale);
+  color: var(--aurora-dark);
+  border: 1px solid rgba(255, 107, 26, 0.2);
+}
+
+.badge-black {
+  background: var(--black);
+  color: var(--white);
+}
+
+.badge-success {
+  background: #ECFDF5;
+  color: #065F46;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ─── FORMULAIRES ─── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--black);
+  letter-spacing: -0.01em;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 13px 16px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--black);
+  background: var(--white);
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: var(--transition);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--gray-300);
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  border-color: var(--aurora);
+  box-shadow: 0 0 0 3px var(--aurora-glow);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.form-hint {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.form-error {
+  font-size: 12px;
+  color: #DC2626;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ─── ÉTAPES ─── */
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  background: var(--aurora-pale);
+  border: 1.5px solid rgba(255, 107, 26, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--aurora);
+  flex-shrink: 0;
+}
+
+.step-title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--black);
+}
+
+.step-desc {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.65;
+}
+
+/* ─── TÉMOIGNAGES ─── */
+.testimonial {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.testimonial-quote {
+  font-size: clamp(15px, 1.2vw, 17px);
+  color: var(--gray-700);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--gray-100);
+  flex-shrink: 0;
+}
+
+.testimonial-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--black);
+  letter-spacing: -0.01em;
+}
+
+.testimonial-role {
+  font-size: 13px;
+  color: var(--gray-500);
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 3px;
+  color: var(--aurora);
+}
+
+/* ─── FAQ ─── */
+.faq-item {
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 0;
+  font-size: clamp(15px, 1.2vw, 17px);
+  font-weight: 600;
+  color: var(--black);
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--font-display);
+  transition: var(--transition);
+}
+
+.faq-question:hover {
+  color: var(--aurora);
+}
+
+.faq-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.faq-item.open .faq-icon {
+  background: var(--aurora-pale);
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  font-size: 15px;
+  color: var(--gray-500);
+  line-height: 1.7;
+  padding-bottom: 20px;
+  display: none;
+}
+
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+/* ─── TARIFS ─── */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.pricing-card {
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--gray-100);
+  background: var(--white);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: var(--transition);
+  position: relative;
+}
+
+.pricing-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.pricing-card-featured {
+  border-color: var(--aurora);
+  background: var(--black);
+  color: var(--white);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--aurora);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 100px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pricing-name {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--aurora);
+}
+
+.pricing-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.pricing-amount {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--black);
+}
+
+.pricing-card-featured .pricing-amount {
+  color: var(--white);
+}
+
+.pricing-currency {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gray-500);
+}
+
+.pricing-card-featured .pricing-currency {
+  color: var(--gray-300);
+}
+
+.pricing-desc {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.6;
+}
+
+.pricing-card-featured .pricing-desc {
+  color: var(--gray-300);
+}
+
+.pricing-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.pricing-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--gray-700);
+}
+
+.pricing-card-featured .pricing-feature {
+  color: var(--gray-300);
+}
+
+.pricing-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--aurora-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pricing-card-featured .pricing-check {
+  background: rgba(255, 107, 26, 0.2);
+}
+
+/* ─── BANDEAU ANNONCE ─── */
+.announcement-bar {
+  background: var(--black);
+  color: var(--white);
+  text-align: center;
+  padding: 10px 24px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.announcement-bar a {
+  color: var(--aurora);
+  text-decoration: underline;
+}
+
+/* ─── CTA SECTION ─── */
+.cta-section {
+  background: var(--black);
+  border-radius: var(--radius-xl);
+  padding: 72px 64px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 107, 26, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-section h2 {
+  color: var(--white);
+  font-size: clamp(28px, 4vw, 48px);
+  margin-bottom: 16px;
+}
+
+.cta-section p {
+  color: var(--gray-300);
+  max-width: 480px;
+  margin: 0 auto 32px;
+}
+
+/* ─── GRILLES ─── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* ─── BREADCRUMB ─── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--gray-500);
+}
+
+.breadcrumb a {
+  color: var(--gray-500);
+  transition: var(--transition);
+}
+
+.breadcrumb a:hover {
+  color: var(--black);
+}
+
+.breadcrumb-sep {
+  color: var(--gray-300);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-section {
+    padding: 48px 28px;
+    border-radius: var(--radius-lg);
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 20px 20px;
+  }
+}

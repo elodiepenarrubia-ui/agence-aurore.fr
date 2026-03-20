@@ -1,0 +1,50 @@
+backend:
+  name: github
+  repo: elodiepenarrubia-ui/agence-aurore.fr
+  branch: main
+  base_url: https://agence-aurore.fr
+  auth_endpoint: /api/auth
+
+media_folder: "public/assets/images/blog"
+public_folder: "/assets/images/blog"
+
+locale: fr
+
+collections:
+  - name: "blog"
+    label: "Articles de blog"
+    label_singular: "Article"
+    folder: "src/content/blog"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    preview_path: "/blog/{{slug}}/"
+    fields:
+      - label: "Titre"
+        name: "title"
+        widget: "string"
+        hint: "Le titre complet de l'article (H1 et balise title)"
+
+      - label: "Date de publication"
+        name: "date"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        default: ""
+
+      - label: "Description SEO"
+        name: "description"
+        widget: "string"
+        hint: "Résumé affiché dans Google et sur la page liste. 120-160 caractères idéalement."
+        pattern: ['.{50,}', "Minimum 50 caractères"]
+
+      - label: "Image à la une"
+        name: "thumbnail"
+        widget: "image"
+        required: false
+        hint: "Image principale de l'article (1200×630px recommandé)"
+
+      - label: "Contenu"
+        name: "body"
+        widget: "markdown"
+        hint: "Contenu complet de l'article en Markdown"

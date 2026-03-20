@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Développement de logiciel métier sur mesure",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "areaServed": "France",
+  "description": "Développement d'applications web métier sur mesure pour TPE et indépendants : outils de gestion, tableaux de bord, automatisation de processus. Cadrage 300 € déduit si projet signé.",
+  "offers": { "@type": "Offer", "name": "Cadrage logiciel métier", "priceCurrency": "EUR", "price": "300" },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Qu'est-ce qu'un logiciel métier au sens d'aurore ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Un logiciel métier est une application web développée sur mesure pour répondre à un besoin spécifique de votre activité : outil de gestion de clients, tableau de bord de reporting, outil de devis automatisé, plateforme de commande interne, etc. Contrairement à un site vitrine, c'est un outil avec une logique métier et souvent une base de données." }},
+    { "@type": "Question", "name": "Pourquoi commencer par une session de cadrage ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Un logiciel métier mal spécifié est le projet qui dérape le plus facilement. La session de cadrage (300 €) permet d'analyser vos besoins réels, de définir le périmètre fonctionnel, de choisir la bonne architecture technique et de produire un devis précis. Si vous signez, ces 300 € sont déduits du prix final." }},
+    { "@type": "Question", "name": "Combien coûte le développement d'un logiciel métier ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le coût dépend entièrement de la complexité et du périmètre défini lors du cadrage. Un outil simple (formulaire avancé + base de données + tableau de bord) peut coûter entre 800 et 2 000 €. Une application plus complexe avec gestion d'utilisateurs et intégrations externes dépassera 3 000 €. Le cadrage vous donne un devis précis avant tout engagement." }},
+    { "@type": "Question", "name": "Quelles technologies sont utilisées ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Les technologies sont choisies selon les besoins du projet : Astro ou Next.js pour le front, des services backend légers (Supabase, PocketBase) pour les données, des APIs tierces pour les intégrations. L'objectif est toujours de choisir la solution la plus simple et la plus maintenable." }},
+  ],
+};
+---
+
+<BaseLayout
+  title="Logiciel métier sur mesure — Application web pour TPE | aurore"
+  description="Développement d'applications web métier sur mesure : outils de gestion, tableaux de bord, automatisation. Cadrage 300 € déduit si projet signé. aurore, France."
+  slug="creation-site-web/logiciel-metier"
+  schema={[serviceSchema, faqSchema]}
+>
+
+  <section class="service-hero section-aurora-gradient">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center;margin-bottom:24px;">
+        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="/creation-site-web/">Création de site web</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span aria-current="page">Logiciel métier</span>
+      </nav>
+      <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Logiciel métier · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
+      <h1 class="service-h1">L'outil qui automatise<br /><span class="hero-serif">votre activité.</span></h1>
+      <p class="service-sub">Quand un site vitrine ne suffit plus — une application web sur mesure pour gérer vos clients, vos données ou vos processus internes.</p>
+      <div class="hero-ctas">
+        <a href="/contact/" class="btn btn-primary btn-lg">Discuter de mon projet →</a>
+        <a href="#cadrage" class="btn btn-outline btn-lg">Comprendre le cadrage</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAS D'USAGE -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Exemples d'outils</span>
+      <h2 class="section-title reveal">Quel outil pourrions-nous<br />construire pour vous ?</h2>
+      <div class="grid-3 reveal-stagger" style="margin-top:48px;">
+        {[
+          { emoji:"📋", titre:"Outil de devis",              desc:"Générez des devis personnalisés en quelques clics depuis un interface sur mesure. Export PDF automatique." },
+          { emoji:"👥", titre:"CRM simplifié",               desc:"Gérez vos contacts clients, l'historique des échanges et le suivi des projets sans payer Salesforce." },
+          { emoji:"📊", titre:"Tableau de bord",             desc:"Visualisez vos KPIs en temps réel : réservations, revenus, clients actifs — tout centralisé." },
+          { emoji:"📦", titre:"Gestion de stock",            desc:"Suivez vos produits, vos commandes fournisseurs et vos seuils d'alerte depuis votre navigateur." },
+          { emoji:"🔄", titre:"Automatisation de processus", desc:"Transformez une tâche manuelle répétitive en workflow automatique : imports, exports, notifications." },
+          { emoji:"🔗", titre:"Intégration API",             desc:"Connectez vos outils existants : Stripe, Google Sheets, Airtable, Notion, Calendly..." },
+        ].map(c => (
+          <div class="card cas-card">
+            <div class="cas-emoji" aria-hidden="true">{c.emoji}</div>
+            <h3>{c.titre}</h3>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CADRAGE -->
+  <section class="section" style="background:var(--gray-50);" id="cadrage">
+    <div class="container">
+      <div class="cadrage-grid reveal">
+        <div>
+          <span class="section-label">Étape 1</span>
+          <h2 class="section-title">La session de cadrage :<br />300 €, déduits si projet signé.</h2>
+          <p class="section-subtitle">Un logiciel mal spécifié est le projet qui dérape. Le cadrage est une garantie pour vous comme pour moi.</p>
+        </div>
+        <div class="cadrage-steps">
+          {[
+            { n:"01", titre:"Analyse de vos besoins",         desc:"On cartographie vos processus actuels, vos douleurs et ce que l'outil devra résoudre concrètement." },
+            { n:"02", titre:"Spécifications fonctionnelles",  desc:"Liste des fonctionnalités, parcours utilisateurs, maquettes de principe — tout est formalisé par écrit." },
+            { n:"03", titre:"Architecture technique",         desc:"Choix des technologies, structure des données, intégrations tierces identifiées." },
+            { n:"04", titre:"Devis de développement",        desc:"Chiffrage précis, planning, jalons de livraison. Vous signez en connaissance de cause. Les 300 € sont déduits." },
+          ].map(s => (
+            <div class="cadrage-item">
+              <div class="cadrage-num" aria-hidden="true">{s.n}</div>
+              <div>
+                <div class="cadrage-titre">{s.titre}</div>
+                <p class="cadrage-desc">{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container" style="max-width:720px;">
+      <span class="section-label reveal">FAQ</span>
+      <h2 class="section-title reveal">Questions sur le logiciel métier.</h2>
+      <div style="margin-top:36px;" class="reveal">
+        {faqSchema.mainEntity.map((item: any) => (
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer">{item.acceptedAnswer.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--gray-50);"><div class="container"><div class="cta-section reveal">
+    <h2>Vous avez un besoin spécifique ?</h2>
+    <p>Décrivez-moi votre processus actuel et ce qui vous freine. On voit ensemble si un logiciel métier est la bonne solution.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/contact/" class="btn btn-aurora btn-lg">Décrire mon besoin →</a>
+      <a href="/tarifs/" class="btn btn-outline btn-lg">Tarif du cadrage</a>
+    </div>
+  </div></div></section>
+
+</BaseLayout>
+
+<style>
+  .service-hero  { padding:160px 0 80px; text-align:center; }
+  .service-h1    { font-family:var(--font-display); font-size:clamp(34px,5vw,62px); font-weight:700; letter-spacing:-0.05em; line-height:1.05; margin:20px 0 16px; }
+  .service-sub   { font-size:clamp(15px,1.3vw,18px); line-height:1.65; max-width:520px; margin:0 auto 32px; }
+  .cas-card      { display:flex; flex-direction:column; gap:10px; }
+  .cas-emoji     { font-size:28px; line-height:1; }
+  .cas-card h3   { font-size:16px; font-weight:600; letter-spacing:-0.02em; }
+  .cas-card p    { font-size:14px; color:var(--gray-500); line-height:1.65; margin:0; }
+  .cadrage-grid  { display:grid; grid-template-columns:360px 1fr; gap:64px; align-items:start; }
+  .cadrage-steps { display:flex; flex-direction:column; gap:24px; }
+  .cadrage-item  { display:flex; gap:16px; align-items:flex-start; }
+  .cadrage-num   { font-family:var(--font-display); font-size:13px; font-weight:700; color:var(--aurora); background:var(--aurora-pale); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .cadrage-titre { font-size:15px; font-weight:600; letter-spacing:-0.02em; color:var(--black); margin-bottom:4px; }
+  .cadrage-desc  { font-size:14px; color:var(--gray-500); line-height:1.6; margin:0; }
+  @media (max-width:768px) { .service-hero { padding:120px 0 56px; } .cadrage-grid { grid-template-columns:1fr; gap:40px; } }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
+    // @ts-ignore
+    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.5,ease:'power2.out'}).from('.service-h1',{y:24,opacity:0,duration:0.6,ease:'power2.out'},'-=0.25').from('.service-sub',{y:16,opacity:0,duration:0.5,ease:'power2.out'},'-=0.25').from('.hero-ctas',{y:16,opacity:0,duration:0.4,ease:'power2.out'},'-=0.2');
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:40,opacity:0,duration:0.65,ease:'power2.out'}));
+    // @ts-ignore
+    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.from(c.children,{scrollTrigger:{trigger:c,start:'top 80%'},y:24,opacity:0,stagger:0.1,duration:0.55,ease:'power2.out'}));
+  });
+</script>

@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Mentions légales | aurore"
+  description="Mentions légales du site agence-aurore.fr — Élodie, auto-entrepreneur, Aix-en-Provence."
+  slug="mentions-legales"
+  noindex={true}
+>
+
+  <section class="section" style="padding-top:140px;">
+    <div class="container" style="max-width:720px;">
+
+      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="margin-bottom:32px;">
+        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span aria-current="page">Mentions légales</span>
+      </nav>
+
+      <h1 class="mentions-h1">Mentions légales</h1>
+      <p class="mentions-date">Dernière mise à jour : janvier 2025</p>
+
+      <div class="prose">
+
+        <h2>1. Éditeur du site</h2>
+        <p>
+          Le site <strong>agence-aurore.fr</strong> est édité par :<br />
+          <strong>Élodie [NOM]</strong><br />
+          Auto-entrepreneur<br />
+          SIRET : [À compléter après immatriculation]<br />
+          Siège social : Aix-en-Provence (13100), France<br />
+          Email : <a href="mailto:contact@agence-aurore.fr">contact@agence-aurore.fr</a>
+        </p>
+
+        <h2>2. Directrice de la publication</h2>
+        <p>Élodie [NOM], en qualité de propriétaire du site.</p>
+
+        <h2>3. Hébergement</h2>
+        <p>
+          Ce site est hébergé par :<br />
+          <strong>GitHub, Inc.</strong><br />
+          88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis<br />
+          Service : GitHub Pages — <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">pages.github.com</a>
+        </p>
+
+        <h2>4. Propriété intellectuelle</h2>
+        <p>
+          L'ensemble des contenus présents sur ce site (textes, images, graphismes, logo, icônes, structure) est la propriété exclusive d'aurore / Élodie [NOM], sauf mention contraire.
+        </p>
+        <p>
+          Toute reproduction, distribution, modification ou utilisation de ces contenus, en tout ou partie, est interdite sans autorisation préalable écrite de l'éditeur.
+        </p>
+
+        <h2>5. Données personnelles (RGPD)</h2>
+        <p>
+          Conformément au Règlement Général sur la Protection des Données (RGPD — UE 2016/679) et à la loi Informatique et Libertés, vous disposez des droits suivants concernant vos données personnelles :
+        </p>
+        <ul>
+          <li>Droit d'accès à vos données</li>
+          <li>Droit de rectification</li>
+          <li>Droit à l'effacement (droit à l'oubli)</li>
+          <li>Droit à la portabilité</li>
+          <li>Droit d'opposition au traitement</li>
+        </ul>
+        <p>
+          Pour exercer ces droits ou pour toute question relative à vos données, contactez : <a href="mailto:contact@agence-aurore.fr">contact@agence-aurore.fr</a>
+        </p>
+
+        <h3>Données collectées via le formulaire de contact</h3>
+        <p>
+          Les informations transmises via le formulaire de contact (nom, email, message) sont utilisées uniquement pour répondre à votre demande. Elles ne sont pas transmises à des tiers, ni utilisées à des fins commerciales sans votre consentement.
+        </p>
+        <p>
+          Durée de conservation : les échanges par email sont conservés le temps nécessaire à la relation commerciale, avec un maximum de 3 ans après le dernier contact.
+        </p>
+
+        <h3>Cookies</h3>
+        <p>
+          Ce site n'utilise pas de cookies de traçage ni d'outils d'analyse comportementale (Google Analytics, Hotjar, etc.). Aucun cookie tiers n'est déposé sur votre terminal sans votre consentement.
+        </p>
+
+        <h2>6. Liens hypertextes</h2>
+        <p>
+          Le site agence-aurore.fr peut contenir des liens vers des sites tiers. Ces liens sont fournis à titre informatif. aurore n'exerce aucun contrôle sur le contenu de ces sites et décline toute responsabilité quant à leur contenu ou leur politique de confidentialité.
+        </p>
+
+        <h2>7. Limitation de responsabilité</h2>
+        <p>
+          Les informations contenues sur ce site sont fournies à titre indicatif. Malgré le soin apporté à la rédaction des contenus, aurore ne garantit pas l'exactitude, l'exhaustivité ou l'actualité des informations publiées.
+        </p>
+        <p>
+          aurore ne saurait être tenue responsable de tout dommage direct ou indirect résultant de l'accès au site ou de l'utilisation des informations qu'il contient.
+        </p>
+
+        <h2>8. Droit applicable et juridiction</h2>
+        <p>
+          Les présentes mentions légales sont soumises au droit français. En cas de litige, et à défaut de résolution amiable, les tribunaux français seront compétents.
+        </p>
+
+        <h2>9. Contact</h2>
+        <p>
+          Pour toute question concernant ce site ou ces mentions légales :<br />
+          <a href="mailto:contact@agence-aurore.fr">contact@agence-aurore.fr</a>
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .mentions-h1   { font-family:var(--font-display); font-size:clamp(28px,4vw,44px); font-weight:700; letter-spacing:-0.04em; color:var(--black); margin-bottom:8px; }
+  .mentions-date { font-size:13px; color:var(--gray-500); margin-bottom:48px; }
+
+  .prose         { font-size:15px; line-height:1.8; color:var(--gray-700); }
+  .prose h2      { font-family:var(--font-display); font-size:18px; font-weight:700; letter-spacing:-0.02em; color:var(--black); margin:40px 0 12px; padding-top:8px; border-top:1.5px solid var(--gray-100); }
+  .prose h3      { font-size:15px; font-weight:600; color:var(--black); margin:24px 0 8px; }
+  .prose p       { margin:0 0 16px; }
+  .prose ul      { padding-left:20px; margin:0 0 16px; }
+  .prose li      { margin-bottom:6px; }
+  .prose strong  { font-weight:600; color:var(--black); }
+  .prose a       { color:var(--aurora); text-decoration:underline; text-underline-offset:3px; }
+  .prose a:hover { color:var(--aurora-dark); }
+</style>

@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props:  { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function readingTime(body: string) {
+  return Math.max(1, Math.round((body ?? '').split(/\s+/).length / 200));
+}
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline":       post.data.title,
+  "description":    post.data.description,
+  "datePublished":  post.data.date.toISOString(),
+  "url":            `https://agence-aurore.fr/blog/${post.id}/`,
+  "author": { "@type": "Person", "name": "Élodie", "url": "https://agence-aurore.fr/a-propos/" },
+  "publisher": { "@type": "Organization", "name": "Aurore", "url": "https://agence-aurore.fr" },
+};
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  slug={`blog/${post.id}`}
+  schema={articleSchema}
+>
+
+  <article class="article">
+
+    <header class="article-header section-aurora-gradient">
+      <div class="container" style="max-width:760px;">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center;margin-bottom:24px;">
+          <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
+          <a href="/blog/">Blog</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
+          <span aria-current="page">{post.data.title}</span>
+        </nav>
+        <div class="article-meta">
+          <time datetime={post.data.date.toISOString()} class="article-date">
+            {formatDate(post.data.date)}
+          </time>
+          <span class="article-sep" aria-hidden="true">·</span>
+          <span class="article-reading">{readingTime(post.body ?? '')} min de lecture</span>
+        </div>
+        <h1 class="article-h1">{post.data.title}</h1>
+        <p class="article-lead">{post.data.description}</p>
+      </div>
+    </header>
+
+    <div class="article-body section">
+      <div class="container" style="max-width:720px;">
+        <div class="prose">
+          <Content />
+        </div>
+
+        <footer class="article-footer">
+          <div class="article-author card">
+            <div class="author-avatar" aria-hidden="true">É</div>
+            <div>
+              <div class="author-name">Élodie — aurore</div>
+              <p class="author-bio">Créatrice de présences digitales pour TPE et indépendants, basée à Aix-en-Provence.</p>
+              <a href="/a-propos/" class="author-link">En savoir plus →</a>
+            </div>
+          </div>
+
+          <div class="article-cta card" style="margin-top:16px;text-align:center;padding:40px;">
+            <h2 style="font-size:22px;font-weight:700;letter-spacing:-0.03em;margin-bottom:8px;">Prêt à passer à l'action ?</h2>
+            <p style="font-size:15px;color:var(--gray-500);line-height:1.6;margin-bottom:24px;">Décrivez votre projet en quelques lignes. Je vous réponds sous 48h avec un devis clair.</p>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+              <a href="/contact/" class="btn btn-aurora">Demander un devis →</a>
+              <a href="/tarifs/"  class="btn btn-outline">Voir les tarifs</a>
+            </div>
+          </div>
+
+          <nav class="article-nav" aria-label="Navigation blog">
+            <a href="/blog/" class="btn btn-ghost">← Retour au blog</a>
+          </nav>
+        </footer>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
+
+<style>
+  .article-header  { padding:140px 0 64px; text-align:center; }
+  .article-meta    { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:20px; }
+  .article-date    { font-size:13px; color:rgba(255,255,255,0.7); }
+  .article-sep     { color:rgba(255,255,255,0.4); }
+  .article-reading { font-size:13px; color:rgba(255,255,255,0.7); }
+  .article-h1      { font-family:var(--font-display); font-size:clamp(26px,4vw,48px); font-weight:700; letter-spacing:-0.04em; line-height:1.1; color:var(--white); margin-bottom:16px; }
+  .article-lead    { font-size:clamp(15px,1.2vw,18px); line-height:1.65; color:rgba(255,255,255,0.85); max-width:560px; margin:0 auto; }
+
+  /* Prose styles */
+  .prose           { font-size:16px; line-height:1.8; color:var(--gray-700); }
+  .prose h2        { font-family:var(--font-display); font-size:clamp(20px,2.5vw,28px); font-weight:700; letter-spacing:-0.03em; color:var(--black); margin:48px 0 16px; }
+  .prose h3        { font-family:var(--font-display); font-size:clamp(17px,2vw,22px); font-weight:600; letter-spacing:-0.02em; color:var(--black); margin:32px 0 12px; }
+  .prose p         { margin:0 0 20px; }
+  .prose ul, .prose ol { padding-left:24px; margin:0 0 20px; }
+  .prose li        { margin-bottom:8px; }
+  .prose strong    { font-weight:600; color:var(--black); }
+  .prose a         { color:var(--aurora); text-decoration:underline; text-underline-offset:3px; }
+  .prose a:hover   { color:var(--aurora-dark); }
+  .prose blockquote { border-left:3px solid var(--aurora); padding-left:20px; margin:28px 0; font-style:italic; color:var(--gray-500); }
+  .prose hr        { border:none; border-top:1.5px solid var(--gray-100); margin:40px 0; }
+  .prose code      { background:var(--gray-100); padding:2px 6px; border-radius:4px; font-size:0.9em; }
+  .prose pre       { background:var(--gray-700); color:var(--white); padding:24px; border-radius:var(--radius-md); overflow-x:auto; margin:24px 0; }
+  .prose pre code  { background:none; padding:0; }
+
+  .article-footer  { margin-top:64px; display:flex; flex-direction:column; gap:0; }
+  .article-author  { display:flex; align-items:flex-start; gap:20px; }
+  .author-avatar   { width:48px; height:48px; border-radius:50%; background:var(--aurora-pale); color:var(--aurora); font-family:var(--font-display); font-size:18px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .author-name     { font-size:14px; font-weight:600; color:var(--black); margin-bottom:4px; }
+  .author-bio      { font-size:13px; color:var(--gray-500); line-height:1.55; margin:0 0 6px; }
+  .author-link     { font-size:13px; color:var(--aurora); text-decoration:none; font-weight:500; }
+  .author-link:hover { text-decoration:underline; }
+
+  .article-nav     { margin-top:32px; }
+
+  @media (max-width:768px) {
+    .article-header { padding:110px 0 48px; }
+    .article-author { flex-direction:column; gap:12px; }
+  }
+</style>

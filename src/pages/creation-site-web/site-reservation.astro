@@ -1,0 +1,187 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Création de site web avec réservation en ligne",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "areaServed": "France",
+  "description": "Site web avec système de réservation en ligne, paiement Stripe et emails transactionnels automatisés. Pour thérapeutes, coachs, hébergements et prestataires de services. À partir de 1 400 €.",
+  "offers": [
+    { "@type": "Offer", "name": "Site réservation Essentiel", "priceCurrency": "EUR", "price": "1400" },
+    { "@type": "Offer", "name": "Site réservation Autonome",  "priceCurrency": "EUR", "price": "1800" },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Quel système de réservation est utilisé ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le système est sélectionné en fonction de votre activité lors du briefing : Cal.com pour les RDV individuels, Stripe Checkout pour les paiements ponctuels, ou une solution spécifique à votre secteur. Tout est intégré directement dans votre site — pas de widget tiers qui dénature le design." }},
+    { "@type": "Question", "name": "Puis-je encaisser des paiements en ligne ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui. L'intégration Stripe permet d'accepter les paiements par carte bancaire en toute sécurité. Stripe prélève une commission de 1,4 % + 0,25 € par transaction (tarif européen standard). Votre compte Stripe est créé et configuré lors de la livraison." }},
+    { "@type": "Question", "name": "Que se passe-t-il quand un client réserve ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Automatiquement : votre client reçoit un email de confirmation avec les détails du RDV, vous recevez une notification, et un rappel automatique est envoyé 24h avant. Tout est configurable selon vos besoins." }},
+    { "@type": "Question", "name": "Ce type de site convient-il à mon activité ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le site avec réservation convient aux massothérapeutes, coachs, consultants, prestataires de services, hébergements de charme, cours et ateliers, et toute activité facturant des créneaux horaires ou des prestations unitaires. Si vous hésitez, l'appel de 30 min nous permet de valider ensemble." }},
+    { "@type": "Question", "name": "Puis-je gérer les disponibilités moi-même ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui. La gestion des disponibilités, des créneaux et des congés se fait depuis une interface intuitive. Avec le pack Autonome, vous pouvez aussi modifier les contenus du site (textes, images, tarifs) sans aucune intervention technique." }},
+  ],
+};
+---
+
+<BaseLayout
+  title="Site web avec réservation en ligne — Paiement Stripe intégré | aurore"
+  description="Créez votre site avec réservation en ligne et paiement sécurisé. Système automatisé d'emails, gestion des RDV, Stripe intégré. Dès 1 400 €, livraison 2 semaines."
+  slug="creation-site-web/site-reservation"
+  schema={[serviceSchema, faqSchema]}
+>
+
+  <section class="service-hero section-aurora-gradient">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center;margin-bottom:24px;">
+        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="/creation-site-web/">Création de site web</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span aria-current="page">Site avec réservation</span>
+      </nav>
+      <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Site avec réservation · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
+      <h1 class="service-h1">Prenez des réservations<br /><span class="hero-serif">en automatique.</span></h1>
+      <p class="service-sub">Un site qui travaille pour vous 24h/24 : réservation en ligne, paiement sécurisé, confirmations automatiques. Fini les allers-retours par email ou téléphone.</p>
+      <div class="hero-ctas">
+        <a href="/contact/" class="btn btn-primary btn-lg">Demander un devis →</a>
+        <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLUX -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Le parcours client</span>
+      <h2 class="section-title reveal">De la visite à la réservation<br />confirmée, sans vous.</h2>
+      <div class="flux-grid reveal-stagger" style="margin-top:48px;">
+        {[
+          { n:"01", titre:"Le client arrive sur votre site",    desc:"Via Google, Instagram ou bouche-à-oreille. Il voit vos services, vos tarifs, vos disponibilités en temps réel." },
+          { n:"02", titre:"Il choisit un créneau et règle",     desc:"Sélection de la date, de l'heure, du service. Paiement par carte sécurisé via Stripe en 30 secondes." },
+          { n:"03", titre:"Vous recevez une notification",      desc:"Email de confirmation instantané pour vous et votre client. Ajout automatique à votre calendrier." },
+          { n:"04", titre:"Rappel automatique 24h avant",       desc:"Votre client reçoit un rappel. Moins d'annulations tardives, plus de sérénité pour vous." },
+        ].map(e => (
+          <div class="card flux-item">
+            <div class="flux-numero" aria-hidden="true">{e.n}</div>
+            <h3>{e.titre}</h3>
+            <p>{e.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BÉNÉFICES -->
+  <section class="section" style="background:var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Bénéfices concrets</span>
+      <h2 class="section-title reveal">Ce que ça change concrètement.</h2>
+      <div class="grid-2 reveal-stagger" style="margin-top:48px;">
+        {[
+          { titre:"Réservations 24h/24, 7j/7",      desc:"Votre agenda est disponible à toute heure. Un client qui vous trouve le soir peut réserver immédiatement, sans attendre votre ouverture." },
+          { titre:"Zéro aller-retour email",         desc:"Fini les échanges \"vous êtes disponible le 15 ?\" → \"non, plutôt le 17 ?\" Le client voit vos créneaux et réserve en autonomie." },
+          { titre:"Paiement avant la prestation",    desc:"Stripe encaisse à la réservation. Vous réduisez drastiquement les no-shows et les annulations de dernière minute." },
+          { titre:"Image professionnelle",           desc:"Un système de réservation en ligne envoie un signal fort à vos clients : vous êtes organisé, sérieux, et votre activité tourne bien." },
+          { titre:"Moins de travail administratif",  desc:"Confirmations, rappels, notifications — tout est automatisé. Vous vous concentrez sur votre cœur de métier." },
+          { titre:"Données et statistiques",         desc:"Suivez vos réservations, vos revenus, vos créneaux les plus demandés depuis un tableau de bord simple." },
+        ].map(b => (
+          <div class="card">
+            <h3 style="font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-bottom:8px;">{b.titre}</h3>
+            <p style="font-size:14px;line-height:1.65;margin:0;">{b.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKS -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Formules</span>
+      <h2 class="section-title reveal">Essentiel ou Autonome ?</h2>
+      <div class="grid-2 reveal-stagger" style="margin-top:48px;max-width:800px;margin-left:auto;margin-right:auto;">
+        <div class="pricing-card">
+          <div class="pricing-name">Essentiel</div>
+          <div class="pricing-price"><span class="pricing-currency">€</span><span class="pricing-amount">1 400</span></div>
+          <p class="pricing-desc">Le système complet pour prendre des réservations et encaisser en ligne.</p>
+          <ul class="pricing-features">
+            {["Jusqu'à 8 pages","Système de réservation intégré","Paiement en ligne Stripe","Emails transactionnels automatisés","Rappels de RDV automatiques","Logo + charte graphique","Domaine + emails pro","SEO avancé + Google Business"].map(f => (
+              <li class="pricing-feature"><span class="pricing-check" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{f}</li>
+            ))}
+          </ul>
+          <a href="/contact/" class="btn btn-outline" style="width:100%;justify-content:center;">Choisir Essentiel</a>
+        </div>
+        <div class="pricing-card pricing-card-featured">
+          <span class="pricing-badge">Recommandé</span>
+          <div class="pricing-name">Autonome</div>
+          <div class="pricing-price"><span class="pricing-currency">€</span><span class="pricing-amount">1 800</span></div>
+          <p class="pricing-desc">Tout Essentiel + autonomie totale sur votre contenu et vos disponibilités.</p>
+          <ul class="pricing-features">
+            {["Tout le pack Essentiel","Decap CMS — édition autonome","Formation 1h30 incluse"].map(f => (
+              <li class="pricing-feature"><span class="pricing-check" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{f}</li>
+            ))}
+          </ul>
+          <a href="/contact/" class="btn btn-aurora" style="width:100%;justify-content:center;">Choisir Autonome</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" style="background:var(--gray-50);">
+    <div class="container" style="max-width:720px;">
+      <span class="section-label reveal">FAQ</span>
+      <h2 class="section-title reveal">Questions sur le site avec réservation.</h2>
+      <div style="margin-top:36px;" class="reveal">
+        {faqSchema.mainEntity.map((item: any) => (
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer">{item.acceptedAnswer.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section"><div class="container"><div class="cta-section reveal">
+    <h2>Automatisez vos réservations.</h2>
+    <p>Dites-moi comment fonctionne votre activité — je vous propose la solution la mieux adaptée.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/contact/" class="btn btn-aurora btn-lg">Démarrer mon projet →</a>
+      <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+    </div>
+  </div></div></section>
+
+</BaseLayout>
+
+<style>
+  .service-hero { padding:160px 0 80px; text-align:center; }
+  .service-h1   { font-family:var(--font-display); font-size:clamp(34px,5vw,62px); font-weight:700; letter-spacing:-0.05em; line-height:1.05; margin:20px 0 16px; }
+  .service-sub  { font-size:clamp(15px,1.3vw,18px); line-height:1.65; max-width:520px; margin:0 auto 32px; }
+  .flux-grid    { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .flux-item    { display:flex; flex-direction:column; gap:12px; }
+  .flux-numero  { font-family:var(--font-display); font-size:32px; font-weight:800; letter-spacing:-0.06em; color:var(--aurora-pale); line-height:1; }
+  .flux-item h3 { font-size:16px; font-weight:600; letter-spacing:-0.02em; }
+  .flux-item p  { font-size:14px; color:var(--gray-500); line-height:1.65; margin:0; }
+  @media (max-width:1024px) { .flux-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:768px)  { .service-hero { padding:120px 0 56px; } .flux-grid { grid-template-columns:1fr; } }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
+    // @ts-ignore
+    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.5,ease:'power2.out'}).from('.service-h1',{y:24,opacity:0,duration:0.6,ease:'power2.out'},'-=0.25').from('.service-sub',{y:16,opacity:0,duration:0.5,ease:'power2.out'},'-=0.25').from('.hero-ctas',{y:16,opacity:0,duration:0.4,ease:'power2.out'},'-=0.2');
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:40,opacity:0,duration:0.65,ease:'power2.out'}));
+    // @ts-ignore
+    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.from(c.children,{scrollTrigger:{trigger:c,start:'top 80%'},y:24,opacity:0,stagger:0.1,duration:0.55,ease:'power2.out'}));
+  });
+</script>

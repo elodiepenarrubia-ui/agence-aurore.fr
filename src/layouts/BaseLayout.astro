@@ -1,0 +1,254 @@
+---
+// ─── BaseLayout.astro — Layout de base avec head SEO complet
+// agence-aurore.fr
+
+export interface Props {
+  // SEO
+  title: string;
+  description: string;
+  slug?: string;          // ex: "tarifs" → canonical = https://agence-aurore.fr/tarifs/
+  ogImage?: string;
+
+  // Schema.org JSON-LD (sérialisé en string)
+  schema?: object | object[];
+
+  // Options de page
+  noindex?: boolean;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description,
+  slug = '',
+  ogImage = '/assets/images/og-image.jpg',
+  schema,
+  noindex = false,
+  bodyClass = '',
+} = Astro.props;
+
+const siteUrl    = 'https://agence-aurore.fr';
+const canonicalUrl = slug
+  ? `${siteUrl}/${slug}/`
+  : `${siteUrl}/`;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+// Sérialisation du schema JSON-LD
+const schemaJson = schema
+  ? (Array.isArray(schema) ? schema : [schema])
+  : null;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ─── SEO DE BASE ─── -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- ─── OPEN GRAPH ─── -->
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={ogImageUrl} />
+    <meta property="og:url"         content={canonicalUrl} />
+    <meta property="og:type"        content="website" />
+    <meta property="og:locale"      content="fr_FR" />
+    <meta property="og:site_name"   content="aurore" />
+
+    <!-- ─── TWITTER CARD ─── -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={ogImageUrl} />
+
+    <!-- ─── FAVICON ─── -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon"  href="/favicon.ico" />
+    <link rel="apple-touch-icon"          href="/apple-touch-icon.png" />
+
+    <!-- ─── FONTS ─── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ─── GSAP ─── -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+      defer
+    ></script>
+
+    <!-- ─── STYLES ─── -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/components.css" />
+    <link rel="stylesheet" href="/src/styles/animations.css" />
+
+    <!-- ─── SCHEMA.ORG JSON-LD ─── -->
+    {schemaJson && schemaJson.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
+
+    <!-- ─── SLOT HEAD (pour métadonnées supplémentaires par page) ─── -->
+    <slot name="head" />
+  </head>
+
+  <body class={bodyClass}>
+
+    <!-- ─── NAVIGATION ─── -->
+    <header>
+      <nav class="nav" id="main-nav" aria-label="Navigation principale">
+        <a href="/" class="logo" aria-label="aurore — retour à l'accueil">
+          aur<span class="logo-o">o</span>re
+        </a>
+
+        <ul class="nav-links" id="nav-links" role="list">
+          <li><a href="/creation-site-web/">Création de site</a></li>
+          <li><a href="/identite-visuelle/">Identité visuelle</a></li>
+          <li><a href="/referencement-seo/">SEO</a></li>
+          <li><a href="/realisations/">Réalisations</a></li>
+          <li><a href="/tarifs/">Tarifs</a></li>
+          <li><a href="/blog/">Blog</a></li>
+        </ul>
+
+        <div class="nav-cta">
+          <a href="/contact/" class="btn btn-primary">Devis gratuit →</a>
+          <button
+            class="nav-burger"
+            id="nav-burger"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="nav-links"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ─── CONTENU DE LA PAGE ─── -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- ─── FOOTER ─── -->
+    <footer class="footer" aria-label="Pied de page">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="/" class="logo" aria-label="aurore — retour à l'accueil">
+              aur<span class="logo-o">o</span>re
+            </a>
+            <p>Faites passer votre entreprise<br />de l'ombre à la lumière.</p>
+          </div>
+
+          <nav class="footer-nav" aria-label="Navigation footer">
+            <div>
+              <strong>Services</strong>
+              <a href="/creation-site-web/">Création de site web</a>
+              <a href="/identite-visuelle/">Identité visuelle</a>
+              <a href="/referencement-seo/">Référencement SEO</a>
+              <a href="/automatisation/">Automatisation</a>
+            </div>
+            <div>
+              <strong>aurore</strong>
+              <a href="/realisations/">Réalisations</a>
+              <a href="/tarifs/">Tarifs</a>
+              <a href="/a-propos/">À propos</a>
+              <a href="/blog/">Blog</a>
+              <a href="/contact/">Contact</a>
+            </div>
+          </nav>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2025 aurore — Élodie · Auto-entrepreneur · Aix-en-Provence</p>
+          <a href="/mentions-legales/">Mentions légales</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ─── SCRIPTS ─── -->
+    <script>
+      // ─── js-loaded : active les états initiaux GSAP (.reveal, .reveal-stagger) ───
+      document.documentElement.classList.add('js-loaded');
+      document.body.classList.add('js-loaded');
+
+      // ─── Navigation : scroll behavior ───
+      const nav = document.getElementById('main-nav');
+      if (nav) {
+        window.addEventListener('scroll', () => {
+          nav.classList.toggle('scrolled', window.scrollY > 60);
+        }, { passive: true });
+      }
+
+      // ─── Burger menu mobile ───
+      const burger = document.getElementById('nav-burger');
+      const navLinks = document.getElementById('nav-links');
+
+      if (burger && navLinks) {
+        burger.addEventListener('click', () => {
+          const isOpen = navLinks.classList.toggle('open');
+          burger.setAttribute('aria-expanded', String(isOpen));
+          burger.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+          document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        // Fermer le menu au clic sur un lien
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            burger.setAttribute('aria-expanded', 'false');
+            burger.setAttribute('aria-label', 'Ouvrir le menu');
+            document.body.style.overflow = '';
+          });
+        });
+
+        // Fermer avec Escape
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+            navLinks.classList.remove('open');
+            burger.setAttribute('aria-expanded', 'false');
+            burger.setAttribute('aria-label', 'Ouvrir le menu');
+            document.body.style.overflow = '';
+            burger.focus();
+          }
+        });
+      }
+
+      // ─── FAQ accordion ───
+      document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = btn.closest('.faq-item');
+          if (!item) return;
+          const isOpen = item.classList.contains('open');
+
+          // Fermer tous les autres
+          document.querySelectorAll('.faq-item.open').forEach(el => {
+            el.classList.remove('open');
+          });
+
+          if (!isOpen) {
+            item.classList.add('open');
+          }
+        });
+      });
+    </script>
+
+    <!-- ─── SLOT SCRIPTS (pour scripts spécifiques à la page) ─── -->
+    <slot name="scripts" />
+  </body>
+</html>

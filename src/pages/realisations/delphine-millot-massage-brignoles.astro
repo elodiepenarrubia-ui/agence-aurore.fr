@@ -1,0 +1,961 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projet = {
+  client:      "Delphine Millot",
+  activite:    "Massothérapeute & praticienne Qi Gong",
+  ville:       "Brignoles (83)",
+  prestations: ["Site vitrine", "Hébergement GitHub Pages"],
+  delai:       "10 jours",
+  annee:       "2024",
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Site web — Delphine Millot, massothérapeute à Brignoles",
+  "creator": { "@type": "Organization", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "description": "Création du site vitrine de Delphine Millot, massothérapeute et praticienne Qi Gong à Brignoles (Var). Design épuré, responsive, hébergé sur GitHub Pages.",
+  "locationCreated": { "@type": "Place", "name": "Brignoles, Var, France" },
+  "dateCreated": "2024",
+  "keywords": "site vitrine massothérapeute, site web praticienne bien-être, création site Brignoles"
+};
+---
+
+<BaseLayout
+  title="Réalisation — Site vitrine Delphine Millot, massothérapeute à Brignoles | aurore"
+  description="Découvrez comment aurore a créé le site vitrine de Delphine Millot, massothérapeute et praticienne Qi Gong à Brignoles (Var). Design épuré, livré en 10 jours."
+  slug="realisations/delphine-millot-massage-brignoles"
+  schema={schema}
+>
+
+  <!-- ─── BREADCRUMB ─── -->
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="/">Accueil</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="/realisations/">Réalisations</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span aria-current="page">Delphine Millot</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ─── HERO ─── -->
+  <section class="fiche-hero">
+    <div class="container">
+      <div class="fiche-hero-inner">
+        <div class="fiche-hero-content">
+          <div class="tags" style="margin-bottom: 20px;">
+            {projet.prestations.map(p => (
+              <span class="badge badge-aurora">{p}</span>
+            ))}
+          </div>
+          <h1 class="fiche-h1">
+            Delphine Millot<br />
+            <span class="hero-serif">Massothérapeute.</span>
+          </h1>
+          <p class="fiche-sub">
+            Site vitrine élégant pour une professionnelle du bien-être à Brignoles.
+            Un design épuré qui inspire confiance et sérénité — livré en {projet.delai}.
+          </p>
+
+          <!-- Tableau client -->
+          <table class="client-table" aria-label="Informations du projet">
+            <tbody>
+              <tr>
+                <th scope="row">Client</th>
+                <td>{projet.client}</td>
+              </tr>
+              <tr>
+                <th scope="row">Activité</th>
+                <td>{projet.activite}</td>
+              </tr>
+              <tr>
+                <th scope="row">Ville</th>
+                <td>{projet.ville}</td>
+              </tr>
+              <tr>
+                <th scope="row">Prestations</th>
+                <td>{projet.prestations.join(", ")}</td>
+              </tr>
+              <tr>
+                <th scope="row">Délai</th>
+                <td>{projet.delai}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Capture hero -->
+        <div class="fiche-hero-capture" aria-label="Aperçu du site de Delphine Millot">
+          <div class="capture-browser">
+            <div class="browser-bar">
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+              <div class="browser-url-bar">
+                <span class="browser-url-text">delphine-millot-massage.fr</span>
+              </div>
+            </div>
+            <div class="capture-screen" style="background: linear-gradient(135deg, #E8F4F0 0%, #F0F7F4 50%, #E8F4F0 100%);">
+              <div class="mock-hero">
+                <div class="mock-nav">
+                  <div class="mock-logo" aria-hidden="true"></div>
+                  <div class="mock-nav-links" aria-hidden="true">
+                    <div class="mock-link"></div>
+                    <div class="mock-link"></div>
+                    <div class="mock-link"></div>
+                  </div>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-eyebrow" aria-hidden="true"></div>
+                  <div class="mock-title" aria-hidden="true"></div>
+                  <div class="mock-title mock-title-sm" aria-hidden="true"></div>
+                  <div class="mock-sub" aria-hidden="true"></div>
+                  <div class="mock-sub mock-sub-short" aria-hidden="true"></div>
+                  <div class="mock-ctas" aria-hidden="true">
+                    <div class="mock-btn mock-btn-dark"></div>
+                    <div class="mock-btn mock-btn-outline"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="capture-mobile" aria-hidden="true">
+            <div class="mobile-screen" style="background: linear-gradient(135deg, #E8F4F0 0%, #F0F7F4 100%);">
+              <div class="mobile-content">
+                <div class="mock-title" style="width:80%; height:10px;"></div>
+                <div class="mock-sub" style="width:90%;"></div>
+                <div class="mock-btn mock-btn-dark" style="width:80%; margin-top:8px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 1 : CONTEXTE ─── -->
+  <section class="section fiche-section">
+    <div class="container fiche-container">
+      <div class="fiche-section-label">
+        <span class="section-label">01 — Contexte</span>
+      </div>
+      <div class="fiche-section-content">
+        <h2 class="section-title reveal">Le besoin de Delphine.</h2>
+        <div class="fiche-text reveal">
+          <p>Delphine Millot est massothérapeute et praticienne Qi Gong à Brignoles, dans le Var. Depuis plusieurs années, elle accompagne ses clients dans leur bien-être grâce à des soins sur mesure et une approche holistique.</p>
+          <p>Mais sans site web, elle dépendait uniquement du bouche-à-oreille. Ses nouveaux clients potentiels ne pouvaient pas la trouver en ligne, découvrir ses prestations ni la contacter facilement. Elle avait besoin d'une <strong>vitrine professionnelle</strong> qui reflète le calme et la sérénité de son activité.</p>
+          <p>Le défi : créer quelque chose d'élégant et rassurant, sans jargon technique de sa part, livré rapidement pour qu'elle puisse commencer à en bénéficier au plus vite.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 2 : SOLUTION ─── -->
+  <section class="section fiche-section" style="background: var(--gray-50);">
+    <div class="container fiche-container">
+      <div class="fiche-section-label">
+        <span class="section-label">02 — Solution</span>
+      </div>
+      <div class="fiche-section-content">
+        <h2 class="section-title reveal">Ce qu'on a construit ensemble.</h2>
+        <div class="fiche-text reveal">
+          <p>Après un briefing de 30 minutes pour cerner l'univers de Delphine, nous avons conçu un site vitrine statique en HTML/CSS vanilla, hébergé gratuitement sur GitHub Pages.</p>
+        </div>
+        <div class="solution-grid reveal-stagger" style="margin-top: 32px;">
+          <div class="solution-item">
+            <div class="solution-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div>
+              <h3>Site vitrine 4 pages</h3>
+              <p>Accueil, Prestations, À propos, Contact. Navigation claire, hiérarchie visuelle soignée.</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10H2A10 10 0 0 1 12 2z"/><rect x="2" y="12" width="20" height="10" rx="1"/></svg>
+            </div>
+            <div>
+              <h3>Design responsive</h3>
+              <p>Mobile-first, parfaitement lisible sur smartphone — là où arrivent 70 % des visiteurs.</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <h3>Nom de domaine + emails</h3>
+              <p>Domaine personnalisé configuré, adresse email professionnelle via Zoho Mail.</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <h3>Hébergement gratuit</h3>
+              <p>GitHub Pages : zéro frais d'hébergement mensuel. Seul le domaine est facturé (~15 €/an).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 3 : CHOIX TECHNIQUES ─── -->
+  <section class="section fiche-section">
+    <div class="container fiche-container">
+      <div class="fiche-section-label">
+        <span class="section-label">03 — Technique</span>
+      </div>
+      <div class="fiche-section-content">
+        <h2 class="section-title reveal">Pourquoi ces choix technologiques.</h2>
+        <div class="fiche-text reveal">
+          <p>Pour un site vitrine de praticienne indépendante, la complexité technique est l'ennemi. Chaque couche de technologie inutile est une source de pannes potentielles et de frais supplémentaires.</p>
+          <p>Nous avons opté pour un <strong>site statique</strong> : HTML, CSS et JavaScript vanilla. Pas de WordPress, pas de serveur PHP, pas de base de données. Le résultat : un site ultra-rapide, sécurisé par nature, et qui ne nécessite aucune maintenance technique.</p>
+          <p>L'hébergement sur <strong>GitHub Pages</strong> est gratuit, fiable (99,9 % de disponibilité) et ne coûtera jamais rien à Delphine, quel que soit son volume de trafic.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 4 : RÉSULTAT ─── -->
+  <section class="section fiche-section" style="background: var(--gray-50);">
+    <div class="container fiche-container">
+      <div class="fiche-section-label">
+        <span class="section-label">04 — Résultat</span>
+      </div>
+      <div class="fiche-section-content">
+        <h2 class="section-title reveal">Un site livré en 10 jours.</h2>
+        <div class="fiche-text reveal">
+          <p>Du briefing à la mise en ligne, le projet a été réalisé en <strong>10 jours</strong>. Delphine a pu valider le design et les contenus à chaque étape via des liens de prévisualisation.</p>
+        </div>
+        <div class="resultat-screens reveal" style="margin-top: 32px;">
+          <!-- Desktop mock -->
+          <div class="screen-desktop">
+            <div class="screen-label">Desktop</div>
+            <div class="screen-frame screen-frame-desktop" aria-label="Aperçu desktop du site">
+              <div class="capture-browser" style="box-shadow: 0 12px 40px rgba(0,0,0,0.12);">
+                <div class="browser-bar">
+                  <span class="browser-dot"></span>
+                  <span class="browser-dot"></span>
+                  <span class="browser-dot"></span>
+                  <div class="browser-url-bar"><span class="browser-url-text">delphine-millot-massage.fr</span></div>
+                </div>
+                <div class="capture-screen" style="height: 220px; background: linear-gradient(135deg, #E8F4F0 0%, #F0F7F4 100%);">
+                  <div class="mock-hero" style="padding: 20px;">
+                    <div class="mock-nav" style="margin-bottom: 16px;"></div>
+                    <div class="mock-content">
+                      <div class="mock-title" style="width:70%;"></div>
+                      <div class="mock-title mock-title-sm" style="width:50%;"></div>
+                      <div class="mock-sub" style="width:85%; margin-top:8px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Mobile mock -->
+          <div class="screen-mobile-wrap">
+            <div class="screen-label">Mobile</div>
+            <div class="screen-frame" aria-label="Aperçu mobile du site">
+              <div class="capture-mobile-lg">
+                <div class="mobile-notch" aria-hidden="true"></div>
+                <div class="mobile-screen-lg" style="background: linear-gradient(135deg, #E8F4F0 0%, #F0F7F4 100%);">
+                  <div class="mobile-content-lg">
+                    <div class="mock-title" style="width:85%; height:9px;"></div>
+                    <div class="mock-title mock-title-sm" style="width:65%; height:9px;"></div>
+                    <div class="mock-sub" style="width:90%;"></div>
+                    <div class="mock-sub mock-sub-short" style="width:75%;"></div>
+                    <div class="mock-btn mock-btn-dark" style="width:80%; margin-top:8px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="metrics-row reveal" style="margin-top: 32px;">
+          <div class="metric-card">
+            <div class="metric-card-value">10 j</div>
+            <div class="metric-card-label">Délai de livraison</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card-value">0 €</div>
+            <div class="metric-card-label">Hébergement mensuel</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card-value">4</div>
+            <div class="metric-card-label">Pages créées</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card-value">100 %</div>
+            <div class="metric-card-label">Clé en main</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 5 : TÉMOIGNAGE ─── -->
+  <section class="section fiche-section">
+    <div class="container fiche-container">
+      <div class="fiche-section-label">
+        <span class="section-label">05 — Témoignage</span>
+      </div>
+      <div class="fiche-section-content">
+        <div class="temoignage-block reveal">
+          <div class="temoignage-quote-mark" aria-hidden="true">"</div>
+          <blockquote class="temoignage-texte">
+            Élodie a créé mon site en 10 jours. Le résultat est impeccable — elle a compris exactement l'univers de mon activité sans que j'aie besoin de tout expliquer. Je recommande sans hésiter pour toute personne qui cherche une présence web professionnelle et soignée.
+          </blockquote>
+          <div class="temoignage-auteur">
+            <div class="temoignage-avatar" aria-hidden="true">
+              <span>DM</span>
+            </div>
+            <div>
+              <div class="temoignage-nom">Delphine Millot</div>
+              <div class="temoignage-role">Massothérapeute & praticienne Qi Gong · Brignoles (83)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 6 : CTA PROJET SIMILAIRE ─── -->
+  <section class="section fiche-section" style="background: var(--gray-50);">
+    <div class="container fiche-container">
+      <div class="fiche-section-label">
+        <span class="section-label">06 — Et vous ?</span>
+      </div>
+      <div class="fiche-section-content">
+        <h2 class="section-title reveal">Votre projet ressemble à celui-ci ?</h2>
+        <div class="fiche-text reveal">
+          <p>Vous êtes thérapeute, praticien, artisan ou indépendant et vous avez besoin d'un site vitrine professionnel livré rapidement, sans vous prendre la tête ?</p>
+          <p>C'est exactement ce que fait aurore. Parlons de votre projet — l'appel de 30 minutes est gratuit.</p>
+        </div>
+        <div class="fiche-cta-buttons reveal">
+          <a href="/contact/" class="btn btn-aurora btn-lg">Démarrer mon projet →</a>
+          <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+          <a href="/realisations/" class="btn btn-ghost btn-lg">Voir toutes les réalisations</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── NAVIGATION ENTRE FICHES ─── -->
+  <nav class="fiche-nav" aria-label="Navigation entre les réalisations">
+    <div class="container">
+      <div class="fiche-nav-inner">
+        <div class="fiche-nav-prev" aria-label="Pas de projet précédent">
+          <span class="fiche-nav-label">Réalisation précédente</span>
+          <span class="fiche-nav-empty">— première réalisation</span>
+        </div>
+        <a href="/realisations/le-mazarin-conciergerie-aix/" class="fiche-nav-next">
+          <span class="fiche-nav-label">Réalisation suivante</span>
+          <span class="fiche-nav-titre">Le Mazarin — Conciergerie →</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+</BaseLayout>
+
+<style>
+  /* ─── BREADCRUMB BAR ─── */
+  .breadcrumb-bar {
+    padding: 100px 0 0;
+    background: var(--white);
+  }
+
+  .breadcrumb-bar .breadcrumb {
+    padding: 16px 0;
+  }
+
+  /* ─── HERO FICHE ─── */
+  .fiche-hero {
+    padding: 32px 0 80px;
+  }
+
+  .fiche-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .fiche-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4.5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    color: var(--black);
+    margin-bottom: 16px;
+  }
+
+  .fiche-sub {
+    font-size: clamp(15px, 1.2vw, 17px);
+    color: var(--gray-500);
+    line-height: 1.65;
+    margin-bottom: 32px;
+  }
+
+  /* Tableau client */
+  .client-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .client-table tr {
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .client-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .client-table th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--black);
+    padding: 10px 16px 10px 0;
+    width: 130px;
+    vertical-align: top;
+  }
+
+  .client-table td {
+    color: var(--gray-500);
+    padding: 10px 0;
+    vertical-align: top;
+  }
+
+  /* ─── CAPTURE HERO ─── */
+  .fiche-hero-capture {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .capture-browser {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1.5px solid var(--gray-100);
+    background: var(--white);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 14px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .browser-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gray-300);
+  }
+
+  .browser-dot:first-child  { background: #FF5F57; }
+  .browser-dot:nth-child(2) { background: #FEBC2E; }
+  .browser-dot:nth-child(3) { background: #28C840; }
+
+  .browser-url-bar {
+    flex: 1;
+    height: 22px;
+    background: var(--gray-100);
+    border-radius: 6px;
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .browser-url-text {
+    font-size: 11px;
+    color: var(--gray-500);
+  }
+
+  .capture-screen {
+    min-height: 280px;
+    padding: 24px;
+  }
+
+  /* Mock UI */
+  .mock-hero { width: 100%; height: 100%; }
+  .mock-nav  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+
+  .mock-logo {
+    width: 64px;
+    height: 14px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px;
+  }
+
+  .mock-nav-links {
+    display: flex;
+    gap: 12px;
+  }
+
+  .mock-link {
+    width: 40px;
+    height: 10px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 3px;
+  }
+
+  .mock-content { display: flex; flex-direction: column; gap: 8px; }
+
+  .mock-eyebrow {
+    width: 120px;
+    height: 8px;
+    background: rgba(255,107,26,0.4);
+    border-radius: 3px;
+    margin-bottom: 4px;
+  }
+
+  .mock-title {
+    height: 20px;
+    background: rgba(0,0,0,0.18);
+    border-radius: 4px;
+    width: 90%;
+  }
+
+  .mock-title-sm {
+    height: 16px;
+    background: rgba(255,107,26,0.35);
+    width: 60%;
+  }
+
+  .mock-sub {
+    height: 8px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 3px;
+    width: 100%;
+  }
+
+  .mock-sub-short { width: 70%; }
+
+  .mock-ctas {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .mock-btn {
+    height: 28px;
+    border-radius: 100px;
+    width: 100px;
+  }
+
+  .mock-btn-dark { background: rgba(0,0,0,0.25); }
+  .mock-btn-outline {
+    background: transparent;
+    border: 1.5px solid rgba(0,0,0,0.15);
+  }
+
+  /* Capture mobile flottante */
+  .capture-mobile {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 80px;
+  }
+
+  .mobile-screen {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid rgba(0,0,0,0.1);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  .mobile-content {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* ─── LAYOUT SECTIONS ─── */
+  .fiche-section {
+    padding: 80px 0;
+  }
+
+  .fiche-container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .fiche-section-label {
+    padding-top: 6px;
+  }
+
+  .fiche-text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .fiche-text p {
+    font-size: 16px;
+    color: var(--gray-600, var(--gray-500));
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  /* ─── SOLUTION GRID ─── */
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .solution-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .solution-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--aurora-pale);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--aurora);
+    flex-shrink: 0;
+  }
+
+  .solution-item h3 {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .solution-item p {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ─── RÉSULTAT ─── */
+  .resultat-screens {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+  }
+
+  .screen-desktop { flex: 1; }
+  .screen-mobile-wrap { width: 140px; flex-shrink: 0; }
+
+  .screen-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    margin-bottom: 10px;
+  }
+
+  .capture-mobile-lg {
+    background: var(--black);
+    border-radius: 20px;
+    padding: 10px 6px 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+
+  .mobile-notch {
+    width: 40px;
+    height: 5px;
+    background: var(--gray-700);
+    border-radius: 4px;
+    margin: 0 auto 8px;
+  }
+
+  .mobile-screen-lg {
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 180px;
+    padding: 16px 10px;
+  }
+
+  .mobile-content-lg {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* Métriques */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .metric-card {
+    background: var(--white);
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-md);
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .metric-card-value {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .metric-card-label {
+    font-size: 12px;
+    color: var(--gray-500);
+    line-height: 1.4;
+  }
+
+  /* ─── TÉMOIGNAGE ─── */
+  .temoignage-block {
+    background: var(--aurora-pale);
+    border: 1.5px solid rgba(255,107,26,0.15);
+    border-radius: var(--radius-xl);
+    padding: 48px;
+    position: relative;
+  }
+
+  .temoignage-quote-mark {
+    font-family: var(--font-serif);
+    font-size: 96px;
+    line-height: 0.8;
+    color: var(--aurora-light);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .temoignage-texte {
+    font-size: clamp(17px, 1.5vw, 20px);
+    font-style: italic;
+    color: var(--gray-700);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    font-family: var(--font-serif);
+    border: none;
+    padding: 0;
+  }
+
+  .temoignage-auteur {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .temoignage-avatar {
+    width: 44px;
+    height: 44px;
+    background: var(--aurora-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .temoignage-nom {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.01em;
+  }
+
+  .temoignage-role {
+    font-size: 13px;
+    color: var(--gray-500);
+    margin-top: 2px;
+  }
+
+  /* ─── CTA BOUTONS FICHE ─── */
+  .fiche-cta-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  /* ─── NAVIGATION FICHES ─── */
+  .fiche-nav {
+    border-top: 1px solid var(--gray-100);
+    padding: 32px 0;
+  }
+
+  .fiche-nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .fiche-nav-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    margin-bottom: 4px;
+  }
+
+  .fiche-nav-empty {
+    font-size: 14px;
+    color: var(--gray-300);
+  }
+
+  .fiche-nav-next {
+    text-align: right;
+  }
+
+  .fiche-nav-titre {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    transition: var(--transition);
+  }
+
+  .fiche-nav-next:hover .fiche-nav-titre {
+    color: var(--aurora);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .fiche-hero-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .fiche-container {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .fiche-section-label {
+      padding-top: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .breadcrumb-bar {
+      padding-top: 80px;
+    }
+
+    .fiche-hero {
+      padding: 16px 0 56px;
+    }
+
+    .solution-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .metrics-row {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .resultat-screens {
+      flex-direction: column;
+    }
+
+    .screen-mobile-wrap {
+      width: 100%;
+    }
+
+    .capture-mobile-lg {
+      max-width: 200px;
+      margin: 0 auto;
+    }
+
+    .temoignage-block {
+      padding: 28px 24px;
+    }
+
+    .fiche-cta-buttons {
+      flex-direction: column;
+    }
+
+    .fiche-cta-buttons .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .capture-mobile {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .metrics-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap === 'undefined') return;
+    // @ts-ignore
+    gsap.registerPlugin(ScrollTrigger);
+
+    // @ts-ignore
+    gsap.timeline({ delay: 0.15 })
+      // @ts-ignore
+      .from('.fiche-h1',  { y: 24, opacity: 0, duration: 0.65, ease: 'power2.out' })
+      // @ts-ignore
+      .from('.fiche-sub', { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
+      // @ts-ignore
+      .from('.client-table', { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out' }, '-=0.2')
+      // @ts-ignore
+      .from('.fiche-hero-capture', { x: 24, opacity: 0, duration: 0.7, ease: 'power2.out' }, '-=0.5');
+
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el: any) => {
+      // @ts-ignore
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        y: 40, opacity: 0, duration: 0.65, ease: 'power2.out'
+      });
+    });
+
+    // @ts-ignore
+    gsap.utils.toArray('.reveal-stagger').forEach((container: any) => {
+      // @ts-ignore
+      gsap.from(container.children, {
+        scrollTrigger: { trigger: container, start: 'top 80%' },
+        y: 24, opacity: 0, stagger: 0.1, duration: 0.55, ease: 'power2.out'
+      });
+    });
+  });
+</script>

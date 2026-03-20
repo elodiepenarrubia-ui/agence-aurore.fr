@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Automatisation et emails transactionnels",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "areaServed": "France",
+  "description": "Automatisation de vos processus : emails transactionnels, notifications, rappels, intégrations d'outils. À partir de 100 € par automatisation. aurore, France.",
+  "offers": [
+    { "@type": "Offer", "name": "Automatisation unitaire", "priceCurrency": "EUR", "price": "100" },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Qu'est-ce qu'une automatisation concrètement ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Une automatisation, c'est une tâche que vous faisiez manuellement et que votre système fait maintenant seul. Exemples : envoyer un email de confirmation à chaque nouveau formulaire soumis, notifier une adresse email quand une réservation est faite, exporter chaque semaine vos données dans un Google Sheet, relancer automatiquement les clients sans réponse après 48h. Une automatisation = un déclencheur + une action." }},
+    { "@type": "Question", "name": "Quels outils sont utilisés pour les automatisations ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Les outils sont choisis selon la complexité et les besoins : Make (ex-Integromat) ou n8n pour les automatisations visuelles, Resend ou Brevo pour les emails transactionnels, Zapier pour les intégrations simples entre outils SaaS. Pour les sites Aurore, les emails transactionnels sont configurés directement sans passer par des intermédiaires coûteux." }},
+    { "@type": "Question", "name": "Les automatisations sont-elles incluses dans les packs site web ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Les emails transactionnels liés au site (confirmation de formulaire, notification de réservation, rappel de RDV) sont inclus dans les packs Site Vitrine Complet et Site avec Réservation. Les automatisations supplémentaires (intégrations tierces, exports automatiques, workflows personnalisés) sont facturées 100 € par automatisation." }},
+    { "@type": "Question", "name": "Puis-je modifier les automatisations après livraison ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui. Les automatisations sont documentées et, selon l'outil utilisé, accessibles depuis une interface visuelle (Make, n8n). Pour les modifications simples (changer un texte d'email, ajouter un destinataire), vous pouvez le faire en autonomie après une courte formation. Pour les modifications structurelles, Aurore intervient sur devis." }},
+    { "@type": "Question", "name": "Puis-je connecter mes outils existants (Notion, Airtable, Google Sheets) ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui, c'est exactement le type de scénarios couverts. Par exemple : chaque nouveau contact de votre formulaire web est ajouté automatiquement à votre base Airtable, ou chaque réservation génère une ligne dans un Google Sheet partagé avec votre comptable. La condition est que l'outil cible dispose d'une API ou d'une intégration compatible." }},
+  ],
+};
+---
+
+<BaseLayout
+  title="Automatisation et emails transactionnels — Workflows sur mesure | aurore"
+  description="Automatisez vos processus : emails de confirmation, rappels, notifications, intégrations Notion, Airtable, Google Sheets. À partir de 100 € par automatisation. aurore, France."
+  slug="automatisation"
+  schema={[serviceSchema, faqSchema]}
+>
+
+  <section class="service-hero section-aurora-gradient">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center;margin-bottom:24px;">
+        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span aria-current="page">Automatisation</span>
+      </nav>
+      <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Automatisation · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
+      <h1 class="service-h1">Les tâches répétitives,<br /><span class="hero-serif">faites sans vous.</span></h1>
+      <p class="service-sub">Emails de confirmation, rappels, exports, notifications — tout ce que vous faites manuellement et qui prend du temps peut être automatisé.</p>
+      <div class="hero-ctas">
+        <a href="/contact/" class="btn btn-primary btn-lg">Automatiser mon activité →</a>
+        <a href="#exemples" class="btn btn-outline btn-lg">Voir des exemples</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXEMPLES -->
+  <section class="section" id="exemples">
+    <div class="container">
+      <span class="section-label reveal">Exemples concrets</span>
+      <h2 class="section-title reveal">Ce qu'on peut automatiser<br />pour vous.</h2>
+      <div class="grid-3 reveal-stagger" style="margin-top:48px;">
+        {[
+          { icon:"✉️", titre:"Email de confirmation",      desc:"Chaque nouveau formulaire déclenche un email automatique à votre client et une notification à vous. Immédiat, professionnel." },
+          { icon:"🔔", titre:"Rappel de rendez-vous",      desc:"24h avant chaque RDV, votre client reçoit un rappel automatique. Moins de no-shows, moins d'appels pour confirmer." },
+          { icon:"📊", titre:"Export Google Sheets",       desc:"Chaque réservation, chaque paiement ou chaque contact est ajouté automatiquement à votre tableau de bord partagé." },
+          { icon:"🔄", titre:"Synchronisation Airtable",   desc:"Vos contacts web arrivent directement dans votre base Airtable, triés et catégorisés selon le type de demande." },
+          { icon:"💬", titre:"Notification Slack/Discord",  desc:"Un client réserve ou envoie un message ? Vous êtes notifié instantanément sur l'outil de communication de votre équipe." },
+          { icon:"🧾", titre:"Suivi des paiements",        desc:"Chaque paiement Stripe déclenche un email de reçu, une mise à jour dans votre outil de suivi et une notification comptable." },
+        ].map(c => (
+          <div class="card auto-card">
+            <div class="auto-icon" aria-hidden="true">{c.icon}</div>
+            <h3 class="auto-titre">{c.titre}</h3>
+            <p class="auto-desc">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMENT ÇA MARCHE -->
+  <section class="section" style="background:var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Le principe</span>
+      <h2 class="section-title reveal">Un déclencheur.<br />Une action. Automatique.</h2>
+      <div class="flow-grid reveal" style="margin-top:48px;">
+        <div class="flow-box flow-trigger card">
+          <div class="flow-label">Déclencheur</div>
+          <ul class="flow-list">
+            <li>Formulaire soumis</li>
+            <li>Réservation confirmée</li>
+            <li>Paiement reçu</li>
+            <li>Date programmée</li>
+            <li>Nouveau contact</li>
+          </ul>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M8 16h16M18 10l6 6-6 6" stroke="var(--aurora)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="flow-box flow-action card">
+          <div class="flow-label">Action automatique</div>
+          <ul class="flow-list">
+            <li>Email envoyé au client</li>
+            <li>Notification reçue par vous</li>
+            <li>Ligne ajoutée au tableau</li>
+            <li>Rappel programmé</li>
+            <li>Contact créé dans l'outil</li>
+          </ul>
+        </div>
+      </div>
+      <p class="flow-note reveal" style="text-align:center;margin-top:32px;font-size:14px;color:var(--gray-500);">Chaque automatisation est construite sur mesure selon vos processus réels — pas sur un template générique.</p>
+    </div>
+  </section>
+
+  <!-- BÉNÉFICES -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Ce que ça change</span>
+      <h2 class="section-title reveal">Du temps récupéré,<br />des erreurs évitées.</h2>
+      <div class="grid-2 reveal-stagger" style="margin-top:48px;">
+        {[
+          { titre:"Zéro oubli",                    desc:"Une automatisation ne tombe jamais malade, ne part pas en vacances et n'oublie pas d'envoyer l'email de confirmation. Chaque action est déclenchée systématiquement." },
+          { titre:"Image professionnelle immédiate", desc:"Un email de confirmation bien conçu qui part en secondes envoie un signal fort : votre activité est organisée et réactive, même si c'est vous seul qui gérez tout." },
+          { titre:"Moins de charge mentale",         desc:"Ne plus avoir à penser à 'est-ce que j'ai envoyé la confirmation ?' ou 'il faut que je notifie X' libère de l'énergie pour ce qui compte vraiment." },
+          { titre:"Scalabilité sans effort",         desc:"Que vous ayez 2 ou 20 réservations par semaine, l'automatisation tourne de la même façon. Vous grandissez sans devoir ajouter du temps administratif." },
+        ].map(b => (
+          <div class="card">
+            <h3 style="font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-bottom:8px;">{b.titre}</h3>
+            <p style="font-size:14px;line-height:1.65;margin:0;">{b.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIF -->
+  <section class="section" style="background:var(--gray-50);">
+    <div class="container" style="max-width:640px;">
+      <span class="section-label reveal">Tarif</span>
+      <h2 class="section-title reveal">Simple comme une automatisation.</h2>
+      <div class="tarif-auto card reveal" style="margin-top:40px;text-align:center;padding:40px;">
+        <div class="pricing-price" style="margin-bottom:8px;"><span class="pricing-currency">€</span><span class="pricing-amount">100</span></div>
+        <div style="font-size:15px;font-weight:600;color:var(--black);margin-bottom:12px;">par automatisation</div>
+        <p style="font-size:14px;color:var(--gray-500);line-height:1.65;max-width:400px;margin:0 auto 24px;">Une automatisation = un scénario complet, testé, documenté et opérationnel. Pas de frais mensuels ni de licence supplémentaire de notre côté.</p>
+        <div class="tarif-inclus">
+          {["Analyse de votre processus","Configuration sur mesure","Tests de bout en bout","Documentation remise","Mise en production"].map(f => (
+            <div class="tarif-inclus-item">
+              <span aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              {f}
+            </div>
+          ))}
+        </div>
+        <a href="/contact/" class="btn btn-aurora btn-lg" style="margin-top:28px;">Automatiser →</a>
+      </div>
+      <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--gray-500);">Les emails transactionnels de base (confirmation, rappel RDV) sont inclus dans les packs Site Vitrine Complet et Site Réservation.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container" style="max-width:720px;">
+      <span class="section-label reveal">FAQ</span>
+      <h2 class="section-title reveal">Questions sur l'automatisation.</h2>
+      <div style="margin-top:36px;" class="reveal">
+        {faqSchema.mainEntity.map((item: any) => (
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer">{item.acceptedAnswer.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--gray-50);"><div class="container"><div class="cta-section reveal">
+    <h2>Quelle tâche voudriez-vous<br />ne plus jamais faire manuellement ?</h2>
+    <p>Décrivez-moi le processus — je vous dis si c'est automatisable et combien ça coûte.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/contact/" class="btn btn-aurora btn-lg">Décrire ma tâche →</a>
+      <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+    </div>
+  </div></div></section>
+
+</BaseLayout>
+
+<style>
+  .service-hero  { padding:160px 0 80px; text-align:center; }
+  .service-h1    { font-family:var(--font-display); font-size:clamp(34px,5vw,62px); font-weight:700; letter-spacing:-0.05em; line-height:1.05; margin:20px 0 16px; }
+  .service-sub   { font-size:clamp(15px,1.3vw,18px); line-height:1.65; max-width:520px; margin:0 auto 32px; }
+
+  .auto-card  { display:flex; flex-direction:column; gap:10px; }
+  .auto-icon  { font-size:28px; line-height:1; }
+  .auto-titre { font-size:15px; font-weight:600; letter-spacing:-0.02em; }
+  .auto-desc  { font-size:14px; color:var(--gray-500); line-height:1.65; margin:0; }
+
+  .flow-grid    { display:grid; grid-template-columns:1fr auto 1fr; gap:24px; align-items:center; max-width:720px; margin:0 auto; }
+  .flow-box     { padding:24px 28px; }
+  .flow-label   { font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--aurora); margin-bottom:16px; }
+  .flow-list    { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
+  .flow-list li { font-size:14px; color:var(--gray-700); padding-left:12px; position:relative; }
+  .flow-list li::before { content:'·'; position:absolute; left:0; color:var(--aurora); font-weight:700; }
+  .flow-arrow   { display:flex; justify-content:center; }
+  .flow-trigger { border-left:3px solid var(--aurora-pale); }
+  .flow-action  { border-right:3px solid var(--aurora); }
+
+  .tarif-inclus      { display:flex; flex-direction:column; gap:8px; text-align:left; max-width:320px; margin:0 auto; }
+  .tarif-inclus-item { display:flex; align-items:center; gap:10px; font-size:14px; color:var(--gray-700); }
+
+  @media (max-width:768px) {
+    .service-hero { padding:120px 0 56px; }
+    .flow-grid { grid-template-columns:1fr; }
+    .flow-arrow { transform:rotate(90deg); }
+  }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
+    // @ts-ignore
+    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.5,ease:'power2.out'}).from('.service-h1',{y:24,opacity:0,duration:0.6,ease:'power2.out'},'-=0.25').from('.service-sub',{y:16,opacity:0,duration:0.5,ease:'power2.out'},'-=0.25').from('.hero-ctas',{y:16,opacity:0,duration:0.4,ease:'power2.out'},'-=0.2');
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:40,opacity:0,duration:0.65,ease:'power2.out'}));
+    // @ts-ignore
+    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.from(c.children,{scrollTrigger:{trigger:c,start:'top 80%'},y:24,opacity:0,stagger:0.1,duration:0.55,ease:'power2.out'}));
+  });
+</script>

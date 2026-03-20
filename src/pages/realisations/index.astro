@@ -1,0 +1,571 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projets = [
+  {
+    slug:       "delphine-millot-massage-brignoles",
+    titre:      "Delphine Millot — Massothérapeute",
+    secteur:    "Bien-être & soins",
+    ville:      "Brignoles (83)",
+    prestations: ["Site vitrine", "Hébergement GitHub Pages"],
+    description: "Site vitrine élégant pour une massothérapeute et praticienne Qi Gong. Design épuré, axé sur la confiance et la sérénité.",
+    couleur:    "#E8F4F0",
+  },
+  {
+    slug:       "le-mazarin-conciergerie-aix",
+    titre:      "Le Mazarin — Conciergerie",
+    secteur:    "Location saisonnière",
+    ville:      "Aix-en-Provence (13)",
+    prestations: ["Site vitrine", "Identité visuelle", "SEO", "Fiche Google"],
+    description: "Présence digitale complète pour une conciergerie de location saisonnière à Aix-en-Provence. Logo, site, SEO local.",
+    couleur:    "#F0EBE8",
+  },
+];
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Réalisations Aurore",
+  "description": "Sites web et présences digitales créés par Aurore pour des TPE et professionnels partout en France.",
+  "itemListElement": [
+    {
+      "@type": "CreativeWork",
+      "position": 1,
+      "name": "Site web — Delphine Millot, massothérapeute",
+      "url": "https://agence-aurore.fr/realisations/delphine-millot-massage-brignoles/"
+    },
+    {
+      "@type": "CreativeWork",
+      "position": 2,
+      "name": "Site web — Le Mazarin, conciergerie",
+      "url": "https://agence-aurore.fr/realisations/le-mazarin-conciergerie-aix/"
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Nos réalisations — Sites web créés par aurore | Aix-en-Provence"
+  description="Découvrez les sites web, identités visuelles et présences digitales créés par Aurore pour des artisans, professionnels et TPE partout en France."
+  slug="realisations"
+  schema={itemListSchema}
+>
+
+  <!-- ─── HERO ─── -->
+  <section class="real-hero">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line" aria-hidden="true"></span>
+        Réalisations · aurore
+        <span class="eyebrow-line" aria-hidden="true"></span>
+      </div>
+      <h1 class="real-h1">Des projets concrets,<br /><span class="hero-serif">des résultats réels.</span></h1>
+      <p class="real-sub">Chaque site livré est une collaboration étroite avec un professionnel qui avait besoin de se rendre visible. Voici leur histoire.</p>
+    </div>
+  </section>
+
+  <!-- ─── COMPTEUR ─── -->
+  <section class="stats-bar">
+    <div class="container">
+      <div class="stats-inner reveal-stagger">
+        <div class="stat">
+          <span class="stat-value">2</span>
+          <span class="stat-label">projets livrés</span>
+        </div>
+        <div class="stat-sep" aria-hidden="true"></div>
+        <div class="stat">
+          <span class="stat-value">100 %</span>
+          <span class="stat-label">clients satisfaits</span>
+        </div>
+        <div class="stat-sep" aria-hidden="true"></div>
+        <div class="stat">
+          <span class="stat-value">2 sem.</span>
+          <span class="stat-label">délai moyen</span>
+        </div>
+        <div class="stat-sep" aria-hidden="true"></div>
+        <div class="stat">
+          <span class="stat-value">0 €</span>
+          <span class="stat-label">hébergement facturé</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GALERIE ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="galerie-grid">
+        {projets.map((projet, i) => (
+          <article class="projet-card reveal" style={`--card-accent: ${projet.couleur};`}>
+            <!-- Capture placeholder -->
+            <a
+              href={`/realisations/${projet.slug}/`}
+              class="projet-card-image"
+              aria-label={`Voir le projet ${projet.titre}`}
+              tabindex="-1"
+            >
+              <div class="image-placeholder" style={`background: ${projet.couleur};`} aria-hidden="true">
+                <div class="placeholder-browser">
+                  <div class="browser-bar">
+                    <span class="browser-dot"></span>
+                    <span class="browser-dot"></span>
+                    <span class="browser-dot"></span>
+                    <div class="browser-url"></div>
+                  </div>
+                  <div class="browser-content">
+                    <div class="content-line content-line-title"></div>
+                    <div class="content-line"></div>
+                    <div class="content-line content-line-short"></div>
+                    <div class="content-line content-line-btn"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="image-number" aria-hidden="true">0{i + 1}</div>
+            </a>
+
+            <!-- Corps -->
+            <div class="projet-card-body">
+              <div class="projet-card-meta">
+                <span>{projet.secteur}</span>
+                <span class="meta-sep" aria-hidden="true">·</span>
+                <span>{projet.ville}</span>
+              </div>
+
+              <h2 class="projet-card-titre">
+                <a href={`/realisations/${projet.slug}/`}>{projet.titre}</a>
+              </h2>
+
+              <p class="projet-card-desc">{projet.description}</p>
+
+              <div class="tags" aria-label="Prestations réalisées">
+                {projet.prestations.map(p => (
+                  <span class="badge badge-aurora">{p}</span>
+                ))}
+              </div>
+
+              <a href={`/realisations/${projet.slug}/`} class="projet-card-lien">
+                Voir le projet
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Prochain projet -->
+      <div class="prochain-projet reveal">
+        <div class="prochain-inner">
+          <div class="prochain-text">
+            <span class="section-label" style="margin-bottom: 8px;">Votre projet ici</span>
+            <h3>Vous pourriez être la prochaine réalisation.</h3>
+            <p>Les places sont limitées. Réservez la vôtre dès maintenant.</p>
+          </div>
+          <a href="/contact/" class="btn btn-aurora">Démarrer mon projet →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="cta-section reveal">
+        <h2>Votre entreprise mérite une belle présence en ligne.</h2>
+        <p>Parlons de votre projet lors d'un appel gratuit de 30 minutes. Devis sous 48h.</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis gratuit →</a>
+          <a href="/tarifs/" class="btn btn-outline btn-lg" style="color:var(--white); border-color:var(--gray-700);">Voir les tarifs</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ─── HERO ─── */
+  .real-hero {
+    padding: 160px 0 64px;
+    text-align: center;
+  }
+
+  .real-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    color: var(--black);
+    margin: 20px 0 16px;
+  }
+
+  .real-sub {
+    font-size: clamp(15px, 1.3vw, 18px);
+    color: var(--gray-500);
+    line-height: 1.65;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    border-top: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--gray-100);
+    padding: 32px 0;
+    background: var(--gray-50);
+  }
+
+  .stats-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 48px;
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--gray-500);
+    text-align: center;
+  }
+
+  .stat-sep {
+    width: 1px;
+    height: 40px;
+    background: var(--gray-200, var(--gray-300));
+  }
+
+  /* ─── GALERIE ─── */
+  .galerie-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .projet-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--white);
+    transition: var(--transition);
+  }
+
+  .projet-card:hover {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  }
+
+  .projet-card:nth-child(even) {
+    direction: rtl;
+  }
+
+  .projet-card:nth-child(even) > * {
+    direction: ltr;
+  }
+
+  /* Image placeholder */
+  .projet-card-image {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    min-height: 340px;
+    text-decoration: none;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    transition: transform 0.4s ease;
+  }
+
+  .projet-card:hover .image-placeholder {
+    transform: scale(1.02);
+  }
+
+  .placeholder-browser {
+    width: 100%;
+    max-width: 320px;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    overflow: hidden;
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 14px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .browser-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gray-300);
+  }
+
+  .browser-dot:first-child { background: #FF5F57; }
+  .browser-dot:nth-child(2) { background: #FEBC2E; }
+  .browser-dot:nth-child(3) { background: #28C840; }
+
+  .browser-url {
+    flex: 1;
+    height: 18px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    margin-left: 8px;
+  }
+
+  .browser-content {
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .content-line {
+    height: 10px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  .content-line-title {
+    height: 18px;
+    background: var(--gray-300);
+    width: 80%;
+  }
+
+  .content-line-short {
+    width: 60%;
+  }
+
+  .content-line-btn {
+    height: 28px;
+    background: var(--aurora-light);
+    border-radius: 100px;
+    width: 40%;
+    margin-top: 4px;
+  }
+
+  .image-number {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -0.06em;
+    color: rgba(0, 0, 0, 0.08);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* Corps de la carte */
+  .projet-card-body {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .projet-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--gray-500);
+  }
+
+  .meta-sep {
+    color: var(--gray-300);
+  }
+
+  .projet-card-titre {
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .projet-card-titre a {
+    color: var(--black);
+    transition: var(--transition);
+  }
+
+  .projet-card-titre a:hover {
+    color: var(--aurora);
+  }
+
+  .projet-card-desc {
+    font-size: 15px;
+    color: var(--gray-500);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .projet-card-lien {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--aurora);
+    transition: var(--transition);
+    margin-top: 4px;
+  }
+
+  .projet-card-lien:hover {
+    gap: 10px;
+  }
+
+  /* ─── PROCHAIN PROJET ─── */
+  .prochain-projet {
+    margin-top: 40px;
+    border: 1.5px dashed var(--gray-300);
+    border-radius: var(--radius-xl);
+    padding: 40px 48px;
+    transition: var(--transition);
+  }
+
+  .prochain-projet:hover {
+    border-color: var(--aurora-light);
+    background: var(--aurora-pale);
+  }
+
+  .prochain-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .prochain-text h3 {
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+
+  .prochain-text p {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin: 0;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .stat {
+      padding: 12px 32px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .real-hero {
+      padding: 120px 0 48px;
+    }
+
+    .stat-sep {
+      display: none;
+    }
+
+    .stat {
+      padding: 8px 20px;
+    }
+
+    .projet-card {
+      grid-template-columns: 1fr;
+      direction: ltr !important;
+    }
+
+    .projet-card:nth-child(even) {
+      direction: ltr;
+    }
+
+    .projet-card-image {
+      min-height: 240px;
+    }
+
+    .projet-card-body {
+      padding: 28px 24px;
+    }
+
+    .prochain-projet {
+      padding: 28px 24px;
+    }
+
+    .prochain-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap === 'undefined') return;
+    // @ts-ignore
+    gsap.registerPlugin(ScrollTrigger);
+
+    // @ts-ignore
+    gsap.timeline({ delay: 0.1 })
+      // @ts-ignore
+      .from('.hero-eyebrow', { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out' })
+      // @ts-ignore
+      .from('.real-h1',      { y: 24, opacity: 0, duration: 0.6, ease: 'power2.out' }, '-=0.25')
+      // @ts-ignore
+      .from('.real-sub',     { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out' }, '-=0.25');
+
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el: any) => {
+      // @ts-ignore
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        y: 40, opacity: 0, duration: 0.65, ease: 'power2.out'
+      });
+    });
+
+    // @ts-ignore
+    gsap.utils.toArray('.reveal-stagger').forEach((container: any) => {
+      // @ts-ignore
+      gsap.from(container.children, {
+        scrollTrigger: { trigger: container, start: 'top 80%' },
+        y: 24, opacity: 0, stagger: 0.1, duration: 0.55, ease: 'power2.out'
+      });
+    });
+  });
+</script>

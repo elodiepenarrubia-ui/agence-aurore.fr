@@ -1,0 +1,955 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Création de présence digitale clé en main",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "areaServed": "France",
+  "description": "Création de site web, identité visuelle, SEO et automatisations pour TPE et professionnels. À partir de 290 €, livraison en 2 semaines, hébergement gratuit.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Pack Starter",
+      "priceCurrency": "EUR",
+      "price": "290",
+      "description": "Site 3 pages, design responsive, domaine, emails pro, Google Business. Offre limitée à 5 places."
+    },
+    {
+      "@type": "Offer",
+      "name": "Site Statique Essentiel",
+      "priceCurrency": "EUR",
+      "price": "590",
+      "description": "Jusqu'à 4 pages, logo, charte, domaine, emails pro, SEO on-page, Google Business, Search Console."
+    },
+    {
+      "@type": "Offer",
+      "name": "Site Vitrine Complet Autonome",
+      "priceCurrency": "EUR",
+      "price": "1490",
+      "description": "Jusqu'à 8 pages + blog, Decap CMS, formulaire, prise de RDV, automatisation email, SEO avancé."
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Pourquoi vos tarifs sont-ils inférieurs à ceux d'une agence classique ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aurore est une auto-entreprise avec zéro frais généraux : pas de locaux, pas d'équipe commerciale, pas d'intermédiaire. Vous payez uniquement le travail de création. De plus, l'utilisation de GitHub Pages supprime les frais d'hébergement habituels."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que se passe-t-il si j'ai besoin de plus de pages que ce qui est prévu dans mon pack ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chaque page supplémentaire est facturée 120 € quelle que soit la formule choisie. Ce tarif est fixe et annoncé dès le départ, sans surprise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment se passe le paiement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un acompte de 50 % est demandé au démarrage du projet, le solde à la livraison. Pour les projets importants (au-dessus de 1 000 €), un échelonnement en 3 fois peut être envisagé sur demande."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le Pack Starter est-il vraiment à 290 € tout compris ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, le Pack Starter à 290 € inclut : site 3 pages, design responsive, configuration du nom de domaine, création des emails professionnels Zoho, mise en ligne sur GitHub Pages et création de la fiche Google Business. Les options comme le logo, les pages supplémentaires ou le CMS sont disponibles en supplément à des tarifs fixes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels sont les frais récurrents après livraison ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L'hébergement GitHub Pages est gratuit. Le seul coût récurrent est le nom de domaine, environ 15 €/an. Si vous optez pour la maintenance mensuelle, celle-ci est proposée à partir de 19 €/mois et inclut sauvegardes et suivi technique."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je commencer par le Pack Starter et évoluer vers une formule supérieure ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tout à fait. Le Pack Starter est conçu pour démarrer rapidement avec l'essentiel. Vous pouvez ensuite ajouter des pages, un CMS, du SEO ou des automatisations au fil du temps, aux tarifs à la carte affichés sur cette page."
+      }
+    }
+  ]
+};
+
+const atLaCarte = [
+  { label: "Logo seul",                   prix: "150 €" },
+  { label: "Charte graphique",            prix: "100 €" },
+  { label: "Support marketing",           prix: "80 €/support" },
+  { label: "Domaine + config",            prix: "60 € + coût domaine" },
+  { label: "Emails pro (Zoho)",           prix: "80 €" },
+  { label: "Page web supplémentaire",     prix: "120 €/page" },
+  { label: "Decap CMS",                   prix: "150 €" },
+  { label: "Formulaire de contact",       prix: "60 €" },
+  { label: "Automatisation",             prix: "100 €/automatisation" },
+  { label: "SEO on-page",               prix: "150 €" },
+  { label: "Fiche Google Business",      prix: "90 €" },
+  { label: "Google Search Console",      prix: "60 €" },
+];
+---
+
+<BaseLayout
+  title="Tarifs création de site web — Transparents, sans surprise | aurore"
+  description="Découvrez les tarifs d'aurore : Pack Starter à 290 €, sites vitrines dès 590 €, sites avec réservation, logiciels métier. Hébergement gratuit, livraison en 2 semaines."
+  slug="tarifs"
+  schema={[serviceSchema, faqSchema]}
+>
+
+  <!-- ─── BANDEAU OFFRE DE LANCEMENT ─── -->
+  <div class="announcement-bar" role="banner">
+    ⭐ Offre de lancement — Pack Starter à <strong>290 €</strong> (5 places disponibles) ·
+    <a href="/contact/">Réserver ma place →</a>
+  </div>
+
+  <!-- ─── HERO ─── -->
+  <section class="tarifs-hero">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line" aria-hidden="true"></span>
+        Tarifs · Aurore Aix-en-Provence
+        <span class="eyebrow-line" aria-hidden="true"></span>
+      </div>
+      <h1 class="tarifs-h1">Tarifs transparents,<br /><span class="hero-serif">sans surprise.</span></h1>
+      <p class="tarifs-sub">Tout est affiché. Pas de devis qui s'envole, pas de frais cachés. Vous savez exactement ce que vous payez avant de signer.</p>
+    </div>
+  </section>
+
+  <!-- ─── PACK STARTER EN AVANT ─── -->
+  <section class="section starter-section">
+    <div class="container">
+      <div class="starter-card reveal">
+        <div class="starter-left">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+            <span class="badge badge-aurora">Offre de lancement</span>
+            <span class="badge badge-default">5 places · limité</span>
+          </div>
+          <h2 class="starter-title">Pack Starter</h2>
+          <p class="starter-desc">Tout ce qu'il faut pour exister en ligne, au meilleur prix. Idéal pour les auto-entrepreneurs et artisans qui démarrent.</p>
+
+          <ul class="starter-features" aria-label="Contenu du Pack Starter">
+            {[
+              "Site web 3 pages (Accueil, Services, Contact)",
+              "Design responsive — mobile et desktop",
+              "Nom de domaine + configuration DNS",
+              "Emails professionnels Zoho",
+              "Mise en ligne GitHub Pages",
+              "Fiche Google Business créée et optimisée",
+            ].map(f => (
+              <li class="starter-feature">
+                <span class="check-icon" aria-hidden="true">
+                  <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="#FF6B1A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                {f}
+              </li>
+            ))}
+          </ul>
+
+          <div class="starter-options">
+            <p class="options-title">Options disponibles en supplément :</p>
+            <div class="options-grid">
+              {[
+                { label: "Pages supplémentaires", prix: "120 €/page" },
+                { label: "Logo + charte graphique", prix: "250 €" },
+                { label: "SEO on-page", prix: "150 €" },
+                { label: "Formulaire de contact", prix: "60 €" },
+                { label: "Decap CMS", prix: "150 €" },
+                { label: "Google Search Console", prix: "60 €" },
+                { label: "Automatisations", prix: "100 €/auto" },
+              ].map(o => (
+                <div class="option-item">
+                  <span class="option-label">{o.label}</span>
+                  <span class="option-prix">{o.prix}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="starter-right">
+          <div class="starter-prix-block">
+            <div class="starter-prix">
+              <span class="prix-amount">290</span>
+              <span class="prix-currency">€</span>
+            </div>
+            <p class="prix-note">tout compris · paiement en 2 fois</p>
+            <a href="/contact/" class="btn btn-aurora btn-lg" style="width:100%; justify-content:center; margin-top:8px;">
+              Réserver ma place →
+            </a>
+            <a href="/contact/" class="btn btn-ghost" style="width:100%; justify-content:center;">
+              Poser une question
+            </a>
+          </div>
+
+          <div class="starter-garanties">
+            <div class="garantie-item">
+              <span class="garantie-icon" aria-hidden="true">⚡</span>
+              <span>Livraison en 2 semaines</span>
+            </div>
+            <div class="garantie-item">
+              <span class="garantie-icon" aria-hidden="true">🏠</span>
+              <span>0 € d'hébergement</span>
+            </div>
+            <div class="garantie-item">
+              <span class="garantie-icon" aria-hidden="true">🔧</span>
+              <span>Clé en main, zéro technique</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GRILLE TARIFAIRE COMPLÈTE ─── -->
+  <section class="section" style="background: var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Toutes les formules</span>
+      <h2 class="section-title reveal">La formule qui correspond<br />à votre projet.</h2>
+
+      <!-- SITE STATIQUE -->
+      <div class="pack-groupe reveal">
+        <div class="pack-groupe-header">
+          <h3 class="pack-groupe-title">Site statique</h3>
+          <p class="pack-groupe-desc">Pour les professionnels qui ont besoin d'une présence en ligne simple et efficace, jusqu'à 4 pages.</p>
+        </div>
+        <div class="grid-2">
+          <!-- Essentiel -->
+          <div class="pricing-card">
+            <div>
+              <div class="pricing-name">Essentiel</div>
+              <div class="pricing-price">
+                <span class="pricing-currency">€</span>
+                <span class="pricing-amount">590</span>
+              </div>
+              <p class="pricing-desc">L'essentiel pour démarrer avec sérieux.</p>
+            </div>
+            <ul class="pricing-features" aria-label="Inclus dans Essentiel">
+              {[
+                "Jusqu'à 4 pages",
+                "Logo + charte graphique",
+                "Nom de domaine + emails pro",
+                "SEO on-page",
+                "Fiche Google Business + Search Console",
+                "Modifications via aurore",
+              ].map(f => (
+                <li class="pricing-feature">
+                  <span class="pricing-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a href="/contact/" class="btn btn-outline" style="width:100%; justify-content:center;">Choisir Essentiel</a>
+          </div>
+
+          <!-- Autonome -->
+          <div class="pricing-card pricing-card-featured">
+            <span class="pricing-badge">Recommandé</span>
+            <div>
+              <div class="pricing-name">Autonome</div>
+              <div class="pricing-price">
+                <span class="pricing-currency">€</span>
+                <span class="pricing-amount">790</span>
+              </div>
+              <p class="pricing-desc">Tout Essentiel + la liberté de modifier soi-même.</p>
+            </div>
+            <ul class="pricing-features" aria-label="Inclus dans Autonome">
+              {[
+                "Tout le pack Essentiel",
+                "Decap CMS — édition autonome",
+                "Formation 30 min incluse",
+              ].map(f => (
+                <li class="pricing-feature">
+                  <span class="pricing-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a href="/contact/" class="btn btn-aurora" style="width:100%; justify-content:center;">Choisir Autonome</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SITE VITRINE COMPLET -->
+      <div class="pack-groupe reveal">
+        <div class="pack-groupe-header">
+          <h3 class="pack-groupe-title">Site vitrine complet</h3>
+          <p class="pack-groupe-desc">Pour les professionnels avec un besoin de contenu plus riche : jusqu'à 8 pages, blog, prise de RDV et automatisations email.</p>
+        </div>
+        <div class="grid-2">
+          <div class="pricing-card">
+            <div>
+              <div class="pricing-name">Essentiel</div>
+              <div class="pricing-price">
+                <span class="pricing-currency">€</span>
+                <span class="pricing-amount">1 100</span>
+              </div>
+              <p class="pricing-desc">La solution complète pour un site professionnel ambitieux.</p>
+            </div>
+            <ul class="pricing-features" aria-label="Inclus dans Vitrine Essentiel">
+              {[
+                "Jusqu'à 8 pages + blog",
+                "Formulaire contact + notifications email",
+                "Prise de RDV en ligne",
+                "Automatisation email de bienvenue",
+                "Logo + charte graphique complète",
+                "Nom de domaine + emails pro",
+                "SEO avancé",
+                "Fiche Google Business + Search Console",
+              ].map(f => (
+                <li class="pricing-feature">
+                  <span class="pricing-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a href="/contact/" class="btn btn-outline" style="width:100%; justify-content:center;">Choisir Essentiel</a>
+          </div>
+
+          <div class="pricing-card pricing-card-featured">
+            <span class="pricing-badge">Recommandé</span>
+            <div>
+              <div class="pricing-name">Autonome</div>
+              <div class="pricing-price">
+                <span class="pricing-currency">€</span>
+                <span class="pricing-amount">1 490</span>
+              </div>
+              <p class="pricing-desc">Tout Essentiel + autonomie totale sur votre contenu.</p>
+            </div>
+            <ul class="pricing-features" aria-label="Inclus dans Vitrine Autonome">
+              {[
+                "Tout le pack Essentiel Vitrine",
+                "Decap CMS — édition autonome",
+                "Formation 1h incluse",
+              ].map(f => (
+                <li class="pricing-feature">
+                  <span class="pricing-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a href="/contact/" class="btn btn-aurora" style="width:100%; justify-content:center;">Choisir Autonome</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SITE AVEC RÉSERVATION -->
+      <div class="pack-groupe reveal">
+        <div class="pack-groupe-header">
+          <h3 class="pack-groupe-title">Site avec réservation</h3>
+          <p class="pack-groupe-desc">Pour les professionnels qui prennent des rendez-vous ou vendent des prestations en ligne : système de réservation et paiement Stripe intégrés.</p>
+        </div>
+        <div class="grid-2">
+          <div class="pricing-card">
+            <div>
+              <div class="pricing-name">Essentiel</div>
+              <div class="pricing-price">
+                <span class="pricing-currency">€</span>
+                <span class="pricing-amount">1 400</span>
+              </div>
+              <p class="pricing-desc">Réservation en ligne, paiement sécurisé, tout inclus.</p>
+            </div>
+            <ul class="pricing-features" aria-label="Inclus dans Réservation Essentiel">
+              {[
+                "Jusqu'à 8 pages",
+                "Système de réservation en ligne",
+                "Emails transactionnels automatisés",
+                "Paiement en ligne via Stripe",
+                "Tout le pack Vitrine Essentiel",
+              ].map(f => (
+                <li class="pricing-feature">
+                  <span class="pricing-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a href="/contact/" class="btn btn-outline" style="width:100%; justify-content:center;">Choisir Essentiel</a>
+          </div>
+
+          <div class="pricing-card pricing-card-featured">
+            <span class="pricing-badge">Recommandé</span>
+            <div>
+              <div class="pricing-name">Autonome</div>
+              <div class="pricing-price">
+                <span class="pricing-currency">€</span>
+                <span class="pricing-amount">1 800</span>
+              </div>
+              <p class="pricing-desc">Tout Essentiel + gestion autonome du contenu.</p>
+            </div>
+            <ul class="pricing-features" aria-label="Inclus dans Réservation Autonome">
+              {[
+                "Tout le pack Réservation Essentiel",
+                "Decap CMS — édition autonome",
+                "Formation 1h30 incluse",
+              ].map(f => (
+                <li class="pricing-feature">
+                  <span class="pricing-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a href="/contact/" class="btn btn-aurora" style="width:100%; justify-content:center;">Choisir Autonome</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOGICIEL MÉTIER -->
+      <div class="pack-groupe reveal">
+        <div class="pack-groupe-header">
+          <h3 class="pack-groupe-title">Logiciel métier</h3>
+          <p class="pack-groupe-desc">Application web sur mesure pour automatiser vos processus internes, gérer vos données ou créer un outil unique à votre activité.</p>
+        </div>
+        <div class="grid-2">
+          <div class="pricing-card">
+            <div>
+              <div class="pricing-name">Cadrage</div>
+              <div class="pricing-price">
+                <span class="pricing-currency">€</span>
+                <span class="pricing-amount">300</span>
+              </div>
+              <p class="pricing-desc">Session d'analyse approfondie avant développement. Déduit du devis si le projet est signé.</p>
+            </div>
+            <ul class="pricing-features" aria-label="Inclus dans le cadrage">
+              {[
+                "Analyse de vos besoins et processus",
+                "Spécifications fonctionnelles",
+                "Architecture technique proposée",
+                "Devis de développement détaillé",
+                "Déduit du prix final si projet signé",
+              ].map(f => (
+                <li class="pricing-feature">
+                  <span class="pricing-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a href="/contact/" class="btn btn-outline" style="width:100%; justify-content:center;">Démarrer le cadrage</a>
+          </div>
+
+          <div class="pricing-card card-dark" style="display:flex; flex-direction:column; justify-content:space-between; gap:24px;">
+            <div>
+              <div class="pricing-name">Développement</div>
+              <div class="pricing-price" style="margin:12px 0;">
+                <span style="font-family:var(--font-display); font-size:36px; font-weight:700; letter-spacing:-0.04em; color:var(--white);">Sur devis</span>
+              </div>
+              <p style="color:var(--gray-300); font-size:14px; line-height:1.6;">Le tarif dépend de la complexité et du périmètre défini lors du cadrage. Chaque logiciel est unique.</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div class="pricing-feature">
+                <span class="pricing-check" aria-hidden="true">
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span style="color:var(--gray-300);">Application web responsive</span>
+              </div>
+              <div class="pricing-feature">
+                <span class="pricing-check" aria-hidden="true">
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span style="color:var(--gray-300);">Base de données et logique métier</span>
+              </div>
+              <div class="pricing-feature">
+                <span class="pricing-check" aria-hidden="true">
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span style="color:var(--gray-300);">Livraison et documentation incluses</span>
+              </div>
+            </div>
+            <a href="/contact/" class="btn btn-aurora" style="width:100%; justify-content:center;">Discuter de mon projet</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PRESTATIONS À LA CARTE ─── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Flexibilité</span>
+      <h2 class="section-title reveal">Prestations à la carte.</h2>
+      <p class="section-subtitle reveal">Vous avez déjà un site et souhaitez l'améliorer ? Choisissez uniquement ce dont vous avez besoin.</p>
+
+      <div class="carte-grid reveal" style="margin-top: 40px;">
+        {atLaCarte.map(item => (
+          <div class="carte-item">
+            <span class="carte-label">{item.label}</span>
+            <span class="carte-sep" aria-hidden="true"></span>
+            <span class="carte-prix">{item.prix}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- Maintenance -->
+      <div class="maintenance-block reveal" style="margin-top: 40px;">
+        <div class="pack-groupe-header" style="margin-bottom: 24px;">
+          <h3 class="pack-groupe-title">Maintenance mensuelle</h3>
+          <p class="pack-groupe-desc">Sérénité totale — votre site est surveillé, sauvegardé et maintenu à jour.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="display:flex; flex-direction:column; gap:12px;">
+            <div style="display:flex; align-items:baseline; gap:4px;">
+              <span style="font-size:32px; font-weight:700; letter-spacing:-0.04em; font-family:var(--font-display);">19</span>
+              <span style="font-size:18px; font-weight:600; color:var(--gray-500);">€/mois</span>
+            </div>
+            <div style="font-weight:600; font-size:15px;">Maintenance technique</div>
+            <p style="font-size:14px; margin:0;">Sauvegardes régulières, mises à jour de sécurité, surveillance de disponibilité.</p>
+          </div>
+          <div class="card card-aurora" style="display:flex; flex-direction:column; gap:12px;">
+            <div style="display:flex; align-items:baseline; gap:4px;">
+              <span style="font-size:32px; font-weight:700; letter-spacing:-0.04em; font-family:var(--font-display);">29</span>
+              <span style="font-size:18px; font-weight:600; color:var(--gray-500);">€/mois</span>
+            </div>
+            <div style="font-weight:600; font-size:15px;">Maintenance + support</div>
+            <p style="font-size:14px; margin:0;">Tout la maintenance technique + 30 min de support et petites modifications par mois.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ TARIFS ─── -->
+  <section class="section" style="background: var(--gray-50);">
+    <div class="container" style="max-width: 720px;">
+      <span class="section-label reveal">Questions fréquentes</span>
+      <h2 class="section-title reveal">Tout savoir sur les tarifs.</h2>
+
+      <div style="margin-top: 40px;" class="reveal">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Pourquoi vos tarifs sont-ils inférieurs à ceux d'une agence classique ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Aurore est une auto-entreprise avec zéro frais généraux : pas de locaux, pas d'équipe commerciale, pas d'intermédiaire. Vous payez uniquement le travail de création. De plus, l'utilisation de <strong>GitHub Pages supprime les frais d'hébergement</strong> habituels (souvent 20–40 €/mois ailleurs).
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Que se passe-t-il si j'ai besoin de plus de pages ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Chaque page supplémentaire est facturée <strong>120 €</strong> quelle que soit la formule choisie. Ce tarif est fixe et annoncé dès le départ, sans surprise.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Comment se passe le paiement ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Un <strong>acompte de 50 %</strong> est demandé au démarrage du projet, le solde à la livraison. Pour les projets supérieurs à 1 000 €, un échelonnement en 3 fois peut être envisagé sur demande.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Le Pack Starter est-il vraiment tout compris à 290 € ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Oui. Le Pack Starter à 290 € inclut : site 3 pages, design responsive, configuration du nom de domaine, création des emails professionnels Zoho, mise en ligne GitHub Pages et fiche Google Business. Les options (logo, pages supplémentaires, CMS) sont disponibles en supplément à des tarifs affichés.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Quels sont les frais récurrents après livraison ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            L'hébergement GitHub Pages est <strong>gratuit</strong>. Le seul coût récurrent est le nom de domaine (~15 €/an). La maintenance mensuelle est optionnelle et proposée à partir de 19 €/mois.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Puis-je démarrer avec le Pack Starter et évoluer ensuite ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Tout à fait. Le Pack Starter est conçu pour démarrer vite avec l'essentiel. Vous pouvez ensuite ajouter des pages, un CMS, du SEO ou des automatisations au fil du temps, aux <strong>tarifs à la carte</strong> affichés sur cette page.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA DEVIS ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-section reveal">
+        <h2>Un projet en tête ?</h2>
+        <p>Parlez-moi de votre activité lors d'un appel gratuit de 30 minutes. Je vous envoie un devis détaillé sous 48h.</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis gratuit →</a>
+          <a href="/realisations/" class="btn btn-outline btn-lg" style="color:var(--white); border-color:var(--gray-700);">Voir les réalisations</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ─── HERO TARIFS ─── */
+  .tarifs-hero {
+    padding: 160px 0 80px;
+    text-align: center;
+  }
+
+  .tarifs-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    color: var(--black);
+    margin: 20px 0 16px;
+  }
+
+  .tarifs-sub {
+    font-size: clamp(15px, 1.3vw, 18px);
+    color: var(--gray-500);
+    line-height: 1.65;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ─── PACK STARTER ─── */
+  .starter-section {
+    padding-top: 0;
+  }
+
+  .starter-card {
+    background: var(--white);
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-xl);
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .starter-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--aurora), var(--aurora-mid));
+  }
+
+  .starter-title {
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--black);
+    margin-bottom: 12px;
+  }
+
+  .starter-desc {
+    font-size: 16px;
+    color: var(--gray-500);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  .starter-features {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .starter-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--gray-700);
+  }
+
+  .check-icon {
+    width: 22px;
+    height: 22px;
+    background: var(--aurora-pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .options-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    margin-bottom: 12px;
+  }
+
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .option-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--gray-100);
+    gap: 8px;
+  }
+
+  .option-label {
+    color: var(--gray-700);
+  }
+
+  .option-prix {
+    color: var(--black);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* Prix starter */
+  .starter-prix-block {
+    background: var(--gray-50);
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .starter-prix {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    justify-content: center;
+  }
+
+  .prix-amount {
+    font-family: var(--font-display);
+    font-size: 72px;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: var(--black);
+  }
+
+  .prix-currency {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--gray-500);
+    align-self: flex-start;
+    margin-top: 12px;
+  }
+
+  .prix-note {
+    text-align: center;
+    font-size: 13px;
+    color: var(--gray-500);
+    margin: 0;
+  }
+
+  /* Garanties */
+  .starter-garanties {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .garantie-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--gray-700);
+  }
+
+  .garantie-icon {
+    font-size: 16px;
+  }
+
+  /* ─── PACK GROUPE ─── */
+  .pack-groupe {
+    margin-top: 64px;
+  }
+
+  .pack-groupe-header {
+    margin-bottom: 24px;
+  }
+
+  .pack-groupe-title {
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+
+  .pack-groupe-desc {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0;
+  }
+
+  /* ─── PRESTATIONS À LA CARTE ─── */
+  .carte-grid {
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .carte-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 24px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--gray-100);
+    transition: var(--transition);
+  }
+
+  .carte-item:last-child {
+    border-bottom: none;
+  }
+
+  .carte-item:hover {
+    background: var(--gray-50);
+  }
+
+  .carte-label {
+    color: var(--gray-700);
+    flex: 1;
+  }
+
+  .carte-sep {
+    flex: 1;
+    height: 1px;
+    border-bottom: 1px dashed var(--gray-300);
+  }
+
+  .carte-prix {
+    font-weight: 600;
+    color: var(--black);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .starter-card {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding: 36px;
+    }
+
+    .starter-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .starter-prix-block {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .tarifs-hero {
+      padding: 120px 0 56px;
+    }
+
+    .starter-card {
+      padding: 24px;
+      border-radius: var(--radius-lg);
+    }
+
+    .starter-right {
+      grid-template-columns: 1fr;
+    }
+
+    .prix-amount {
+      font-size: 56px;
+    }
+
+    .pack-groupe {
+      margin-top: 48px;
+    }
+
+    .carte-item {
+      padding: 12px 16px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    // @ts-ignore
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero
+    // @ts-ignore
+    gsap.timeline({ delay: 0.15 })
+      // @ts-ignore
+      .from('.hero-eyebrow', { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out' })
+      // @ts-ignore
+      .from('.tarifs-h1',    { y: 24, opacity: 0, duration: 0.6, ease: 'power2.out' }, '-=0.25')
+      // @ts-ignore
+      .from('.tarifs-sub',   { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out' }, '-=0.25');
+
+    // Scroll reveals
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el: any) => {
+      // @ts-ignore
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        y: 40, opacity: 0, duration: 0.65, ease: 'power2.out'
+      });
+    });
+  });
+</script>

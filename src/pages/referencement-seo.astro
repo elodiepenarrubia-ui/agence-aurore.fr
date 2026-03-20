@@ -1,0 +1,196 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Référencement SEO",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "areaServed": "France",
+  "description": "Référencement SEO on-page pour TPE et indépendants : balises, structure, Schema.org, Google Business, Search Console. Inclus dans tous les packs site web. À la carte à partir de 60 €.",
+  "offers": [
+    { "@type": "Offer", "name": "SEO on-page",         "priceCurrency": "EUR", "price": "150" },
+    { "@type": "Offer", "name": "Fiche Google Business","priceCurrency": "EUR", "price": "90"  },
+    { "@type": "Offer", "name": "Search Console",       "priceCurrency": "EUR", "price": "60"  },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Qu'est-ce que le SEO on-page ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le SEO on-page regroupe toutes les optimisations réalisées directement sur votre site : balises title et meta description, structure des titres (H1, H2, H3), vitesse de chargement, balisage Schema.org, URL propres, textes alt sur les images. C'est la base indispensable pour que Google comprenne et référence correctement vos pages." }},
+    { "@type": "Question", "name": "Combien de temps faut-il pour voir des résultats en SEO ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Les résultats SEO ne sont pas immédiats — c'est la nature du référencement naturel. En général, les premiers effets (apparition dans Google Search Console, premiers clics) se voient dans les 4 à 8 semaines. Pour un positionnement solide sur des mots-clés concurrentiels, comptez 3 à 6 mois. Le SEO local (votre ville + votre activité) donne des résultats plus rapides." }},
+    { "@type": "Question", "name": "À quoi sert la fiche Google Business ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "La fiche Google Business est la carte d'identité de votre activité sur Google Maps et dans les résultats locaux. Quand quelqu'un cherche 'massothérapeute Aix-en-Provence' ou 'plombier près de moi', ce sont les fiches Google Business qui apparaissent en premier. Une fiche optimisée avec photos, horaires, catégories et avis augmente drastiquement votre visibilité locale." }},
+    { "@type": "Question", "name": "Le SEO est-il inclus dans les packs site web ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui. Le SEO on-page de base (balises, structure, Schema.org, vitesse), la création et l'optimisation de votre fiche Google Business, et la connexion à Google Search Console sont inclus dans tous les packs site web Essentiel et supérieurs. Le SEO à la carte s'adresse aux sites existants ou aux besoins spécifiques." }},
+    { "@type": "Question", "name": "Faites-vous du SEO de contenu ou de la rédaction d'articles ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "L'optimisation technique et on-page est incluse. La rédaction d'articles de blog et la stratégie de contenu longue durée ne font pas partie des offres actuelles, mais un blog est intégré au pack Autonome pour que vous puissiez publier vous-même. C'est souvent la meilleure approche : vous connaissez votre métier mieux que n'importe quel rédacteur." }},
+  ],
+};
+---
+
+<BaseLayout
+  title="Référencement SEO — Google Business et SEO on-page | aurore"
+  description="Référencement SEO local pour artisans et indépendants : optimisation on-page, fiche Google Business, Search Console. Inclus dans tous les packs web. aurore, France."
+  slug="referencement-seo"
+  schema={[serviceSchema, faqSchema]}
+>
+
+  <section class="service-hero section-aurora-gradient">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center;margin-bottom:24px;">
+        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span aria-current="page">Référencement SEO</span>
+      </nav>
+      <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Référencement SEO · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
+      <h1 class="service-h1">Être trouvé sur Google,<br /><span class="hero-serif">sans y penser.</span></h1>
+      <p class="service-sub">Un site invisible sur Google est un site inutile. Chaque page livrée est optimisée pour les moteurs de recherche — technique, locale et structurelle.</p>
+      <div class="hero-ctas">
+        <a href="/contact/" class="btn btn-primary btn-lg">Améliorer mon référencement →</a>
+        <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CE QUI EST FAIT -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Ce qui est optimisé</span>
+      <h2 class="section-title reveal">Le SEO n'est pas magique.<br />C'est méthodique.</h2>
+      <div class="seo-grid reveal-stagger" style="margin-top:48px;">
+        {[
+          { label:"Technique",   items:["Balises title et meta description","Structure des titres (H1 → H6)","Vitesse de chargement (Core Web Vitals)","HTTPS et sécurité","Sitemap XML + robots.txt","URLs propres et canoniques"] },
+          { label:"Sémantique",  items:["Balisage Schema.org JSON-LD","Données structurées Service, FAQ, LocalBusiness","Open Graph pour les réseaux sociaux","Textes alt sur toutes les images","Maillage interne cohérent","Contenu structuré autour des mots-clés cibles"] },
+          { label:"Local",       items:["Fiche Google Business créée et optimisée","Photos, catégories, horaires, description","Google Search Console connectée","Indexation vérifiée et soumise","Positionnement géographique ciblé","Suivi des performances mensuelles"] },
+        ].map(col => (
+          <div class="seo-col card">
+            <div class="seo-col-label">{col.label}</div>
+            <ul class="seo-list">
+              {col.items.map(item => (
+                <li class="seo-item">
+                  <span class="seo-check" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCAL SEO -->
+  <section class="section" style="background:var(--gray-50);">
+    <div class="container">
+      <div class="local-grid reveal">
+        <div>
+          <span class="section-label">SEO local</span>
+          <h2 class="section-title">Vos clients vous cherchent<br />près de chez eux.</h2>
+          <p class="section-subtitle" style="margin-top:16px;">75 % des recherches sur mobile incluent une intention locale. "Ostéopathe Marseille", "artisan plombier 13", "coach sportif près de moi" — ce sont ces requêtes qui amènent des clients réels, pas des visiteurs.</p>
+          <p style="font-size:15px;line-height:1.7;color:var(--gray-500);margin-top:16px;">La fiche Google Business est souvent le premier point de contact. Elle doit être complète, précise et régulièrement mise à jour. C'est ce qui détermine si vous apparaissez dans le "pack local" en tête des résultats.</p>
+        </div>
+        <div class="local-visual card" aria-hidden="true">
+          <div class="serp-mock">
+            <div class="serp-bar"></div>
+            <div class="serp-pack">
+              <div class="serp-pack-title">Résultats locaux</div>
+              {["🟢 Votre activité · Aix-en-Provence","Concurrent A · ★★★☆☆","Concurrent B · ★★★★☆"].map((r,i) => (
+                <div class={`serp-result ${i===0?'serp-result-first':''}`}>{r}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BÉNÉFICES -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Bénéfices concrets</span>
+      <h2 class="section-title reveal">Ce que ça change pour votre activité.</h2>
+      <div class="grid-3 reveal-stagger" style="margin-top:48px;">
+        {[
+          { titre:"Des visiteurs qui cherchent vraiment",   desc:"Contrairement à la publicité, le SEO attire des gens qui cherchent activement ce que vous proposez. La conversion est naturellement plus élevée." },
+          { titre:"Un trafic gratuit et durable",           desc:"Une fois positionné, votre visibilité ne disparaît pas dès que vous arrêtez de payer. C'est un actif que vous construisez dans le temps." },
+          { titre:"Crédibilité par l'association",          desc:"Apparaître en haut de Google envoie un signal de confiance. Les clients font confiance aux sites bien référencés." },
+          { titre:"Présence 24h/24 sur Google Maps",        desc:"Votre fiche Google Business permet à des clients de vous trouver, lire vos avis et prendre contact même quand vous ne travaillez pas." },
+          { titre:"Mesure précise des résultats",           desc:"Google Search Console vous montre exactement quelles requêtes génèrent du trafic, depuis quelles pages et depuis quelles villes." },
+          { titre:"Avantage concurrentiel local",           desc:"La majorité des TPE et indépendants n'ont pas de SEO correctement configuré. Bien faire les bases vous place immédiatement devant eux." },
+        ].map(b => (
+          <div class="card">
+            <h3 style="font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-bottom:8px;">{b.titre}</h3>
+            <p style="font-size:14px;line-height:1.65;margin:0;">{b.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" style="background:var(--gray-50);">
+    <div class="container" style="max-width:720px;">
+      <span class="section-label reveal">FAQ</span>
+      <h2 class="section-title reveal">Questions sur le référencement SEO.</h2>
+      <div style="margin-top:36px;" class="reveal">
+        {faqSchema.mainEntity.map((item: any) => (
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer">{item.acceptedAnswer.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section"><div class="container"><div class="cta-section reveal">
+    <h2>Votre site est-il vraiment visible sur Google ?</h2>
+    <p>Décrivez votre situation actuelle — site existant ou nouveau projet. On identifie ensemble les axes d'amélioration prioritaires.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/contact/" class="btn btn-aurora btn-lg">Améliorer mon SEO →</a>
+      <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+    </div>
+  </div></div></section>
+
+</BaseLayout>
+
+<style>
+  .service-hero  { padding:160px 0 80px; text-align:center; }
+  .service-h1    { font-family:var(--font-display); font-size:clamp(34px,5vw,62px); font-weight:700; letter-spacing:-0.05em; line-height:1.05; margin:20px 0 16px; }
+  .service-sub   { font-size:clamp(15px,1.3vw,18px); line-height:1.65; max-width:520px; margin:0 auto 32px; }
+
+  .seo-grid     { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .seo-col      { display:flex; flex-direction:column; gap:16px; }
+  .seo-col-label { font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--aurora); }
+  .seo-list     { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
+  .seo-item     { display:flex; align-items:flex-start; gap:10px; font-size:14px; color:var(--gray-700); line-height:1.5; }
+  .seo-check    { flex-shrink:0; margin-top:3px; }
+
+  .local-grid   { display:grid; grid-template-columns:1fr 420px; gap:64px; align-items:center; }
+  .local-visual { padding:24px; }
+  .serp-mock    { display:flex; flex-direction:column; gap:12px; }
+  .serp-bar     { height:32px; background:var(--gray-100); border-radius:var(--radius-sm); }
+  .serp-pack    { background:var(--white); border:1.5px solid var(--gray-100); border-radius:var(--radius-md); padding:16px; display:flex; flex-direction:column; gap:8px; }
+  .serp-pack-title { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--gray-500); margin-bottom:4px; }
+  .serp-result       { font-size:13px; padding:8px 10px; border-radius:var(--radius-sm); color:var(--gray-700); }
+  .serp-result-first { background:var(--aurora-pale); color:var(--aurora-dark); font-weight:600; border:1px solid rgba(255,107,26,0.2); }
+
+  @media (max-width:1024px) { .seo-grid { grid-template-columns:1fr; } .local-grid { grid-template-columns:1fr; gap:40px; } }
+  @media (max-width:768px)  { .service-hero { padding:120px 0 56px; } }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
+    // @ts-ignore
+    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.5,ease:'power2.out'}).from('.service-h1',{y:24,opacity:0,duration:0.6,ease:'power2.out'},'-=0.25').from('.service-sub',{y:16,opacity:0,duration:0.5,ease:'power2.out'},'-=0.25').from('.hero-ctas',{y:16,opacity:0,duration:0.4,ease:'power2.out'},'-=0.2');
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:40,opacity:0,duration:0.65,ease:'power2.out'}));
+    // @ts-ignore
+    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.from(c.children,{scrollTrigger:{trigger:c,start:'top 80%'},y:24,opacity:0,stagger:0.1,duration:0.55,ease:'power2.out'}));
+  });
+</script>

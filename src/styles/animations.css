@@ -1,0 +1,152 @@
+/* ─────────────────────────────────────────
+   animations.css — Keyframes CSS + helpers GSAP
+   agence-aurore.fr
+   ───────────────────────────────────────── */
+
+/* ─── ÉTAT INITIAL POUR GSAP ─── */
+/* IMPORTANT : on n'applique opacity:0 QUE si js-loaded est présent
+   Cela évite que le contenu reste invisible si GSAP ne charge pas */
+.js-loaded .reveal,
+.js-loaded .reveal-stagger > * {
+  opacity: 0;
+}
+
+/* ─── KEYFRAMES ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes clipReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes orbPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);    opacity: 0.06; }
+  50%       { transform: translate(-50%, -50%) scale(1.25); opacity: 0.10; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ─── CLASSES D'ANIMATION ─── */
+.animate-fade-in     { animation: fadeIn      0.6s  ease forwards; }
+.animate-fade-in-up  { animation: fadeInUp    0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.animate-slide-left  { animation: slideInLeft  0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.animate-slide-right { animation: slideInRight 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.animate-scale-in    { animation: scaleIn     0.5s  cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+
+/* ─── ORBE AMBIENT ─── */
+.aurora-orb {
+  animation: orbPulse 10s ease-in-out infinite;
+}
+
+/* ─── SKELETON LOADER ─── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--gray-100) 25%,
+    var(--gray-50)  50%,
+    var(--gray-100) 75%
+  );
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── HOVER HELPERS ─── */
+.hover-lift {
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.hover-scale { overflow: hidden; }
+.hover-scale img { transition: transform 0.4s ease; }
+.hover-scale:hover img { transform: scale(1.04); }
+
+/* ─── SPINNER ─── */
+.spinner {
+  width: 20px; height: 20px;
+  border: 2px solid var(--gray-100);
+  border-top-color: var(--aurora);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+/* ─── UNDERLINE ANIMÉ ─── */
+.nav-underline { position: relative; }
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--aurora);
+  transition: width 0.22s ease;
+}
+.nav-underline:hover::after,
+.nav-underline.active::after { width: 100%; }
+
+/* ─── LIGNE DÉCORATIVE ─── */
+.aurora-line {
+  width: 40px; height: 2px;
+  background: linear-gradient(90deg, var(--aurora), var(--aurora-mid));
+  border-radius: 2px;
+  margin: 16px 0;
+}
+
+/* ─── ACCESSIBILITÉ ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .aurora-orb { animation: none; opacity: 0.06; }
+  .js-loaded .reveal,
+  .js-loaded .reveal-stagger > * { opacity: 1; }
+}

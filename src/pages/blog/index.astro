@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog aurore — Création de site web et présence digitale",
+  "description": "Conseils et guides pratiques sur la création de site web, le SEO local et la présence digitale pour TPE et indépendants.",
+  "url": "https://agence-aurore.fr/blog/",
+  "publisher": { "@type": "Organization", "name": "Aurore", "url": "https://agence-aurore.fr" },
+};
+
+const allPosts = await getCollection('blog');
+const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function readingTime(post: any) {
+  // Approximate: 200 words/min
+  const words = (post.body ?? '').split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+}
+---
+
+<BaseLayout
+  title="Blog — Conseils création de site web et SEO | aurore"
+  description="Guides pratiques sur la création de site web, le référencement SEO local et la présence digitale pour artisans, thérapeutes et indépendants."
+  slug="blog"
+  schema={blogSchema}
+>
+
+  <section class="blog-hero section-aurora-gradient">
+    <div class="container">
+      <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Blog · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
+      <h1 class="blog-h1">Conseils pour votre<br /><span class="hero-serif">présence digitale.</span></h1>
+      <p class="blog-sub">Guides pratiques sur la création de site web, le SEO local et l'automatisation — écrits pour les indépendants et les TPE.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:840px;">
+      {posts.length === 0 ? (
+        <p style="text-align:center;color:var(--gray-500);">Les premiers articles arrivent bientôt.</p>
+      ) : (
+        <div class="posts-list">
+          {posts.map((post, i) => (
+            <article class={`post-card card reveal ${i === 0 ? 'post-card-featured' : ''}`}>
+              <div class="post-meta">
+                <time datetime={post.data.date.toISOString()} class="post-date">
+                  {formatDate(post.data.date)}
+                </time>
+                <span class="post-reading">{readingTime(post)} min de lecture</span>
+              </div>
+              <h2 class="post-title">
+                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+              </h2>
+              <p class="post-desc">{post.data.description}</p>
+              <a href={`/blog/${post.id}/`} class="post-link" aria-label={`Lire : ${post.data.title}`}>
+                Lire l'article <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--gray-50);"><div class="container"><div class="cta-section reveal">
+    <h2>Un projet en tête ?</h2>
+    <p>Ces articles vous donnent des bases solides. Pour aller plus loin, parlons de votre situation spécifique.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis →</a>
+      <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+    </div>
+  </div></div></section>
+
+</BaseLayout>
+
+<style>
+  .blog-hero { padding:160px 0 80px; text-align:center; }
+  .blog-h1   { font-family:var(--font-display); font-size:clamp(34px,5vw,62px); font-weight:700; letter-spacing:-0.05em; line-height:1.05; margin:20px 0 16px; }
+  .blog-sub  { font-size:clamp(15px,1.3vw,18px); line-height:1.65; max-width:520px; margin:0 auto; }
+
+  .posts-list     { display:flex; flex-direction:column; gap:24px; }
+  .post-card      { display:flex; flex-direction:column; gap:12px; padding:32px 36px; }
+  .post-card-featured { border-color:rgba(255,107,26,0.25); background:var(--aurora-pale); }
+  .post-meta      { display:flex; align-items:center; gap:16px; }
+  .post-date      { font-size:13px; color:var(--gray-500); }
+  .post-reading   { font-size:12px; color:var(--aurora); font-weight:600; background:var(--aurora-pale); padding:2px 8px; border-radius:100px; }
+  .post-card-featured .post-reading { background:rgba(255,107,26,0.15); }
+  .post-title     { font-family:var(--font-display); font-size:clamp(18px,2vw,22px); font-weight:700; letter-spacing:-0.03em; line-height:1.2; margin:0; }
+  .post-title a   { color:var(--black); text-decoration:none; }
+  .post-title a:hover { color:var(--aurora); }
+  .post-desc      { font-size:15px; color:var(--gray-500); line-height:1.65; margin:0; }
+  .post-link      { font-size:14px; font-weight:600; color:var(--aurora); text-decoration:none; align-self:flex-start; }
+  .post-link:hover { text-decoration:underline; }
+
+  @media (max-width:768px) { .blog-hero { padding:120px 0 56px; } .post-card { padding:24px; } }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
+    // @ts-ignore
+    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.5,ease:'power2.out'}).from('.blog-h1',{y:24,opacity:0,duration:0.6,ease:'power2.out'},'-=0.25').from('.blog-sub',{y:16,opacity:0,duration:0.5,ease:'power2.out'},'-=0.25');
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%'},y:32,opacity:0,duration:0.6,ease:'power2.out'}));
+  });
+</script>
