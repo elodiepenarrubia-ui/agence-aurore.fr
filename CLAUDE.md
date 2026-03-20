@@ -4,7 +4,7 @@
 
 Tu construis le site vitrine **agence-aurore.fr** pour Aurore, une auto-entreprise de création de présence digitale clé en main basée à Aix-en-Provence. La propriétaire s'appelle Élodie.
 
-Le site est **statique** (HTML/CSS/JS vanilla), hébergé sur **GitHub Pages**, avec **Decap CMS** pour l'édition autonome du blog. Aucun framework, aucun bundler, aucune dépendance lourde. Léger, rapide, performant.
+Le site est construit avec **Astro** (génération statique), hébergé sur **GitHub Pages**, avec **Decap CMS** pour l'édition autonome du blog. Astro génère du HTML statique pur au build — zéro JS côté client par défaut, idéal pour le SEO. Pas de framework UI (pas de React, pas de Vue). Astro vanilla uniquement.
 
 ---
 
@@ -65,79 +65,112 @@ Le site est **statique** (HTML/CSS/JS vanilla), hébergé sur **GitHub Pages**, 
 ## Architecture du site
 
 ```
-/
-├── index.html                    ← Page d'accueil
-├── creation-site-web/
-│   ├── index.html                ← Page pilier SEO
-│   ├── site-vitrine/index.html
-│   ├── site-reservation/index.html
-│   └── logiciel-metier/index.html
-├── identite-visuelle/index.html
-├── referencement-seo/index.html
-├── automatisation/index.html
-├── realisations/
-│   ├── index.html                              ← Galerie globale
-│   ├── delphine-millot-massage-brignoles/
-│   │   └── index.html                          ← Réalisation 1
-│   └── le-mazarin-conciergerie-aix/
-│       └── index.html                          ← Réalisation 2
-├── tarifs/index.html
-├── a-propos/index.html
-├── contact/index.html
-├── blog/
-│   └── index.html
-├── mentions-legales/index.html
-├── 404.html
-├── sitemap.xml
-├── robots.txt
-├── .nojekyll                     ← Obligatoire GitHub Pages
-├── admin/                        ← Decap CMS
-│   ├── index.html
-│   └── config.yml
-├── css/
-│   ├── main.css                  ← Variables + reset + base
-│   ├── components.css            ← Boutons, cartes, badges, inputs
-│   └── animations.css            ← GSAP helpers + CSS keyframes
-├── js/
-│   ├── main.js                   ← Init globale, nav, scroll
-│   └── animations.js             ← GSAP ScrollTrigger, stagger, reveals
-└── assets/
-    ├── fonts/                    ← (vide, Google Fonts en CDN)
-    └── images/
-        └── og-image.jpg          ← 1200x630px pour Open Graph
+agence-aurore.fr/
+├── astro.config.mjs              ← Config Astro (output: static, GitHub Pages)
+├── package.json
+├── tsconfig.json
+├── .nojekyll                     ← Obligatoire GitHub Pages (dans /public)
+│
+├── public/                       ← Fichiers copiés tels quels au build
+│   ├── .nojekyll
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   └── assets/
+│       └── images/
+│           └── og-image.jpg      ← 1200x630px Open Graph
+│
+├── src/
+│   ├── layouts/
+│   │   ├── BaseLayout.astro      ← Layout principal (head SEO, nav, footer)
+│   │   └── BlogLayout.astro      ← Layout articles de blog
+│   │
+│   ├── components/
+│   │   ├── Nav.astro
+│   │   ├── Footer.astro
+│   │   ├── Hero.astro
+│   │   ├── ServiceCard.astro
+│   │   ├── RealisationCard.astro
+│   │   └── CTABanner.astro
+│   │
+│   ├── pages/
+│   │   ├── index.astro                          ← Accueil
+│   │   ├── tarifs.astro
+│   │   ├── a-propos.astro
+│   │   ├── contact.astro
+│   │   ├── mentions-legales.astro
+│   │   ├── creation-site-web/
+│   │   │   ├── index.astro                      ← Page pilier SEO
+│   │   │   ├── site-vitrine.astro
+│   │   │   ├── site-reservation.astro
+│   │   │   └── logiciel-metier.astro
+│   │   ├── identite-visuelle.astro
+│   │   ├── referencement-seo.astro
+│   │   ├── automatisation.astro
+│   │   ├── realisations/
+│   │   │   ├── index.astro                      ← Galerie
+│   │   │   ├── delphine-millot-massage-brignoles.astro
+│   │   │   └── le-mazarin-conciergerie-aix.astro
+│   │   └── blog/
+│   │       ├── index.astro                      ← Liste articles
+│   │       └── [...slug].astro                  ← Template article
+│   │
+│   ├── content/
+│   │   └── blog/                                ← Articles Markdown (Decap CMS)
+│   │       └── exemple-article.md
+│   │
+│   └── styles/
+│       ├── global.css                           ← Variables CSS + reset + base
+│       ├── components.css                       ← Boutons, cartes, badges
+│       └── animations.css                       ← Keyframes CSS
+│
+└── admin/                                       ← Decap CMS
+    ├── index.html
+    └── config.yml
 ```
 
 ---
 
 ## SEO & GEO — Règles absolues
 
-### Chaque page DOIT avoir :
-```html
+### BaseLayout.astro — Head SEO type
+```astro
+---
+const { title, description, canonical, ogImage = '/assets/images/og-image.jpg' } = Astro.props;
+---
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[Titre page] | aurore — Aix-en-Provence</title>
-  <meta name="description" content="[Description 150-160 caractères avec mot-clé principal]">
+  <title>{title} | aurore — Aix-en-Provence</title>
+  <meta name="description" content={description}>
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://agence-aurore.fr/[slug]/">
+  <link rel="canonical" href={`https://agence-aurore.fr${canonical}`}>
 
   <!-- Open Graph -->
-  <meta property="og:title" content="[Titre]">
-  <meta property="og:description" content="[Description]">
-  <meta property="og:image" content="https://agence-aurore.fr/assets/images/og-image.jpg">
-  <meta property="og:url" content="https://agence-aurore.fr/[slug]/">
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={`https://agence-aurore.fr${ogImage}`}>
+  <meta property="og:url" content={`https://agence-aurore.fr${canonical}`}>
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="[Titre]">
-  <meta name="twitter:description" content="[Description]">
-  <meta name="twitter:image" content="https://agence-aurore.fr/assets/images/og-image.jpg">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={`https://agence-aurore.fr${ogImage}`}>
 
-  <!-- Schema.org JSON-LD (voir section dédiée) -->
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <!-- Schema.org JSON-LD (slot pour chaque page) -->
+  <slot name="schema" />
 </head>
-```
 
 ### Schema.org — Page d'accueil
 ```html
@@ -213,9 +246,15 @@ Le site est **statique** (HTML/CSS/JS vanilla), hébergé sur **GitHub Pages**, 
 
 ## Composants CSS — Standards
 
-### Navigation
-```css
-.nav {
+## Styles CSS
+
+Les styles sont dans `src/styles/` et importés dans `BaseLayout.astro` :
+
+```astro
+import '../styles/global.css';
+import '../styles/components.css';
+import '../styles/animations.css';
+```
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px 48px;
@@ -335,14 +374,30 @@ Le site est **statique** (HTML/CSS/JS vanilla), hébergé sur **GitHub Pages**, 
 
 ## Animations — GSAP
 
-### Chargement des librairies
-```html
-<!-- Dans le <head> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-```
+GSAP est chargé via CDN dans BaseLayout.astro. Les scripts d'animation sont intégrés dans chaque composant Astro via `<script>` inline ou dans un fichier `src/scripts/animations.js` importé.
 
-### Animations standard (js/animations.js)
+### Exemple dans un composant Astro
+```astro
+---
+// Hero.astro
+---
+<section class="hero">
+  <!-- contenu -->
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero stagger
+  gsap.from('.hero-eyebrow', { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.1 });
+  gsap.from('.hero-h1',      { y: 28, opacity: 0, duration: 0.7, ease: 'power2.out', delay: 0.2 });
+  gsap.from('.hero-serif',   { clipPath: 'inset(0 100% 0 0)', duration: 0.9, ease: 'power3.out', delay: 0.35 });
+  gsap.from('.hero-sub',     { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.45 });
+  gsap.from('.hero-ctas',    { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out', delay: 0.55 });
+</script>
+```
 ```javascript
 gsap.registerPlugin(ScrollTrigger);
 
@@ -424,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ## Pages — Contenu & structure
 
-### index.html — Page d'accueil
+### index.astro — Page d'accueil
 
 **Sections dans l'ordre :**
 1. `<nav>` — Navigation fixe avec logo + liens + CTA "Devis gratuit →"
@@ -449,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ---
 
-### tarifs/index.html — Page Tarifs
+### tarifs.astro — Page Tarifs
 
 **C'est la page la plus importante pour la conversion.**
 
@@ -548,7 +603,7 @@ Technique + support (30 min/mois)    29 €/mois
 
 ---
 
-### realisations/index.html — Page Réalisations
+### realisations/index.astro — Page Réalisations
 
 **Page galerie** listant toutes les réalisations. Affichage en grille de cartes cliquables.
 
@@ -590,7 +645,7 @@ Structure de chaque carte :
 
 ---
 
-### realisations/delphine-millot-massage-brignoles/index.html — Réalisation 1
+### realisations/delphine-millot-massage-brignoles.astro — Réalisation 1
 
 **Fiche projet complète :**
 
@@ -628,7 +683,7 @@ Sections de la page :
 
 ---
 
-### realisations/le-mazarin-conciergerie-aix/index.html — Réalisation 2
+### realisations/le-mazarin-conciergerie-aix.astro — Réalisation 2
 
 **Fiche projet complète :**
 
@@ -660,7 +715,7 @@ Sections de la page : identiques à la fiche Delphine Millot.
 
 ---
 
-### a-propos/index.html — Page À propos
+### a-propos.astro — Page À propos
 
 **Crucial pour le GEO** — les IA citent des personnes identifiées, pas des entités anonymes.
 
@@ -675,7 +730,7 @@ Contenu :
 
 ---
 
-### contact/index.html — Page Contact
+### contact.astro — Page Contact
 
 - Formulaire : Nom, Email, Téléphone, Type de projet (select), Message, Budget estimé (select)
 - Email de contact : contact@agence-aurore.fr
@@ -685,7 +740,7 @@ Contenu :
 
 ---
 
-### blog/index.html — Page Blog
+### blog/index.astro — Page Blog
 
 - Liste des articles avec Decap CMS
 - Structure article : titre H1, date, temps de lecture, contenu, CTA en bas
@@ -702,16 +757,16 @@ Contenu :
 ```yaml
 backend:
   name: github
-  repo: [TON-COMPTE]/agence-aurore.fr
+  repo: elodiepenarrubia-ui/agence-aurore.fr
   branch: main
 
-media_folder: "assets/images/blog"
+media_folder: "public/assets/images/blog"
 public_folder: "/assets/images/blog"
 
 collections:
   - name: "blog"
     label: "Articles de blog"
-    folder: "_posts"
+    folder: "src/content/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
@@ -810,27 +865,62 @@ Sitemap: https://agence-aurore.fr/sitemap.xml
 ## Règles de développement
 
 ### Ce qu'on fait
-- HTML sémantique strict (`<main>`, `<article>`, `<section>`, `<nav>`, `<header>`, `<footer>`)
+- Composants Astro réutilisables pour Nav, Footer, Hero, cards
+- CSS dans `src/styles/` importé via BaseLayout
+- HTML sémantique strict dans les composants (`<main>`, `<article>`, `<section>`, `<nav>`, `<header>`, `<footer>`)
 - CSS custom properties pour tout (jamais de valeurs hardcodées)
 - `clamp()` pour les tailles de police responsive
 - Attributs `alt` descriptifs sur toutes les images
 - `loading="lazy"` sur toutes les images hors viewport
-- `rel="noopener noreferrer"` sur tous les liens externes
-- Commentaires de section dans le HTML : `<!-- ─── HERO ─── -->`
+- Commentaires de section dans les composants
+- Schema.org via `<slot name="schema">` dans BaseLayout
 
 ### Ce qu'on ne fait pas
+- Pas de React, Vue ou autre framework UI dans Astro
 - Pas de framework CSS (Bootstrap, Tailwind...)
-- Pas de JavaScript inutile
+- Pas de JavaScript inutile côté client
 - Pas d'inline styles (sauf exceptions GSAP)
 - Pas de `!important`
-- Pas de pixel art ou d'emojis décoratifs dans le code
 - Pas de lorem ipsum — tout le contenu est réel ou placeholder réaliste
+
+### Config Astro pour GitHub Pages
+```js
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({
+  site: 'https://agence-aurore.fr',
+  output: 'static',
+});
+```
+
+### GitHub Actions — Deploy automatique
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/deploy-pages@v4
+        with:
+          folder: dist
+```
 
 ### Performance
 - Fonts Google en `preconnect` + `display=swap`
 - Images en WebP si possible
-- GSAP chargé en `defer`
-- Pas de dépendances inutiles
+- GSAP chargé via CDN avec `defer`
+- Astro génère du HTML statique — Core Web Vitals excellents par défaut
 
 ### Responsive
 - Mobile-first
@@ -841,21 +931,21 @@ Sitemap: https://agence-aurore.fr/sitemap.xml
 
 ## Ordre de construction recommandé
 
-1. `css/main.css` — Variables, reset, base typographique
-2. `css/components.css` — Tous les composants UI
-3. `css/animations.css` — Keyframes CSS
-4. `js/main.js` — Nav, utilitaires
-5. `js/animations.js` — GSAP
-6. `index.html` — Page d'accueil complète
-7. `tarifs/index.html` — Page tarifs
-8. `realisations/index.html` — Page galerie réalisations
-9. `realisations/delphine-millot-massage-brignoles/index.html`
-10. `realisations/le-mazarin-conciergerie-aix/index.html`
-11. `a-propos/index.html` — Page à propos
-12. `contact/index.html` — Page contact
-13. Pages services (une par une)
-14. `blog/index.html` + Decap CMS
-15. `sitemap.xml` + `robots.txt` + `.nojekyll`
+1. `astro.config.mjs` — Config Astro + GitHub Pages
+2. `src/styles/global.css` — Variables CSS + reset + base typographique
+3. `src/styles/components.css` — Composants UI
+4. `src/styles/animations.css` — Keyframes CSS
+5. `src/layouts/BaseLayout.astro` — Layout principal avec head SEO
+6. `src/components/Nav.astro` + `src/components/Footer.astro`
+7. `src/pages/index.astro` — Page d'accueil complète
+8. `src/pages/tarifs.astro`
+9. `src/pages/realisations/index.astro` + fiches réalisations
+10. `src/pages/a-propos.astro`
+11. `src/pages/contact.astro`
+12. Pages services (une par une)
+13. `src/pages/blog/` + Decap CMS
+14. `public/sitemap.xml` + `public/robots.txt` + `public/.nojekyll`
+15. `.github/workflows/deploy.yml` — GitHub Actions
 
 ---
 

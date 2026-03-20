@@ -1,0 +1,300 @@
+/* ─────────────────────────────────────────
+   animations.css — Keyframes CSS + helpers GSAP
+   agence-aurore.fr
+   ───────────────────────────────────────── */
+
+/* ─── CLASSES D'ÉTAT INITIAL POUR GSAP ─── */
+/* Ces classes masquent les éléments avant que GSAP les anime */
+
+.reveal,
+.reveal-stagger > * {
+  opacity: 0;
+}
+
+/* Désactivation si JS est désactivé ou GSAP non chargé */
+.no-js .reveal,
+.no-js .reveal-stagger > * {
+  opacity: 1;
+}
+
+/* ─── KEYFRAMES CSS ─── */
+
+/* Fade in simple */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade in depuis le bas */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in depuis le haut */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide in depuis la gauche */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide in depuis la droite */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Clip path reveal (texte aurore hero) */
+@keyframes clipReveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+/* Scale in */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Pulsation orbe */
+@keyframes orbPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.08;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.25);
+    opacity: 0.12;
+  }
+}
+
+/* Shimmer — loading placeholder */
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+/* Spin */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Bounce subtle */
+@keyframes bounceSoft {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* ─── CLASSES UTILITAIRES D'ANIMATION CSS ─── */
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Délais d'animation (pour stagger manuel) */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+
+/* ─── ORBE AMBIENT ─── */
+.aurora-orb {
+  animation: orbPulse 8s ease-in-out infinite;
+}
+
+/* ─── SHIMMER PLACEHOLDER ─── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--gray-100) 25%,
+    var(--gray-50)  50%,
+    var(--gray-100) 75%
+  );
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── TRANSITIONS HOVER STANDARD ─── */
+
+/* Lift card */
+.hover-lift {
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Glow aurora */
+.hover-glow:hover {
+  box-shadow: 0 0 0 3px var(--aurora-glow);
+}
+
+/* Scale image */
+.hover-scale {
+  overflow: hidden;
+}
+
+.hover-scale img {
+  transition: transform 0.4s ease;
+}
+
+.hover-scale:hover img {
+  transform: scale(1.04);
+}
+
+/* ─── LOADING SPINNER ─── */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--gray-100);
+  border-top-color: var(--aurora);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+/* ─── SCROLL INDICATOR ─── */
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+.scroll-indicator-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gray-300), transparent);
+  animation: fadeInDown 1.5s ease infinite;
+}
+
+/* ─── PAGE TRANSITION ─── */
+.page-transition {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* ─── UNDERLINE ANIMÉ (liens nav actifs) ─── */
+.nav-underline {
+  position: relative;
+}
+
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--aurora);
+  transition: width 0.22s ease;
+}
+
+.nav-underline:hover::after,
+.nav-underline.active::after {
+  width: 100%;
+}
+
+/* ─── LIGNE DÉCORATIVE AURORA ─── */
+.aurora-line {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--aurora), var(--aurora-mid));
+  border-radius: 2px;
+  margin: 16px 0;
+}
+
+/* ─── RÉDUCTION DE MOUVEMENT (accessibilité) ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .aurora-orb {
+    animation: none;
+    opacity: 0.08;
+  }
+
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1;
+  }
+}
