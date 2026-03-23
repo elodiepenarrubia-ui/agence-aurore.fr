@@ -4,12 +4,7 @@
    ───────────────────────────────────────── */
 
 /* ─── ÉTAT INITIAL POUR GSAP ─── */
-/* IMPORTANT : on n'applique opacity:0 QUE si js-loaded est présent
-   Cela évite que le contenu reste invisible si GSAP ne charge pas */
-.js-loaded .reveal,
-.js-loaded .reveal-stagger > * {
-  opacity: 0;
-}
+/* Le contenu est visible par défaut. GSAP anime depuis opacity:0 via gsap.from() */
 
 /* ─── KEYFRAMES ─── */
 @keyframes fadeIn {
@@ -147,6 +142,4 @@
     transition-duration: 0.01ms !important;
   }
   .aurora-orb { animation: none; opacity: 0.06; }
-  .js-loaded .reveal,
-  .js-loaded .reveal-stagger > * { opacity: 1; }
 }

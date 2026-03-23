@@ -239,22 +239,22 @@ const benefices = [
     // @ts-ignore
     gsap.timeline({ delay:0.1 })
       // @ts-ignore
-      .from('.hero-eyebrow', { y:16, opacity:0, duration:0.5, ease:'power2.out' })
+      .from('.hero-eyebrow', { y:16, opacity:0, duration:0.9, ease:'power2.out' })
       // @ts-ignore
-      .from('.service-h1',   { y:24, opacity:0, duration:0.6, ease:'power2.out' }, '-=0.25')
+      .from('.service-h1',   { y:24, opacity:0, duration:1.0, ease:'power2.out' }, '-=0.25')
       // @ts-ignore
-      .from('.service-sub',  { y:16, opacity:0, duration:0.5, ease:'power2.out' }, '-=0.25')
+      .from('.service-sub',  { y:16, opacity:0, duration:0.9, ease:'power2.out' }, '-=0.25')
       // @ts-ignore
       .from('.hero-ctas',    { y:16, opacity:0, duration:0.4, ease:'power2.out' }, '-=0.2');
     // @ts-ignore
     gsap.utils.toArray('.reveal').forEach((el:any) => {
       // @ts-ignore
-      gsap.from(el, { scrollTrigger:{ trigger:el, start:'top 85%' }, y:40, opacity:0, duration:0.65, ease:'power2.out' });
+      gsap.from(el, { scrollTrigger:{ trigger:el, start:'top 85%' }, y:40, opacity:0, duration:1.1, ease:'power2.out' });
     });
     // @ts-ignore
     gsap.utils.toArray('.reveal-stagger').forEach((c:any) => {
       // @ts-ignore
-      gsap.from(c.children, { scrollTrigger:{ trigger:c, start:'top 80%' }, y:24, opacity:0, stagger:0.1, duration:0.55, ease:'power2.out' });
+      gsap.from(c.children, { scrollTrigger:{ trigger:c, start:'top 80%' }, y:24, opacity:0, stagger:0.15, duration:0.55, ease:'power2.out' });
     });
   });
 </script>

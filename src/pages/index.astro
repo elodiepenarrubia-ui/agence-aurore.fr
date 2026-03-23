@@ -644,12 +644,12 @@ const faqSchema = {
 
     // Hero
     const tl = gsap.timeline({ delay: 0.1 });
-    tl.from('.hero-eyebrow', { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out' })
-      .from('.hero-h1',      { y: 28, opacity: 0, duration: 0.7, ease: 'power2.out' }, '-=0.3')
+    tl.from('.hero-eyebrow', { y: 20, opacity: 0, duration: 1.0, ease: 'power2.out' })
+      .from('.hero-h1',      { y: 28, opacity: 0, duration: 1.2, ease: 'power2.out' }, '-=0.3')
       .from('.hero-serif',   { clipPath: 'inset(0 100% 0 0)', duration: 0.9, ease: 'power3.out' }, '-=0.4')
-      .from('.hero-sub',     { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
-      .from('.hero-ctas',    { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out' }, '-=0.2')
-      .from('.hero-metrics', { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out' }, '-=0.1');
+      .from('.hero-sub',     { y: 20, opacity: 0, duration: 1.0, ease: 'power2.out' }, '-=0.3')
+      .from('.hero-ctas',    { y: 16, opacity: 0, duration: 0.9, ease: 'power2.out' }, '-=0.2')
+      .from('.hero-metrics', { y: 16, opacity: 0, duration: 0.9, ease: 'power2.out' }, '-=0.1');
 
     // Orbe
     gsap.to('.aurora-orb', {
@@ -662,14 +662,14 @@ const faqSchema = {
       gsap.utils.toArray('.reveal').forEach((el: any) => {
         gsap.from(el, {
           scrollTrigger: { trigger: el, start: 'top 88%' },
-          y: 32, opacity: 0, duration: 0.65, ease: 'power2.out'
+          y: 32, opacity: 0, duration: 1.1, ease: 'power2.out'
         });
       });
 
       gsap.utils.toArray('.reveal-stagger').forEach((container: any) => {
         gsap.from(container.children, {
           scrollTrigger: { trigger: container, start: 'top 82%' },
-          y: 28, opacity: 0, stagger: 0.1, duration: 0.6, ease: 'power2.out'
+          y: 28, opacity: 0, stagger: 0.15, duration: 1.0, ease: 'power2.out'
         });
       });
     }
