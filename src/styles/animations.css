@@ -8,7 +8,7 @@
    Cela évite que le contenu reste invisible si GSAP ne charge pas */
 .js-loaded .reveal,
 .js-loaded .reveal-stagger > * {
-  opacity: 0;
+  opacity: 1;
 }
 
 /* ─── KEYFRAMES ─── */
