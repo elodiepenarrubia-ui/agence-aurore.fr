@@ -729,6 +729,21 @@
   }
 }
 
+.nav-links.open {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--white);
+  z-index: 999;
+  padding: 100px 32px 40px;
+  gap: 8px;
+  align-items: flex-start;
+}
+
 @media (max-width: 480px) {
   .card {
     padding: 20px 20px;
