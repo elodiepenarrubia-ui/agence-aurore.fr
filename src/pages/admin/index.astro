@@ -653,11 +653,9 @@
       const description = document.getElementById('description').value;
       const intro = document.getElementById('intro').value;
       const corps = document.getElementById('corps').value;
-      const ctaTexte = document.getElementById('cta-texte').value;
-      const ctaLien = document.getElementById('cta-lien').value;
       const slug = toSlug(titre);
 
-      const contenu = intro + '\n\n' + corps + '\n\n---\n\n*' + ctaTexte.replace(' →', '') + '* → [' + ctaLien + '](' + ctaLien + ')';
+const contenu = intro + '\n\n' + corps;
 
       btn.disabled = true;
       btn.textContent = 'Publication en cours...';
