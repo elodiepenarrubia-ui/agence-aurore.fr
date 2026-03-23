@@ -211,8 +211,7 @@ setTimeout(() => {
           const isOpen = navLinks.classList.toggle('open');
           burger.setAttribute('aria-expanded', String(isOpen));
           burger.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
-          document.body.style.overflow = isOpen ? 'hidden' : '';
-        });
+          document.documentElement.style.overflow = isOpen ? 'hidden' : '';
 
         // Fermer le menu au clic sur un lien
         navLinks.querySelectorAll('a').forEach(link => {
