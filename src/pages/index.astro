@@ -611,34 +611,11 @@ const faqSchema = {
   }
 </style>
 
-<script>
-  // Ajoute js-loaded sur body pour activer les animations GSAP
-  document.body.classList.add('js-loaded');
-
+<script is:inline>
+  // GSAP animations spécifiques à la page d'accueil
+  // Nav scroll + FAQ accordion sont gérés par BaseLayout
   document.addEventListener('DOMContentLoaded', () => {
-    // Nav scroll
-    const nav = document.querySelector('.nav');
-    if (nav) {
-      window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 60);
-      }, { passive: true });
-    }
-
-    // FAQ accordion
-    document.querySelectorAll('.faq-question').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-item');
-        const isOpen = item?.classList.contains('open');
-        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-        if (!isOpen && item) item.classList.add('open');
-        btn.setAttribute('aria-expanded', String(!isOpen));
-      });
-    });
-
-    // GSAP animations (si disponible)
-    // @ts-ignore
     if (typeof gsap === 'undefined') return;
-    // @ts-ignore
     const { gsap, ScrollTrigger } = window;
     if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
 
@@ -659,14 +636,14 @@ const faqSchema = {
 
     // Scroll reveals
     if (typeof ScrollTrigger !== 'undefined') {
-      gsap.utils.toArray('.reveal').forEach((el: any) => {
+      gsap.utils.toArray('.reveal').forEach(el => {
         gsap.from(el, {
           scrollTrigger: { trigger: el, start: 'top 88%' },
           y: 32, opacity: 0, duration: 1.1, ease: 'power2.out'
         });
       });
 
-      gsap.utils.toArray('.reveal-stagger').forEach((container: any) => {
+      gsap.utils.toArray('.reveal-stagger').forEach(container => {
         gsap.from(container.children, {
           scrollTrigger: { trigger: container, start: 'top 82%' },
           y: 28, opacity: 0, stagger: 0.15, duration: 1.0, ease: 'power2.out'

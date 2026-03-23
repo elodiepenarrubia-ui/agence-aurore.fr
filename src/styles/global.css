@@ -156,13 +156,8 @@ strong { font-weight: 600; color: var(--black); }
 
 .nav.scrolled {
   border-bottom-color: var(--gray-100);
-  padding: 14px 48px;
-  background: rgba(255, 255, 255, 0.98);
-}
-
-.nav.scrolled {
-  border-bottom-color: var(--gray-100);
   padding: 16px 48px;
+  background: rgba(255, 255, 255, 0.98);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 

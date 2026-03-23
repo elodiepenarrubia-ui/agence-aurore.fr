@@ -10,9 +10,4 @@ export default defineConfig({
     // Génère des dossiers avec index.html pour les URLs propres (/page/ au lieu de /page.html)
     format: 'directory',
   },
-  vite: {
-    css: {
-      devSourcemap: true,
-    },
-  },
 });

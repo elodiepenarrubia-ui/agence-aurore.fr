@@ -87,9 +87,11 @@ const schemaJson = schema
     <!-- ─── GSAP ─── -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+      defer
     ></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+      defer
     ></script>
 
     <!-- ─── SCHEMA.ORG JSON-LD ─── -->
@@ -209,29 +211,29 @@ if (typeof document !== 'undefined') {
       const navLinks = document.getElementById('nav-links');
 
       if (burger && navLinks) {
+        function closeMenu() {
+          navLinks.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+          burger.setAttribute('aria-label', 'Ouvrir le menu');
+          document.documentElement.style.overflow = '';
+        }
+
         burger.addEventListener('click', () => {
           const isOpen = navLinks.classList.toggle('open');
           burger.setAttribute('aria-expanded', String(isOpen));
           burger.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
           document.documentElement.style.overflow = isOpen ? 'hidden' : '';
-
-        // Fermer le menu au clic sur un lien
-        navLinks.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            navLinks.classList.remove('open');
-            burger.setAttribute('aria-expanded', 'false');
-            burger.setAttribute('aria-label', 'Ouvrir le menu');
-            document.body.style.overflow = '';
-          });
         });
 
-        // Fermer avec Escape
+        // Fermer le menu au clic sur un lien (attaché une seule fois)
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', closeMenu);
+        });
+
+        // Fermer avec Escape (attaché une seule fois)
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape' && navLinks.classList.contains('open')) {
-            navLinks.classList.remove('open');
-            burger.setAttribute('aria-expanded', 'false');
-            burger.setAttribute('aria-label', 'Ouvrir le menu');
-            document.body.style.overflow = '';
+            closeMenu();
             burger.focus();
           }
         });
