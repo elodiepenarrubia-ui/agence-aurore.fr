@@ -105,8 +105,8 @@ function readingTime(post: any) {
     // @ts-ignore
     if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
     // @ts-ignore
-    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.5,ease:'power2.out'}).from('.blog-h1',{y:24,opacity:0,duration:0.6,ease:'power2.out'},'-=0.25').from('.blog-sub',{y:16,opacity:0,duration:0.5,ease:'power2.out'},'-=0.25');
+    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.9,ease:'power2.out'}).from('.blog-h1',{y:24,opacity:0,duration:1.0,ease:'power2.out'},'-=0.25').from('.blog-sub',{y:16,opacity:0,duration:0.9,ease:'power2.out'},'-=0.25');
     // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%'},y:32,opacity:0,duration:0.6,ease:'power2.out'}));
+    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%'},y:32,opacity:0,duration:1.0,ease:'power2.out'}));
   });
 </script>
