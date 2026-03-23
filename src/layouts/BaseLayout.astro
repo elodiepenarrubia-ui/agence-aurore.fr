@@ -188,8 +188,8 @@ const schemaJson = schema
 setTimeout(() => {
   if (typeof gsap === 'undefined') {
     document.querySelectorAll('.reveal, .reveal-stagger > *').forEach(el => {
-      (el as HTMLElement).style.opacity = '1';
-      (el as HTMLElement).style.transform = 'none';
+      el.style.opacity = '1';
+      el.style.transform = 'none';
     });
   }
 }, 3000);
