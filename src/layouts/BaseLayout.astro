@@ -185,14 +185,16 @@ const schemaJson = schema
       document.body.classList.add('js-loaded');
 
 // Fallback : si GSAP ne charge pas en 3s, rendre tout visible
-setTimeout(() => {
-  if (typeof gsap === 'undefined') {
-    document.querySelectorAll('.reveal, .reveal-stagger > *').forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-    });
-  }
-}, 3000);
+if (typeof document !== 'undefined') {
+  setTimeout(() => {
+    if (typeof gsap === 'undefined') {
+      document.querySelectorAll('.reveal, .reveal-stagger > *').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+    }
+  }, 3000);
+}
 
       // ─── Navigation : scroll behavior ───
       const nav = document.getElementById('main-nav');
