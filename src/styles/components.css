@@ -749,7 +749,8 @@
     display: none;
   }
 
-  .nav-links.open {
+  @media (max-width: 768px) {
+  .nav-links {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -765,7 +766,19 @@
     gap: 8px;
     align-items: flex-start;
     overflow-y: auto;
+    /* Animation */
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
+
+  .nav-links.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+}
 
   .nav-links.open li {
     width: 100%;
