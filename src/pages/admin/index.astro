@@ -630,7 +630,6 @@
       const desc = document.getElementById('description').value;
       const intro = document.getElementById('intro').value;
       const corps = document.getElementById('corps').value;
-      const ctaTexte = document.getElementById('cta-texte').value;
       const slug = toSlug(titre);
       const readTime = Math.max(1, Math.round(corps.split(/\s+/).length / 200));
       const today = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -640,7 +639,6 @@
       document.getElementById('preview-desc').textContent = desc;
       document.getElementById('preview-intro').textContent = intro;
       document.getElementById('preview-corps').textContent = corps.slice(0, 200) + '...';
-      document.getElementById('preview-cta-btn').textContent = ctaTexte;
       document.getElementById('preview-url').textContent = 'agence-aurore.fr/blog/' + slug + '/';
     }
 
