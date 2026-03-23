@@ -5,7 +5,9 @@
       "Bash(cp -r shaky-spectrum/src .)",
       "Bash(cp -r shaky-spectrum/public .)",
       "Bash(npm install:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(wc:*)",
+      "Bash(npx astro:*)"
     ]
   }
 }
