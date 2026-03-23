@@ -17,6 +17,10 @@ export interface Props {
   bodyClass?: string;
 }
 
+import '../styles/global.css';
+import '../styles/components.css';
+import '../styles/animations.css';
+
 const {
   title,
   description,
@@ -83,17 +87,10 @@ const schemaJson = schema
     <!-- ─── GSAP ─── -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-      defer
     ></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
-      defer
     ></script>
-
-    <!-- ─── STYLES ─── -->
-    <link rel="stylesheet" href="/src/styles/global.css" />
-    <link rel="stylesheet" href="/src/styles/components.css" />
-    <link rel="stylesheet" href="/src/styles/animations.css" />
 
     <!-- ─── SCHEMA.ORG JSON-LD ─── -->
     {schemaJson && schemaJson.map((s) => (
@@ -182,10 +179,22 @@ const schemaJson = schema
     </footer>
 
     <!-- ─── SCRIPTS ─── -->
-    <script>
+    <script is:inline>
       // ─── js-loaded : active les états initiaux GSAP (.reveal, .reveal-stagger) ───
       document.documentElement.classList.add('js-loaded');
       document.body.classList.add('js-loaded');
+
+// Fallback : si GSAP ne charge pas en 3s, rendre tout visible
+if (typeof document !== 'undefined') {
+  setTimeout(() => {
+    if (typeof gsap === 'undefined') {
+      document.querySelectorAll('.reveal, .reveal-stagger > *').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+    }
+  }, 3000);
+}
 
       // ─── Navigation : scroll behavior ───
       const nav = document.getElementById('main-nav');
@@ -204,8 +213,7 @@ const schemaJson = schema
           const isOpen = navLinks.classList.toggle('open');
           burger.setAttribute('aria-expanded', String(isOpen));
           burger.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
-          document.body.style.overflow = isOpen ? 'hidden' : '';
-        });
+          document.documentElement.style.overflow = isOpen ? 'hidden' : '';
 
         // Fermer le menu au clic sur un lien
         navLinks.querySelectorAll('a').forEach(link => {

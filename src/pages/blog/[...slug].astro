@@ -100,14 +100,19 @@ const articleSchema = {
 <style>
   .article-header  { padding:140px 0 64px; text-align:center; }
   .article-meta    { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:20px; }
-  .article-date    { font-size:13px; color:rgba(255,255,255,0.7); }
-  .article-sep     { color:rgba(255,255,255,0.4); }
-  .article-reading { font-size:13px; color:rgba(255,255,255,0.7); }
-  .article-h1      { font-family:var(--font-display); font-size:clamp(26px,4vw,48px); font-weight:700; letter-spacing:-0.04em; line-height:1.1; color:var(--white); margin-bottom:16px; }
-  .article-lead    { font-size:clamp(15px,1.2vw,18px); line-height:1.65; color:rgba(255,255,255,0.85); max-width:560px; margin:0 auto; }
+  .article-date { font-size:13px; color:var(--gray-500); }
+.article-sep { color:var(--gray-300); }
+.article-reading { font-size:13px; color:var(--gray-500); }
+.article-h1 { font-family:var(--font-display); font-size:clamp(26px,4vw,48px); font-weight:700; letter-spacing:-0.04em; line-height:1.1; color:var(--black); margin-bottom:16px; }
+.article-lead { font-size:clamp(15px,1.2vw,18px); line-height:1.65; color:var(--gray-500); max-width:560px; margin:0 auto; }
 
   /* Prose styles */
-  .prose           { font-size:16px; line-height:1.8; color:var(--gray-700); }
+  .prose { font-size:16px; line-height:1.8; color:var(--gray-700); word-spacing:0.05em; }
+.prose p { margin:0 0 28px; }
+.prose h2 { margin:56px 0 20px; }
+.prose h3 { margin:40px 0 14px; }
+.prose ul, .prose ol { padding-left:24px; margin:0 0 28px; }
+.prose li { margin-bottom:10px; line-height:1.75; }
   .prose h2        { font-family:var(--font-display); font-size:clamp(20px,2.5vw,28px); font-weight:700; letter-spacing:-0.03em; color:var(--black); margin:48px 0 16px; }
   .prose h3        { font-family:var(--font-display); font-size:clamp(17px,2vw,22px); font-weight:600; letter-spacing:-0.02em; color:var(--black); margin:32px 0 12px; }
   .prose p         { margin:0 0 20px; }
