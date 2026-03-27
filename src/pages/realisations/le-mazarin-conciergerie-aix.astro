@@ -15,7 +15,7 @@ const projet = {
 const schema = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
-  "name": "Site web — Le Mazarin, conciergerie à Aix-en-Provence",
+  "name": "Site web, Le Mazarin, conciergerie à Aix-en-Provence",
   "creator": { "@type": "Organization", "name": "Aurore", "url": "https://agence-aurore.fr" },
   "description": "Création du site vitrine de Le Mazarin, conciergerie de location saisonnière à Aix-en-Provence. Logo, identité visuelle, SEO local et fiche Google Business.",
   "url": "https://lemazarin.com",
@@ -26,24 +26,12 @@ const schema = {
 ---
 
 <BaseLayout
-  title="Réalisation — Site vitrine Le Mazarin, conciergerie à Aix-en-Provence | aurore"
+  title="Réalisation, Site vitrine Le Mazarin, conciergerie à Aix-en-Provence | aurore"
   description="Découvrez comment aurore a créé la présence digitale complète du Mazarin, conciergerie de location saisonnière à Aix-en-Provence : logo, site, SEO et fiche Google."
   slug="realisations/le-mazarin-conciergerie-aix"
   schema={schema}
 >
 
-  <!-- ─── BREADCRUMB ─── -->
-  <div class="breadcrumb-bar">
-    <div class="container">
-      <nav class="breadcrumb" aria-label="Fil d'Ariane">
-        <a href="/">Accueil</a>
-        <span class="breadcrumb-sep" aria-hidden="true">›</span>
-        <a href="/realisations/">Réalisations</a>
-        <span class="breadcrumb-sep" aria-hidden="true">›</span>
-        <span aria-current="page">Le Mazarin</span>
-      </nav>
-    </div>
-  </div>
 
   <!-- ─── HERO ─── -->
   <section class="fiche-hero">
@@ -61,7 +49,7 @@ const schema = {
           </h1>
           <p class="fiche-sub">
             Présence digitale complète pour une conciergerie de location saisonnière à Aix-en-Provence.
-            Logo, site web, SEO local et fiche Google — tout en {projet.delai}.
+            Logo, site web, SEO local et fiche Google, tout en {projet.delai}.
           </p>
 
           <!-- Tableau client -->
@@ -104,50 +92,9 @@ const schema = {
           </table>
         </div>
 
-        <!-- Capture hero -->
-        <div class="fiche-hero-capture" aria-label="Aperçu du site Le Mazarin">
-          <div class="capture-browser">
-            <div class="browser-bar">
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
-              <div class="browser-url-bar">
-                <span class="browser-url-text">lemazarin.com</span>
-              </div>
-            </div>
-            <div class="capture-screen" style="background: linear-gradient(135deg, #F0EBE8 0%, #F7F2EF 50%, #F0EBE8 100%);">
-              <div class="mock-hero">
-                <div class="mock-nav">
-                  <div class="mock-logo" aria-hidden="true"></div>
-                  <div class="mock-nav-links" aria-hidden="true">
-                    <div class="mock-link"></div>
-                    <div class="mock-link"></div>
-                    <div class="mock-link"></div>
-                  </div>
-                </div>
-                <div class="mock-content">
-                  <div class="mock-eyebrow" aria-hidden="true"></div>
-                  <div class="mock-title" aria-hidden="true"></div>
-                  <div class="mock-title mock-title-sm" aria-hidden="true"></div>
-                  <div class="mock-sub" aria-hidden="true"></div>
-                  <div class="mock-sub mock-sub-short" aria-hidden="true"></div>
-                  <div class="mock-ctas" aria-hidden="true">
-                    <div class="mock-btn mock-btn-dark"></div>
-                    <div class="mock-btn mock-btn-outline"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="capture-mobile" aria-hidden="true">
-            <div class="mobile-screen" style="background: linear-gradient(135deg, #F0EBE8 0%, #F7F2EF 100%);">
-              <div class="mobile-content">
-                <div class="mock-title" style="width:80%; height:10px;"></div>
-                <div class="mock-sub" style="width:90%;"></div>
-                <div class="mock-btn mock-btn-dark" style="width:80%; margin-top:8px;"></div>
-              </div>
-            </div>
-          </div>
+        <!-- Capture du site -->
+        <div class="fiche-hero-capture">
+          <img src="/lemazarin-portrait.webp" alt="Le Mazarin, conciergerie à Aix-en-Provence" style="max-width:320px; margin:0 auto; display:block; border-radius:var(--radius-md); object-fit:cover; object-position:center top; aspect-ratio:3/4;" />
         </div>
       </div>
     </div>
@@ -157,13 +104,13 @@ const schema = {
   <section class="section fiche-section">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">01 — Contexte</span>
+        <span class="section-label">01, Contexte</span>
       </div>
       <div class="fiche-section-content">
         <h2 class="section-title reveal">Le besoin du Mazarin.</h2>
         <div class="fiche-text reveal">
           <p>Le Mazarin est une conciergerie de location saisonnière basée à Aix-en-Provence. Spécialisée dans la gestion de biens immobiliers pour des propriétaires qui souhaitent louer leur appartement ou maison sans s'occuper de la logistique, elle intervient de la mise en ligne des annonces jusqu'à l'accueil des voyageurs.</p>
-          <p>Au démarrage, Le Mazarin n'avait ni logo, ni site web, ni présence Google. Les propriétaires potentiels ne pouvaient pas les trouver en ligne. La crédibilité d'une conciergerie passe pourtant par une présence digitale irréprochable — les propriétaires confient leurs biens, ils ont besoin de faire confiance.</p>
+          <p>Au démarrage, Le Mazarin n'avait ni logo, ni site web, ni présence Google. Les propriétaires potentiels ne pouvaient pas les trouver en ligne. La crédibilité d'une conciergerie passe pourtant par une présence digitale irréprochable, les propriétaires confient leurs biens, ils ont besoin de faire confiance.</p>
           <p>Le projet : construire une <strong>identité complète de A à Z</strong>, avec un logo, un site qui inspire confiance et une présence Google optimisée pour capter les propriétaires locaux.</p>
         </div>
       </div>
@@ -174,12 +121,12 @@ const schema = {
   <section class="section fiche-section" style="background: var(--gray-50);">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">02 — Solution</span>
+        <span class="section-label">02, Solution</span>
       </div>
       <div class="fiche-section-content">
         <h2 class="section-title reveal">Une présence complète, clé en main.</h2>
         <div class="fiche-text reveal">
-          <p>Contrairement au projet de Delphine, Le Mazarin avait besoin de repartir de zéro sur tout — marque, design, web et SEO local. C'est le cas d'usage idéal pour notre pack complet.</p>
+          <p>Contrairement au projet de Delphine, Le Mazarin avait besoin de repartir de zéro sur tout, marque, design, web et SEO local. C'est le cas d'usage idéal pour notre pack complet.</p>
         </div>
         <div class="solution-grid reveal-stagger" style="margin-top: 32px;">
           <div class="solution-item">
@@ -227,12 +174,12 @@ const schema = {
   <section class="section fiche-section">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">03 — Identité</span>
+        <span class="section-label">03, Identité</span>
       </div>
       <div class="fiche-section-content">
         <h2 class="section-title reveal">Une marque qui inspire confiance.</h2>
         <div class="fiche-text reveal">
-          <p>Pour une conciergerie, la confiance est tout. Les propriétaires confient leurs biens — parfois leur résidence principale ou un investissement de plusieurs centaines de milliers d'euros. L'identité visuelle devait le refléter.</p>
+          <p>Pour une conciergerie, la confiance est tout. Les propriétaires confient leurs biens, parfois leur résidence principale ou un investissement de plusieurs centaines de milliers d'euros. L'identité visuelle devait le refléter.</p>
           <p>Nous avons opté pour une palette sobre et élégante, une typographie Serif avec empattements qui évoque la tradition et le soin, et un logo qui fonctionne aussi bien sur un site web que sur un document contractuel ou une carte de visite.</p>
         </div>
         <div class="identite-showcase reveal" style="margin-top: 32px;">
@@ -258,7 +205,7 @@ const schema = {
   <section class="section fiche-section" style="background: var(--gray-50);">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">04 — Résultat</span>
+        <span class="section-label">04, Résultat</span>
       </div>
       <div class="fiche-section-content">
         <h2 class="section-title reveal">Livré en 2 semaines, visible sur Google.</h2>
@@ -267,42 +214,7 @@ const schema = {
         </div>
 
         <div class="resultat-screens reveal" style="margin-top: 32px;">
-          <div class="screen-desktop">
-            <div class="screen-label">Desktop</div>
-            <div class="capture-browser" style="box-shadow: 0 12px 40px rgba(0,0,0,0.12);">
-              <div class="browser-bar">
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-                <span class="browser-dot"></span>
-                <div class="browser-url-bar"><span class="browser-url-text">lemazarin.com</span></div>
-              </div>
-              <div class="capture-screen" style="height:220px; background: linear-gradient(135deg, #F0EBE8 0%, #F7F2EF 100%);">
-                <div class="mock-hero" style="padding:20px;">
-                  <div class="mock-nav" style="margin-bottom:16px;"></div>
-                  <div class="mock-content">
-                    <div class="mock-title" style="width:70%; background:rgba(44,36,22,0.2);"></div>
-                    <div class="mock-title mock-title-sm" style="width:50%; background:rgba(139,111,71,0.4);"></div>
-                    <div class="mock-sub" style="width:85%; margin-top:8px;"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="screen-mobile-wrap">
-            <div class="screen-label">Mobile</div>
-            <div class="capture-mobile-lg">
-              <div class="mobile-notch" aria-hidden="true"></div>
-              <div class="mobile-screen-lg" style="background: linear-gradient(135deg, #F0EBE8 0%, #F7F2EF 100%);">
-                <div class="mobile-content-lg">
-                  <div class="mock-title" style="width:85%; height:9px; background:rgba(44,36,22,0.2);"></div>
-                  <div class="mock-title mock-title-sm" style="width:65%; height:9px; background:rgba(139,111,71,0.4);"></div>
-                  <div class="mock-sub" style="width:90%;"></div>
-                  <div class="mock-sub mock-sub-short" style="width:75%;"></div>
-                  <div class="mock-btn mock-btn-dark" style="width:80%; margin-top:8px; background:rgba(44,36,22,0.3);"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <img src="/lemazarin-1.webp" alt="Site web Le Mazarin, conciergerie à Aix-en-Provence" style="width:100%; border-radius:var(--radius-md); object-fit:contain; background:var(--gray-50, #f9f9f9);" loading="lazy" />
         </div>
 
         <div class="metrics-row reveal" style="margin-top:32px;">
@@ -331,13 +243,13 @@ const schema = {
   <section class="section fiche-section">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">05 — Témoignage</span>
+        <span class="section-label">05, Témoignage</span>
       </div>
       <div class="fiche-section-content">
         <div class="temoignage-block reveal">
           <div class="temoignage-quote-mark" aria-hidden="true">"</div>
           <blockquote class="temoignage-texte">
-            Notre site a été livré clé en main en deux semaines — logo, site, SEO, Google Business, tout était prêt. On est maintenant en première page sur nos mots-clés à Aix-en-Provence. Les propriétaires qui nous contactent nous disent souvent qu'ils ont trouvé notre site en cherchant "conciergerie Aix". C'est exactement ce qu'on voulait.
+            Notre site a été livré clé en main en deux semaines, logo, site, SEO, Google Business, tout était prêt. On est maintenant en première page sur nos mots-clés à Aix-en-Provence. Les propriétaires qui nous contactent nous disent souvent qu'ils ont trouvé notre site en cherchant "conciergerie Aix". C'est exactement ce qu'on voulait.
           </blockquote>
           <div class="temoignage-auteur">
             <div class="temoignage-avatar" style="background: #8B6F47;" aria-hidden="true">
@@ -357,13 +269,13 @@ const schema = {
   <section class="section fiche-section" style="background: var(--gray-50);">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">06 — Et vous ?</span>
+        <span class="section-label">06, Et vous ?</span>
       </div>
       <div class="fiche-section-content">
         <h2 class="section-title reveal">Votre projet ressemble à celui-ci ?</h2>
         <div class="fiche-text reveal">
-          <p>Vous lancez une activité ou une entreprise et vous avez besoin de construire votre présence digitale de zéro — logo, site, SEO et Google Business ? C'est exactement ce que propose le pack Vitrine Complet d'aurore.</p>
-          <p>Basée à Aix-en-Provence, j'interviens dans toute la France. L'appel de 30 minutes est gratuit et sans engagement.</p>
+          <p>Vous lancez une activité ou une entreprise et vous avez besoin de construire votre présence digitale de zéro, logo, site, SEO et Google Business ? C'est exactement ce que propose le pack Vitrine Complet d'aurore.</p>
+          <p>Basée à Aix-en-Provence, j'interviens dans toute la France. Un formulaire de 2 minutes suffit pour recevoir un devis détaillé sous 48h.</p>
         </div>
         <div class="fiche-cta-buttons reveal">
           <a href="/contact/" class="btn btn-aurora btn-lg">Démarrer mon projet →</a>
@@ -380,7 +292,7 @@ const schema = {
       <div class="fiche-nav-inner">
         <a href="/realisations/delphine-millot-massage-brignoles/" class="fiche-nav-prev-link">
           <span class="fiche-nav-label">Réalisation précédente</span>
-          <span class="fiche-nav-titre">← Delphine Millot — Massothérapeute</span>
+          <span class="fiche-nav-titre">← Delphine Millot, Massothérapeute</span>
         </a>
         <div class="fiche-nav-next" aria-label="Pas de projet suivant">
           <span class="fiche-nav-label">Réalisation suivante</span>
@@ -393,15 +305,6 @@ const schema = {
 </BaseLayout>
 
 <style>
-  /* ─── BREADCRUMB BAR ─── */
-  .breadcrumb-bar {
-    padding: 100px 0 0;
-  }
-
-  .breadcrumb-bar .breadcrumb {
-    padding: 16px 0;
-  }
-
   /* ─── HERO FICHE ─── */
   .fiche-hero {
     padding: 32px 0 80px;
@@ -469,141 +372,6 @@ const schema = {
 
   .table-link:hover {
     color: var(--aurora-dark);
-  }
-
-  /* ─── CAPTURE HERO ─── */
-  .fiche-hero-capture {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .capture-browser {
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    border: 1.5px solid var(--gray-100);
-    background: var(--white);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-  }
-
-  .browser-bar {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 10px 14px;
-    background: var(--gray-50);
-    border-bottom: 1px solid var(--gray-100);
-  }
-
-  .browser-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-
-  .browser-dot:first-child  { background: #FF5F57; }
-  .browser-dot:nth-child(2) { background: #FEBC2E; }
-  .browser-dot:nth-child(3) { background: #28C840; }
-
-  .browser-url-bar {
-    flex: 1;
-    height: 22px;
-    background: var(--gray-100);
-    border-radius: 6px;
-    margin-left: 8px;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-  }
-
-  .browser-url-text {
-    font-size: 11px;
-    color: var(--gray-500);
-  }
-
-  .capture-screen {
-    min-height: 280px;
-    padding: 24px;
-  }
-
-  /* Mock UI */
-  .mock-hero { width: 100%; height: 100%; }
-  .mock-nav  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
-
-  .mock-logo {
-    width: 64px;
-    height: 14px;
-    background: rgba(0,0,0,0.15);
-    border-radius: 3px;
-  }
-
-  .mock-nav-links { display: flex; gap: 12px; }
-
-  .mock-link {
-    width: 40px;
-    height: 10px;
-    background: rgba(0,0,0,0.1);
-    border-radius: 3px;
-  }
-
-  .mock-content { display: flex; flex-direction: column; gap: 8px; }
-
-  .mock-eyebrow {
-    width: 120px;
-    height: 8px;
-    background: rgba(139,111,71,0.5);
-    border-radius: 3px;
-    margin-bottom: 4px;
-  }
-
-  .mock-title {
-    height: 20px;
-    background: rgba(44,36,22,0.2);
-    border-radius: 4px;
-    width: 90%;
-  }
-
-  .mock-title-sm {
-    height: 16px;
-    background: rgba(139,111,71,0.4);
-    width: 60%;
-  }
-
-  .mock-sub {
-    height: 8px;
-    background: rgba(0,0,0,0.08);
-    border-radius: 3px;
-    width: 100%;
-  }
-
-  .mock-sub-short { width: 70%; }
-
-  .mock-ctas { display: flex; gap: 8px; margin-top: 8px; }
-
-  .mock-btn { height: 28px; border-radius: 100px; width: 100px; }
-  .mock-btn-dark { background: rgba(44,36,22,0.3); }
-  .mock-btn-outline { background: transparent; border: 1.5px solid rgba(0,0,0,0.15); }
-
-  .capture-mobile {
-    position: absolute;
-    bottom: -20px;
-    right: -20px;
-    width: 80px;
-  }
-
-  .mobile-screen {
-    border-radius: 8px;
-    overflow: hidden;
-    border: 2px solid rgba(0,0,0,0.1);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-  }
-
-  .mobile-content {
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
   }
 
   /* ─── LAYOUT SECTIONS ─── */
@@ -723,48 +491,7 @@ const schema = {
   /* ─── RÉSULTAT ─── */
   .resultat-screens {
     display: flex;
-    gap: 24px;
-    align-items: flex-end;
-  }
-
-  .screen-desktop { flex: 1; }
-  .screen-mobile-wrap { width: 140px; flex-shrink: 0; }
-
-  .screen-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--gray-500);
-    margin-bottom: 10px;
-  }
-
-  .capture-mobile-lg {
-    background: var(--black);
-    border-radius: 20px;
-    padding: 10px 6px 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  }
-
-  .mobile-notch {
-    width: 40px;
-    height: 5px;
-    background: var(--gray-700);
-    border-radius: 4px;
-    margin: 0 auto 8px;
-  }
-
-  .mobile-screen-lg {
-    border-radius: 12px;
-    overflow: hidden;
-    min-height: 180px;
-    padding: 16px 10px;
-  }
-
-  .mobile-content-lg {
-    display: flex;
     flex-direction: column;
-    gap: 6px;
   }
 
   /* Métriques */
@@ -933,22 +660,11 @@ const schema = {
   }
 
   @media (max-width: 768px) {
-    .breadcrumb-bar { padding-top: 80px; }
-
     .fiche-hero { padding: 16px 0 56px; }
 
     .solution-grid { grid-template-columns: 1fr; }
 
     .metrics-row { grid-template-columns: 1fr 1fr; }
-
-    .resultat-screens { flex-direction: column; }
-
-    .screen-mobile-wrap { width: 100%; }
-
-    .capture-mobile-lg {
-      max-width: 200px;
-      margin: 0 auto;
-    }
 
     .temoignage-block { padding: 28px 24px; }
 
@@ -958,8 +674,6 @@ const schema = {
       width: 100%;
       justify-content: center;
     }
-
-    .capture-mobile { display: none; }
 
     .identite-card { padding: 32px 24px; }
   }
@@ -971,33 +685,36 @@ const schema = {
     if (typeof gsap === 'undefined') return;
     // @ts-ignore
     gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
 
     // @ts-ignore
     gsap.timeline({ delay: 0.15 })
       // @ts-ignore
-      .from('.fiche-h1',  { y: 24, opacity: 0, duration: 1.1, ease: 'power2.out' })
+      .fromTo('.fiche-h1', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, ease: 'power2.out' })
       // @ts-ignore
-      .from('.fiche-sub', { y: 16, opacity: 0, duration: 0.9,  ease: 'power2.out' }, '-=0.3')
+      .fromTo('.fiche-sub', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.3')
       // @ts-ignore
-      .from('.client-table',      { y: 16, opacity: 0, duration: 0.9, ease: 'power2.out' }, '-=0.2')
+      .fromTo('.client-table', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2')
       // @ts-ignore
-      .from('.fiche-hero-capture', { x: 24, opacity: 0, duration: 1.2, ease: 'power2.out' }, '-=0.5');
+      .fromTo('.fiche-hero-capture', { x: 24, opacity: 0 }, { x: 0, opacity: 1, duration: 1.2, ease: 'power2.out' }, '-=0.5');
 
     // @ts-ignore
     gsap.utils.toArray('.reveal').forEach((el: any) => {
       // @ts-ignore
-      gsap.from(el, {
+      gsap.fromTo(el, { y: 40, opacity: 0 }, {
+        y: 0, opacity: 1,
         scrollTrigger: { trigger: el, start: 'top 85%' },
-        y: 40, opacity: 0, duration: 1.1, ease: 'power2.out'
+        duration: 1.1, ease: 'power2.out'
       });
     });
 
     // @ts-ignore
     gsap.utils.toArray('.reveal-stagger').forEach((container: any) => {
       // @ts-ignore
-      gsap.from(container.children, {
+      gsap.fromTo(container.children, { y: 24, opacity: 0 }, {
+        y: 0, opacity: 1,
         scrollTrigger: { trigger: container, start: 'top 80%' },
-        y: 24, opacity: 0, stagger: 0.15, duration: 0.55, ease: 'power2.out'
+        stagger: 0.15, duration: 0.55, ease: 'power2.out'
       });
     });
   });

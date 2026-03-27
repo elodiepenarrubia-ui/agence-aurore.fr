@@ -1,0 +1,275 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Création de site web pour auto-entrepreneur",
+  "serviceType": "Création de site web pour auto-entrepreneur",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "areaServed": "France",
+  "description": "Site web professionnel pour auto-entrepreneur, micro-entrepreneur et freelance. Image pro, email professionnel, SEO local. Livré en 2 semaines.",
+  "offers": [
+    { "@type": "Offer", "name": "Pack Starter", "priceCurrency": "EUR", "price": "290" },
+    { "@type": "Offer", "name": "Pack Vitrine", "priceCurrency": "EUR", "price": "690" },
+    { "@type": "Offer", "name": "Pack Pro",     "priceCurrency": "EUR", "price": "1290" },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Un site web vaut-il vraiment l'investissement pour un auto-entrepreneur ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui. Un site professionnel vous donne une crédibilité immédiate, un email @votre-activite.fr et une visibilité sur Google. C'est un investissement qui se rentabilise dès les premiers clients trouvés en ligne." }},
+    { "@type": "Question", "name": "Puis-je avoir un email professionnel @mon-activite.fr ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui, c'est inclus dans toutes les formules. Vous aurez une adresse email professionnelle avec votre nom de domaine, bien plus crédible qu'un @gmail.com." }},
+    { "@type": "Question", "name": "Mon site peut-il évoluer si mon activité grandit ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Absolument. Vous pouvez commencer avec le Pack Starter et ajouter des pages, un blog, un formulaire de contact ou un système de réservation plus tard." }},
+    { "@type": "Question", "name": "Quelle formule choisir pour démarrer ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le Pack Starter à 290 € est idéal pour démarrer : site 3 pages, domaine, emails pro et fiche Google Business. Vous pourrez évoluer vers le Pack Vitrine quand votre activité se développe." }},
+  ],
+};
+---
+
+<BaseLayout
+  title="Création de site web pour auto-entrepreneur | aurore — À partir de 290 €"
+  description="Site web professionnel pour auto-entrepreneur, micro-entrepreneur et freelance. Image pro, email professionnel, SEO local inclus. Livré en 2 semaines. À partir de 290 €."
+  slug="site-web-auto-entrepreneur"
+  schema={[serviceSchema, faqSchema]}
+>
+
+  <!-- ─── HERO ─── -->
+  <section class="lp-hero section-aurora-gradient">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line" aria-hidden="true"></span>
+        Spécial auto-entrepreneurs et freelances
+        <span class="eyebrow-line" aria-hidden="true"></span>
+      </div>
+      <h1 class="lp-h1">
+        Donnez une vraie image pro<br />à votre activité.
+      </h1>
+      <p class="hero-serif-line">Livré en 2 semaines.</p>
+      <p class="lp-sub">
+        Auto-entrepreneur, micro-entrepreneur, freelance — vous avez lancé votre activité. Il est temps d'avoir un site professionnel qui vous ressemble et vous apporte des clients. À partir de 290&nbsp;€.
+      </p>
+      <div class="hero-ctas">
+        <a href="/tarifs/" class="btn btn-primary btn-lg">Voir les tarifs →</a>
+        <a href="/contact/?type=auto-entrepreneur" class="btn btn-outline btn-lg">Demander un devis</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROBLÈME ─── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Le problème</span>
+      <h2 class="section-title reveal">Sans site, vous partez avec un handicap.<br />Avec le bon site, vous jouez dans la cour des pros.</h2>
+      <div class="lp-problems reveal-stagger">
+        <div class="card lp-problem-card">
+          <div class="lp-problem-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D94F00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          </div>
+          <p>Sans site, vous semblez moins sérieux que vos concurrents établis — <strong>vos prospects choisissent quelqu'un d'autre</strong>.</p>
+        </div>
+        <div class="card lp-problem-card">
+          <div class="lp-problem-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D94F00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <p>Votre profil LinkedIn ou Instagram <strong>ne remplace pas un site web professionnel</strong> avec votre propre domaine.</p>
+        </div>
+        <div class="card lp-problem-card">
+          <div class="lp-problem-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D94F00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <p>Créer un site soi-même sur Wix ou WordPress prend du temps et donne souvent <strong>un résultat amateur</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CE QU'AURORE CRÉE ─── -->
+  <section class="section" style="background:var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Ce qu'aurore crée pour vous</span>
+      <h2 class="section-title reveal">Un site pro qui lance votre activité.</h2>
+      <div class="lp-features reveal-stagger">
+        {[
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`, title: "Site professionnel qui inspire confiance", desc: "Un design soigné et moderne qui donne une image pro à votre activité dès le premier regard." },
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`, title: "Votre adresse email @votre-activite.fr", desc: "Adresse email professionnelle incluse — bien plus crédible qu'un @gmail.com pour vos échanges clients." },
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`, title: "Présentation claire de vos services et tarifs", desc: "Vos prestations, tarifs et modalités présentés de manière professionnelle et engageante." },
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`, title: "SEO pour être trouvé par vos futurs clients", desc: "Optimisation on-page pour apparaître dans les résultats Google quand vos prospects cherchent vos services." },
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`, title: "Fiche Google Business", desc: "Créée et configurée pour apparaître sur Google Maps avec votre activité, horaires et coordonnées." },
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`, title: "Livré en 2 semaines sans vous prendre la tête", desc: "Vous n'avez rien à installer ni à configurer. Je m'occupe de tout de A à Z." },
+        ].map(f => (
+          <div class="card lp-feature">
+            <div class="lp-feature-icon" set:html={f.icon} />
+            <h3>{f.title}</h3>
+            <p>{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TÉMOIGNAGES ─── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Ils nous font confiance</span>
+      <h2 class="section-title reveal">Des professionnels satisfaits partout en France.</h2>
+      <div class="lp-testimonials reveal-stagger">
+        <div class="card lp-testimonial-card">
+          <blockquote>
+            <p>« J'ai enfin un site pro qui me représente. Mes clients me prennent au sérieux dès le premier contact. Le meilleur investissement pour mon activité. »</p>
+            <footer><cite>Auto-entrepreneur</cite>, Provence</footer>
+          </blockquote>
+        </div>
+        <div class="card lp-testimonial-card">
+          <blockquote>
+            <p>« Rapide, professionnel, et un résultat qui dépasse mes attentes. Je recommande les yeux fermés. »</p>
+            <footer><cite>Client aurore</cite>, France</footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TARIFS ─── -->
+  <section class="section section-aurora-gradient">
+    <div class="container">
+      <span class="section-label reveal" style="color:var(--aurora);">Tarifs</span>
+      <h2 class="section-title reveal">Des tarifs clairs, sans surprise.</h2>
+      <div class="lp-pricing reveal-stagger">
+        <div class="card lp-price-card">
+          <div class="lp-price-badge">Starter</div>
+          <div class="lp-price">290 <span>€</span></div>
+          <ul class="lp-price-list">
+            <li>Site 3 pages + design responsive</li>
+            <li>Domaine + emails pro</li>
+            <li>Fiche Google Business</li>
+          </ul>
+          <a href="/tarifs/" class="btn btn-outline" style="width:100%;justify-content:center;">Choisir →</a>
+        </div>
+        <div class="card lp-price-card lp-price-card-highlight">
+          <div class="lp-price-badge lp-price-badge-aurora">Vitrine</div>
+          <div class="lp-price">690 <span>€</span></div>
+          <ul class="lp-price-list">
+            <li>Jusqu'à 6 pages + logo</li>
+            <li>SEO on-page + Search Console</li>
+            <li>Formulaire de contact</li>
+          </ul>
+          <a href="/tarifs/" class="btn btn-aurora" style="width:100%;justify-content:center;">Choisir →</a>
+        </div>
+        <div class="card lp-price-card">
+          <div class="lp-price-badge">Pro</div>
+          <div class="lp-price">1 290 <span>€</span></div>
+          <ul class="lp-price-list">
+            <li>Jusqu'à 8 pages + blog + RDV en ligne</li>
+            <li>Automatisation email</li>
+            <li>Espace rédaction autonome</li>
+          </ul>
+          <a href="/tarifs/" class="btn btn-outline" style="width:100%;justify-content:center;">Choisir →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section class="section" id="faq">
+    <div class="container" style="max-width:720px;">
+      <span class="section-label reveal">FAQ</span>
+      <h2 class="section-title reveal">Questions fréquentes.</h2>
+      <div class="faq-list reveal">
+        {faqSchema.mainEntity.map((item: any) => (
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer">{item.acceptedAnswer.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA FINAL ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-section">
+        <h2>Lancez-vous avec une présence digitale professionnelle.</h2>
+        <p>Un formulaire de 2 minutes suffit pour recevoir un devis détaillé sous 48h.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px;">
+          <a href="/contact/?type=auto-entrepreneur" class="btn btn-aurora btn-lg">Demander mon devis gratuit →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .lp-hero { padding: 140px 0 80px; text-align: center; position: relative; overflow: hidden; }
+  .lp-hero > .container { position: relative; z-index: 1; }
+  .lp-h1 { font-family: var(--font-display); font-size: clamp(32px, 5vw, 58px); font-weight: 700; letter-spacing: -0.05em; line-height: 1.08; margin: 20px 0 12px; color: var(--black); }
+  .hero-serif-line { font-family: var(--font-serif); font-style: italic; font-size: clamp(36px, 5.5vw, 64px); color: var(--aurora); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px; }
+  .lp-sub { font-size: clamp(15px, 1.3vw, 18px); line-height: 1.65; max-width: 540px; margin: 0 auto 32px; color: var(--gray-700); }
+  .lp-problems { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+  .lp-problem-card { display: flex; flex-direction: column; gap: 16px; }
+  .lp-problem-card p { font-size: 15px; line-height: 1.65; color: var(--gray-700); }
+  .lp-problem-icon { width: 44px; height: 44px; background: #FFF0E6; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+  .lp-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+  .lp-feature { display: flex; flex-direction: column; gap: 10px; }
+  .lp-feature-icon { width: 44px; height: 44px; background: var(--aurora-pale); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--aurora); }
+  .lp-feature h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; }
+  .lp-feature p { font-size: 14px; line-height: 1.65; color: var(--gray-500); }
+  .lp-testimonials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+  .lp-testimonial-card blockquote p { font-size: 16px; line-height: 1.7; color: var(--gray-700); font-style: italic; margin-bottom: 16px; }
+  .lp-testimonial-card blockquote footer { font-size: 14px; color: var(--gray-500); }
+  .lp-testimonial-card blockquote cite { font-style: normal; font-weight: 600; color: var(--black); }
+  .lp-pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+  .lp-price-card { display: flex; flex-direction: column; gap: 20px; text-align: center; }
+  .lp-price-card-highlight { border-color: var(--aurora); position: relative; }
+  .lp-price-card-highlight::before { content: ''; position: absolute; top: 0; left: 24px; right: 24px; height: 2px; background: linear-gradient(90deg, transparent, var(--aurora), transparent); border-radius: 2px; }
+  .lp-price-badge { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-500); }
+  .lp-price-badge-aurora { color: var(--aurora); }
+  .lp-price { font-family: var(--font-display); font-size: 48px; font-weight: 800; letter-spacing: -0.05em; color: var(--black); line-height: 1; }
+  .lp-price span { font-size: 0.5em; opacity: 0.6; }
+  .lp-price-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .lp-price-list li { font-size: 14px; color: var(--gray-700); line-height: 1.5; padding-left: 20px; position: relative; text-align: left; }
+  .lp-price-list li::before { content: ''; position: absolute; left: 0; top: 7px; width: 8px; height: 8px; border-radius: 50%; background: var(--aurora-pale); border: 1.5px solid var(--aurora); }
+  .faq-list { margin-top: 40px; }
+  .faq-item { border-bottom: 1px solid var(--gray-100); }
+  .faq-question { width: 100%; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; font-size: 16px; font-weight: 600; color: var(--black); cursor: pointer; background: none; border: none; font-family: var(--font-display); transition: color 0.2s ease; }
+  .faq-question:hover { color: var(--aurora); }
+  .faq-icon { width: 28px; height: 28px; border-radius: 50%; background: var(--gray-100); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; color: var(--gray-500); transition: all 0.2s ease; }
+  .faq-item.open .faq-icon { background: var(--aurora-pale); color: var(--aurora); transform: rotate(45deg); }
+  .faq-answer { font-size: 15px; color: var(--gray-700); line-height: 1.7; padding-bottom: 20px; display: none; }
+  .faq-item.open .faq-answer { display: block; }
+  @media (max-width: 1024px) {
+    .lp-problems { grid-template-columns: 1fr; }
+    .lp-pricing { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 768px) {
+    .lp-hero { padding: 100px 0 56px; }
+    .lp-features { grid-template-columns: 1fr; }
+    .lp-testimonials { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap === 'undefined') return; gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
+    // @ts-ignore
+    gsap.timeline({ delay: 0.1 })
+      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
+      .fromTo('.lp-h1', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
+      .fromTo('.hero-serif-line', { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.9, ease: 'power3.out' }, '-=0.4')
+      .fromTo('.lp-sub', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
+      .fromTo('.hero-ctas', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2');
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el: any) => gsap.fromTo(el, { y: 40, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: { trigger: el, start: 'top 85%' }, duration: 1.1, ease: 'power2.out' }));
+    // @ts-ignore
+    gsap.utils.toArray('.reveal-stagger').forEach((c: any) => gsap.fromTo(c.children, { y: 24, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: { trigger: c, start: 'top 80%' }, stagger: 0.15, duration: 0.55, ease: 'power2.out' }));
+  });
+</script>

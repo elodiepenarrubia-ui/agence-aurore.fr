@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const projets = [
   {
     slug:       "delphine-millot-massage-brignoles",
-    titre:      "Delphine Millot — Massothérapeute",
+    titre:      "Delphine Millot, Massothérapeute",
     secteur:    "Bien-être & soins",
     ville:      "Brignoles (83)",
     prestations: ["Site vitrine", "Hébergement GitHub Pages"],
@@ -13,7 +13,7 @@ const projets = [
   },
   {
     slug:       "le-mazarin-conciergerie-aix",
-    titre:      "Le Mazarin — Conciergerie",
+    titre:      "Le Mazarin, Conciergerie",
     secteur:    "Location saisonnière",
     ville:      "Aix-en-Provence (13)",
     prestations: ["Site vitrine", "Identité visuelle", "SEO", "Fiche Google"],
@@ -31,13 +31,13 @@ const itemListSchema = {
     {
       "@type": "CreativeWork",
       "position": 1,
-      "name": "Site web — Delphine Millot, massothérapeute",
+      "name": "Site web, Delphine Millot, massothérapeute",
       "url": "https://agence-aurore.fr/realisations/delphine-millot-massage-brignoles/"
     },
     {
       "@type": "CreativeWork",
       "position": 2,
-      "name": "Site web — Le Mazarin, conciergerie",
+      "name": "Site web, Le Mazarin, conciergerie",
       "url": "https://agence-aurore.fr/realisations/le-mazarin-conciergerie-aix/"
     }
   ]
@@ -45,14 +45,14 @@ const itemListSchema = {
 ---
 
 <BaseLayout
-  title="Nos réalisations — Sites web créés par aurore | Aix-en-Provence"
+  title="Nos réalisations, Sites web créés par aurore | Aix-en-Provence"
   description="Découvrez les sites web, identités visuelles et présences digitales créés par Aurore pour des artisans, professionnels et TPE partout en France."
   slug="realisations"
   schema={itemListSchema}
 >
 
   <!-- ─── HERO ─── -->
-  <section class="real-hero">
+  <section class="real-hero section-aurora-gradient">
     <div class="container">
       <div class="hero-eyebrow">
         <span class="eyebrow-line" aria-hidden="true"></span>
@@ -61,6 +61,10 @@ const itemListSchema = {
       </div>
       <h1 class="real-h1">Des projets concrets,<br /><span class="hero-serif">des résultats réels.</span></h1>
       <p class="real-sub">Chaque site livré est une collaboration étroite avec un professionnel qui avait besoin de se rendre visible. Voici leur histoire.</p>
+      <div class="hero-ctas">
+        <a href="#projets" class="btn btn-primary btn-lg">Voir les projets →</a>
+        <a href="/contact/" class="btn btn-outline btn-lg">Demander un devis</a>
+      </div>
     </div>
   </section>
 
@@ -92,7 +96,7 @@ const itemListSchema = {
   </section>
 
   <!-- ─── GALERIE ─── -->
-  <section class="section">
+  <section class="section" id="projets">
     <div class="container">
       <div class="galerie-grid">
         {projets.map((projet, i) => (
@@ -104,22 +108,12 @@ const itemListSchema = {
               aria-label={`Voir le projet ${projet.titre}`}
               tabindex="-1"
             >
-              <div class="image-placeholder" style={`background: ${projet.couleur};`} aria-hidden="true">
-                <div class="placeholder-browser">
-                  <div class="browser-bar">
-                    <span class="browser-dot"></span>
-                    <span class="browser-dot"></span>
-                    <span class="browser-dot"></span>
-                    <div class="browser-url"></div>
-                  </div>
-                  <div class="browser-content">
-                    <div class="content-line content-line-title"></div>
-                    <div class="content-line"></div>
-                    <div class="content-line content-line-short"></div>
-                    <div class="content-line content-line-btn"></div>
-                  </div>
-                </div>
-              </div>
+              <img
+                src={projet.slug === 'delphine-millot-massage-brignoles' ? '/delphine-1.webp' : '/lemazarin-1.webp'}
+                alt={`Site web ${projet.titre}`}
+                loading="lazy"
+                style={`width:100%;height:100%;object-fit:contain;border-radius:var(--radius-lg);background:var(--gray-50);`}
+              />
               <div class="image-number" aria-hidden="true">0{i + 1}</div>
             </a>
 
@@ -173,10 +167,10 @@ const itemListSchema = {
     <div class="container">
       <div class="cta-section reveal">
         <h2>Votre entreprise mérite une belle présence en ligne.</h2>
-        <p>Parlons de votre projet lors d'un appel gratuit de 30 minutes. Devis sous 48h.</p>
+        <p>Un formulaire de 2 minutes suffit pour recevoir un devis détaillé sous 48h.</p>
         <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
           <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis gratuit →</a>
-          <a href="/tarifs/" class="btn btn-outline btn-lg" style="color:var(--white); border-color:var(--gray-700);">Voir les tarifs</a>
+          <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
         </div>
       </div>
     </div>
@@ -540,31 +534,36 @@ const itemListSchema = {
     if (typeof gsap === 'undefined') return;
     // @ts-ignore
     gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
 
     // @ts-ignore
     gsap.timeline({ delay: 0.1 })
       // @ts-ignore
-      .from('.hero-eyebrow', { y: 16, opacity: 0, duration: 0.9, ease: 'power2.out' })
+      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
       // @ts-ignore
-      .from('.real-h1',      { y: 24, opacity: 0, duration: 1.0, ease: 'power2.out' }, '-=0.25')
+      .fromTo('.real-h1', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
       // @ts-ignore
-      .from('.real-sub',     { y: 16, opacity: 0, duration: 0.9, ease: 'power2.out' }, '-=0.25');
+      .fromTo('.real-sub', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
+      // @ts-ignore
+      .fromTo('.hero-ctas', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2');
 
     // @ts-ignore
     gsap.utils.toArray('.reveal').forEach((el: any) => {
       // @ts-ignore
-      gsap.from(el, {
+      gsap.fromTo(el, { y: 40, opacity: 0 }, {
+        y: 0, opacity: 1,
         scrollTrigger: { trigger: el, start: 'top 85%' },
-        y: 40, opacity: 0, duration: 1.1, ease: 'power2.out'
+        duration: 1.1, ease: 'power2.out'
       });
     });
 
     // @ts-ignore
     gsap.utils.toArray('.reveal-stagger').forEach((container: any) => {
       // @ts-ignore
-      gsap.from(container.children, {
+      gsap.fromTo(container.children, { y: 24, opacity: 0 }, {
+        y: 0, opacity: 1,
         scrollTrigger: { trigger: container, start: 'top 80%' },
-        y: 24, opacity: 0, stagger: 0.15, duration: 0.55, ease: 'power2.out'
+        stagger: 0.15, duration: 0.55, ease: 'power2.out'
       });
     });
   });

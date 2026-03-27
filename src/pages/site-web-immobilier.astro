@@ -1,0 +1,275 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Création de site web pour agent immobilier",
+  "serviceType": "Création de site web pour agent immobilier",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "areaServed": "France",
+  "description": "Site web professionnel pour agent immobilier, mandataire et chasseur de biens. Présentation de biens, capture de leads, SEO local. Livré en 2 semaines.",
+  "offers": [
+    { "@type": "Offer", "name": "Pack Starter", "priceCurrency": "EUR", "price": "290" },
+    { "@type": "Offer", "name": "Pack Vitrine", "priceCurrency": "EUR", "price": "690" },
+    { "@type": "Offer", "name": "Pack Pro",     "priceCurrency": "EUR", "price": "1290" },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Puis-je afficher mes annonces directement sur mon site ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui, une section dédiée à vos biens en vente ou en location peut être intégrée, avec photos, descriptions et formulaire de contact pour chaque bien." }},
+    { "@type": "Question", "name": "Comment capter des mandats exclusifs via mon site ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Grâce à un formulaire de capture qualifiant et du contenu SEO ciblé (estimations, guides vendeurs), vous attirez des propriétaires qui cherchent un agent de confiance." }},
+    { "@type": "Question", "name": "Mon site sera-t-il conforme à la loi Hoguet ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui, le site inclut toutes les mentions obligatoires : numéro de carte professionnelle, garantie financière, médiateur, et conformité RGPD." }},
+    { "@type": "Question", "name": "Comment me différencier des grandes franchises sur Google ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le SEO local vous positionne sur des requêtes ciblées comme « agent immobilier [quartier/ville] » où les grandes franchises sont moins présentes. Votre expertise locale fait la différence." }},
+  ],
+};
+---
+
+<BaseLayout
+  title="Création de site web pour agent immobilier | aurore — À partir de 290 €"
+  description="Site web professionnel pour agent immobilier, mandataire et chasseur de biens. Présentation de biens, capture de leads, SEO local inclus. Livré en 2 semaines. À partir de 290 €."
+  slug="site-web-immobilier"
+  schema={[serviceSchema, faqSchema]}
+>
+
+  <!-- ─── HERO ─── -->
+  <section class="lp-hero section-aurora-gradient">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line" aria-hidden="true"></span>
+        Spécial agents immobiliers et mandataires
+        <span class="eyebrow-line" aria-hidden="true"></span>
+      </div>
+      <h1 class="lp-h1">
+        Vendez plus de biens avec<br />un site qui convertit.
+      </h1>
+      <p class="hero-serif-line">Livré en 2 semaines.</p>
+      <p class="lp-sub">
+        Agent immobilier, mandataire, chasseur de biens — votre site web est votre meilleur outil de prospection. Présentez vos biens, capturez des leads, développez votre portefeuille. À partir de 290&nbsp;€.
+      </p>
+      <div class="hero-ctas">
+        <a href="/tarifs/" class="btn btn-primary btn-lg">Voir les tarifs →</a>
+        <a href="/contact/?type=immobilier" class="btn btn-outline btn-lg">Demander un devis</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROBLÈME ─── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Le problème</span>
+      <h2 class="section-title reveal">Sans site, vous êtes un agent parmi d'autres.<br />Avec le bon site, vous devenez la référence locale.</h2>
+      <div class="lp-problems reveal-stagger">
+        <div class="card lp-problem-card">
+          <div class="lp-problem-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D94F00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          </div>
+          <p>Les portails comme SeLoger et LeBonCoin vous rendent dépendant et invisible en tant qu'agent — <strong>votre propre site vous différencie</strong>.</p>
+        </div>
+        <div class="card lp-problem-card">
+          <div class="lp-problem-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D94F00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <p>Sans site professionnel, les vendeurs et acquéreurs <strong>choisissent un agent qui paraît plus établi</strong>.</p>
+        </div>
+        <div class="card lp-problem-card">
+          <div class="lp-problem-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D94F00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <p>Gérer votre image uniquement sur les réseaux sociaux <strong>ne suffit pas pour inspirer confiance aux clients patrimoniaux</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CE QU'AURORE CRÉE ─── -->
+  <section class="section" style="background:var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Ce qu'aurore crée pour vous</span>
+      <h2 class="section-title reveal">Un site qui génère des mandats.</h2>
+      <div class="lp-features reveal-stagger">
+        {[
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`, title: "Présentation de vos biens en vente", desc: "Section dédiée à vos annonces avec photos, descriptions et formulaire de contact pour chaque bien." },
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`, title: "Formulaire de capture de leads", desc: "Captez des vendeurs et acquéreurs qualifiés directement depuis votre site avec des formulaires ciblés." },
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`, title: "Présentation de votre secteur d'expertise", desc: "Quartiers, villes, types de biens — montrez que vous êtes l'expert local incontournable." },
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`, title: "SEO local « agent immobilier [votre ville] »", desc: "Optimisation on-page pour apparaître dans les résultats Google quand vos clients cherchent un agent." },
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`, title: "Fiche Google Business", desc: "Créée et configurée pour apparaître sur Google Maps avec votre zone d'intervention et avis clients." },
+          { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>`, title: "Témoignages clients", desc: "Section dédiée aux avis de vos clients satisfaits pour renforcer la confiance des nouveaux prospects." },
+        ].map(f => (
+          <div class="card lp-feature">
+            <div class="lp-feature-icon" set:html={f.icon} />
+            <h3>{f.title}</h3>
+            <p>{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TÉMOIGNAGES ─── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Ils nous font confiance</span>
+      <h2 class="section-title reveal">Des professionnels satisfaits partout en France.</h2>
+      <div class="lp-testimonials reveal-stagger">
+        <div class="card lp-testimonial-card">
+          <blockquote>
+            <p>« Depuis que j'ai mon site, je reçois des demandes d'estimation directement. C'est devenu mon meilleur outil de prospection. »</p>
+            <footer><cite>Agent immobilier</cite>, Aix-en-Provence</footer>
+          </blockquote>
+        </div>
+        <div class="card lp-testimonial-card">
+          <blockquote>
+            <p>« Rapide, professionnel, et un résultat qui dépasse mes attentes. Je recommande les yeux fermés. »</p>
+            <footer><cite>Client aurore</cite>, Provence</footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TARIFS ─── -->
+  <section class="section section-aurora-gradient">
+    <div class="container">
+      <span class="section-label reveal" style="color:var(--aurora);">Tarifs</span>
+      <h2 class="section-title reveal">Des tarifs clairs, sans surprise.</h2>
+      <div class="lp-pricing reveal-stagger">
+        <div class="card lp-price-card">
+          <div class="lp-price-badge">Starter</div>
+          <div class="lp-price">290 <span>€</span></div>
+          <ul class="lp-price-list">
+            <li>Site 3 pages + design responsive</li>
+            <li>Domaine + emails pro</li>
+            <li>Fiche Google Business</li>
+          </ul>
+          <a href="/tarifs/" class="btn btn-outline" style="width:100%;justify-content:center;">Choisir →</a>
+        </div>
+        <div class="card lp-price-card lp-price-card-highlight">
+          <div class="lp-price-badge lp-price-badge-aurora">Vitrine</div>
+          <div class="lp-price">690 <span>€</span></div>
+          <ul class="lp-price-list">
+            <li>Jusqu'à 6 pages + logo</li>
+            <li>SEO on-page + Search Console</li>
+            <li>Formulaire de contact</li>
+          </ul>
+          <a href="/tarifs/" class="btn btn-aurora" style="width:100%;justify-content:center;">Choisir →</a>
+        </div>
+        <div class="card lp-price-card">
+          <div class="lp-price-badge">Pro</div>
+          <div class="lp-price">1 290 <span>€</span></div>
+          <ul class="lp-price-list">
+            <li>Jusqu'à 8 pages + blog + annonces</li>
+            <li>Automatisation email</li>
+            <li>Espace rédaction autonome</li>
+          </ul>
+          <a href="/tarifs/" class="btn btn-outline" style="width:100%;justify-content:center;">Choisir →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section class="section" id="faq">
+    <div class="container" style="max-width:720px;">
+      <span class="section-label reveal">FAQ</span>
+      <h2 class="section-title reveal">Questions fréquentes.</h2>
+      <div class="faq-list reveal">
+        {faqSchema.mainEntity.map((item: any) => (
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer">{item.acceptedAnswer.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA FINAL ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-section">
+        <h2>Votre site web, votre meilleur apporteur d'affaires.</h2>
+        <p>Un formulaire de 2 minutes suffit pour recevoir un devis détaillé sous 48h.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px;">
+          <a href="/contact/?type=immobilier" class="btn btn-aurora btn-lg">Demander mon devis gratuit →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .lp-hero { padding: 140px 0 80px; text-align: center; position: relative; overflow: hidden; }
+  .lp-hero > .container { position: relative; z-index: 1; }
+  .lp-h1 { font-family: var(--font-display); font-size: clamp(32px, 5vw, 58px); font-weight: 700; letter-spacing: -0.05em; line-height: 1.08; margin: 20px 0 12px; color: var(--black); }
+  .hero-serif-line { font-family: var(--font-serif); font-style: italic; font-size: clamp(36px, 5.5vw, 64px); color: var(--aurora); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px; }
+  .lp-sub { font-size: clamp(15px, 1.3vw, 18px); line-height: 1.65; max-width: 540px; margin: 0 auto 32px; color: var(--gray-700); }
+  .lp-problems { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+  .lp-problem-card { display: flex; flex-direction: column; gap: 16px; }
+  .lp-problem-card p { font-size: 15px; line-height: 1.65; color: var(--gray-700); }
+  .lp-problem-icon { width: 44px; height: 44px; background: #FFF0E6; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+  .lp-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+  .lp-feature { display: flex; flex-direction: column; gap: 10px; }
+  .lp-feature-icon { width: 44px; height: 44px; background: var(--aurora-pale); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--aurora); }
+  .lp-feature h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; }
+  .lp-feature p { font-size: 14px; line-height: 1.65; color: var(--gray-500); }
+  .lp-testimonials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+  .lp-testimonial-card blockquote p { font-size: 16px; line-height: 1.7; color: var(--gray-700); font-style: italic; margin-bottom: 16px; }
+  .lp-testimonial-card blockquote footer { font-size: 14px; color: var(--gray-500); }
+  .lp-testimonial-card blockquote cite { font-style: normal; font-weight: 600; color: var(--black); }
+  .lp-pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+  .lp-price-card { display: flex; flex-direction: column; gap: 20px; text-align: center; }
+  .lp-price-card-highlight { border-color: var(--aurora); position: relative; }
+  .lp-price-card-highlight::before { content: ''; position: absolute; top: 0; left: 24px; right: 24px; height: 2px; background: linear-gradient(90deg, transparent, var(--aurora), transparent); border-radius: 2px; }
+  .lp-price-badge { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-500); }
+  .lp-price-badge-aurora { color: var(--aurora); }
+  .lp-price { font-family: var(--font-display); font-size: 48px; font-weight: 800; letter-spacing: -0.05em; color: var(--black); line-height: 1; }
+  .lp-price span { font-size: 0.5em; opacity: 0.6; }
+  .lp-price-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .lp-price-list li { font-size: 14px; color: var(--gray-700); line-height: 1.5; padding-left: 20px; position: relative; text-align: left; }
+  .lp-price-list li::before { content: ''; position: absolute; left: 0; top: 7px; width: 8px; height: 8px; border-radius: 50%; background: var(--aurora-pale); border: 1.5px solid var(--aurora); }
+  .faq-list { margin-top: 40px; }
+  .faq-item { border-bottom: 1px solid var(--gray-100); }
+  .faq-question { width: 100%; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; font-size: 16px; font-weight: 600; color: var(--black); cursor: pointer; background: none; border: none; font-family: var(--font-display); transition: color 0.2s ease; }
+  .faq-question:hover { color: var(--aurora); }
+  .faq-icon { width: 28px; height: 28px; border-radius: 50%; background: var(--gray-100); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; color: var(--gray-500); transition: all 0.2s ease; }
+  .faq-item.open .faq-icon { background: var(--aurora-pale); color: var(--aurora); transform: rotate(45deg); }
+  .faq-answer { font-size: 15px; color: var(--gray-700); line-height: 1.7; padding-bottom: 20px; display: none; }
+  .faq-item.open .faq-answer { display: block; }
+  @media (max-width: 1024px) {
+    .lp-problems { grid-template-columns: 1fr; }
+    .lp-pricing { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 768px) {
+    .lp-hero { padding: 100px 0 56px; }
+    .lp-features { grid-template-columns: 1fr; }
+    .lp-testimonials { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap === 'undefined') return; gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
+    // @ts-ignore
+    gsap.timeline({ delay: 0.1 })
+      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
+      .fromTo('.lp-h1', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
+      .fromTo('.hero-serif-line', { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.9, ease: 'power3.out' }, '-=0.4')
+      .fromTo('.lp-sub', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
+      .fromTo('.hero-ctas', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2');
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el: any) => gsap.fromTo(el, { y: 40, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: { trigger: el, start: 'top 85%' }, duration: 1.1, ease: 'power2.out' }));
+    // @ts-ignore
+    gsap.utils.toArray('.reveal-stagger').forEach((c: any) => gsap.fromTo(c.children, { y: 24, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: { trigger: c, start: 'top 80%' }, stagger: 0.15, duration: 0.55, ease: 'power2.out' }));
+  });
+</script>

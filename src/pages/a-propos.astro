@@ -35,12 +35,12 @@ const valeurs = [
   },
   {
     titre: "Livraison clé en main",
-    desc:  "Domaine, hébergement, emails, SEO, Google Business — tout est configuré et opérationnel le jour de la livraison.",
+    desc:  "Domaine, hébergement, emails, SEO, Google Business, tout est configuré et opérationnel le jour de la livraison.",
     icon:  `<path d="M21 10H3"/><path d="M21 6H3"/><path d="M21 14H3"/><path d="M21 18H3"/>`,
   },
   {
     titre: "Autonomie du client",
-    desc:  "Vous repartez avec les clés. Formation incluse dans les packs Autonome, documentation fournie, accès à votre site garanti.",
+    desc:  "Vous repartez avec les clés. Formation vidéo incluse dans toutes les formules, documentation fournie, accès à votre site garanti.",
     icon:  `<circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>`,
   },
   {
@@ -52,7 +52,7 @@ const valeurs = [
 ---
 
 <BaseLayout
-  title="À propos d'Élodie — Fondatrice d'aurore | Aix-en-Provence"
+  title="À propos d'Élodie, Fondatrice d'aurore | Aix-en-Provence"
   description="Élodie, fondatrice d'Aurore, crée des présences digitales clé en main pour les TPE. Ancienne gérante de conciergerie, elle comprend vos besoins de l'intérieur."
   slug="a-propos"
   schema={personSchema}
@@ -72,7 +72,7 @@ const valeurs = [
       </h1>
       <p class="apropos-sub">
         Je m'appelle Élodie. Je crée des présences digitales clé en main pour les professionnels et TPE
-        qui veulent exister en ligne — sans jargon, sans délais interminables, sans frais cachés.
+        qui veulent exister en ligne, sans jargon, sans délais interminables, sans frais cachés.
       </p>
     </div>
   </section>
@@ -83,15 +83,7 @@ const valeurs = [
       <div class="apropos-grid reveal">
         <!-- Photo placeholder -->
         <div class="photo-col">
-          <div class="photo-placeholder" role="img" aria-label="Photo d'Élodie, fondatrice d'Aurore, basée à Aix-en-Provence">
-            <div class="photo-inner">
-              <div class="photo-initiales" aria-hidden="true">É</div>
-              <div class="photo-caption">
-                <span class="photo-nom">Élodie</span>
-                <span class="photo-lieu">Aix-en-Provence</span>
-              </div>
-            </div>
-          </div>
+          <img src="/elodie.webp" alt="Élodie, fondatrice d'Aurore, agence web à Aix-en-Provence" width="480" height="600" loading="eager" style="width:100%;border-radius:var(--radius-lg);object-fit:cover;aspect-ratio:3/4;" />
           <div class="photo-badge">
             <span class="badge badge-aurora">Fondatrice · Aurore</span>
           </div>
@@ -116,7 +108,7 @@ const valeurs = [
             </p>
             <p>
               J'ai créé aurore pour combler ce manque. Une offre transparente, des délais réalistes,
-              et une vraie relation de confiance avec chaque client — parce que je sais ce que c'est
+              et une vraie relation de confiance avec chaque client, parce que je sais ce que c'est
               d'être de l'autre côté.
             </p>
           </div>
@@ -183,7 +175,7 @@ const valeurs = [
             <div class="timeline-content">
               <div class="timeline-date">Aujourd'hui</div>
               <h3 class="timeline-titre">Sites livrés, clients autonomes</h3>
-              <p>Des professionnels du bien-être aux conciergeries, en passant par les artisans — chaque projet est unique, chaque client repart avec une présence dont il est fier.</p>
+              <p>Des professionnels du bien-être aux conciergeries, en passant par les artisans, chaque projet est unique, chaque client repart avec une présence dont il est fier.</p>
             </div>
           </div>
         </div>
@@ -234,7 +226,7 @@ const valeurs = [
               ["Délai moyen 2–4 mois",                    "Livraison en 2 semaines"],
               ["Frais d'hébergement 20–50 €/mois",        "Hébergement gratuit (GitHub Pages)"],
               ["Chef de projet + développeur = surcoût",  "Un seul interlocuteur, du brief à la livraison"],
-              ["Vous dépendez d'eux pour modifier",       "Vous repartez autonome, CMS inclus"],
+              ["Vous dépendez d'eux pour modifier",       "Vous repartez autonome, rédaction incluse"],
               ["Aucune expérience client des TPE",        "J'ai vécu vos problèmes de l'intérieur"],
             ].map(([them, us]) => (
               <>
@@ -262,7 +254,7 @@ const valeurs = [
           <span class="section-label">Localisation</span>
           <h2 class="section-title">Basée à Aix-en-Provence,<br />j'interviens partout en France.</h2>
           <p class="section-subtitle">
-            Je travaille en remote avec tous mes clients — un appel suffit pour démarrer.
+            Je travaille en remote avec tous mes clients — un formulaire de 2 minutes suffit pour démarrer.
             Que vous soyez à Marseille, Lyon, Paris ou Brignoles, la distance ne change rien
             à la qualité du résultat.
           </p>
@@ -294,7 +286,7 @@ const valeurs = [
     <div class="container">
       <div class="cta-section reveal">
         <h2>Vous avez un projet en tête ?</h2>
-        <p>Parlons-en lors d'un appel gratuit de 30 minutes. Je vous dis honnêtement si je peux vous aider et comment.</p>
+        <p>Un formulaire de 2 minutes suffit pour recevoir un devis détaillé sous 48h. Je vous dis honnêtement si je peux vous aider et comment.</p>
         <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
           <a href="/contact/" class="btn btn-aurora btn-lg">Prendre contact →</a>
           <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
@@ -344,60 +336,6 @@ const valeurs = [
     flex-direction: column;
     align-items: center;
     gap: 16px;
-  }
-
-  .photo-placeholder {
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    background: linear-gradient(145deg, var(--aurora-pale) 0%, #FFE4CC 50%, var(--aurora-pale) 100%);
-    border-radius: var(--radius-xl);
-    border: 1.5px solid rgba(255, 107, 26, 0.15);
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .photo-inner {
-    width: 100%;
-    padding: 24px;
-    background: linear-gradient(to top, rgba(255,107,26,0.12), transparent);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .photo-initiales {
-    width: 80px;
-    height: 80px;
-    background: var(--aurora);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-
-  .photo-nom {
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--black);
-    display: block;
-    text-align: center;
-  }
-
-  .photo-lieu {
-    font-size: 13px;
-    color: var(--gray-500);
-    display: block;
-    text-align: center;
   }
 
   /* Bio */
@@ -699,11 +637,6 @@ const valeurs = [
       gap: 40px;
     }
 
-    .photo-placeholder {
-      max-width: 300px;
-      margin: 0 auto;
-    }
-
     .bio-facts {
       gap: 20px;
     }
@@ -738,31 +671,34 @@ const valeurs = [
     if (typeof gsap === 'undefined') return;
     // @ts-ignore
     gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
 
     // @ts-ignore
     gsap.timeline({ delay: 0.1 })
       // @ts-ignore
-      .from('.hero-eyebrow', { y: 16, opacity: 0, duration: 0.9, ease: 'power2.out' })
+      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
       // @ts-ignore
-      .from('.apropos-h1',   { y: 24, opacity: 0, duration: 1.0, ease: 'power2.out' }, '-=0.25')
+      .fromTo('.apropos-h1',   { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
       // @ts-ignore
-      .from('.apropos-sub',  { y: 16, opacity: 0, duration: 0.9, ease: 'power2.out' }, '-=0.25');
+      .fromTo('.apropos-sub',  { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25');
 
     // @ts-ignore
     gsap.utils.toArray('.reveal').forEach((el: any) => {
       // @ts-ignore
-      gsap.from(el, {
+      gsap.fromTo(el, { y: 40, opacity: 0 }, {
+        y: 0, opacity: 1,
         scrollTrigger: { trigger: el, start: 'top 85%' },
-        y: 40, opacity: 0, duration: 1.1, ease: 'power2.out'
+        duration: 1.1, ease: 'power2.out'
       });
     });
 
     // @ts-ignore
     gsap.utils.toArray('.reveal-stagger').forEach((container: any) => {
       // @ts-ignore
-      gsap.from(container.children, {
+      gsap.fromTo(container.children, { y: 24, opacity: 0 }, {
+        y: 0, opacity: 1,
         scrollTrigger: { trigger: container, start: 'top 80%' },
-        y: 24, opacity: 0, stagger: 0.15, duration: 0.55, ease: 'power2.out'
+        stagger: 0.15, duration: 0.55, ease: 'power2.out'
       });
     });
   });

@@ -33,24 +33,27 @@
 }
 
 .btn-primary {
-  background: var(--black);
+  background: var(--aurora);
   color: var(--white);
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-primary:hover {
-  background: var(--gray-700);
-  transform: translateY(-1px);
+  transform: scale(1.04);
+  box-shadow: 0 4px 16px rgba(255, 107, 26, 0.35);
 }
 
 .btn-aurora {
   background: var(--aurora);
-  color: var(--white);
+  color: #FFFFFF;
   font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-aurora:hover {
-  background: var(--aurora-dark);
-  transform: translateY(-1px);
+  transform: scale(1.04);
+  box-shadow: 0 4px 16px rgba(255, 107, 26, 0.35);
 }
 
 .btn-outline {
@@ -61,6 +64,7 @@
 
 .btn-outline:hover {
   border-color: var(--black);
+  transform: scale(1.04);
 }
 
 .btn-ghost {
@@ -70,6 +74,7 @@
 
 .btn-ghost:hover {
   background: var(--gray-300);
+  transform: scale(1.04);
 }
 
 .btn-link {
@@ -90,12 +95,14 @@
   border: 1.5px solid var(--gray-100);
   border-radius: var(--radius-lg);
   padding: 28px 32px;
-  transition: var(--transition);
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
 }
 
 .card-sm {
@@ -164,14 +171,14 @@
 .service-card p {
   font-size: 14px;
   line-height: 1.65;
-  color: var(--gray-500);
+  color: #4A4A4A;
   flex: 1;
 }
 
 .service-card-link {
   font-size: 13px;
   font-weight: 600;
-  color: var(--aurora);
+  color: #C2510A;
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -699,18 +706,8 @@
 /* Note : les styles de base .nav-links mobile sont dans global.css.
    Ici on ajoute l'animation d'ouverture et les styles de liens. */
 @media (max-width: 768px) {
-  .nav-links {
-    opacity: 0;
-    transform: translateY(-8px);
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-  }
-
   .nav-links.open {
     display: flex;
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: all;
   }
 
   .nav-links.open li {
@@ -718,9 +715,11 @@
   }
 
   .nav-links.open a {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
-    padding: 12px 0;
+    padding: 12px 24px;
+    width: 100%;
+    text-align: center;
     display: block;
     border-bottom: 1px solid var(--gray-100);
   }
@@ -729,5 +728,80 @@
 @media (max-width: 480px) {
   .card {
     padding: 20px 20px;
+  }
+}
+
+/* ─── BANDEAU COOKIES RGPD ─── */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: var(--white);
+  border-top: 1px solid var(--gray-100);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.cookie-banner-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.cookie-banner-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--gray-700);
+  margin: 0;
+  flex: 1;
+}
+
+.cookie-banner-text a {
+  color: var(--aurora-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cookie-banner-text a:hover {
+  color: var(--aurora-dark);
+}
+
+.cookie-banner-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Footer "Gérer les cookies" */
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-sep {
+  color: var(--gray-300);
+}
+
+@media (max-width: 768px) {
+  .cookie-banner-inner {
+    flex-direction: column;
+    padding: 20px 24px;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .cookie-banner-actions {
+    flex-direction: column;
+  }
+
+  .cookie-banner-actions .btn {
+    width: 100%;
+    justify-content: center;
   }
 }

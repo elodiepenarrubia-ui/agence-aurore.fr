@@ -1,0 +1,562 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Agence web, freelance ou aurore : quel prestataire choisir en 2026 ?",
+  "description": "Agence à 5000€, freelance WordPress à 1500€, grande plateforme à abonnement. Comparatif honnête pour choisir le bon prestataire web sans se faire avoir.",
+  "author": { "@type": "Person", "name": "Élodie", "jobTitle": "Fondatrice d'Aurore" },
+  "publisher": { "@type": "Organization", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "datePublished": "2026-03-26",
+  "url": "https://agence-aurore.fr/alternatives-agences/"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Une agence web est-elle toujours meilleure qu'un indépendant ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pas nécessairement. La qualité dépend de l'équipe, pas de la structure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que vaut vraiment un site à 299€ sur 1&1 ou Yello ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ces sites sont des templates non personnalisés. Vous louez une présence en ligne sans en être propriétaire."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi aurore est moins cher qu'une agence pour un résultat similaire ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pas de locaux, pas d'équipe commerciale, pas d'intermédiaire. Vous payez uniquement le travail de création."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment choisir entre aurore et un freelance WordPress ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si vous voulez zéro maintenance, zéro hébergement et SEO inclus d'emblée, aurore est plus adapté. Un freelance WordPress vous demandera de gérer l'hébergement et les mises à jour vous-même."
+      }
+    }
+  ]
+};
+
+const comparatif = [
+  { critere: "Prix création",           agence: "3 000–15 000 €",       freelance: "800–3 000 €",        ionos: "0 € puis abonnement",     yello: "Abonnement 50–150 €/mois",  aurore: "290–1 290 €" },
+  { critere: "Hébergement",             agence: "20–50 €/mois",         freelance: "10–20 €/mois",       ionos: "Inclus abonnement",        yello: "Inclus abonnement",         aurore: "0 € à vie" },
+  { critere: "Délai",                   agence: "2–6 mois",             freelance: "1–3 mois",           ionos: "Immédiat",                 yello: "Immédiat",                  aurore: "2 semaines" },
+  { critere: "Interlocuteur",           agence: "Plusieurs",            freelance: "Un",                 ionos: "Support anonyme",          yello: "Support anonyme",           aurore: "Une seule personne" },
+  { critere: "Personnalisation",        agence: "Totale",               freelance: "Partielle",          ionos: "Templates",                yello: "Templates",                 aurore: "Totale" },
+  { critere: "SEO inclus",             agence: "Souvent en option",    freelance: "Basique",            ionos: "Basique",                  yello: "Basique",                   aurore: "Complet inclus" },
+  { critere: "Propriété du site",       agence: "Oui",                  freelance: "Oui",                ionos: "Non",                      yello: "Non",                       aurore: "Oui" },
+  { critere: "Formation incluse",       agence: "Rarement",             freelance: "Rarement",           ionos: "Non",                      yello: "Non",                       aurore: "Vidéo incluse" },
+  { critere: "Prix connu dès le début", agence: "Rarement",             freelance: "Parfois",            ionos: "Oui",                      yello: "Oui",                       aurore: "Toujours" },
+];
+
+const revelations = [
+  {
+    titre: "Agences web",
+    desc: "Les agences facturent des équipes entières — chef de projet, designer, développeur, commercial. Vous payez leur structure, pas uniquement votre site.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9h.01"/><path d="M9 13h.01"/><path d="M9 17h.01"/></svg>`
+  },
+  {
+    titre: "Freelances WordPress",
+    desc: "Un freelance WordPress livre un site. Mais qui s'occupe des mises à jour, des failles de sécurité, des plugins qui cassent à chaque mise à jour de WordPress ?",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`
+  },
+  {
+    titre: "1&1 et Yello",
+    desc: "Ces plateformes vous louent un site. Le jour où vous arrêtez de payer, votre site disparaît. Vous n'êtes pas propriétaire — vous êtes locataire.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
+  },
+  {
+    titre: "aurore",
+    desc: "Un seul interlocuteur, du brief à la livraison. Tarifs affichés, délais tenus, site qui vous appartient à 100 %. Pas de structure à financer, pas d'intermédiaire.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+    highlighted: true
+  },
+];
+
+const recommandations = [
+  {
+    titre: "Choisissez une agence si",
+    points: ["Budget +5 000 €", "Projet complexe e-commerce", "Équipe technique interne"],
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>`
+  },
+  {
+    titre: "Choisissez un freelance si",
+    points: ["Budget 1 000–2 000 €", "Projet simple", "Vous aimez gérer la technique"],
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>`
+  },
+  {
+    titre: "Choisissez 1&1 / Yello si",
+    points: ["Budget zéro", "Site temporaire", "Vous acceptez de ne pas être propriétaire"],
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`
+  },
+  {
+    titre: "Choisissez aurore si",
+    points: ["Budget 290–1 290 €", "Vous voulez du clé en main", "Vous voulez être propriétaire", "Vous avez besoin de SEO local inclus"],
+    highlighted: true,
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`
+  },
+];
+---
+
+<BaseLayout
+  title="Agence web, freelance ou aurore : quel prestataire choisir en 2026 ?"
+  description="Agence à 5000€, freelance WordPress à 1500€, grande plateforme à abonnement. Comparatif honnête pour choisir le bon prestataire web sans se faire avoir."
+  slug="alternatives-agences"
+  schema={[articleSchema, faqSchema]}
+>
+
+  <!-- ─── HERO ─── -->
+  <section class="ag-hero section-aurora-gradient">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line" aria-hidden="true"></span>
+        Comparatif prestataires web
+        <span class="eyebrow-line" aria-hidden="true"></span>
+      </div>
+      <h1 class="ag-h1">Agence, freelance ou aurore :<br />qui choisir pour votre site ?</h1>
+      <p class="hero-serif">Le comparatif que personne ne fait.</p>
+      <p class="ag-sub">Agence web à 5 000 €, freelance WordPress, grande plateforme à abonnement ou aurore à 690 € clé en main. Voici les vraies différences — sans langue de bois.</p>
+      <div class="hero-ctas">
+        <a href="/tarifs/" class="btn btn-primary btn-lg">Voir les tarifs aurore →</a>
+        <a href="/contact/" class="btn btn-outline btn-lg">Demander un devis</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TABLEAU COMPARATIF 5 COLONNES ─── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Tous les prestataires, côte à côte</span>
+      <h2 class="section-title reveal">Le comparatif complet — sans langue de bois.</h2>
+      <p class="section-subtitle reveal">5 prestataires, 9 critères, zéro bullshit.</p>
+
+      <div class="comparatif-table reveal" style="margin-top: 48px;">
+        <!-- En-tête -->
+        <div class="comparatif-row comparatif-header">
+          <div class="comparatif-cell comparatif-critere"></div>
+          <div class="comparatif-cell">Agence web</div>
+          <div class="comparatif-cell">Freelance WP</div>
+          <div class="comparatif-cell">1&1</div>
+          <div class="comparatif-cell">Yello</div>
+          <div class="comparatif-cell comparatif-col-aurore">aurore</div>
+        </div>
+        <!-- Lignes -->
+        {comparatif.map(row => (
+          <div class="comparatif-row">
+            <div class="comparatif-cell comparatif-critere">{row.critere}</div>
+            <div class="comparatif-cell">{row.agence}</div>
+            <div class="comparatif-cell">{row.freelance}</div>
+            <div class="comparatif-cell">{row.ionos}</div>
+            <div class="comparatif-cell">{row.yello}</div>
+            <div class="comparatif-cell comparatif-col-aurore">
+              <span class="comparatif-icon comparatif-icon-aurore" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 4" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              {row.aurore}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CE QUE CHAQUE PRESTATAIRE NE DIT PAS ─── -->
+  <section class="section" style="background: var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Ce que chaque prestataire ne vous dit pas</span>
+      <h2 class="section-title reveal">Les vérités que personne ne met<br />sur sa page d'accueil.</h2>
+
+      <div class="revelations-grid reveal" style="margin-top: 48px;">
+        {revelations.map(item => (
+          <div class:list={["revelation-card", "card", { "card-aurora": item.highlighted }]}>
+            <div class="revelation-icon" set:html={item.icon} />
+            <h3 class="revelation-titre">{item.titre}</h3>
+            <p class="revelation-desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── POUR QUEL PROFIL ─── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Pour quel profil choisir quoi ?</span>
+      <h2 class="section-title reveal">Le bon prestataire selon votre situation.</h2>
+
+      <div class="reco-grid reveal" style="margin-top: 48px;">
+        {recommandations.map(item => (
+          <div class:list={["reco-card", "card", { "card-aurora": item.highlighted }]}>
+            <div class="reco-icon" set:html={item.icon} />
+            <h3 class="reco-titre">{item.titre}</h3>
+            <ul class="reco-points">
+              {item.points.map(point => (
+                <li>{point}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section class="section" style="background: var(--gray-50);">
+    <div class="container" style="max-width: 720px;">
+      <span class="section-label reveal">Questions fréquentes</span>
+      <h2 class="section-title reveal">Choisir son prestataire web : vos questions.</h2>
+
+      <div style="margin-top: 40px;" class="reveal">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Une agence web est-elle toujours meilleure qu'un indépendant ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Pas nécessairement. La qualité dépend de l'équipe, pas de la structure. Une agence vous facture ses locaux, son commercial et son chef de projet en plus du travail de création.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Que vaut vraiment un site à 299 € sur 1&1 ou Yello ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Ces sites sont des templates non personnalisés. Vous louez une présence en ligne sans en être propriétaire. Le jour où vous arrêtez de payer, tout disparaît.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Pourquoi aurore est moins cher qu'une agence pour un résultat similaire ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Pas de locaux, pas d'équipe commerciale, pas d'intermédiaire. Vous payez uniquement le travail de création. Le résultat est professionnel, le prix est juste.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Comment choisir entre aurore et un freelance WordPress ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Si vous voulez zéro maintenance, zéro hébergement et SEO inclus d'emblée, aurore est plus adapté. Un freelance WordPress vous demandera de gérer l'hébergement et les mises à jour vous-même.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA FINAL ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-section reveal">
+        <h2>Transparent, clé en main, et vous êtes propriétaire.</h2>
+        <p>Un seul interlocuteur. Un prix affiché. Un site qui vous appartient pour toujours.</p>
+        <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis gratuit →</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ─── HERO ─── */
+  .ag-hero {
+    padding: 160px 0 80px;
+    text-align: center;
+  }
+
+  .ag-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    color: var(--black);
+    margin: 20px 0 0;
+  }
+
+  .ag-hero .hero-serif {
+    color: var(--aurora);
+    margin-top: 8px;
+    margin-bottom: 0;
+  }
+
+  .ag-sub {
+    font-size: clamp(15px, 1.3vw, 18px);
+    color: var(--gray-500);
+    line-height: 1.65;
+    max-width: 600px;
+    margin: 20px auto 0;
+  }
+
+  /* ─── TABLEAU COMPARATIF 5 COLONNES ─── */
+  .comparatif-table {
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .comparatif-row {
+    display: grid;
+    grid-template-columns: 170px repeat(5, 1fr);
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .comparatif-row:last-child {
+    border-bottom: none;
+  }
+
+  .comparatif-header {
+    background: var(--gray-50);
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .comparatif-header .comparatif-col-aurore {
+    color: var(--aurora);
+  }
+
+  .comparatif-cell {
+    padding: 12px 14px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.4;
+    border-left: 1px solid var(--gray-100);
+  }
+
+  .comparatif-cell:first-child {
+    border-left: none;
+  }
+
+  .comparatif-critere {
+    font-weight: 600;
+    color: var(--black);
+    background: var(--gray-50);
+  }
+
+  .comparatif-col-aurore {
+    background: var(--aurora-pale);
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  .comparatif-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--aurora-pale);
+  }
+
+  /* ─── RÉVÉLATIONS ─── */
+  .revelations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .revelation-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .revelation-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--aurora-pale);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--aurora);
+  }
+
+  .card-aurora .revelation-icon {
+    background: rgba(255, 107, 26, 0.15);
+    color: var(--aurora-dark);
+  }
+
+  .revelation-titre {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    line-height: 1.3;
+  }
+
+  .revelation-desc {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ─── RECOMMANDATIONS ─── */
+  .reco-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .reco-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .reco-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--aurora-pale);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--aurora);
+  }
+
+  .card-aurora .reco-icon {
+    background: rgba(255, 107, 26, 0.15);
+    color: var(--aurora-dark);
+  }
+
+  .reco-titre {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    line-height: 1.3;
+  }
+
+  .reco-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .reco-points li {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.5;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .reco-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gray-300);
+  }
+
+  .card-aurora .reco-points li::before {
+    background: var(--aurora);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .comparatif-table {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .comparatif-row {
+      min-width: 800px;
+    }
+
+    .reco-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ag-hero {
+      padding: 120px 0 56px;
+    }
+
+    .comparatif-row {
+      grid-template-columns: 120px repeat(5, 1fr);
+      min-width: 720px;
+    }
+
+    .comparatif-cell {
+      padding: 10px 10px;
+      font-size: 12px;
+    }
+
+    .revelations-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .reco-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    // @ts-ignore
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
+
+    // Hero
+    // @ts-ignore
+    gsap.timeline({ delay: 0.15 })
+      // @ts-ignore
+      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
+      // @ts-ignore
+      .fromTo('.ag-h1',       { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
+      // @ts-ignore
+      .fromTo('.ag-hero .hero-serif', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
+      // @ts-ignore
+      .fromTo('.ag-sub',      { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2')
+      // @ts-ignore
+      .fromTo('.hero-ctas',    { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2');
+
+    // Scroll reveals
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el: any) => {
+      // @ts-ignore
+      gsap.fromTo(el, { y: 40, opacity: 0 }, {
+        y: 0, opacity: 1,
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        duration: 1.1, ease: 'power2.out'
+      });
+    });
+  });
+</script>

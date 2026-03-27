@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700&amp;display=swap');
+  </style>
+  <text x="0" y="32" font-family="Outfit, sans-serif" font-weight="700" font-size="36" letter-spacing="-1.44" fill="#0A0A0A">aur<tspan fill="#FF6B1A">o</tspan>re</text>
+</svg>

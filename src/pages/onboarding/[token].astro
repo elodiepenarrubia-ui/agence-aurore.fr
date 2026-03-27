@@ -1,0 +1,2358 @@
+---
+export const prerender = false;
+import { db } from '../../lib/firebase-admin';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const { token } = Astro.params;
+if (!token) return Astro.redirect('/404');
+
+let lead: any = null;
+let error = '';
+try {
+  const leadDoc = await db.collection('leads').doc(token).get();
+  if (!leadDoc.exists) { error = 'notfound'; }
+  else {
+    lead = leadDoc.data();
+    if (lead.onboardingCompleted) error = 'completed';
+  }
+} catch (e) { error = 'error'; }
+
+// Determine offer type for form structure
+function getOfferType(offre: string): string {
+  if (!offre) return 'site';
+  const lower = offre.toLowerCase();
+  if (lower.includes('starter') || lower.includes('vitrine') || lower.includes('pro') || lower.includes('réservation') || lower.includes('reservation')) return 'site';
+  if (lower.includes('migration')) return 'migration';
+  if (lower.includes('seo')) return 'seo';
+  if (lower.includes('identité') || lower.includes('identite') || lower.includes('branding') || lower.includes('logo')) return 'branding';
+  if (lower.includes('automatisation')) return 'auto';
+  if (lower.includes('google') || lower.includes('gbp')) return 'gbp';
+  if (lower.includes('logiciel')) return 'logiciel';
+  return 'site';
+}
+
+const offerType = lead ? getOfferType(lead.offre || '') : 'site';
+
+const stepConfigs: Record<string, {labels: string[], count: number}> = {
+  site:      { labels: ['Activité', 'Identité', 'Contenu', 'SEO', 'Récap'], count: 5 },
+  migration: { labels: ['Site actuel', 'Identité', 'SEO actuel', 'Récap'], count: 4 },
+  seo:       { labels: ['Situation', 'Objectifs', 'Récap'], count: 3 },
+  branding:  { labels: ['Entreprise', 'Préférences', 'Récap'], count: 3 },
+  auto:      { labels: ['Situation', 'Accès', 'Récap'], count: 3 },
+  gbp:       { labels: ['Fiche Google', 'Récap'], count: 2 },
+  logiciel:  { labels: ['Projet', 'Technique', 'Récap'], count: 3 },
+};
+const steps = stepConfigs[offerType] || stepConfigs.site;
+---
+
+<BaseLayout
+  title="Complétez votre dossier — aurore"
+  description="Formulaire d'onboarding client"
+  slug={`onboarding/${token}`}
+  noindex={true}
+>
+
+{error === 'notfound' && (
+  <section class="onboarding-message">
+    <div class="container">
+      <span class="logo logo-lg">aur<span class="logo-o">o</span>re</span>
+      <h1>Lien invalide</h1>
+      <p>Ce lien d'onboarding n'existe pas ou a expiré.<br>Contactez-nous à <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
+    </div>
+  </section>
+)}
+
+{error === 'completed' && (
+  <section class="onboarding-message">
+    <div class="container">
+      <span class="logo logo-lg">aur<span class="logo-o">o</span>re</span>
+      <div class="success-icon">&#10003;</div>
+      <h1>Dossier déjà complété</h1>
+      <p>Votre dossier a déjà été envoyé. Je vous contacte très prochainement !</p>
+      <p class="contact-line">Une question ? <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a> — 06 59 65 92 18</p>
+    </div>
+  </section>
+)}
+
+{error === 'error' && (
+  <section class="onboarding-message">
+    <div class="container">
+      <span class="logo logo-lg">aur<span class="logo-o">o</span>re</span>
+      <h1>Une erreur est survenue</h1>
+      <p>Veuillez réessayer ou nous contacter à <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
+    </div>
+  </section>
+)}
+
+{!error && lead && (
+  <section class="onboarding-section">
+    <div class="container onboarding-container">
+
+      <!-- Header -->
+      <div class="onboarding-header">
+        <span class="logo logo-lg">aur<span class="logo-o">o</span>re</span>
+        <h1 class="onboarding-title">Complétez votre dossier</h1>
+        <p class="onboarding-sub">Plus votre dossier est complet, plus vite je pourrai démarrer votre projet. Environ 10 minutes.</p>
+      </div>
+
+      <!-- Intro box -->
+      <div class="ob-intro">
+        <strong>Remplissez ce que vous savez.</strong> Tous les champs sont optionnels —
+        les informations manquantes seront complétées par Élodie lors de la création.
+        Plus vous en donnez, plus vite on démarre !
+      </div>
+
+      <!-- Progress bar -->
+      <div class="stepper" id="stepper">
+        <div class="stepper-bar">
+          <div class="stepper-fill" id="stepper-fill"></div>
+        </div>
+        <div class="stepper-labels" id="stepper-labels"></div>
+      </div>
+
+      <form id="onboarding-form" data-token={token} data-offre={lead.offre || ''} data-offer-type={offerType} data-total={steps.count} data-steps={JSON.stringify(steps.labels)}>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- SITE — Step 1: Activité                        -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="1" data-offer="site" style="display:none;">
+          <h2 class="step-title">Votre activité</h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-prenom">Prénom <span class="field-req">*</span></label>
+              <input type="text" id="ob-prenom" class="input" value={lead.prenom || ''} required />
+            </div>
+            <div class="field">
+              <label for="ob-nom">Nom <span class="field-req">*</span></label>
+              <input type="text" id="ob-nom" class="input" value={lead.nom?.split(' ').slice(1).join(' ') || lead.nom || ''} required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-email">Email</label>
+            <input type="email" id="ob-email" class="input input-readonly" value={lead.email || ''} readonly />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-telephone">Téléphone</label>
+              <input type="tel" id="ob-telephone" class="input" value={lead.telephone || ''} />
+            </div>
+            <div class="field">
+              <label for="ob-entreprise">Nom commercial / Entreprise</label>
+              <input type="text" id="ob-entreprise" class="input" value={lead.entreprise || ''} />
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-secteur">Secteur d'activité</label>
+            <select id="ob-secteur" class="input">
+              <option value="">Sélectionner...</option>
+              <option value="santé">Santé / Bien-être</option>
+              <option value="restaurant">Restaurant / Café</option>
+              <option value="artisan">Artisan / BTP</option>
+              <option value="coach">Coach / Consultant</option>
+              <option value="immobilier">Immobilier</option>
+              <option value="avocat">Avocat / Juridique</option>
+              <option value="architecte">Architecte / Design</option>
+              <option value="photographe">Photographe / Créatif</option>
+              <option value="commerce">Commerce / Boutique</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ob-adresse">Adresse complète</label>
+            <input type="text" id="ob-adresse" class="input" placeholder="12 rue des Lilas" />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-ville">Ville</label>
+              <input type="text" id="ob-ville" class="input" value={lead.ville || ''} />
+            </div>
+            <div class="field">
+              <label for="ob-codepostal">Code postal</label>
+              <input type="text" id="ob-codepostal" class="input" placeholder="13100" />
+            </div>
+          </div>
+          <div class="field field-pro-only">
+            <label for="ob-siren">SIREN</label>
+            <input type="text" id="ob-siren" class="input" placeholder="123 456 789" />
+          </div>
+          <div class="field">
+            <label>Objectif principal du site</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-objectif" value="leads" /><span>Générer des contacts</span></label>
+              <label class="radio-card"><input type="radio" name="ob-objectif" value="vente" /><span>Vendre en ligne</span></label>
+              <label class="radio-card"><input type="radio" name="ob-objectif" value="notoriete" /><span>Gagner en visibilité</span></label>
+              <label class="radio-card"><input type="radio" name="ob-objectif" value="info" /><span>Informer mes clients</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Public cible</label>
+            <div class="field-row">
+              <div class="field">
+                <label for="ob-tranche-age">Tranche d'âge</label>
+                <select id="ob-tranche-age" class="input">
+                  <option value="">Sélectionner...</option>
+                  <option value="18-25">18-25 ans</option>
+                  <option value="26-35">26-35 ans</option>
+                  <option value="36-50">36-50 ans</option>
+                  <option value="50+">50 ans et +</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Type de clientèle</label>
+                <div class="radio-group">
+                  <label class="radio-card"><input type="radio" name="ob-clientele" value="particuliers" /><span>Particuliers</span></label>
+                  <label class="radio-card"><input type="radio" name="ob-clientele" value="pro" /><span>Professionnels</span></label>
+                  <label class="radio-card"><input type="radio" name="ob-clientele" value="les-deux" /><span>Les deux</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-douleur">Douleur principale de vos clients</label>
+            <textarea id="ob-douleur" class="input textarea" rows="3" placeholder="Qu'est-ce qui empêche vos clients de dormir ?"></textarea>
+          </div>
+          <div class="field">
+            <label>Réseaux sociaux <span class="field-opt">(optionnel)</span></label>
+            <div class="field-row">
+              <div class="field">
+                <input type="url" id="ob-instagram" class="input" placeholder="Instagram" />
+              </div>
+              <div class="field">
+                <input type="url" id="ob-facebook" class="input" placeholder="Facebook" />
+              </div>
+            </div>
+            <div class="field-row" style="margin-top:8px;">
+              <div class="field">
+                <input type="url" id="ob-linkedin" class="input" placeholder="LinkedIn" />
+              </div>
+              <div class="field">
+                <input type="url" id="ob-tiktok" class="input" placeholder="TikTok" />
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label>Avez-vous des avis Google ?</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-avis-google" value="oui" /><span>Oui</span></label>
+              <label class="radio-card"><input type="radio" name="ob-avis-google" value="non" /><span>Non</span></label>
+            </div>
+          </div>
+          <div class="field" id="field-avis-lien" style="display:none;">
+            <label for="ob-avis-lien">Lien vers votre profil Google</label>
+            <input type="url" id="ob-avis-lien" class="input" placeholder="https://g.page/..." />
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- SITE — Step 2: Identité visuelle               -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="2" data-offer="site,migration" style="display:none;">
+          <h2 class="step-title">Votre identité visuelle</h2>
+          <div class="field">
+            <label>Couleurs <span class="field-opt">(jusqu'à 6)</span></label>
+            <div id="colors-list">
+              <div class="color-row">
+                <input type="color" class="ob-color" value="#FF6B1A" />
+                <span class="color-hex">#FF6B1A</span>
+              </div>
+            </div>
+            <button type="button" id="add-color" class="btn-add">+ Ajouter une couleur</button>
+          </div>
+          <div class="field">
+            <label for="ob-polices">Polices souhaitées <span class="field-opt">(optionnel)</span></label>
+            <input type="text" id="ob-polices" class="input" placeholder="ex: Montserrat, serif élégant..." />
+          </div>
+          <div class="field">
+            <label>Ton rédactionnel</label>
+            <div class="checkbox-group">
+              <label class="checkbox-card"><input type="checkbox" name="ob-ton" value="professionnel" /><span>Professionnel</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-ton" value="chaleureux" /><span>Chaleureux</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-ton" value="moderne" /><span>Moderne</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-ton" value="luxueux" /><span>Luxueux</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-ton" value="humoristique" /><span>Humoristique</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label>3 exemples de sites que vous aimez <span class="field-opt">(optionnel)</span></label>
+            <input type="url" id="ob-inspi1" class="input" placeholder="https://site-que-j-aime.fr" style="margin-bottom:8px;" />
+            <input type="url" id="ob-inspi2" class="input" placeholder="https://autre-exemple.com" style="margin-bottom:8px;" />
+            <input type="url" id="ob-inspi3" class="input" placeholder="https://troisieme-exemple.fr" />
+          </div>
+          <div class="field">
+            <label>3 concurrents <span class="field-opt">(nom ou URL)</span></label>
+            <input type="text" id="ob-concurrent1" class="input" placeholder="Nom ou URL du concurrent" style="margin-bottom:8px;" />
+            <input type="text" id="ob-concurrent2" class="input" placeholder="Nom ou URL du concurrent" style="margin-bottom:8px;" />
+            <input type="text" id="ob-concurrent3" class="input" placeholder="Nom ou URL du concurrent" />
+          </div>
+          <div class="info-note">
+            Si vous avez déjà un logo, envoyez-le par email à <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a> (formats SVG, PNG ou PDF).
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- SITE — Step 3: Contenu                         -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="3" data-offer="site" style="display:none;">
+          <h2 class="step-title">Votre contenu</h2>
+          <div class="field">
+            <label for="ob-titre">Titre accrocheur pour la page d'accueil</label>
+            <input type="text" id="ob-titre" class="input" placeholder="Ostéopathe à Aix-en-Provence" />
+          </div>
+          <div class="field">
+            <label for="ob-sous-titre">Sous-titre</label>
+            <input type="text" id="ob-sous-titre" class="input" placeholder="Retrouvez votre équilibre naturellement" />
+          </div>
+          <div class="field">
+            <label for="ob-presentation">Texte de présentation <span class="field-opt">(500 caractères max)</span></label>
+            <textarea id="ob-presentation" class="input textarea" rows="5" maxlength="500" placeholder="Parlez de vous, de votre parcours, de ce qui vous motive..."></textarea>
+            <span class="char-count"><span id="presentation-count">0</span>/500</span>
+          </div>
+          <div class="field">
+            <label>Vos services <span class="field-opt">(jusqu'à 6)</span></label>
+            <div id="services-list">
+              <div class="service-row">
+                <input type="text" class="input svc-nom" placeholder="Nom du service" />
+                <input type="text" class="input svc-desc" placeholder="Description courte" />
+                <input type="text" class="input svc-prix" placeholder="Prix (optionnel)" />
+              </div>
+            </div>
+            <button type="button" id="add-service" class="btn-add">+ Ajouter un service</button>
+          </div>
+          <div class="field">
+            <label>Vos 3 points forts</label>
+            <input type="text" id="ob-fort1" class="input" placeholder="Ex: 15 ans d'expérience" style="margin-bottom:8px;" />
+            <input type="text" id="ob-fort2" class="input" placeholder="Ex: Approche personnalisée" style="margin-bottom:8px;" />
+            <input type="text" id="ob-fort3" class="input" placeholder="Ex: Résultats rapides" />
+          </div>
+          <div class="field">
+            <label>Témoignages clients <span class="field-opt">(jusqu'à 3)</span></label>
+            <div id="temoignages-list">
+              <div class="temoignage-row">
+                <input type="text" class="input tem-nom" placeholder="Prénom Nom du client" />
+                <textarea class="input textarea tem-texte" rows="2" placeholder="Son témoignage..."></textarea>
+                <input type="text" class="input tem-entreprise" placeholder="Entreprise (optionnel)" />
+              </div>
+            </div>
+            <button type="button" id="add-temoignage" class="btn-add">+ Ajouter un témoignage</button>
+          </div>
+          <div class="field field-pro-only">
+            <label>Système de réservation souhaité</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-reservation" value="calendly" /><span>Calendly</span></label>
+              <label class="radio-card"><input type="radio" name="ob-reservation" value="doctolib" /><span>Doctolib</span></label>
+              <label class="radio-card"><input type="radio" name="ob-reservation" value="planity" /><span>Planity</span></label>
+              <label class="radio-card"><input type="radio" name="ob-reservation" value="sur-mesure" /><span>Sur mesure</span></label>
+              <label class="radio-card"><input type="radio" name="ob-reservation" value="aucun" /><span>Aucun</span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- SITE — Step 4: SEO                             -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="4" data-offer="site" style="display:none;">
+          <h2 class="step-title">SEO &amp; visibilité</h2>
+          <div class="field">
+            <label for="ob-motcle">Mot-clé principal <span class="field-opt">(ce que vos clients tapent sur Google)</span></label>
+            <input type="text" id="ob-motcle" class="input" placeholder="Ex: ostéopathe aix-en-provence" />
+          </div>
+          <div class="field">
+            <label>Mots-clés secondaires <span class="field-opt">(3 max)</span></label>
+            <input type="text" id="ob-motcle2" class="input" placeholder="Ex: mal de dos aix" style="margin-bottom:8px;" />
+            <input type="text" id="ob-motcle3" class="input" placeholder="Ex: ostéo sportif" style="margin-bottom:8px;" />
+            <input type="text" id="ob-motcle4" class="input" placeholder="Ex: ostéopathie bébé" />
+          </div>
+          <div class="field">
+            <label for="ob-gbp">Description pour Google Business <span class="field-opt">(750 caractères max)</span></label>
+            <textarea id="ob-gbp" class="input textarea" rows="4" maxlength="750" placeholder="Décrivez votre activité pour Google..."></textarea>
+            <span class="char-count"><span id="gbp-count">0</span>/750</span>
+          </div>
+          <div class="field">
+            <label for="ob-horaires">Horaires d'ouverture</label>
+            <textarea id="ob-horaires" class="input textarea" rows="3" placeholder="Lun-Ven : 9h-18h&#10;Sam : 9h-12h&#10;Dim : Fermé"></textarea>
+          </div>
+          <div class="field">
+            <label>Fourchette de prix</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-prix" value="€" /><span>&euro;</span></label>
+              <label class="radio-card"><input type="radio" name="ob-prix" value="€€" /><span>&euro;&euro;</span></label>
+              <label class="radio-card"><input type="radio" name="ob-prix" value="€€€" /><span>&euro;&euro;&euro;</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-domaine">Nom de domaine souhaité ou existant</label>
+            <input type="text" id="ob-domaine" class="input" placeholder="ex: mon-entreprise.fr" />
+          </div>
+          <div class="field">
+            <label for="ob-registrar">Registrar <span class="field-opt">(si vous avez déjà un domaine)</span></label>
+            <input type="text" id="ob-registrar" class="input" placeholder="ex: OVH, Gandi..." />
+          </div>
+          <div class="field">
+            <label for="ob-notes">Notes libres <span class="field-opt">(tout ce que vous souhaitez ajouter)</span></label>
+            <textarea id="ob-notes" class="input textarea" rows="4" placeholder="Informations supplémentaires, demandes particulières..."></textarea>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- SITE — Step 5: Récap                           -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="5" data-offer="site" style="display:none;">
+          <h2 class="step-title">Récapitulatif</h2>
+          <p class="recap-intro">Vérifiez vos informations avant d'envoyer votre dossier.</p>
+          <div class="recap-box" id="recap-box">
+            <div id="recap-content"></div>
+          </div>
+          <div class="files-reminder">
+            <p class="files-reminder-title">Pensez à m'envoyer par email :</p>
+            <p>&rarr; Votre logo (SVG, PNG ou PDF)</p>
+            <p>&rarr; Vos photos (lieu, réalisations, portrait)</p>
+            <p>&rarr; Tout document utile (plaquette, ancien site...)</p>
+            <p class="files-reminder-email">À <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- MIGRATION — Step 1: Site actuel                -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="1" data-offer="migration" style="display:none;">
+          <h2 class="step-title">Votre site actuel</h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-mig-prenom">Prénom <span class="field-req">*</span></label>
+              <input type="text" id="ob-mig-prenom" class="input" value={lead.prenom || ''} required />
+            </div>
+            <div class="field">
+              <label for="ob-mig-nom">Nom <span class="field-req">*</span></label>
+              <input type="text" id="ob-mig-nom" class="input" value={lead.nom?.split(' ').slice(1).join(' ') || lead.nom || ''} required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-mig-email">Email</label>
+            <input type="email" id="ob-mig-email" class="input input-readonly" value={lead.email || ''} readonly />
+          </div>
+          <div class="field">
+            <label for="ob-mig-telephone">Téléphone</label>
+            <input type="tel" id="ob-mig-telephone" class="input" value={lead.telephone || ''} />
+          </div>
+          <div class="field">
+            <label for="ob-mig-url">URL de votre site actuel <span class="field-req">*</span></label>
+            <input type="url" id="ob-mig-url" class="input" placeholder="https://mon-site-actuel.fr" required />
+          </div>
+          <div class="field">
+            <label for="ob-mig-plateforme">Plateforme actuelle</label>
+            <select id="ob-mig-plateforme" class="input">
+              <option value="">Sélectionner...</option>
+              <option value="wordpress">WordPress</option>
+              <option value="wix">Wix</option>
+              <option value="squarespace">Squarespace</option>
+              <option value="jimdo">Jimdo</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-mig-hebergeur">Hébergeur</label>
+              <select id="ob-mig-hebergeur" class="input">
+                <option value="">Sélectionner...</option>
+                <option value="ovh">OVH</option>
+                <option value="ionos">Ionos</option>
+                <option value="infomaniak">Infomaniak</option>
+                <option value="o2switch">O2Switch</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="ob-mig-hebergeur-id">Identifiant hébergeur</label>
+              <input type="text" id="ob-mig-hebergeur-id" class="input" placeholder="Votre identifiant client" />
+            </div>
+          </div>
+          <div class="info-note">
+            Vos identifiants sont chiffrés et supprimés après migration.
+          </div>
+          <div class="field-row" style="margin-top:16px;">
+            <div class="field">
+              <label for="ob-mig-login">Login CMS</label>
+              <input type="text" id="ob-mig-login" class="input" placeholder="Identifiant admin" />
+            </div>
+            <div class="field">
+              <label for="ob-mig-password">Mot de passe CMS</label>
+              <input type="password" id="ob-mig-password" class="input" placeholder="Mot de passe" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-mig-domaine">Nom de domaine</label>
+              <input type="text" id="ob-mig-domaine" class="input" placeholder="mon-site.fr" />
+            </div>
+            <div class="field">
+              <label for="ob-mig-registrar">Registrar</label>
+              <input type="text" id="ob-mig-registrar" class="input" placeholder="ex: OVH, Gandi..." />
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-mig-garder">Ce que vous voulez garder</label>
+            <textarea id="ob-mig-garder" class="input textarea" rows="3" placeholder="Pages, contenu, images à conserver..."></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-mig-changer">Ce que vous voulez changer</label>
+            <textarea id="ob-mig-changer" class="input textarea" rows="3" placeholder="Ce qui ne vous convient plus..."></textarea>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- MIGRATION — Step 2: Identité (shared with site)-->
+        <!-- (uses data-offer="site,migration" above)       -->
+        <!-- ═══════════════════════════════════════════════ -->
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- MIGRATION — Step 3: SEO actuel                 -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="3" data-offer="migration" style="display:none;">
+          <h2 class="step-title">SEO actuel</h2>
+          <div class="field">
+            <label for="ob-mig-motscles">Mots-clés ciblés actuellement</label>
+            <textarea id="ob-mig-motscles" class="input textarea" rows="3" placeholder="Les mots-clés sur lesquels vous êtes positionné..."></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-mig-position">Position Google actuelle</label>
+            <input type="text" id="ob-mig-position" class="input" placeholder="ex: Page 1 pour 'ostéopathe brignoles'" />
+          </div>
+          <div class="field">
+            <label for="ob-mig-backlinks">Backlinks importants</label>
+            <textarea id="ob-mig-backlinks" class="input textarea" rows="3" placeholder="Sites qui font des liens vers le vôtre..."></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-mig-objectif-seo">Objectif SEO post-migration</label>
+            <textarea id="ob-mig-objectif-seo" class="input textarea" rows="3" placeholder="Ce que vous souhaitez améliorer en termes de référencement..."></textarea>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- MIGRATION — Step 4: Récap                      -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="4" data-offer="migration" style="display:none;">
+          <h2 class="step-title">Récapitulatif</h2>
+          <p class="recap-intro">Vérifiez vos informations avant d'envoyer votre dossier.</p>
+          <div class="recap-box">
+            <div id="recap-content-migration"></div>
+          </div>
+          <div class="files-reminder">
+            <p class="files-reminder-title">Pensez à m'envoyer par email :</p>
+            <p>&rarr; Votre logo (SVG, PNG ou PDF)</p>
+            <p>&rarr; Vos photos (lieu, réalisations, portrait)</p>
+            <p>&rarr; Export de votre site actuel (si possible)</p>
+            <p class="files-reminder-email">À <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- SEO — Step 1: Situation                        -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="1" data-offer="seo" style="display:none;">
+          <h2 class="step-title">Votre situation SEO</h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-seo-prenom">Prénom <span class="field-req">*</span></label>
+              <input type="text" id="ob-seo-prenom" class="input" value={lead.prenom || ''} required />
+            </div>
+            <div class="field">
+              <label for="ob-seo-nom">Nom <span class="field-req">*</span></label>
+              <input type="text" id="ob-seo-nom" class="input" value={lead.nom?.split(' ').slice(1).join(' ') || lead.nom || ''} required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-seo-email">Email</label>
+            <input type="email" id="ob-seo-email" class="input input-readonly" value={lead.email || ''} readonly />
+          </div>
+          <div class="field">
+            <label for="ob-seo-telephone">Téléphone</label>
+            <input type="tel" id="ob-seo-telephone" class="input" value={lead.telephone || ''} />
+          </div>
+          <div class="field">
+            <label for="ob-seo-url">URL de votre site <span class="field-req">*</span></label>
+            <input type="url" id="ob-seo-url" class="input" placeholder="https://mon-site.fr" required />
+          </div>
+          <div class="field">
+            <label for="ob-seo-plateforme">Plateforme</label>
+            <select id="ob-seo-plateforme" class="input">
+              <option value="">Sélectionner...</option>
+              <option value="wordpress">WordPress</option>
+              <option value="wix">Wix</option>
+              <option value="squarespace">Squarespace</option>
+              <option value="astro">Astro</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Accès Search Console</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-seo-gsc" value="oui" /><span>Oui</span></label>
+              <label class="radio-card"><input type="radio" name="ob-seo-gsc" value="non" /><span>Non</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Accès Analytics</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-seo-analytics" value="oui" /><span>Oui</span></label>
+              <label class="radio-card"><input type="radio" name="ob-seo-analytics" value="non" /><span>Non</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Accès Google Business Profile</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-seo-gbp" value="oui" /><span>Oui</span></label>
+              <label class="radio-card"><input type="radio" name="ob-seo-gbp" value="non" /><span>Non</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-seo-motscles">Mots-clés ciblés</label>
+            <textarea id="ob-seo-motscles" class="input textarea" rows="3" placeholder="Les mots-clés que vous ciblez actuellement..."></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-seo-positions">Positions actuelles</label>
+            <textarea id="ob-seo-positions" class="input textarea" rows="3" placeholder="Vos positions actuelles sur Google..."></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-seo-concurrents">Concurrents mieux classés</label>
+            <textarea id="ob-seo-concurrents" class="input textarea" rows="3" placeholder="Les sites concurrents qui apparaissent avant vous..."></textarea>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- SEO — Step 2: Objectifs                        -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="2" data-offer="seo" style="display:none;">
+          <h2 class="step-title">Vos objectifs SEO</h2>
+          <div class="field">
+            <label>Objectif principal</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-seo-objectif" value="premiere-page" /><span>Apparaître en 1ère page</span></label>
+              <label class="radio-card"><input type="radio" name="ob-seo-objectif" value="trafic" /><span>Augmenter le trafic</span></label>
+              <label class="radio-card"><input type="radio" name="ob-seo-objectif" value="local" /><span>SEO local</span></label>
+              <label class="radio-card"><input type="radio" name="ob-seo-objectif" value="tout" /><span>Tout à la fois</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Budget contenu mensuel</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-seo-budget" value="0" /><span>0 &euro;</span></label>
+              <label class="radio-card"><input type="radio" name="ob-seo-budget" value="100-200" /><span>100-200 &euro;</span></label>
+              <label class="radio-card"><input type="radio" name="ob-seo-budget" value="200-500" /><span>200-500 &euro;</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Délai de résultats attendu</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-seo-delai" value="3mois" /><span>3 mois</span></label>
+              <label class="radio-card"><input type="radio" name="ob-seo-delai" value="6mois" /><span>6 mois</span></label>
+              <label class="radio-card"><input type="radio" name="ob-seo-delai" value="long-terme" /><span>Long terme</span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- SEO — Step 3: Récap                            -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="3" data-offer="seo" style="display:none;">
+          <h2 class="step-title">Récapitulatif</h2>
+          <p class="recap-intro">Vérifiez vos informations avant d'envoyer votre dossier.</p>
+          <div class="recap-box">
+            <div id="recap-content-seo"></div>
+          </div>
+          <div class="files-reminder">
+            <p class="files-reminder-title">Pensez à m'envoyer par email :</p>
+            <p>&rarr; Accès Google Search Console (si disponible)</p>
+            <p>&rarr; Accès Google Analytics (si disponible)</p>
+            <p class="files-reminder-email">À <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- BRANDING — Step 1: Entreprise                  -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="1" data-offer="branding" style="display:none;">
+          <h2 class="step-title">Votre entreprise</h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-brand-prenom">Prénom <span class="field-req">*</span></label>
+              <input type="text" id="ob-brand-prenom" class="input" value={lead.prenom || ''} required />
+            </div>
+            <div class="field">
+              <label for="ob-brand-nom">Nom <span class="field-req">*</span></label>
+              <input type="text" id="ob-brand-nom" class="input" value={lead.nom?.split(' ').slice(1).join(' ') || lead.nom || ''} required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-brand-email">Email</label>
+            <input type="email" id="ob-brand-email" class="input input-readonly" value={lead.email || ''} readonly />
+          </div>
+          <div class="field">
+            <label for="ob-brand-telephone">Téléphone</label>
+            <input type="tel" id="ob-brand-telephone" class="input" value={lead.telephone || ''} />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-brand-entreprise">Nom commercial</label>
+              <input type="text" id="ob-brand-entreprise" class="input" value={lead.entreprise || ''} />
+            </div>
+            <div class="field">
+              <label for="ob-brand-secteur">Secteur</label>
+              <select id="ob-brand-secteur" class="input">
+                <option value="">Sélectionner...</option>
+                <option value="santé">Santé / Bien-être</option>
+                <option value="restaurant">Restaurant / Café</option>
+                <option value="artisan">Artisan / BTP</option>
+                <option value="coach">Coach / Consultant</option>
+                <option value="immobilier">Immobilier</option>
+                <option value="avocat">Avocat / Juridique</option>
+                <option value="architecte">Architecte / Design</option>
+                <option value="photographe">Photographe / Créatif</option>
+                <option value="commerce">Commerce / Boutique</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Avez-vous un logo existant ?</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-brand-logo-existant" value="oui" /><span>Oui</span></label>
+              <label class="radio-card"><input type="radio" name="ob-brand-logo-existant" value="non" /><span>Non</span></label>
+            </div>
+          </div>
+          <div class="field" id="field-brand-logo-feedback" style="display:none;">
+            <label for="ob-brand-logo-feedback">Qu'est-ce qui ne vous convient plus ?</label>
+            <textarea id="ob-brand-logo-feedback" class="input textarea" rows="3" placeholder="Ce que vous n'aimez pas dans votre logo actuel..."></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-brand-3mots">3 mots qui décrivent votre entreprise</label>
+            <input type="text" id="ob-brand-3mots" class="input" placeholder="ex: accessible, expert, humain" />
+          </div>
+          <div class="field">
+            <label>Valeurs</label>
+            <div class="checkbox-group">
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="confiance" /><span>Confiance</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="innovation" /><span>Innovation</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="proximité" /><span>Proximité</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="luxe" /><span>Luxe</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="nature" /><span>Nature</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="modernité" /><span>Modernité</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="tradition" /><span>Tradition</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="autre" /><span>Autre</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-brand-public">Public cible</label>
+            <textarea id="ob-brand-public" class="input textarea" rows="3" placeholder="Décrivez vos clients idéaux..."></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-brand-concurrents-logos">Concurrents / logos de référence</label>
+            <textarea id="ob-brand-concurrents-logos" class="input textarea" rows="3" placeholder="Noms ou URLs de concurrents dont vous aimez le branding..."></textarea>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- BRANDING — Step 2: Préférences visuelles       -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="2" data-offer="branding" style="display:none;">
+          <h2 class="step-title">Préférences visuelles</h2>
+          <div class="field">
+            <label>Couleurs <span class="field-opt">(jusqu'à 6)</span></label>
+            <div id="colors-list-brand">
+              <div class="color-row">
+                <input type="color" class="ob-color" value="#FF6B1A" />
+                <span class="color-hex">#FF6B1A</span>
+              </div>
+            </div>
+            <button type="button" class="btn-add add-color-btn" data-target="colors-list-brand">+ Ajouter une couleur</button>
+          </div>
+          <div class="field">
+            <label for="ob-brand-polices">Polices préférées <span class="field-opt">(optionnel)</span></label>
+            <input type="text" id="ob-brand-polices" class="input" placeholder="ex: Montserrat, serif élégant..." />
+          </div>
+          <div class="field">
+            <label>Styles de logo aimés</label>
+            <div class="checkbox-group">
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="minimaliste" /><span>Minimaliste</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="géométrique" /><span>Géométrique</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="organique" /><span>Organique</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="typographique" /><span>Typographique</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="illustré" /><span>Illustré</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="vintage" /><span>Vintage</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label>3 logos que vous aimez <span class="field-opt">(nom de marque ou URL)</span></label>
+            <input type="text" id="ob-brand-logo-aime1" class="input" placeholder="Ex: Apple, Nike..." style="margin-bottom:8px;" />
+            <input type="text" id="ob-brand-logo-aime2" class="input" placeholder="Deuxième exemple" style="margin-bottom:8px;" />
+            <input type="text" id="ob-brand-logo-aime3" class="input" placeholder="Troisième exemple" />
+          </div>
+          <div class="field">
+            <label>3 logos que vous n'aimez PAS <span class="field-opt">(nom de marque ou URL)</span></label>
+            <input type="text" id="ob-brand-logo-pas1" class="input" placeholder="Ex: un logo trop chargé..." style="margin-bottom:8px;" />
+            <input type="text" id="ob-brand-logo-pas2" class="input" placeholder="Deuxième exemple" style="margin-bottom:8px;" />
+            <input type="text" id="ob-brand-logo-pas3" class="input" placeholder="Troisième exemple" />
+          </div>
+          <div class="field">
+            <label>Formats nécessaires</label>
+            <div class="checkbox-group">
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="svg" /><span>SVG</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="png-transparent" /><span>PNG transparent</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="version-noir" /><span>Version noir</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="version-blanc" /><span>Version blanc</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="favicon" /><span>Favicon</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="carte-visite" /><span>Carte de visite</span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- BRANDING — Step 3: Récap                       -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="3" data-offer="branding" style="display:none;">
+          <h2 class="step-title">Récapitulatif</h2>
+          <p class="recap-intro">Vérifiez vos informations avant d'envoyer votre dossier.</p>
+          <div class="recap-box">
+            <div id="recap-content-branding"></div>
+          </div>
+          <div class="files-reminder">
+            <p class="files-reminder-title">Pensez à m'envoyer par email :</p>
+            <p>&rarr; Votre logo actuel (si existant)</p>
+            <p>&rarr; Photos de référence</p>
+            <p>&rarr; Tout document de marque existant</p>
+            <p class="files-reminder-email">À <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- AUTO — Step 1: Situation                       -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="1" data-offer="auto" style="display:none;">
+          <h2 class="step-title">Votre situation</h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-auto-prenom">Prénom <span class="field-req">*</span></label>
+              <input type="text" id="ob-auto-prenom" class="input" value={lead.prenom || ''} required />
+            </div>
+            <div class="field">
+              <label for="ob-auto-nom">Nom <span class="field-req">*</span></label>
+              <input type="text" id="ob-auto-nom" class="input" value={lead.nom?.split(' ').slice(1).join(' ') || lead.nom || ''} required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-auto-email">Email</label>
+            <input type="email" id="ob-auto-email" class="input input-readonly" value={lead.email || ''} readonly />
+          </div>
+          <div class="field">
+            <label for="ob-auto-telephone">Téléphone</label>
+            <input type="tel" id="ob-auto-telephone" class="input" value={lead.telephone || ''} />
+          </div>
+          <div class="field">
+            <label for="ob-auto-tache">Tâche à automatiser</label>
+            <textarea id="ob-auto-tache" class="input textarea" rows="4" placeholder="Décrivez la tâche répétitive que vous souhaitez automatiser..."></textarea>
+          </div>
+          <div class="field">
+            <label>Outils actuels</label>
+            <div class="checkbox-group">
+              <label class="checkbox-card"><input type="checkbox" name="ob-auto-outils" value="google-sheets" /><span>Google Sheets</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-auto-outils" value="notion" /><span>Notion</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-auto-outils" value="airtable" /><span>Airtable</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-auto-outils" value="gmail" /><span>Gmail</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-auto-outils" value="slack" /><span>Slack</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-auto-outils" value="stripe" /><span>Stripe</span></label>
+              <label class="checkbox-card"><input type="checkbox" name="ob-auto-outils" value="autre" /><span>Autre</span></label>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-auto-frequence">Fréquence par semaine</label>
+              <input type="number" id="ob-auto-frequence" class="input" placeholder="ex: 5" min="0" />
+            </div>
+            <div class="field">
+              <label for="ob-auto-temps">Temps par occurrence</label>
+              <input type="text" id="ob-auto-temps" class="input" placeholder="ex: 30 min" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Budget outil mensuel</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-auto-budget" value="sans-abonnement" /><span>Sans abonnement</span></label>
+              <label class="radio-card"><input type="radio" name="ob-auto-budget" value="moins-20" /><span>Moins de 20 &euro;</span></label>
+              <label class="radio-card"><input type="radio" name="ob-auto-budget" value="20-50" /><span>20-50 &euro;</span></label>
+              <label class="radio-card"><input type="radio" name="ob-auto-budget" value="peu-importe" /><span>Peu importe</span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- AUTO — Step 2: Accès                           -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="2" data-offer="auto" style="display:none;">
+          <h2 class="step-title">Accès et résultat attendu</h2>
+          <div class="field">
+            <label for="ob-auto-api">Accès API disponibles</label>
+            <textarea id="ob-auto-api" class="input textarea" rows="3" placeholder="Listez les accès API dont vous disposez (clés, tokens)..."></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-auto-resultat">Résultat attendu</label>
+            <textarea id="ob-auto-resultat" class="input textarea" rows="4" placeholder="Quand X se passe, je veux que Y se fasse automatiquement"></textarea>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- AUTO — Step 3: Récap                           -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="3" data-offer="auto" style="display:none;">
+          <h2 class="step-title">Récapitulatif</h2>
+          <p class="recap-intro">Vérifiez vos informations avant d'envoyer votre dossier.</p>
+          <div class="recap-box">
+            <div id="recap-content-auto"></div>
+          </div>
+          <div class="files-reminder">
+            <p class="files-reminder-title">Pensez à m'envoyer par email :</p>
+            <p>&rarr; Captures d'écran de vos outils actuels</p>
+            <p>&rarr; Tout document décrivant vos processus</p>
+            <p class="files-reminder-email">À <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- GBP — Step 1: Fiche Google                     -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="1" data-offer="gbp" style="display:none;">
+          <h2 class="step-title">Votre fiche Google</h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-gbp-prenom">Prénom <span class="field-req">*</span></label>
+              <input type="text" id="ob-gbp-prenom" class="input" value={lead.prenom || ''} required />
+            </div>
+            <div class="field">
+              <label for="ob-gbp-nom">Nom <span class="field-req">*</span></label>
+              <input type="text" id="ob-gbp-nom" class="input" value={lead.nom?.split(' ').slice(1).join(' ') || lead.nom || ''} required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-gbp-email">Email</label>
+            <input type="email" id="ob-gbp-email" class="input input-readonly" value={lead.email || ''} readonly />
+          </div>
+          <div class="field">
+            <label for="ob-gbp-telephone">Téléphone</label>
+            <input type="tel" id="ob-gbp-telephone" class="input" value={lead.telephone || ''} />
+          </div>
+          <div class="field">
+            <label>Avez-vous déjà une fiche Google Business ?</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-gbp-existante" value="oui" /><span>Oui</span></label>
+              <label class="radio-card"><input type="radio" name="ob-gbp-existante" value="non" /><span>Non</span></label>
+              <label class="radio-card"><input type="radio" name="ob-gbp-existante" value="ne-sais-pas" /><span>Je ne sais pas</span></label>
+            </div>
+          </div>
+          <div id="field-gbp-existante-details" style="display:none;">
+            <div class="field">
+              <label for="ob-gbp-url-fiche">URL de votre fiche Google</label>
+              <input type="url" id="ob-gbp-url-fiche" class="input" placeholder="https://g.page/..." />
+            </div>
+            <div class="field">
+              <label for="ob-gbp-email-google">Email Google associé</label>
+              <input type="email" id="ob-gbp-email-google" class="input" placeholder="votre-email@gmail.com" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-gbp-etablissement">Nom de l'établissement</label>
+            <input type="text" id="ob-gbp-etablissement" class="input" value={lead.entreprise || ''} />
+          </div>
+          <div class="field">
+            <label for="ob-gbp-categorie">Catégorie principale</label>
+            <input type="text" id="ob-gbp-categorie" class="input" placeholder="ex: Massothérapeute, Restaurant, Coiffeur..." />
+          </div>
+          <div class="field">
+            <label for="ob-gbp-adresse">Adresse</label>
+            <input type="text" id="ob-gbp-adresse" class="input" placeholder="Adresse complète de l'établissement" />
+          </div>
+          <div class="field">
+            <label for="ob-gbp-horaires">Horaires</label>
+            <textarea id="ob-gbp-horaires" class="input textarea" rows="3" placeholder="Lun-Ven : 9h-18h&#10;Sam : 9h-12h&#10;Dim : Fermé"></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-gbp-site">Site web</label>
+            <input type="url" id="ob-gbp-site" class="input" placeholder="https://mon-site.fr" />
+          </div>
+          <div class="field">
+            <label for="ob-gbp-description">Description de votre activité <span class="field-opt">(750 caractères max)</span></label>
+            <textarea id="ob-gbp-description" class="input textarea" rows="4" maxlength="750" placeholder="Décrivez votre activité..."></textarea>
+            <span class="char-count"><span id="gbp-desc-count">0</span>/750</span>
+          </div>
+          <div class="field">
+            <label for="ob-gbp-motscles">5 mots-clés principaux</label>
+            <input type="text" id="ob-gbp-motscles" class="input" placeholder="ex: masseur, bien-être, relaxation, aix-en-provence, détente" />
+          </div>
+          <div class="field">
+            <label>Photos à fournir</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-gbp-photos" value="oui-par-email" /><span>Oui, je les envoie par email</span></label>
+              <label class="radio-card"><input type="radio" name="ob-gbp-photos" value="non-elodie-cherche" /><span>Non, Élodie s'en charge</span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- GBP — Step 2: Récap                            -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="2" data-offer="gbp" style="display:none;">
+          <h2 class="step-title">Récapitulatif</h2>
+          <p class="recap-intro">Vérifiez vos informations avant d'envoyer votre dossier.</p>
+          <div class="recap-box">
+            <div id="recap-content-gbp"></div>
+          </div>
+          <div class="files-reminder">
+            <p class="files-reminder-title">Pensez à m'envoyer par email :</p>
+            <p>&rarr; Photos de votre établissement (intérieur + extérieur)</p>
+            <p>&rarr; Photo de profil / logo</p>
+            <p>&rarr; Photo de couverture</p>
+            <p class="files-reminder-email">À <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- LOGICIEL — Step 1: Projet                      -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="1" data-offer="logiciel" style="display:none;">
+          <h2 class="step-title">Votre projet</h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="ob-log-prenom">Prénom <span class="field-req">*</span></label>
+              <input type="text" id="ob-log-prenom" class="input" value={lead.prenom || ''} required />
+            </div>
+            <div class="field">
+              <label for="ob-log-nom">Nom <span class="field-req">*</span></label>
+              <input type="text" id="ob-log-nom" class="input" value={lead.nom?.split(' ').slice(1).join(' ') || lead.nom || ''} required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-log-email">Email</label>
+            <input type="email" id="ob-log-email" class="input input-readonly" value={lead.email || ''} readonly />
+          </div>
+          <div class="field">
+            <label for="ob-log-telephone">Téléphone</label>
+            <input type="tel" id="ob-log-telephone" class="input" value={lead.telephone || ''} />
+          </div>
+          <div class="field">
+            <label for="ob-log-description">Description en une phrase</label>
+            <input type="text" id="ob-log-description" class="input" placeholder="ex: Un outil de gestion de réservations pour ma conciergerie" />
+          </div>
+          <div class="field">
+            <label for="ob-log-utilisateurs">Utilisateurs</label>
+            <textarea id="ob-log-utilisateurs" class="input textarea" rows="3" placeholder="Qui utilisera ce logiciel ? Combien de personnes ?"></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-log-fonctionnalites-indispensables">Fonctionnalités indispensables</label>
+            <textarea id="ob-log-fonctionnalites-indispensables" class="input textarea" rows="4" placeholder="Les fonctionnalités sans lesquelles le projet n'a pas de sens..."></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-log-fonctionnalites-souhaitees">Fonctionnalités souhaitées</label>
+            <textarea id="ob-log-fonctionnalites-souhaitees" class="input textarea" rows="3" placeholder="Les fonctionnalités 'nice to have'..."></textarea>
+          </div>
+          <div class="field">
+            <label for="ob-log-inspirations">Inspirations / Concurrents</label>
+            <textarea id="ob-log-inspirations" class="input textarea" rows="3" placeholder="Des outils existants qui ressemblent à ce que vous voulez..."></textarea>
+          </div>
+          <div class="field">
+            <label>Budget</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-log-budget" value="2000-5000" /><span>2 000 - 5 000 &euro;</span></label>
+              <label class="radio-card"><input type="radio" name="ob-log-budget" value="5000-15000" /><span>5 000 - 15 000 &euro;</span></label>
+              <label class="radio-card"><input type="radio" name="ob-log-budget" value="15000+" /><span>15 000 &euro; +</span></label>
+              <label class="radio-card"><input type="radio" name="ob-log-budget" value="a-definir" /><span>À définir</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="ob-log-delai">Délai souhaité</label>
+            <input type="text" id="ob-log-delai" class="input" placeholder="ex: 3 mois, avant septembre..." />
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- LOGICIEL — Step 2: Technique                   -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="2" data-offer="logiciel" style="display:none;">
+          <h2 class="step-title">Aspects techniques</h2>
+          <div class="field">
+            <label>Avez-vous un hébergeur / domaine existant ?</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-log-hebergeur" value="oui" /><span>Oui</span></label>
+              <label class="radio-card"><input type="radio" name="ob-log-hebergeur" value="non" /><span>Non</span></label>
+            </div>
+          </div>
+          <div class="field" id="field-log-hebergeur-details" style="display:none;">
+            <label for="ob-log-hebergeur-details">Détails hébergeur / domaine</label>
+            <input type="text" id="ob-log-hebergeur-details" class="input" placeholder="ex: OVH, mon-domaine.fr" />
+          </div>
+          <div class="field">
+            <label for="ob-log-contraintes">Contraintes techniques</label>
+            <textarea id="ob-log-contraintes" class="input textarea" rows="3" placeholder="RGPD, données sensibles, intégrations..."></textarea>
+          </div>
+          <div class="field">
+            <label>Avez-vous des maquettes / wireframes ?</label>
+            <div class="radio-group">
+              <label class="radio-card"><input type="radio" name="ob-log-maquettes" value="oui" /><span>Oui</span></label>
+              <label class="radio-card"><input type="radio" name="ob-log-maquettes" value="non" /><span>Non</span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- LOGICIEL — Step 3: Récap                       -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <div class="step" data-step="3" data-offer="logiciel" style="display:none;">
+          <h2 class="step-title">Récapitulatif</h2>
+          <p class="recap-intro">Vérifiez vos informations avant d'envoyer votre dossier.</p>
+          <div class="recap-box">
+            <div id="recap-content-logiciel"></div>
+          </div>
+          <div class="files-reminder">
+            <p class="files-reminder-title">Pensez à m'envoyer par email :</p>
+            <p>&rarr; Maquettes / wireframes (si existants)</p>
+            <p>&rarr; Cahier des charges (si existant)</p>
+            <p>&rarr; Tout document décrivant votre besoin</p>
+            <p class="files-reminder-email">À <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="step-nav">
+          <button type="button" id="btn-prev" class="btn btn-outline" style="visibility:hidden;">&larr; Précédent</button>
+          <button type="button" id="btn-next" class="btn btn-primary">Suivant &rarr;</button>
+          <button type="button" id="btn-submit" class="btn btn-aurora" style="display:none;">Envoyer mon dossier</button>
+        </div>
+      </form>
+
+      <!-- Confirmation -->
+      <div id="onboarding-success" class="onboarding-message" style="display:none;">
+        <div class="success-icon">&#10003;</div>
+        <h2>Dossier envoyé !</h2>
+        <p>Merci pour toutes ces informations. Je vous contacte sous 24h pour démarrer votre projet.</p>
+        <div class="files-reminder" style="margin-top:24px;">
+          <p class="files-reminder-title">N'oubliez pas d'envoyer vos fichiers par email :</p>
+          <p>&rarr; Logo, photos, documents utiles</p>
+          <p class="files-reminder-email">À <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
+        </div>
+        <p class="contact-line">Une question ? <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a> — 06 59 65 92 18</p>
+      </div>
+
+    </div>
+  </section>
+)}
+
+<!-- Toast container -->
+<div id="toast-container" class="toast-container"></div>
+
+<style>
+  /* ─── ONBOARDING LAYOUT ─── */
+  .onboarding-section {
+    padding: 48px 0 96px;
+    min-height: 100vh;
+    background: var(--gray-50);
+  }
+  .onboarding-container {
+    max-width: 720px;
+  }
+  .onboarding-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .onboarding-title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin: 16px 0 8px;
+  }
+  .onboarding-sub {
+    color: var(--gray-500);
+    font-size: 15px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ─── INTRO BOX ─── */
+  .ob-intro {
+    background: var(--aurora-pale);
+    border-left: 3px solid var(--aurora);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--black);
+  }
+
+  /* ─── STEPPER ─── */
+  .stepper {
+    margin-bottom: 40px;
+  }
+  .stepper-bar {
+    height: 4px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .stepper-fill {
+    height: 100%;
+    background: var(--aurora);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .stepper-labels {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+  }
+  .stepper-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-300);
+    transition: color 0.3s;
+  }
+  .stepper-label.active {
+    color: var(--aurora);
+    font-weight: 600;
+  }
+  .stepper-label.done {
+    color: var(--gray-700);
+  }
+
+  /* ─── STEPS ─── */
+  .step {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    border: 1.5px solid var(--gray-100);
+  }
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: var(--black);
+  }
+
+  /* ─── FIELDS ─── */
+  .field {
+    margin-bottom: 20px;
+  }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 6px;
+  }
+  .field-opt {
+    font-weight: 400;
+    color: var(--gray-500);
+  }
+  .field-req {
+    color: var(--aurora);
+  }
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .input {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: var(--font-display);
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color 0.2s;
+    background: white;
+    box-sizing: border-box;
+  }
+  .input:focus {
+    border-color: var(--aurora);
+  }
+  .input.input-error {
+    border-color: #dc2626;
+  }
+  .input-readonly {
+    background: var(--gray-50);
+    color: var(--gray-500);
+    cursor: not-allowed;
+  }
+  .textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+  select.input {
+    cursor: pointer;
+  }
+
+  /* ─── COLOR PICKER ─── */
+  .color-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .color-row input[type="color"],
+  .ob-color {
+    width: 48px;
+    height: 36px;
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    padding: 2px;
+  }
+  .color-hex {
+    font-size: 13px;
+    font-family: monospace;
+    color: var(--gray-500);
+  }
+  .color-row .color-remove {
+    background: none;
+    border: none;
+    color: var(--gray-500);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0 4px;
+  }
+
+  /* ─── RADIO CARDS ─── */
+  .radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .radio-card {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 1.5px solid var(--gray-300);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .radio-card:has(input:checked) {
+    border-color: var(--aurora);
+    background: var(--aurora-pale);
+    color: var(--aurora-dark);
+  }
+  .radio-card input {
+    display: none;
+  }
+
+  /* ─── CHECKBOX CARDS ─── */
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .checkbox-card {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 1.5px solid var(--gray-300);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .checkbox-card:has(input:checked) {
+    border-color: var(--aurora);
+    background: var(--aurora-pale);
+    color: var(--aurora-dark);
+  }
+  .checkbox-card input {
+    display: none;
+  }
+
+  /* ─── SERVICES / TEMOIGNAGES ROWS ─── */
+  .service-row, .temoignage-row {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 12px;
+    background: var(--gray-50);
+    border-radius: var(--radius-sm);
+  }
+  .service-row {
+    grid-template-columns: 1fr 1.5fr 0.7fr;
+  }
+  .temoignage-row {
+    grid-template-columns: 1fr;
+  }
+  .btn-add {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--aurora);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  .btn-add:hover {
+    text-decoration: underline;
+  }
+
+  /* ─── INFO NOTE ─── */
+  .info-note {
+    background: var(--gray-50);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+  .info-note a {
+    color: var(--aurora);
+  }
+
+  /* ─── PRO ONLY FIELDS ─── */
+  .field-pro-only {
+    display: none;
+  }
+
+  /* ─── CHAR COUNTER ─── */
+  .char-count {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 4px;
+  }
+
+  /* ─── NAVIGATION ─── */
+  .step-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    gap: 12px;
+  }
+
+  /* ─── RECAP ─── */
+  .recap-intro {
+    color: var(--gray-500);
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .recap-box {
+    background: white;
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-md);
+    padding: 24px;
+  }
+  .recap-section {
+    margin-bottom: 20px;
+  }
+  .recap-section:last-child {
+    margin-bottom: 0;
+  }
+  .recap-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--aurora);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--aurora-pale);
+  }
+  .recap-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 13px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .recap-row:last-child {
+    border-bottom: none;
+  }
+  .recap-label {
+    font-weight: 600;
+    color: var(--gray-700);
+  }
+  .recap-value {
+    color: var(--gray-500);
+    text-align: right;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ─── FILES REMINDER ─── */
+  .files-reminder {
+    background: var(--aurora-pale);
+    border: 1.5px solid rgba(255,107,26,0.2);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    margin-top: 20px;
+  }
+  .files-reminder-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+  .files-reminder p {
+    font-size: 14px;
+    color: var(--black);
+    margin: 2px 0;
+  }
+  .files-reminder-email {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--gray-500);
+  }
+  .files-reminder a {
+    color: var(--aurora);
+  }
+
+  /* ─── SUCCESS / ERROR MESSAGES ─── */
+  .onboarding-message {
+    text-align: center;
+    padding: 96px 24px;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .onboarding-message h1, .onboarding-message h2 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    margin: 16px 0 12px;
+  }
+  .onboarding-message p {
+    color: var(--gray-500);
+    font-size: 15px;
+    max-width: 400px;
+    line-height: 1.6;
+  }
+  .onboarding-message a {
+    color: var(--aurora);
+  }
+  .success-icon {
+    width: 56px;
+    height: 56px;
+    background: #dcfce7;
+    color: #16a34a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 auto 8px;
+  }
+  .contact-line {
+    margin-top: 16px;
+    font-size: 14px;
+  }
+
+  /* ─── TOAST ─── */
+  .toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .toast {
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+    max-width: 400px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    animation: toast-in 0.3s ease-out;
+    cursor: pointer;
+  }
+  .toast-success { background: #16a34a; }
+  .toast-error { background: #dc2626; }
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ─── SPINNER ─── */
+  .spinner-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+  }
+  .spinner-ring {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--gray-100);
+    border-top-color: var(--aurora);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .field-row {
+      grid-template-columns: 1fr;
+    }
+    .service-row {
+      grid-template-columns: 1fr;
+    }
+    .stepper-labels {
+      font-size: 10px;
+    }
+    .step {
+      padding: 24px 20px;
+    }
+  }
+</style>
+
+<script is:inline>
+(function() {
+  var form = document.getElementById('onboarding-form');
+  if (!form) return;
+
+  var TOKEN = form.dataset.token;
+  var OFFRE = form.dataset.offre || '';
+  var OFFER_TYPE = form.dataset.offerType || 'site';
+  var TOTAL_STEPS = parseInt(form.dataset.total) || 5;
+  var STEP_LABELS = [];
+  try { STEP_LABELS = JSON.parse(form.dataset.steps); } catch(e) { STEP_LABELS = []; }
+  var STORAGE_KEY = 'onboarding-' + TOKEN;
+  var currentStep = 1;
+
+  // ─── DOM refs ───
+  var btnPrev = document.getElementById('btn-prev');
+  var btnNext = document.getElementById('btn-next');
+  var btnSubmit = document.getElementById('btn-submit');
+  var stepperFill = document.getElementById('stepper-fill');
+  var stepperLabels = document.getElementById('stepper-labels');
+
+  // ─── Build stepper labels dynamically ───
+  function buildStepper() {
+    if (!stepperLabels) return;
+    stepperLabels.innerHTML = '';
+    for (var i = 0; i < STEP_LABELS.length; i++) {
+      var span = document.createElement('span');
+      span.className = 'stepper-label';
+      span.dataset.step = String(i + 1);
+      span.textContent = (i + 1) + '. ' + STEP_LABELS[i];
+      stepperLabels.appendChild(span);
+    }
+  }
+  buildStepper();
+
+  // ─── Filter and re-index steps by offer type ───
+  var allSteps = form.querySelectorAll('.step');
+  var visibleSteps = [];
+
+  for (var i = 0; i < allSteps.length; i++) {
+    var stepEl = allSteps[i];
+    var offerAttr = stepEl.dataset.offer || '';
+    var offers = offerAttr.split(',');
+    var match = false;
+    for (var j = 0; j < offers.length; j++) {
+      if (offers[j].trim() === OFFER_TYPE) { match = true; break; }
+    }
+    if (match) {
+      visibleSteps.push(stepEl);
+    }
+  }
+
+  // Re-index visible steps
+  for (var i = 0; i < visibleSteps.length; i++) {
+    visibleSteps[i].dataset.visibleIndex = String(i + 1);
+  }
+
+  // Update TOTAL_STEPS to match actual visible steps
+  TOTAL_STEPS = visibleSteps.length;
+
+  // ─── Show/hide pro-only fields ───
+  var offreLower = OFFRE.toLowerCase();
+  var isPro = offreLower.indexOf('pro') !== -1 || offreLower.indexOf('réservation') !== -1 || offreLower.indexOf('reservation') !== -1;
+  if (isPro) {
+    var proFields = document.querySelectorAll('.field-pro-only');
+    for (var i = 0; i < proFields.length; i++) {
+      proFields[i].style.display = '';
+    }
+  }
+
+  // ─── Conditional field toggles ───
+  function setupRadioToggle(radioName, showValue, targetId) {
+    var radios = document.querySelectorAll('input[name="' + radioName + '"]');
+    var target = document.getElementById(targetId);
+    if (!target || radios.length === 0) return;
+    for (var i = 0; i < radios.length; i++) {
+      radios[i].addEventListener('change', function() {
+        target.style.display = this.value === showValue ? '' : 'none';
+      });
+    }
+  }
+
+  setupRadioToggle('ob-avis-google', 'oui', 'field-avis-lien');
+  setupRadioToggle('ob-gbp-existante', 'oui', 'field-gbp-existante-details');
+  setupRadioToggle('ob-brand-logo-existant', 'oui', 'field-brand-logo-feedback');
+  setupRadioToggle('ob-log-hebergeur', 'oui', 'field-log-hebergeur-details');
+
+  // ─── Dynamic colors ───
+  var colorsList = document.getElementById('colors-list');
+  var addColorBtn = document.getElementById('add-color');
+  if (addColorBtn && colorsList) {
+    addColorBtn.addEventListener('click', function() {
+      if (colorsList.querySelectorAll('.color-row').length >= 6) return;
+      var row = document.createElement('div');
+      row.className = 'color-row';
+      row.innerHTML = '<input type="color" class="ob-color" value="#000000" /><span class="color-hex">#000000</span><button type="button" class="color-remove">\u00d7</button>';
+      colorsList.appendChild(row);
+      row.querySelector('input').addEventListener('input', function() {
+        row.querySelector('.color-hex').textContent = this.value.toUpperCase();
+      });
+      row.querySelector('.color-remove').addEventListener('click', function() { row.remove(); });
+    });
+  }
+
+  // Branding colors list (separate instance)
+  var addColorBtns = document.querySelectorAll('.add-color-btn');
+  for (var b = 0; b < addColorBtns.length; b++) {
+    (function(btn) {
+      var targetId = btn.dataset.target;
+      var targetList = document.getElementById(targetId);
+      if (!targetList) return;
+      btn.addEventListener('click', function() {
+        if (targetList.querySelectorAll('.color-row').length >= 6) return;
+        var row = document.createElement('div');
+        row.className = 'color-row';
+        row.innerHTML = '<input type="color" class="ob-color" value="#000000" /><span class="color-hex">#000000</span><button type="button" class="color-remove">\u00d7</button>';
+        targetList.appendChild(row);
+        row.querySelector('input').addEventListener('input', function() {
+          row.querySelector('.color-hex').textContent = this.value.toUpperCase();
+        });
+        row.querySelector('.color-remove').addEventListener('click', function() { row.remove(); });
+      });
+    })(addColorBtns[b]);
+  }
+
+  // Sync color hex for existing inputs
+  document.querySelectorAll('.ob-color').forEach(function(inp) {
+    inp.addEventListener('input', function() {
+      var hex = inp.closest('.color-row').querySelector('.color-hex');
+      if (hex) hex.textContent = inp.value.toUpperCase();
+    });
+  });
+
+  // ─── Dynamic services ───
+  var addServiceBtn = document.getElementById('add-service');
+  if (addServiceBtn) {
+    addServiceBtn.addEventListener('click', function() {
+      var list = document.getElementById('services-list');
+      if (list.querySelectorAll('.service-row').length >= 6) return;
+      var div = document.createElement('div');
+      div.className = 'service-row';
+      div.innerHTML = '<input type="text" class="input svc-nom" placeholder="Nom du service" /><input type="text" class="input svc-desc" placeholder="Description courte" /><input type="text" class="input svc-prix" placeholder="Prix (optionnel)" />';
+      list.appendChild(div);
+    });
+  }
+
+  // ─── Dynamic témoignages ───
+  var addTemBtn = document.getElementById('add-temoignage');
+  if (addTemBtn) {
+    addTemBtn.addEventListener('click', function() {
+      var list = document.getElementById('temoignages-list');
+      if (list.querySelectorAll('.temoignage-row').length >= 3) return;
+      var div = document.createElement('div');
+      div.className = 'temoignage-row';
+      div.innerHTML = '<input type="text" class="input tem-nom" placeholder="Prénom Nom du client" /><textarea class="input textarea tem-texte" rows="2" placeholder="Son témoignage..."></textarea><input type="text" class="input tem-entreprise" placeholder="Entreprise (optionnel)" />';
+      list.appendChild(div);
+    });
+  }
+
+  // ─── Char counters ───
+  function setupCharCounter(textareaId, countId) {
+    var ta = document.getElementById(textareaId);
+    var counter = document.getElementById(countId);
+    if (!ta || !counter) return;
+    ta.addEventListener('input', function() { counter.textContent = ta.value.length; });
+  }
+  setupCharCounter('ob-presentation', 'presentation-count');
+  setupCharCounter('ob-gbp', 'gbp-count');
+  setupCharCounter('ob-gbp-description', 'gbp-desc-count');
+
+  // ─── Clear error on input ───
+  form.addEventListener('input', function(e) {
+    if (e.target.classList && e.target.classList.contains('input-error')) {
+      e.target.classList.remove('input-error');
+    }
+  });
+
+  // ─── SAVE / RESTORE from localStorage ───
+  function saveProgress() {
+    try {
+      var data = collectFormData();
+      data._currentStep = currentStep;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch(e) {}
+  }
+
+  function restoreProgress() {
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return;
+    try {
+      var data = JSON.parse(saved);
+      // Restore all text/url/tel/number inputs
+      var inputs = form.querySelectorAll('input[id], textarea[id], select[id]');
+      for (var i = 0; i < inputs.length; i++) {
+        var el = inputs[i];
+        if (el.type === 'color' || el.readOnly) continue;
+        var key = el.id;
+        if (data[key] !== undefined && data[key] !== '') {
+          el.value = data[key];
+        }
+      }
+      // Restore radio buttons
+      if (data._radios) {
+        for (var name in data._radios) {
+          var r = document.querySelector('input[name="' + name + '"][value="' + data._radios[name] + '"]');
+          if (r) { r.checked = true; r.dispatchEvent(new Event('change', {bubbles:true})); }
+        }
+      }
+      // Restore checkboxes
+      if (data._checkboxes) {
+        for (var name in data._checkboxes) {
+          var vals = data._checkboxes[name];
+          for (var v = 0; v < vals.length; v++) {
+            var cb = document.querySelector('input[name="' + name + '"][value="' + vals[v] + '"]');
+            if (cb) cb.checked = true;
+          }
+        }
+      }
+      // Restore colors
+      if (data._colors) {
+        // For main colors-list and branding colors-list
+        var lists = [document.getElementById('colors-list'), document.getElementById('colors-list-brand')];
+        for (var li = 0; li < lists.length; li++) {
+          var list = lists[li];
+          if (!list) continue;
+          var listKey = list.id === 'colors-list' ? '_colors' : '_colorsBrand';
+          var colorsArr = data[listKey];
+          if (!colorsArr || !colorsArr.length) continue;
+          // Set the first one
+          var firstRow = list.querySelector('.color-row');
+          if (firstRow && colorsArr[0]) {
+            firstRow.querySelector('.ob-color').value = colorsArr[0];
+            firstRow.querySelector('.color-hex').textContent = colorsArr[0].toUpperCase();
+          }
+          // Add extra colors
+          for (var c = 1; c < colorsArr.length; c++) {
+            var row = document.createElement('div');
+            row.className = 'color-row';
+            row.innerHTML = '<input type="color" class="ob-color" value="' + colorsArr[c] + '" /><span class="color-hex">' + colorsArr[c].toUpperCase() + '</span><button type="button" class="color-remove">\u00d7</button>';
+            list.appendChild(row);
+            row.querySelector('input').addEventListener('input', function() {
+              this.closest('.color-row').querySelector('.color-hex').textContent = this.value.toUpperCase();
+            });
+            row.querySelector('.color-remove').addEventListener('click', function() { this.closest('.color-row').remove(); });
+          }
+        }
+      }
+      // Update char counts
+      setupCharCounter('ob-presentation', 'presentation-count');
+      setupCharCounter('ob-gbp', 'gbp-count');
+      setupCharCounter('ob-gbp-description', 'gbp-desc-count');
+      var pres = document.getElementById('ob-presentation');
+      var presC = document.getElementById('presentation-count');
+      if (pres && presC) presC.textContent = pres.value.length;
+      var gbp = document.getElementById('ob-gbp');
+      var gbpC = document.getElementById('gbp-count');
+      if (gbp && gbpC) gbpC.textContent = gbp.value.length;
+      var gbpD = document.getElementById('ob-gbp-description');
+      var gbpDC = document.getElementById('gbp-desc-count');
+      if (gbpD && gbpDC) gbpDC.textContent = gbpD.value.length;
+    } catch(e) {}
+  }
+
+  // ─── Collect form data ───
+  function collectFormData() {
+    var data = {};
+
+    // All text/url/tel/email/number/password inputs + textareas + selects
+    var inputs = form.querySelectorAll('input[id], textarea[id], select[id]');
+    for (var i = 0; i < inputs.length; i++) {
+      var el = inputs[i];
+      if (el.type === 'color') continue;
+      // Only collect from visible steps
+      var stepEl = el.closest('.step');
+      if (stepEl && stepEl.dataset.visibleIndex === undefined) continue;
+      data[el.id] = el.value.trim ? el.value.trim() : el.value;
+    }
+
+    // Radio buttons
+    data._radios = {};
+    var radioNames = {};
+    var radios = form.querySelectorAll('input[type="radio"]');
+    for (var i = 0; i < radios.length; i++) {
+      var r = radios[i];
+      var stepEl = r.closest('.step');
+      if (stepEl && stepEl.dataset.visibleIndex === undefined) continue;
+      radioNames[r.name] = true;
+    }
+    for (var name in radioNames) {
+      var checked = form.querySelector('input[name="' + name + '"]:checked');
+      if (checked) data._radios[name] = checked.value;
+    }
+
+    // Checkboxes
+    data._checkboxes = {};
+    var cbNames = {};
+    var cbs = form.querySelectorAll('input[type="checkbox"]');
+    for (var i = 0; i < cbs.length; i++) {
+      var cb = cbs[i];
+      var stepEl = cb.closest('.step');
+      if (stepEl && stepEl.dataset.visibleIndex === undefined) continue;
+      cbNames[cb.name] = true;
+    }
+    for (var name in cbNames) {
+      var checkedCbs = form.querySelectorAll('input[name="' + name + '"]:checked');
+      var vals = [];
+      for (var i = 0; i < checkedCbs.length; i++) vals.push(checkedCbs[i].value);
+      if (vals.length) data._checkboxes[name] = vals;
+    }
+
+    // Colors
+    var colorsList1 = document.getElementById('colors-list');
+    if (colorsList1) {
+      var colorInputs = colorsList1.querySelectorAll('.ob-color');
+      data._colors = [];
+      for (var i = 0; i < colorInputs.length; i++) data._colors.push(colorInputs[i].value);
+    }
+    var colorsList2 = document.getElementById('colors-list-brand');
+    if (colorsList2) {
+      var colorInputs2 = colorsList2.querySelectorAll('.ob-color');
+      data._colorsBrand = [];
+      for (var i = 0; i < colorInputs2.length; i++) data._colorsBrand.push(colorInputs2[i].value);
+    }
+
+    // Services
+    data._services = collectServices();
+
+    // Temoignages
+    data._temoignages = collectTemoignages();
+
+    return data;
+  }
+
+  function collectServices() {
+    var rows = document.querySelectorAll('.service-row');
+    var services = [];
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      var nom = row.querySelector('.svc-nom');
+      var desc = row.querySelector('.svc-desc');
+      var prix = row.querySelector('.svc-prix');
+      if (nom && nom.value.trim()) {
+        services.push({ nom: nom.value.trim(), description: desc ? desc.value.trim() : '', prix: prix ? prix.value.trim() : '' });
+      }
+    }
+    return services;
+  }
+
+  function collectTemoignages() {
+    var rows = document.querySelectorAll('.temoignage-row');
+    var tems = [];
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      var nom = row.querySelector('.tem-nom');
+      var texte = row.querySelector('.tem-texte');
+      var ent = row.querySelector('.tem-entreprise');
+      if (nom && nom.value.trim() && texte && texte.value.trim()) {
+        tems.push({ nom: nom.value.trim(), texte: texte.value.trim(), entreprise: ent ? ent.value.trim() : '' });
+      }
+    }
+    return tems;
+  }
+
+  // ─── Validation ───
+  function validateStep(n) {
+    var stepEl = visibleSteps[n - 1];
+    if (!stepEl) return true;
+    var requiredInputs = stepEl.querySelectorAll('[required]');
+    var valid = true;
+    for (var i = 0; i < requiredInputs.length; i++) {
+      var el = requiredInputs[i];
+      // Skip hidden fields
+      if (el.closest('[style*="display:none"]') || el.closest('[style*="display: none"]')) continue;
+      if (!el.value || !el.value.trim()) {
+        el.classList.add('input-error');
+        valid = false;
+      } else {
+        el.classList.remove('input-error');
+      }
+    }
+    if (!valid) {
+      showToast('Veuillez remplir les champs obligatoires', 'error');
+    }
+    return valid;
+  }
+
+  // ─── Step navigation ───
+  function showStep(n) {
+    currentStep = n;
+    for (var i = 0; i < visibleSteps.length; i++) {
+      visibleSteps[i].style.display = 'none';
+    }
+    if (visibleSteps[n - 1]) visibleSteps[n - 1].style.display = '';
+
+    btnPrev.style.visibility = n === 1 ? 'hidden' : 'visible';
+    btnNext.style.display = n === TOTAL_STEPS ? 'none' : '';
+    btnSubmit.style.display = n === TOTAL_STEPS ? '' : 'none';
+
+    stepperFill.style.width = (n / TOTAL_STEPS * 100) + '%';
+
+    var labels = document.querySelectorAll('.stepper-label');
+    for (var i = 0; i < labels.length; i++) {
+      var s = parseInt(labels[i].dataset.step);
+      labels[i].classList.toggle('active', s === n);
+      labels[i].classList.toggle('done', s < n);
+    }
+
+    if (n === TOTAL_STEPS) buildRecap();
+    saveProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  btnPrev.addEventListener('click', function() {
+    if (currentStep > 1) showStep(currentStep - 1);
+  });
+
+  btnNext.addEventListener('click', function() {
+    if (!validateStep(currentStep)) return;
+    if (currentStep < TOTAL_STEPS) showStep(currentStep + 1);
+  });
+
+  // ─── Save on every field change ───
+  form.addEventListener('input', function() { saveProgress(); });
+  form.addEventListener('change', function() { saveProgress(); });
+
+  // ─── RECAP ───
+  function escapeHtml(str) {
+    if (!str) return '';
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function recapRow(label, value) {
+    return '<div class="recap-row"><span class="recap-label">' + label + '</span><span class="recap-value">' + (value || '-') + '</span></div>';
+  }
+
+  function colorSwatch(hex) {
+    return '<span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:' + hex + ';vertical-align:middle;margin-right:6px;border:1px solid #ddd;"></span>' + hex.toUpperCase();
+  }
+
+  function getVal(id) {
+    var el = document.getElementById(id);
+    return el ? (el.value || '').trim() : '';
+  }
+
+  function getRadio(name) {
+    var el = form.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
+
+  function getCheckboxes(name) {
+    var els = form.querySelectorAll('input[name="' + name + '"]:checked');
+    var vals = [];
+    for (var i = 0; i < els.length; i++) vals.push(els[i].value);
+    return vals;
+  }
+
+  function getColors(listId) {
+    var list = document.getElementById(listId);
+    if (!list) return [];
+    var inputs = list.querySelectorAll('.ob-color');
+    var cols = [];
+    for (var i = 0; i < inputs.length; i++) cols.push(inputs[i].value);
+    return cols;
+  }
+
+  function buildRecap() {
+    var html = '';
+
+    if (OFFER_TYPE === 'site') {
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Votre activité</div>';
+      html += recapRow('Nom', escapeHtml(getVal('ob-prenom') + ' ' + getVal('ob-nom')));
+      html += recapRow('Entreprise', escapeHtml(getVal('ob-entreprise')));
+      html += recapRow('Secteur', escapeHtml(getVal('ob-secteur')));
+      html += recapRow('Ville', escapeHtml([getVal('ob-ville'), getVal('ob-codepostal')].filter(Boolean).join(' ')));
+      if (getVal('ob-adresse')) html += recapRow('Adresse', escapeHtml(getVal('ob-adresse')));
+      if (getVal('ob-telephone')) html += recapRow('Téléphone', escapeHtml(getVal('ob-telephone')));
+      if (getVal('ob-siren')) html += recapRow('SIREN', escapeHtml(getVal('ob-siren')));
+      if (getRadio('ob-objectif')) html += recapRow('Objectif', escapeHtml(getRadio('ob-objectif')));
+      if (getRadio('ob-clientele')) html += recapRow('Clientèle', escapeHtml(getRadio('ob-clientele')));
+      html += '</div>';
+
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Identité visuelle</div>';
+      var colors = getColors('colors-list');
+      for (var c = 0; c < colors.length; c++) {
+        html += recapRow('Couleur ' + (c + 1), colorSwatch(colors[c]));
+      }
+      var tons = getCheckboxes('ob-ton');
+      if (tons.length) html += recapRow('Ton', escapeHtml(tons.join(', ')));
+      if (getVal('ob-polices')) html += recapRow('Polices', escapeHtml(getVal('ob-polices')));
+      var inspis = [getVal('ob-inspi1'), getVal('ob-inspi2'), getVal('ob-inspi3')].filter(Boolean);
+      if (inspis.length) html += recapRow('Inspirations', inspis.length + ' site(s)');
+      html += '</div>';
+
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Contenu</div>';
+      if (getVal('ob-titre')) html += recapRow('Titre', escapeHtml(getVal('ob-titre')));
+      if (getVal('ob-sous-titre')) html += recapRow('Sous-titre', escapeHtml(getVal('ob-sous-titre')));
+      var svcs = collectServices();
+      html += recapRow('Services', svcs.length + ' service(s)');
+      var forts = [getVal('ob-fort1'), getVal('ob-fort2'), getVal('ob-fort3')].filter(Boolean);
+      html += recapRow('Points forts', forts.length + ' point(s)');
+      var tems = collectTemoignages();
+      html += recapRow('Témoignages', tems.length + ' témoignage(s)');
+      html += '</div>';
+
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">SEO & visibilité</div>';
+      if (getVal('ob-motcle')) html += recapRow('Mot-clé principal', escapeHtml(getVal('ob-motcle')));
+      var mcs = [getVal('ob-motcle2'), getVal('ob-motcle3'), getVal('ob-motcle4')].filter(Boolean);
+      html += recapRow('Mots-clés secondaires', mcs.length + ' mot(s)');
+      if (getRadio('ob-prix')) html += recapRow('Fourchette de prix', escapeHtml(getRadio('ob-prix')));
+      if (getVal('ob-domaine')) html += recapRow('Domaine', escapeHtml(getVal('ob-domaine')));
+      if (getVal('ob-horaires')) html += recapRow('Horaires', 'Renseignés');
+      if (getVal('ob-notes')) html += recapRow('Notes', 'Renseignées');
+      html += '</div>';
+
+      document.getElementById('recap-content').innerHTML = html;
+
+    } else if (OFFER_TYPE === 'migration') {
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Site actuel</div>';
+      html += recapRow('Nom', escapeHtml(getVal('ob-mig-prenom') + ' ' + getVal('ob-mig-nom')));
+      if (getVal('ob-mig-url')) html += recapRow('URL actuel', escapeHtml(getVal('ob-mig-url')));
+      if (getVal('ob-mig-plateforme')) html += recapRow('Plateforme', escapeHtml(getVal('ob-mig-plateforme')));
+      if (getVal('ob-mig-hebergeur')) html += recapRow('Hébergeur', escapeHtml(getVal('ob-mig-hebergeur')));
+      if (getVal('ob-mig-domaine')) html += recapRow('Domaine', escapeHtml(getVal('ob-mig-domaine')));
+      if (getVal('ob-mig-garder')) html += recapRow('À garder', 'Renseigné');
+      if (getVal('ob-mig-changer')) html += recapRow('À changer', 'Renseigné');
+      html += '</div>';
+
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Identité visuelle</div>';
+      var colors = getColors('colors-list');
+      for (var c = 0; c < colors.length; c++) {
+        html += recapRow('Couleur ' + (c + 1), colorSwatch(colors[c]));
+      }
+      var tons = getCheckboxes('ob-ton');
+      if (tons.length) html += recapRow('Ton', escapeHtml(tons.join(', ')));
+      html += '</div>';
+
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">SEO actuel</div>';
+      if (getVal('ob-mig-motscles')) html += recapRow('Mots-clés actuels', 'Renseignés');
+      if (getVal('ob-mig-position')) html += recapRow('Position Google', escapeHtml(getVal('ob-mig-position')));
+      if (getVal('ob-mig-backlinks')) html += recapRow('Backlinks', 'Renseignés');
+      if (getVal('ob-mig-objectif-seo')) html += recapRow('Objectif SEO', 'Renseigné');
+      html += '</div>';
+
+      var recapEl = document.getElementById('recap-content-migration');
+      if (recapEl) recapEl.innerHTML = html;
+
+    } else if (OFFER_TYPE === 'seo') {
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Situation</div>';
+      html += recapRow('Nom', escapeHtml(getVal('ob-seo-prenom') + ' ' + getVal('ob-seo-nom')));
+      if (getVal('ob-seo-url')) html += recapRow('Site', escapeHtml(getVal('ob-seo-url')));
+      if (getVal('ob-seo-plateforme')) html += recapRow('Plateforme', escapeHtml(getVal('ob-seo-plateforme')));
+      if (getRadio('ob-seo-gsc')) html += recapRow('Search Console', escapeHtml(getRadio('ob-seo-gsc')));
+      if (getRadio('ob-seo-analytics')) html += recapRow('Analytics', escapeHtml(getRadio('ob-seo-analytics')));
+      if (getRadio('ob-seo-gbp')) html += recapRow('Google Business', escapeHtml(getRadio('ob-seo-gbp')));
+      if (getVal('ob-seo-motscles')) html += recapRow('Mots-clés', 'Renseignés');
+      html += '</div>';
+
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Objectifs</div>';
+      if (getRadio('ob-seo-objectif')) html += recapRow('Objectif', escapeHtml(getRadio('ob-seo-objectif')));
+      if (getRadio('ob-seo-budget')) html += recapRow('Budget contenu', escapeHtml(getRadio('ob-seo-budget')));
+      if (getRadio('ob-seo-delai')) html += recapRow('Délai', escapeHtml(getRadio('ob-seo-delai')));
+      html += '</div>';
+
+      var recapEl = document.getElementById('recap-content-seo');
+      if (recapEl) recapEl.innerHTML = html;
+
+    } else if (OFFER_TYPE === 'branding') {
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Entreprise</div>';
+      html += recapRow('Nom', escapeHtml(getVal('ob-brand-prenom') + ' ' + getVal('ob-brand-nom')));
+      if (getVal('ob-brand-entreprise')) html += recapRow('Entreprise', escapeHtml(getVal('ob-brand-entreprise')));
+      if (getVal('ob-brand-secteur')) html += recapRow('Secteur', escapeHtml(getVal('ob-brand-secteur')));
+      if (getRadio('ob-brand-logo-existant')) html += recapRow('Logo existant', escapeHtml(getRadio('ob-brand-logo-existant')));
+      if (getVal('ob-brand-3mots')) html += recapRow('3 mots-clés', escapeHtml(getVal('ob-brand-3mots')));
+      var valeurs = getCheckboxes('ob-brand-valeurs');
+      if (valeurs.length) html += recapRow('Valeurs', escapeHtml(valeurs.join(', ')));
+      html += '</div>';
+
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Préférences visuelles</div>';
+      var colors = getColors('colors-list-brand');
+      for (var c = 0; c < colors.length; c++) {
+        html += recapRow('Couleur ' + (c + 1), colorSwatch(colors[c]));
+      }
+      var styles = getCheckboxes('ob-brand-styles');
+      if (styles.length) html += recapRow('Styles', escapeHtml(styles.join(', ')));
+      var formats = getCheckboxes('ob-brand-formats');
+      if (formats.length) html += recapRow('Formats', escapeHtml(formats.join(', ')));
+      html += '</div>';
+
+      var recapEl = document.getElementById('recap-content-branding');
+      if (recapEl) recapEl.innerHTML = html;
+
+    } else if (OFFER_TYPE === 'auto') {
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Situation</div>';
+      html += recapRow('Nom', escapeHtml(getVal('ob-auto-prenom') + ' ' + getVal('ob-auto-nom')));
+      if (getVal('ob-auto-tache')) html += recapRow('Tâche', 'Renseignée');
+      var outils = getCheckboxes('ob-auto-outils');
+      if (outils.length) html += recapRow('Outils', escapeHtml(outils.join(', ')));
+      if (getVal('ob-auto-frequence')) html += recapRow('Fréquence/semaine', escapeHtml(getVal('ob-auto-frequence')));
+      if (getVal('ob-auto-temps')) html += recapRow('Temps/occurrence', escapeHtml(getVal('ob-auto-temps')));
+      if (getRadio('ob-auto-budget')) html += recapRow('Budget outil', escapeHtml(getRadio('ob-auto-budget')));
+      html += '</div>';
+
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Accès</div>';
+      if (getVal('ob-auto-api')) html += recapRow('API', 'Renseignées');
+      if (getVal('ob-auto-resultat')) html += recapRow('Résultat attendu', 'Renseigné');
+      html += '</div>';
+
+      var recapEl = document.getElementById('recap-content-auto');
+      if (recapEl) recapEl.innerHTML = html;
+
+    } else if (OFFER_TYPE === 'gbp') {
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Fiche Google</div>';
+      html += recapRow('Nom', escapeHtml(getVal('ob-gbp-prenom') + ' ' + getVal('ob-gbp-nom')));
+      if (getRadio('ob-gbp-existante')) html += recapRow('Fiche existante', escapeHtml(getRadio('ob-gbp-existante')));
+      if (getVal('ob-gbp-etablissement')) html += recapRow('Établissement', escapeHtml(getVal('ob-gbp-etablissement')));
+      if (getVal('ob-gbp-categorie')) html += recapRow('Catégorie', escapeHtml(getVal('ob-gbp-categorie')));
+      if (getVal('ob-gbp-adresse')) html += recapRow('Adresse', escapeHtml(getVal('ob-gbp-adresse')));
+      if (getVal('ob-gbp-site')) html += recapRow('Site web', escapeHtml(getVal('ob-gbp-site')));
+      if (getVal('ob-gbp-description')) html += recapRow('Description', 'Renseignée');
+      if (getVal('ob-gbp-motscles')) html += recapRow('Mots-clés', escapeHtml(getVal('ob-gbp-motscles')));
+      if (getRadio('ob-gbp-photos')) html += recapRow('Photos', escapeHtml(getRadio('ob-gbp-photos')));
+      html += '</div>';
+
+      var recapEl = document.getElementById('recap-content-gbp');
+      if (recapEl) recapEl.innerHTML = html;
+
+    } else if (OFFER_TYPE === 'logiciel') {
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Projet</div>';
+      html += recapRow('Nom', escapeHtml(getVal('ob-log-prenom') + ' ' + getVal('ob-log-nom')));
+      if (getVal('ob-log-description')) html += recapRow('Description', escapeHtml(getVal('ob-log-description')));
+      if (getVal('ob-log-utilisateurs')) html += recapRow('Utilisateurs', 'Renseigné');
+      if (getVal('ob-log-fonctionnalites-indispensables')) html += recapRow('Fonctionnalités indispensables', 'Renseignées');
+      if (getVal('ob-log-fonctionnalites-souhaitees')) html += recapRow('Fonctionnalités souhaitées', 'Renseignées');
+      if (getRadio('ob-log-budget')) html += recapRow('Budget', escapeHtml(getRadio('ob-log-budget')));
+      if (getVal('ob-log-delai')) html += recapRow('Délai', escapeHtml(getVal('ob-log-delai')));
+      html += '</div>';
+
+      html += '<div class="recap-section">';
+      html += '<div class="recap-section-title">Technique</div>';
+      if (getRadio('ob-log-hebergeur')) html += recapRow('Hébergeur existant', escapeHtml(getRadio('ob-log-hebergeur')));
+      if (getVal('ob-log-contraintes')) html += recapRow('Contraintes', 'Renseignées');
+      if (getRadio('ob-log-maquettes')) html += recapRow('Maquettes', escapeHtml(getRadio('ob-log-maquettes')));
+      html += '</div>';
+
+      var recapEl = document.getElementById('recap-content-logiciel');
+      if (recapEl) recapEl.innerHTML = html;
+    }
+  }
+
+  // ─── SUBMIT ───
+  btnSubmit.addEventListener('click', function() {
+    var data = collectFormData();
+    data.offerType = OFFER_TYPE;
+    data.offre = OFFRE;
+
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'Envoi en cours...';
+
+    var overlay = document.createElement('div');
+    overlay.className = 'spinner-overlay';
+    overlay.innerHTML = '<div class="spinner-ring"></div>';
+    document.body.appendChild(overlay);
+
+    fetch('/api/onboarding-submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: TOKEN, data: data })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(result) {
+      overlay.remove();
+      if (result.success) {
+        form.style.display = 'none';
+        document.getElementById('stepper').style.display = 'none';
+        document.querySelector('.step-nav').style.display = 'none';
+        document.querySelector('.ob-intro').style.display = 'none';
+        document.getElementById('onboarding-success').style.display = '';
+        localStorage.removeItem(STORAGE_KEY);
+      } else {
+        showToast(result.error || "Erreur lors de l'envoi", 'error');
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = 'Envoyer mon dossier';
+      }
+    })
+    .catch(function(err) {
+      overlay.remove();
+      showToast('Erreur : ' + err.message, 'error');
+      btnSubmit.disabled = false;
+      btnSubmit.textContent = 'Envoyer mon dossier';
+    });
+  });
+
+  // ─── TOASTS ───
+  function showToast(message, type) {
+    var container = document.getElementById('toast-container');
+    var toast = document.createElement('div');
+    toast.className = 'toast toast-' + type;
+    toast.textContent = message;
+    container.appendChild(toast);
+    toast.addEventListener('click', function() { toast.remove(); });
+    setTimeout(function() { toast.remove(); }, 5000);
+  }
+
+  // ─── INIT ───
+  restoreProgress();
+  showStep(1);
+})();
+</script>
+
+</BaseLayout>

@@ -7,10 +7,9 @@ const serviceSchema = {
   "name": "Création de site vitrine professionnel",
   "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
   "areaServed": "France",
-  "description": "Création de site vitrine pour artisans, thérapeutes et professionnels indépendants. Hébergement gratuit GitHub Pages, SEO intégré, livraison en 2 semaines. À partir de 590 €.",
+  "description": "Création de site vitrine pour artisans, thérapeutes et professionnels indépendants. Hébergement gratuit, SEO et fiche Google inclus, livraison en 2 semaines. À partir de 690 €.",
   "offers": [
-    { "@type": "Offer", "name": "Site vitrine Essentiel", "priceCurrency": "EUR", "price": "590"  },
-    { "@type": "Offer", "name": "Site vitrine Autonome",  "priceCurrency": "EUR", "price": "790"  },
+    { "@type": "Offer", "name": "Vitrine", "priceCurrency": "EUR", "price": "690" },
   ],
 };
 
@@ -21,19 +20,19 @@ const faqSchema = {
     { "@type": "Question", "name": "À qui s'adresse le site vitrine ?",
       "acceptedAnswer": { "@type": "Answer", "text": "Le site vitrine est idéal pour les artisans, thérapeutes, praticiens, consultants, auto-entrepreneurs et toute TPE qui a besoin d'une présence professionnelle en ligne pour se faire connaître et être trouvé sur Google, sans système de réservation ni paiement en ligne." }},
     { "@type": "Question", "name": "Combien de pages sont incluses dans un site vitrine ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Le pack Essentiel inclut jusqu'à 4 pages (typiquement Accueil, Services, À propos, Contact). Le pack Vitrine Complet monte jusqu'à 8 pages + un blog. Chaque page supplémentaire est disponible à 120 €." }},
+      "acceptedAnswer": { "@type": "Answer", "text": "La formule Vitrine inclut jusqu'à 6 pages. La formule Pro monte jusqu'à 10 pages + un blog. Chaque page supplémentaire est disponible à 120 €." }},
     { "@type": "Question", "name": "Puis-je modifier les textes et les images moi-même ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Avec le pack Autonome (790 €), Decap CMS est intégré au site. Vous modifiez textes, images et articles depuis une interface web simple — sans aucune connaissance technique. Une formation de 30 minutes est incluse." }},
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui, un espace de rédaction est inclus dans la formule Vitrine. Vous modifiez textes, images et articles depuis une interface web simple, sans aucune connaissance technique. Une formation vidéo est incluse." }},
     { "@type": "Question", "name": "Le site sera-t-il bien positionné sur Google ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Le SEO on-page est inclus dans tous les packs : balises title, meta description, structure Hn, Schema.org, Google Business, Google Search Console. Cela donne une base solide pour le référencement local. Un travail de contenu régulier (blog) amplifie ensuite les résultats." }},
+      "acceptedAnswer": { "@type": "Answer", "text": "Le SEO on-page et la fiche Google Business sont inclus dans toutes les formules : balises title, meta description, structure Hn, Schema.org, Google Business, Google Search Console. Cela donne une base solide pour le référencement local. Un travail de contenu régulier (blog) amplifie ensuite les résultats." }},
     { "@type": "Question", "name": "Qu'est-ce qui est inclus dans 'clé en main' ?",
       "acceptedAnswer": { "@type": "Answer", "text": "Clé en main signifie : achat et configuration du nom de domaine, création et configuration des emails professionnels Zoho, mise en ligne sur GitHub Pages, paramétrage Google Business, connexion Google Search Console, et test final sur mobile et desktop. Vous n'avez rien à configurer vous-même." }},
   ],
 };
 
 const benefices = [
-  { titre: "Visibilité Google immédiate",   desc: "SEO on-page, Google Business optimisé, Search Console connectée — le tout livré et actif dès le jour J." },
-  { titre: "Crédibilité professionnelle",   desc: "Un site soigné transmet confiance et sérieux. Les clients comparent avant de vous appeler — soyez à la hauteur." },
+  { titre: "Visibilité Google immédiate",   desc: "SEO on-page, Google Business optimisé, Search Console connectée, le tout livré et actif dès le jour J." },
+  { titre: "Crédibilité professionnelle",   desc: "Un site soigné transmet confiance et sérieux. Les clients comparent avant de vous appeler, soyez à la hauteur." },
   { titre: "Email @votre-domaine",          desc: "contact@votre-activite.fr inclus. Finies les adresses Gmail pour les échanges professionnels." },
   { titre: "Mobile avant tout",             desc: "70 % des recherches locales se font sur smartphone. Votre site est conçu mobile-first, puis adapté au desktop." },
   { titre: "0 € d'hébergement à vie",       desc: "GitHub Pages est gratuit et fiable. Votre seul coût récurrent : le nom de domaine (~15 €/an)." },
@@ -42,22 +41,17 @@ const benefices = [
 ---
 
 <BaseLayout
-  title="Création de site vitrine professionnel — À partir de 590 € | aurore"
-  description="Site vitrine professionnel pour artisans et indépendants. Logo, SEO, emails pro, hébergement gratuit. Livraison en 2 semaines. À partir de 590 €. aurore, Aix-en-Provence."
+  title="Création de site vitrine professionnel, À partir de 690 € | aurore"
+  description="Site vitrine professionnel pour artisans et indépendants. SEO, fiche Google, emails pro, hébergement gratuit. Livraison en 2 semaines. À partir de 690 €. aurore, Aix-en-Provence."
   slug="creation-site-web/site-vitrine"
   schema={[serviceSchema, faqSchema]}
 >
 
   <section class="service-hero section-aurora-gradient">
     <div class="container">
-      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center;margin-bottom:24px;">
-        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
-        <a href="/creation-site-web/">Création de site web</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
-        <span aria-current="page">Site vitrine</span>
-      </nav>
       <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Site vitrine · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
       <h1 class="service-h1">Votre site vitrine,<br /><span class="hero-serif">clé en main.</span></h1>
-      <p class="service-sub">Logo, site, emails professionnels, SEO et Google Business — tout ce qu'il faut pour exister en ligne et être trouvé par vos clients locaux. À partir de 590 €.</p>
+      <p class="service-sub">Site, emails professionnels, SEO et Google Business, tout ce qu'il faut pour exister en ligne et être trouvé par vos clients locaux. À partir de 690 €.</p>
       <div class="hero-ctas">
         <a href="/contact/" class="btn btn-primary btn-lg">Demander un devis →</a>
         <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
@@ -73,9 +67,9 @@ const benefices = [
       <div class="inclus-grid reveal-stagger" style="margin-top:48px;">
         {[
           { titre:"Design sur mesure",        desc:"Maquette unique à votre activité et votre image. Pas de template générique." },
-          { titre:"Jusqu'à 8 pages",          desc:"Accueil, Services, À propos, Contact, Blog — selon vos besoins." },
+          { titre:"Jusqu'à 8 pages",          desc:"Accueil, Services, À propos, Contact, Blog, selon vos besoins." },
           { titre:"Logo + charte graphique",  desc:"Logotype, palette de couleurs, typographies cohérentes avec votre positionnement." },
-          { titre:"Nom de domaine",           desc:"Achat, configuration DNS, HTTPS — tout est géré pour vous." },
+          { titre:"Nom de domaine",           desc:"Achat, configuration DNS, HTTPS, tout est géré pour vous." },
           { titre:"Emails professionnels",    desc:"Adresses @votre-domaine.fr via Zoho Mail. Opérationnelles le jour J." },
           { titre:"SEO on-page complet",      desc:"Balises, structure, vitesse, Schema.org, Google Business, Search Console." },
           { titre:"Formulaire de contact",    desc:"Formulaire fonctionnel avec notifications email instantanées." },
@@ -112,35 +106,22 @@ const benefices = [
   <!-- PACKS -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Formules</span>
-      <h2 class="section-title reveal">Essentiel ou Autonome ?</h2>
-      <div class="grid-2 reveal-stagger" style="margin-top:48px;max-width:800px;margin-left:auto;margin-right:auto;">
-        <div class="pricing-card">
-          <div class="pricing-name">Essentiel</div>
-          <div class="pricing-price"><span class="pricing-currency">€</span><span class="pricing-amount">590</span></div>
-          <p class="pricing-desc">Pour démarrer avec une présence professionnelle complète.</p>
-          <ul class="pricing-features">
-            {["Jusqu'à 4 pages","Logo + charte graphique","Nom de domaine + emails pro","SEO on-page","Google Business + Search Console","Modifications via aurore"].map(f => (
-              <li class="pricing-feature">
-                <span class="pricing-check" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{f}
-              </li>
-            ))}
-          </ul>
-          <a href="/contact/" class="btn btn-outline" style="width:100%;justify-content:center;">Choisir Essentiel</a>
-        </div>
+      <span class="section-label reveal">Formule</span>
+      <h2 class="section-title reveal">La formule Vitrine.</h2>
+      <div class="reveal-stagger" style="margin-top:48px;max-width:400px;margin-left:auto;margin-right:auto;">
         <div class="pricing-card pricing-card-featured">
           <span class="pricing-badge">Recommandé</span>
-          <div class="pricing-name">Autonome</div>
-          <div class="pricing-price"><span class="pricing-currency">€</span><span class="pricing-amount">790</span></div>
-          <p class="pricing-desc">Tout Essentiel + la liberté de modifier votre site vous-même.</p>
+          <div class="pricing-name">Vitrine</div>
+          <div class="pricing-price"><span class="pricing-currency">€</span><span class="pricing-amount">690</span></div>
+          <p class="pricing-desc">La solution complète pour une présence professionnelle.</p>
           <ul class="pricing-features">
-            {["Tout le pack Essentiel","Jusqu'à 8 pages","Blog intégré","Decap CMS — édition autonome","Formation 30 min incluse"].map(f => (
+            {["Site jusqu'à 6 pages","SEO on-page complet + Schema.org","Formulaire de contact","Fiche Google Business optimisée","Espace rédaction inclus","Accès formation vidéo complète"].map(f => (
               <li class="pricing-feature">
                 <span class="pricing-check" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{f}
               </li>
             ))}
           </ul>
-          <a href="/contact/" class="btn btn-aurora" style="width:100%;justify-content:center;">Choisir Autonome</a>
+          <a href="/contact/" class="btn btn-aurora" style="width:100%;justify-content:center;">Choisir Vitrine</a>
         </div>
       </div>
     </div>
@@ -194,11 +175,12 @@ const benefices = [
     if (typeof gsap==='undefined') return;
     // @ts-ignore
     gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
     // @ts-ignore
-    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.9,ease:'power2.out'}).from('.service-h1',{y:24,opacity:0,duration:1.0,ease:'power2.out'},'-=0.25').from('.service-sub',{y:16,opacity:0,duration:0.9,ease:'power2.out'},'-=0.25').from('.hero-ctas',{y:16,opacity:0,duration:0.4,ease:'power2.out'},'-=0.2');
+    gsap.timeline({delay:0.1}).fromTo('.hero-eyebrow',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'}).fromTo('.service-h1',{y:24,opacity:0},{y:0,opacity:1,duration:1.0,ease:'power2.out'},'-=0.25').fromTo('.service-sub',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.25').fromTo('.hero-ctas',{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:'power2.out'},'-=0.2');
     // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any)=>{ gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:40,opacity:0,duration:1.1,ease:'power2.out'}); });
+    gsap.utils.toArray('.reveal').forEach((el:any)=>{ gsap.fromTo(el,{y:40,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:el,start:'top 85%'},duration:1.1,ease:'power2.out'}); });
     // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>{ gsap.from(c.children,{scrollTrigger:{trigger:c,start:'top 80%'},y:24,opacity:0,stagger:0.15,duration:0.55,ease:'power2.out'}); });
+    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>{ gsap.fromTo(c.children,{y:24,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:c,start:'top 80%'},stagger:0.15,duration:0.55,ease:'power2.out'}); });
   });
 </script>

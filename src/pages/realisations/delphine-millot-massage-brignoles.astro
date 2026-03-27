@@ -5,6 +5,8 @@ const projet = {
   client:      "Delphine Millot",
   activite:    "Massothérapeute & praticienne Qi Gong",
   ville:       "Brignoles (83)",
+  url:         "https://delphine-millot.fr",
+  urlLabel:    "delphine-millot.fr",
   prestations: ["Site vitrine", "Hébergement GitHub Pages"],
   delai:       "10 jours",
   annee:       "2024",
@@ -13,9 +15,10 @@ const projet = {
 const schema = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
-  "name": "Site web — Delphine Millot, massothérapeute à Brignoles",
+  "name": "Site web, Delphine Millot, massothérapeute à Brignoles",
   "creator": { "@type": "Organization", "name": "Aurore", "url": "https://agence-aurore.fr" },
   "description": "Création du site vitrine de Delphine Millot, massothérapeute et praticienne Qi Gong à Brignoles (Var). Design épuré, responsive, hébergé sur GitHub Pages.",
+  "url": "https://delphine-millot.fr",
   "locationCreated": { "@type": "Place", "name": "Brignoles, Var, France" },
   "dateCreated": "2024",
   "keywords": "site vitrine massothérapeute, site web praticienne bien-être, création site Brignoles"
@@ -23,24 +26,12 @@ const schema = {
 ---
 
 <BaseLayout
-  title="Réalisation — Site vitrine Delphine Millot, massothérapeute à Brignoles | aurore"
+  title="Réalisation, Site vitrine Delphine Millot, massothérapeute à Brignoles | aurore"
   description="Découvrez comment aurore a créé le site vitrine de Delphine Millot, massothérapeute et praticienne Qi Gong à Brignoles (Var). Design épuré, livré en 10 jours."
   slug="realisations/delphine-millot-massage-brignoles"
   schema={schema}
 >
 
-  <!-- ─── BREADCRUMB ─── -->
-  <div class="breadcrumb-bar">
-    <div class="container">
-      <nav class="breadcrumb" aria-label="Fil d'Ariane">
-        <a href="/">Accueil</a>
-        <span class="breadcrumb-sep" aria-hidden="true">›</span>
-        <a href="/realisations/">Réalisations</a>
-        <span class="breadcrumb-sep" aria-hidden="true">›</span>
-        <span aria-current="page">Delphine Millot</span>
-      </nav>
-    </div>
-  </div>
 
   <!-- ─── HERO ─── -->
   <section class="fiche-hero">
@@ -58,7 +49,7 @@ const schema = {
           </h1>
           <p class="fiche-sub">
             Site vitrine élégant pour une professionnelle du bien-être à Brignoles.
-            Un design épuré qui inspire confiance et sérénité — livré en {projet.delai}.
+            Un design épuré qui inspire confiance et sérénité, livré en {projet.delai}.
           </p>
 
           <!-- Tableau client -->
@@ -77,6 +68,19 @@ const schema = {
                 <td>{projet.ville}</td>
               </tr>
               <tr>
+                <th scope="row">Site livré</th>
+                <td>
+                  <a
+                    href={projet.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="table-link"
+                  >
+                    {projet.urlLabel} ↗
+                  </a>
+                </td>
+              </tr>
+              <tr>
                 <th scope="row">Prestations</th>
                 <td>{projet.prestations.join(", ")}</td>
               </tr>
@@ -88,50 +92,9 @@ const schema = {
           </table>
         </div>
 
-        <!-- Capture hero -->
-        <div class="fiche-hero-capture" aria-label="Aperçu du site de Delphine Millot">
-          <div class="capture-browser">
-            <div class="browser-bar">
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
-              <div class="browser-url-bar">
-                <span class="browser-url-text">delphine-millot-massage.fr</span>
-              </div>
-            </div>
-            <div class="capture-screen" style="background: linear-gradient(135deg, #E8F4F0 0%, #F0F7F4 50%, #E8F4F0 100%);">
-              <div class="mock-hero">
-                <div class="mock-nav">
-                  <div class="mock-logo" aria-hidden="true"></div>
-                  <div class="mock-nav-links" aria-hidden="true">
-                    <div class="mock-link"></div>
-                    <div class="mock-link"></div>
-                    <div class="mock-link"></div>
-                  </div>
-                </div>
-                <div class="mock-content">
-                  <div class="mock-eyebrow" aria-hidden="true"></div>
-                  <div class="mock-title" aria-hidden="true"></div>
-                  <div class="mock-title mock-title-sm" aria-hidden="true"></div>
-                  <div class="mock-sub" aria-hidden="true"></div>
-                  <div class="mock-sub mock-sub-short" aria-hidden="true"></div>
-                  <div class="mock-ctas" aria-hidden="true">
-                    <div class="mock-btn mock-btn-dark"></div>
-                    <div class="mock-btn mock-btn-outline"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="capture-mobile" aria-hidden="true">
-            <div class="mobile-screen" style="background: linear-gradient(135deg, #E8F4F0 0%, #F0F7F4 100%);">
-              <div class="mobile-content">
-                <div class="mock-title" style="width:80%; height:10px;"></div>
-                <div class="mock-sub" style="width:90%;"></div>
-                <div class="mock-btn mock-btn-dark" style="width:80%; margin-top:8px;"></div>
-              </div>
-            </div>
-          </div>
+        <!-- Capture du site -->
+        <div class="fiche-hero-capture">
+          <img src="/delphine-portrait.webp" alt="Delphine Millot, massothérapeute à Brignoles" style="max-width:320px; margin:0 auto; display:block; border-radius:var(--radius-md); object-fit:cover; object-position:center top; aspect-ratio:3/4;" />
         </div>
       </div>
     </div>
@@ -141,7 +104,7 @@ const schema = {
   <section class="section fiche-section">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">01 — Contexte</span>
+        <span class="section-label">01, Contexte</span>
       </div>
       <div class="fiche-section-content">
         <h2 class="section-title reveal">Le besoin de Delphine.</h2>
@@ -158,7 +121,7 @@ const schema = {
   <section class="section fiche-section" style="background: var(--gray-50);">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">02 — Solution</span>
+        <span class="section-label">02, Solution</span>
       </div>
       <div class="fiche-section-content">
         <h2 class="section-title reveal">Ce qu'on a construit ensemble.</h2>
@@ -181,7 +144,7 @@ const schema = {
             </div>
             <div>
               <h3>Design responsive</h3>
-              <p>Mobile-first, parfaitement lisible sur smartphone — là où arrivent 70 % des visiteurs.</p>
+              <p>Mobile-first, parfaitement lisible sur smartphone, là où arrivent 70 % des visiteurs.</p>
             </div>
           </div>
           <div class="solution-item">
@@ -211,7 +174,7 @@ const schema = {
   <section class="section fiche-section">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">03 — Technique</span>
+        <span class="section-label">03, Technique</span>
       </div>
       <div class="fiche-section-content">
         <h2 class="section-title reveal">Pourquoi ces choix technologiques.</h2>
@@ -228,7 +191,7 @@ const schema = {
   <section class="section fiche-section" style="background: var(--gray-50);">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">04 — Résultat</span>
+        <span class="section-label">04, Résultat</span>
       </div>
       <div class="fiche-section-content">
         <h2 class="section-title reveal">Un site livré en 10 jours.</h2>
@@ -236,48 +199,7 @@ const schema = {
           <p>Du briefing à la mise en ligne, le projet a été réalisé en <strong>10 jours</strong>. Delphine a pu valider le design et les contenus à chaque étape via des liens de prévisualisation.</p>
         </div>
         <div class="resultat-screens reveal" style="margin-top: 32px;">
-          <!-- Desktop mock -->
-          <div class="screen-desktop">
-            <div class="screen-label">Desktop</div>
-            <div class="screen-frame screen-frame-desktop" aria-label="Aperçu desktop du site">
-              <div class="capture-browser" style="box-shadow: 0 12px 40px rgba(0,0,0,0.12);">
-                <div class="browser-bar">
-                  <span class="browser-dot"></span>
-                  <span class="browser-dot"></span>
-                  <span class="browser-dot"></span>
-                  <div class="browser-url-bar"><span class="browser-url-text">delphine-millot-massage.fr</span></div>
-                </div>
-                <div class="capture-screen" style="height: 220px; background: linear-gradient(135deg, #E8F4F0 0%, #F0F7F4 100%);">
-                  <div class="mock-hero" style="padding: 20px;">
-                    <div class="mock-nav" style="margin-bottom: 16px;"></div>
-                    <div class="mock-content">
-                      <div class="mock-title" style="width:70%;"></div>
-                      <div class="mock-title mock-title-sm" style="width:50%;"></div>
-                      <div class="mock-sub" style="width:85%; margin-top:8px;"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Mobile mock -->
-          <div class="screen-mobile-wrap">
-            <div class="screen-label">Mobile</div>
-            <div class="screen-frame" aria-label="Aperçu mobile du site">
-              <div class="capture-mobile-lg">
-                <div class="mobile-notch" aria-hidden="true"></div>
-                <div class="mobile-screen-lg" style="background: linear-gradient(135deg, #E8F4F0 0%, #F0F7F4 100%);">
-                  <div class="mobile-content-lg">
-                    <div class="mock-title" style="width:85%; height:9px;"></div>
-                    <div class="mock-title mock-title-sm" style="width:65%; height:9px;"></div>
-                    <div class="mock-sub" style="width:90%;"></div>
-                    <div class="mock-sub mock-sub-short" style="width:75%;"></div>
-                    <div class="mock-btn mock-btn-dark" style="width:80%; margin-top:8px;"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <img src="/delphine-1.webp" alt="Site web Delphine Millot, massothérapeute à Brignoles" style="width:100%; border-radius:var(--radius-md); object-fit:contain; background:var(--gray-50, #f9f9f9);" loading="lazy" />
         </div>
 
         <div class="metrics-row reveal" style="margin-top: 32px;">
@@ -306,13 +228,13 @@ const schema = {
   <section class="section fiche-section">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">05 — Témoignage</span>
+        <span class="section-label">05, Témoignage</span>
       </div>
       <div class="fiche-section-content">
         <div class="temoignage-block reveal">
           <div class="temoignage-quote-mark" aria-hidden="true">"</div>
           <blockquote class="temoignage-texte">
-            Élodie a créé mon site en 10 jours. Le résultat est impeccable — elle a compris exactement l'univers de mon activité sans que j'aie besoin de tout expliquer. Je recommande sans hésiter pour toute personne qui cherche une présence web professionnelle et soignée.
+            Élodie a créé mon site en 10 jours. Le résultat est impeccable, elle a compris exactement l'univers de mon activité sans que j'aie besoin de tout expliquer. Je recommande sans hésiter pour toute personne qui cherche une présence web professionnelle et soignée.
           </blockquote>
           <div class="temoignage-auteur">
             <div class="temoignage-avatar" aria-hidden="true">
@@ -332,13 +254,13 @@ const schema = {
   <section class="section fiche-section" style="background: var(--gray-50);">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">06 — Et vous ?</span>
+        <span class="section-label">06, Et vous ?</span>
       </div>
       <div class="fiche-section-content">
         <h2 class="section-title reveal">Votre projet ressemble à celui-ci ?</h2>
         <div class="fiche-text reveal">
           <p>Vous êtes thérapeute, praticien, artisan ou indépendant et vous avez besoin d'un site vitrine professionnel livré rapidement, sans vous prendre la tête ?</p>
-          <p>C'est exactement ce que fait aurore. Parlons de votre projet — l'appel de 30 minutes est gratuit.</p>
+          <p>C'est exactement ce que fait aurore. Un formulaire de 2 minutes suffit pour recevoir un devis détaillé sous 48h.</p>
         </div>
         <div class="fiche-cta-buttons reveal">
           <a href="/contact/" class="btn btn-aurora btn-lg">Démarrer mon projet →</a>
@@ -359,7 +281,7 @@ const schema = {
         </div>
         <a href="/realisations/le-mazarin-conciergerie-aix/" class="fiche-nav-next">
           <span class="fiche-nav-label">Réalisation suivante</span>
-          <span class="fiche-nav-titre">Le Mazarin — Conciergerie →</span>
+          <span class="fiche-nav-titre">Le Mazarin, Conciergerie →</span>
         </a>
       </div>
     </div>
@@ -368,16 +290,6 @@ const schema = {
 </BaseLayout>
 
 <style>
-  /* ─── BREADCRUMB BAR ─── */
-  .breadcrumb-bar {
-    padding: 100px 0 0;
-    background: var(--white);
-  }
-
-  .breadcrumb-bar .breadcrumb {
-    padding: 16px 0;
-  }
-
   /* ─── HERO FICHE ─── */
   .fiche-hero {
     padding: 32px 0 80px;
@@ -435,158 +347,6 @@ const schema = {
     color: var(--gray-500);
     padding: 10px 0;
     vertical-align: top;
-  }
-
-  /* ─── CAPTURE HERO ─── */
-  .fiche-hero-capture {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .capture-browser {
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    border: 1.5px solid var(--gray-100);
-    background: var(--white);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-  }
-
-  .browser-bar {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 10px 14px;
-    background: var(--gray-50);
-    border-bottom: 1px solid var(--gray-100);
-  }
-
-  .browser-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--gray-300);
-  }
-
-  .browser-dot:first-child  { background: #FF5F57; }
-  .browser-dot:nth-child(2) { background: #FEBC2E; }
-  .browser-dot:nth-child(3) { background: #28C840; }
-
-  .browser-url-bar {
-    flex: 1;
-    height: 22px;
-    background: var(--gray-100);
-    border-radius: 6px;
-    margin-left: 8px;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-  }
-
-  .browser-url-text {
-    font-size: 11px;
-    color: var(--gray-500);
-  }
-
-  .capture-screen {
-    min-height: 280px;
-    padding: 24px;
-  }
-
-  /* Mock UI */
-  .mock-hero { width: 100%; height: 100%; }
-  .mock-nav  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
-
-  .mock-logo {
-    width: 64px;
-    height: 14px;
-    background: rgba(0,0,0,0.15);
-    border-radius: 3px;
-  }
-
-  .mock-nav-links {
-    display: flex;
-    gap: 12px;
-  }
-
-  .mock-link {
-    width: 40px;
-    height: 10px;
-    background: rgba(0,0,0,0.1);
-    border-radius: 3px;
-  }
-
-  .mock-content { display: flex; flex-direction: column; gap: 8px; }
-
-  .mock-eyebrow {
-    width: 120px;
-    height: 8px;
-    background: rgba(255,107,26,0.4);
-    border-radius: 3px;
-    margin-bottom: 4px;
-  }
-
-  .mock-title {
-    height: 20px;
-    background: rgba(0,0,0,0.18);
-    border-radius: 4px;
-    width: 90%;
-  }
-
-  .mock-title-sm {
-    height: 16px;
-    background: rgba(255,107,26,0.35);
-    width: 60%;
-  }
-
-  .mock-sub {
-    height: 8px;
-    background: rgba(0,0,0,0.08);
-    border-radius: 3px;
-    width: 100%;
-  }
-
-  .mock-sub-short { width: 70%; }
-
-  .mock-ctas {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px;
-  }
-
-  .mock-btn {
-    height: 28px;
-    border-radius: 100px;
-    width: 100px;
-  }
-
-  .mock-btn-dark { background: rgba(0,0,0,0.25); }
-  .mock-btn-outline {
-    background: transparent;
-    border: 1.5px solid rgba(0,0,0,0.15);
-  }
-
-  /* Capture mobile flottante */
-  .capture-mobile {
-    position: absolute;
-    bottom: -20px;
-    right: -20px;
-    width: 80px;
-  }
-
-  .mobile-screen {
-    border-radius: 8px;
-    overflow: hidden;
-    border: 2px solid rgba(0,0,0,0.1);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-  }
-
-  .mobile-content {
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
   }
 
   /* ─── LAYOUT SECTIONS ─── */
@@ -660,48 +420,7 @@ const schema = {
   /* ─── RÉSULTAT ─── */
   .resultat-screens {
     display: flex;
-    gap: 24px;
-    align-items: flex-end;
-  }
-
-  .screen-desktop { flex: 1; }
-  .screen-mobile-wrap { width: 140px; flex-shrink: 0; }
-
-  .screen-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--gray-500);
-    margin-bottom: 10px;
-  }
-
-  .capture-mobile-lg {
-    background: var(--black);
-    border-radius: 20px;
-    padding: 10px 6px 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  }
-
-  .mobile-notch {
-    width: 40px;
-    height: 5px;
-    background: var(--gray-700);
-    border-radius: 4px;
-    margin: 0 auto 8px;
-  }
-
-  .mobile-screen-lg {
-    border-radius: 12px;
-    overflow: hidden;
-    min-height: 180px;
-    padding: 16px 10px;
-  }
-
-  .mobile-content-lg {
-    display: flex;
     flex-direction: column;
-    gap: 6px;
   }
 
   /* Métriques */
@@ -868,10 +587,6 @@ const schema = {
   }
 
   @media (max-width: 768px) {
-    .breadcrumb-bar {
-      padding-top: 80px;
-    }
-
     .fiche-hero {
       padding: 16px 0 56px;
     }
@@ -882,19 +597,6 @@ const schema = {
 
     .metrics-row {
       grid-template-columns: 1fr 1fr;
-    }
-
-    .resultat-screens {
-      flex-direction: column;
-    }
-
-    .screen-mobile-wrap {
-      width: 100%;
-    }
-
-    .capture-mobile-lg {
-      max-width: 200px;
-      margin: 0 auto;
     }
 
     .temoignage-block {
@@ -910,15 +612,22 @@ const schema = {
       justify-content: center;
     }
 
-    .capture-mobile {
-      display: none;
-    }
   }
 
   @media (max-width: 480px) {
     .metrics-row {
       grid-template-columns: 1fr 1fr;
     }
+  }
+
+  .table-link {
+    color: var(--aurora);
+    font-weight: 500;
+    transition: var(--transition);
+  }
+
+  .table-link:hover {
+    color: var(--aurora-dark);
   }
 </style>
 
@@ -928,33 +637,36 @@ const schema = {
     if (typeof gsap === 'undefined') return;
     // @ts-ignore
     gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
 
     // @ts-ignore
     gsap.timeline({ delay: 0.15 })
       // @ts-ignore
-      .from('.fiche-h1',  { y: 24, opacity: 0, duration: 1.1, ease: 'power2.out' })
+      .fromTo('.fiche-h1', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, ease: 'power2.out' })
       // @ts-ignore
-      .from('.fiche-sub', { y: 16, opacity: 0, duration: 0.9, ease: 'power2.out' }, '-=0.3')
+      .fromTo('.fiche-sub', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.3')
       // @ts-ignore
-      .from('.client-table', { y: 16, opacity: 0, duration: 0.9, ease: 'power2.out' }, '-=0.2')
+      .fromTo('.client-table', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2')
       // @ts-ignore
-      .from('.fiche-hero-capture', { x: 24, opacity: 0, duration: 1.2, ease: 'power2.out' }, '-=0.5');
+      .fromTo('.fiche-hero-capture', { x: 24, opacity: 0 }, { x: 0, opacity: 1, duration: 1.2, ease: 'power2.out' }, '-=0.5');
 
     // @ts-ignore
     gsap.utils.toArray('.reveal').forEach((el: any) => {
       // @ts-ignore
-      gsap.from(el, {
+      gsap.fromTo(el, { y: 40, opacity: 0 }, {
+        y: 0, opacity: 1,
         scrollTrigger: { trigger: el, start: 'top 85%' },
-        y: 40, opacity: 0, duration: 1.1, ease: 'power2.out'
+        duration: 1.1, ease: 'power2.out'
       });
     });
 
     // @ts-ignore
     gsap.utils.toArray('.reveal-stagger').forEach((container: any) => {
       // @ts-ignore
-      gsap.from(container.children, {
+      gsap.fromTo(container.children, { y: 24, opacity: 0 }, {
+        y: 0, opacity: 1,
         scrollTrigger: { trigger: container, start: 'top 80%' },
-        y: 24, opacity: 0, stagger: 0.15, duration: 0.55, ease: 'power2.out'
+        stagger: 0.15, duration: 0.55, ease: 'power2.out'
       });
     });
   });

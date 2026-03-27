@@ -1,33 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const typesProjets = [
-  { value: "",                        label: "Type de projet — choisissez" },
-  { value: "pack-starter",            label: "Pack Starter (290 €)" },
-  { value: "site-statique",           label: "Site statique (590–790 €)" },
-  { value: "site-vitrine-complet",    label: "Site vitrine complet (1 100–1 490 €)" },
-  { value: "site-reservation",        label: "Site avec réservation (1 400–1 800 €)" },
-  { value: "logiciel-metier",         label: "Logiciel métier (sur devis)" },
-  { value: "identite-visuelle",       label: "Identité visuelle seule" },
-  { value: "seo",                     label: "Référencement SEO" },
-  { value: "autre",                   label: "Autre / Je ne sais pas encore" },
-];
-
-const budgets = [
-  { value: "",           label: "Budget estimé — choisissez" },
-  { value: "moins-500",  label: "Moins de 500 €" },
-  { value: "500-1000",   label: "500 € – 1 000 €" },
-  { value: "1000-2000",  label: "1 000 € – 2 000 €" },
-  { value: "plus-2000",  label: "Plus de 2 000 €" },
-  { value: "pas-encore", label: "Pas encore défini" },
-];
-
-const rassurants = [
-  { icon: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`, titre: "Réponse sous 48h ouvrées", desc: "Je lis chaque message personnellement et réponds dans les 2 jours ouvrés." },
-  { icon: `<circle cx="12" cy="12" r="10"/><path d="M8 12l2.5 2.5L16 9"/>`,   titre: "Appel de 30 min gratuit", desc: "Pas d'engagement. On fait le point sur votre projet avant tout devis." },
-  { icon: `<path d="M12 2a10 10 0 0 1 10 10H2A10 10 0 0 1 12 2z"/><rect x=\"2\" y=\"12\" width=\"20\" height=\"10\" rx=\"1\"/>`, titre: "Devis détaillé sous 48h", desc: "Un devis précis, ligne par ligne, sans surprises ni zones grises." },
-];
-
 const faqContact = [
   {
     q: "Travaillez-vous uniquement avec des clients locaux à Aix-en-Provence ?",
@@ -35,18 +8,18 @@ const faqContact = [
   },
   {
     q: "Faut-il avoir un brief précis pour vous contacter ?",
-    r: "Pas du tout. Si vous avez juste l'idée de créer une présence en ligne sans savoir par où commencer, c'est exactement pour ça que l'appel de 30 min existe. On structure ensemble.",
+    r: "Pas du tout. Si vous avez juste l'idée de créer une présence en ligne sans savoir par où commencer, décrivez simplement votre projet dans le formulaire. Je vous réponds avec un plan clair sous 48h.",
   },
   {
     q: "Comment se passe la suite après le formulaire ?",
-    r: "Je vous réponds sous 48h ouvrées. Si votre projet correspond à mon offre, je vous propose un appel de 30 min gratuit. Ensuite, je prépare un devis détaillé que vous validez avant tout démarrage.",
+    r: "Je vous réponds sous 48h ouvrées avec un devis détaillé, ligne par ligne. Vous validez avant tout démarrage — pas de surprise.",
   },
 ];
 ---
 
 <BaseLayout
-  title="Contact — Demandez un devis gratuit | aurore Aix-en-Provence"
-  description="Contactez Élodie d'aurore pour votre projet de site web, identité visuelle ou SEO. Réponse sous 48h, devis gratuit, appel de 30 min sans engagement."
+  title="Contact, Demandez un devis gratuit | aurore Aix-en-Provence"
+  description="Contactez Élodie d'aurore pour votre projet de site web, identité visuelle ou SEO. Réponse sous 48h avec un devis détaillé, sans engagement."
   slug="contact"
 >
 
@@ -63,8 +36,7 @@ const faqContact = [
         <span class="hero-serif">votre projet.</span>
       </h1>
       <p class="contact-sub">
-        Un message suffit pour démarrer. Je vous réponds personnellement sous 48h ouvrées
-        avec un premier retour honnête sur votre projet.
+        Décrivez votre projet en 2 minutes, je vous réponds avec un devis détaillé sous 48h.
       </p>
     </div>
   </section>
@@ -74,130 +46,303 @@ const faqContact = [
     <div class="container">
       <div class="contact-grid">
 
-        <!-- ── Formulaire ── -->
+        <!-- ── Formulaire multi-étapes ── -->
         <div class="formulaire-col">
-          <form
-            class="contact-form"
-            name="contact"
-            method="POST"
-            data-netlify="true"
-            netlify-honeypot="bot-field"
-            novalidate
-            aria-label="Formulaire de contact"
-          >
-            <!-- Honeypot anti-spam -->
-            <input type="hidden" name="form-name" value="contact" />
-            <p class="visually-hidden">
-              <label>Ne pas remplir si vous êtes humain : <input name="bot-field" /></label>
-            </p>
+          <div class="contact-form-wrapper" id="contact-form-wrapper">
 
-            <!-- Ligne 1 : Nom + Email -->
-            <div class="form-grid">
-              <div class="form-group">
-                <label class="form-label" for="nom">Prénom et nom <span class="form-required" aria-hidden="true">*</span></label>
-                <input
-                  class="form-input"
-                  type="text"
-                  id="nom"
-                  name="nom"
-                  placeholder="Marie Dupont"
-                  required
-                  autocomplete="name"
-                />
+            <!-- Barre de progression -->
+            <div class="mf-progress-wrapper">
+              <div class="mf-progress-bar">
+                <div class="mf-progress-fill" id="mf-progress-fill"></div>
               </div>
-              <div class="form-group">
-                <label class="form-label" for="email">Email <span class="form-required" aria-hidden="true">*</span></label>
-                <input
-                  class="form-input"
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="marie@monentreprise.fr"
-                  required
-                  autocomplete="email"
-                />
+              <div class="mf-progress-text" id="mf-progress-text">Étape 1 / 3</div>
+            </div>
+
+            <!-- ─── ÉTAPE 1 — Votre projet ─── -->
+            <div class="mf-step" id="mf-step-1" data-step="1">
+              <h2 class="mf-step-title">Quel est votre projet ?</h2>
+
+              <div class="mf-cards-grid" id="mf-project-type">
+                <label class="mf-card">
+                  <input type="radio" name="projectType" value="site-vitrine" />
+                  <div class="mf-card-inner">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    <span class="mf-card-label">Nouveau site vitrine</span>
+                    <span class="mf-card-desc">Présenter mon activité en ligne</span>
+                  </div>
+                </label>
+                <label class="mf-card">
+                  <input type="radio" name="projectType" value="site-reservation" />
+                  <div class="mf-card-inner">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M9 16l2 2 4-4"/></svg>
+                    <span class="mf-card-label">Site avec réservation ou paiement</span>
+                    <span class="mf-card-desc">Prendre des RDV ou vendre en ligne</span>
+                  </div>
+                </label>
+                <label class="mf-card">
+                  <input type="radio" name="projectType" value="logiciel-metier" />
+                  <div class="mf-card-inner">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    <span class="mf-card-label">Logiciel sur mesure</span>
+                    <span class="mf-card-desc">Un outil métier spécifique à mon activité</span>
+                  </div>
+                </label>
+                <label class="mf-card">
+                  <input type="radio" name="projectType" value="prestation-carte" />
+                  <div class="mf-card-inner">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+                    <span class="mf-card-label">Prestation à la carte</span>
+                    <span class="mf-card-desc">J'ai déjà un site, je veux améliorer un point précis</span>
+                  </div>
+                </label>
+              </div>
+
+              <div class="mf-fields-row">
+                <div class="form-group">
+                  <label class="form-label" for="mf-activite">Votre activité / secteur</label>
+                  <input class="form-input" type="text" id="mf-activite" name="activite" placeholder="ex. massothérapeute, artisan plombier..." />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="mf-ville">Votre ville</label>
+                  <input class="form-input" type="text" id="mf-ville" name="ville" placeholder="ex. Aix-en-Provence" />
+                </div>
+              </div>
+
+              <div class="mf-nav">
+                <div></div>
+                <button type="button" class="btn btn-aurora mf-btn-next" id="mf-next-1" disabled>Suivant →</button>
               </div>
             </div>
 
-            <!-- Ligne 2 : Téléphone + Type de projet -->
-            <div class="form-grid">
-              <div class="form-group">
-                <label class="form-label" for="telephone">Téléphone</label>
-                <input
-                  class="form-input"
-                  type="tel"
-                  id="telephone"
-                  name="telephone"
-                  placeholder="06 12 34 56 78"
-                  autocomplete="tel"
-                />
-                <span class="form-hint">Facultatif — pour un rappel si vous préférez</span>
+            <!-- ─── ÉTAPE 2 — Votre situation ─── -->
+            <div class="mf-step" id="mf-step-2" data-step="2" hidden>
+              <h2 class="mf-step-title">Votre situation</h2>
+
+              <!-- Contenu conditionnel : site-vitrine / site-reservation -->
+              <div class="mf-conditional" id="mf-cond-site" hidden>
+                <div class="mf-field-group">
+                  <label class="form-label">Vous avez déjà un logo ?</label>
+                  <div class="mf-toggle-group">
+                    <button type="button" class="mf-toggle" data-field="hasLogo" data-value="oui">Oui</button>
+                    <button type="button" class="mf-toggle" data-field="hasLogo" data-value="non">Non</button>
+                  </div>
+                </div>
+                <div class="mf-field-group">
+                  <label class="form-label">Vous avez déjà un nom de domaine ?</label>
+                  <div class="mf-toggle-group">
+                    <button type="button" class="mf-toggle" data-field="hasDomain" data-value="oui">Oui</button>
+                    <button type="button" class="mf-toggle" data-field="hasDomain" data-value="non">Non</button>
+                  </div>
+                </div>
+                <div class="mf-field-group">
+                  <label class="form-label">Votre budget estimé</label>
+                  <div class="mf-cards-grid mf-cards-4" id="mf-budget-site">
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="budgetSite" value="moins-500" />
+                      <div class="mf-card-inner"><span class="mf-card-label">Moins de 500 €</span></div>
+                    </label>
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="budgetSite" value="500-1000" />
+                      <div class="mf-card-inner"><span class="mf-card-label">500 € à 1 000 €</span></div>
+                    </label>
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="budgetSite" value="1000-1500" />
+                      <div class="mf-card-inner"><span class="mf-card-label">1 000 € à 1 500 €</span></div>
+                    </label>
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="budgetSite" value="plus-1500" />
+                      <div class="mf-card-inner"><span class="mf-card-label">Plus de 1 500 €</span></div>
+                    </label>
+                  </div>
+                </div>
+                <div class="mf-field-group">
+                  <label class="form-label">Délai souhaité</label>
+                  <div class="mf-cards-grid mf-cards-3" id="mf-delai-site">
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="delaiSite" value="asap" />
+                      <div class="mf-card-inner"><span class="mf-card-label">Dès que possible</span></div>
+                    </label>
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="delaiSite" value="dans-le-mois" />
+                      <div class="mf-card-inner"><span class="mf-card-label">Dans le mois</span></div>
+                    </label>
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="delaiSite" value="pas-urgent" />
+                      <div class="mf-card-inner"><span class="mf-card-label">Pas urgent</span></div>
+                    </label>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label class="form-label" for="type-projet">Type de projet <span class="form-required" aria-hidden="true">*</span></label>
-                <select class="form-select" id="type-projet" name="type-projet" required>
-                  {typesProjets.map(t => (
-                    <option value={t.value} disabled={t.value === ""}>{t.label}</option>
-                  ))}
-                </select>
+
+              <!-- Contenu conditionnel : logiciel-metier -->
+              <div class="mf-conditional" id="mf-cond-logiciel" hidden>
+                <div class="mf-field-group">
+                  <label class="form-label" for="mf-besoin">Décrivez votre besoin en quelques mots</label>
+                  <textarea class="form-textarea" id="mf-besoin" name="besoin" rows="3" placeholder="Décrivez ce que l'outil devrait faire..."></textarea>
+                </div>
+                <div class="mf-field-group">
+                  <label class="form-label">Vous avez des outils existants à connecter ?</label>
+                  <div class="mf-toggle-group">
+                    <button type="button" class="mf-toggle" data-field="hasTools" data-value="oui">Oui</button>
+                    <button type="button" class="mf-toggle" data-field="hasTools" data-value="non">Non</button>
+                  </div>
+                  <div class="mf-sub-field" id="mf-tools-detail" hidden>
+                    <input class="form-input" type="text" id="mf-outils" name="outils" placeholder="Lesquels ? ex. Google Sheets, Stripe..." />
+                  </div>
+                </div>
+                <div class="mf-field-group">
+                  <label class="form-label">Votre budget estimé</label>
+                  <div class="mf-cards-grid mf-cards-3" id="mf-budget-logiciel">
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="budgetLogiciel" value="1000-3000" />
+                      <div class="mf-card-inner"><span class="mf-card-label">1 000 € à 3 000 €</span></div>
+                    </label>
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="budgetLogiciel" value="3000-6000" />
+                      <div class="mf-card-inner"><span class="mf-card-label">3 000 € à 6 000 €</span></div>
+                    </label>
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="budgetLogiciel" value="plus-6000" />
+                      <div class="mf-card-inner"><span class="mf-card-label">Plus de 6 000 €</span></div>
+                    </label>
+                  </div>
+                </div>
+                <div class="mf-field-group">
+                  <label class="form-label">Délai souhaité</label>
+                  <div class="mf-cards-grid mf-cards-3" id="mf-delai-logiciel">
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="delaiLogiciel" value="asap" />
+                      <div class="mf-card-inner"><span class="mf-card-label">Dès que possible</span></div>
+                    </label>
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="delaiLogiciel" value="dans-le-mois" />
+                      <div class="mf-card-inner"><span class="mf-card-label">Dans le mois</span></div>
+                    </label>
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="delaiLogiciel" value="pas-urgent" />
+                      <div class="mf-card-inner"><span class="mf-card-label">Pas urgent</span></div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contenu conditionnel : prestation-carte -->
+              <div class="mf-conditional" id="mf-cond-carte" hidden>
+                <div class="mf-field-group">
+                  <label class="form-label">Quelle prestation vous intéresse ?</label>
+                  <div class="mf-checkboxes">
+                    <label class="mf-checkbox-label"><input type="checkbox" name="prestations" value="logo" class="mf-checkbox" /> Logo</label>
+                    <label class="mf-checkbox-label"><input type="checkbox" name="prestations" value="charte-graphique" class="mf-checkbox" /> Charte graphique</label>
+                    <label class="mf-checkbox-label"><input type="checkbox" name="prestations" value="seo" class="mf-checkbox" /> SEO</label>
+                    <label class="mf-checkbox-label"><input type="checkbox" name="prestations" value="formulaire" class="mf-checkbox" /> Formulaire de contact</label>
+                    <label class="mf-checkbox-label"><input type="checkbox" name="prestations" value="automatisation" class="mf-checkbox" /> Automatisation</label>
+                    <label class="mf-checkbox-label"><input type="checkbox" name="prestations" value="migration" class="mf-checkbox" /> Migration de site</label>
+                    <label class="mf-checkbox-label"><input type="checkbox" name="prestations" value="autre" class="mf-checkbox" /> Autre</label>
+                  </div>
+                </div>
+                <div class="mf-field-group">
+                  <label class="form-label">Vous avez déjà un site ?</label>
+                  <div class="mf-toggle-group">
+                    <button type="button" class="mf-toggle" data-field="hasSite" data-value="oui">Oui</button>
+                    <button type="button" class="mf-toggle" data-field="hasSite" data-value="non">Non</button>
+                  </div>
+                  <div class="mf-sub-field" id="mf-site-detail" hidden>
+                    <input class="form-input" type="text" id="mf-plateforme" name="plateforme" placeholder="Sur quelle plateforme ? ex. WordPress, Wix..." />
+                  </div>
+                </div>
+                <div class="mf-field-group">
+                  <label class="form-label">Votre budget estimé</label>
+                  <div class="mf-cards-grid mf-cards-3" id="mf-budget-carte">
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="budgetCarte" value="moins-200" />
+                      <div class="mf-card-inner"><span class="mf-card-label">Moins de 200 €</span></div>
+                    </label>
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="budgetCarte" value="200-500" />
+                      <div class="mf-card-inner"><span class="mf-card-label">200 € à 500 €</span></div>
+                    </label>
+                    <label class="mf-card mf-card-sm">
+                      <input type="radio" name="budgetCarte" value="plus-500" />
+                      <div class="mf-card-inner"><span class="mf-card-label">Plus de 500 €</span></div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mf-nav">
+                <button type="button" class="btn btn-outline mf-btn-prev" data-prev="1">← Retour</button>
+                <button type="button" class="btn btn-aurora mf-btn-next" id="mf-next-2">Suivant →</button>
               </div>
             </div>
 
-            <!-- Message -->
-            <div class="form-group">
-              <label class="form-label" for="message">Décrivez votre projet <span class="form-required" aria-hidden="true">*</span></label>
-              <textarea
-                class="form-textarea"
-                id="message"
-                name="message"
-                rows={5}
-                placeholder="Parlez-moi de votre activité, de ce que vous souhaitez créer, de vos clients cibles... Pas besoin d'être précis, on affine ensemble lors de l'appel."
-                required
-              ></textarea>
-            </div>
+            <!-- ─── ÉTAPE 3 — Vos coordonnées ─── -->
+            <div class="mf-step" id="mf-step-3" data-step="3" hidden>
+              <h2 class="mf-step-title">Vos coordonnées</h2>
 
-            <!-- Budget -->
-            <div class="form-group">
-              <label class="form-label" for="budget">Budget estimé</label>
-              <select class="form-select" id="budget" name="budget">
-                {budgets.map(b => (
-                  <option value={b.value} disabled={b.value === ""}>{b.label}</option>
-                ))}
-              </select>
-              <span class="form-hint">
-                Aucune obligation — cela m'aide à vous proposer la solution la plus adaptée.
-                <a href="/tarifs/" class="form-hint-link">Voir les tarifs →</a>
-              </span>
-            </div>
+              <div class="mf-fields-row">
+                <div class="form-group">
+                  <label class="form-label" for="mf-prenom">Prénom <span class="form-required" aria-hidden="true">*</span></label>
+                  <input class="form-input" type="text" id="mf-prenom" name="prenom" required autocomplete="given-name" placeholder="Marie" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="mf-nom">Nom <span class="form-required" aria-hidden="true">*</span></label>
+                  <input class="form-input" type="text" id="mf-nom" name="nom" required autocomplete="family-name" placeholder="Dupont" />
+                </div>
+              </div>
 
-            <!-- Submit -->
-            <div class="form-submit">
-              <button type="submit" class="btn btn-aurora btn-lg form-btn">
-                <span class="form-btn-text">Envoyer ma demande →</span>
-                <span class="form-btn-loading" aria-hidden="true">
-                  <span class="spinner"></span> Envoi en cours…
-                </span>
-              </button>
-              <p class="form-rgpd">
-                En envoyant ce formulaire, vous acceptez que vos données soient utilisées
-                uniquement pour répondre à votre demande. Aucun démarchage, aucune revente.
-              </p>
-            </div>
-          </form>
+              <div class="form-group">
+                <label class="form-label" for="mf-email">Email <span class="form-required" aria-hidden="true">*</span></label>
+                <input class="form-input" type="email" id="mf-email" name="email" required autocomplete="email" placeholder="marie@monentreprise.fr" />
+              </div>
 
-          <!-- Message de confirmation (caché par défaut) -->
+              <div class="form-group">
+                <label class="form-label" for="mf-telephone">Téléphone</label>
+                <input class="form-input" type="tel" id="mf-telephone" name="telephone" autocomplete="tel" placeholder="06 12 34 56 78" />
+                <span class="form-hint">Facultatif, pour un rappel si vous préférez</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="mf-message">Message complémentaire</label>
+                <textarea class="form-textarea" id="mf-message" name="messageComplementaire" rows="3" placeholder="Tout ce que vous souhaitez ajouter..."></textarea>
+              </div>
+
+              <div class="form-group form-consent">
+                <label class="form-checkbox-label">
+                  <input type="checkbox" required name="consentement" class="form-checkbox" id="mf-consent" />
+                  <span>J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la <a href="/mentions-legales/">politique de confidentialité</a>.</span>
+                </label>
+              </div>
+
+              <div class="mf-nav">
+                <button type="button" class="btn btn-outline mf-btn-prev" data-prev="2">← Retour</button>
+                <button type="button" class="btn btn-aurora btn-lg mf-btn-submit" id="mf-submit" disabled>
+                  <span class="mf-btn-text">Envoyer ma demande →</span>
+                  <span class="mf-btn-loading" aria-hidden="true"><span class="spinner"></span> Envoi en cours…</span>
+                </button>
+              </div>
+              <p class="form-rgpd">Aucun démarchage, aucune revente de vos données.</p>
+            </div>
+          </div>
+
+          <!-- Message de confirmation -->
           <div class="form-success" id="form-success" aria-live="polite" hidden>
-            <div class="success-icon" aria-hidden="true">✓</div>
-            <h3>Message envoyé !</h3>
-            <p>Merci pour votre message. Je vous réponds personnellement sous <strong>48h ouvrées</strong>.</p>
+            <div class="success-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h3>Demande envoyée !</h3>
+            <p>Je vous réponds sous <strong>48h</strong> avec un devis détaillé.<br />Vous allez recevoir un email de confirmation.</p>
             <a href="/" class="btn btn-ghost" style="margin-top: 16px;">Retour à l'accueil</a>
+          </div>
+
+          <!-- Message d'erreur -->
+          <div class="form-error-banner" id="form-error" aria-live="polite" hidden>
+            Une erreur est survenue, merci de m'écrire directement à
+            <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a>
           </div>
         </div>
 
         <!-- ── Infos de contact ── -->
         <aside class="contact-infos" aria-label="Informations de contact">
-
-          <!-- Email direct -->
           <div class="info-bloc">
             <div class="info-icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -207,32 +352,24 @@ const faqContact = [
             </div>
             <div>
               <div class="info-label">Email</div>
-              <a href="mailto:contact@agence-aurore.fr" class="info-value">
-                contact@agence-aurore.fr
-              </a>
+              <a href="mailto:elodie@agence-aurore.fr" class="info-value">elodie@agence-aurore.fr</a>
             </div>
           </div>
-
-          <!-- Délai de réponse -->
           <div class="info-bloc">
             <div class="info-icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
               </svg>
             </div>
             <div>
               <div class="info-label">Délai de réponse</div>
-              <div class="info-value">48h ouvrées</div>
+              <div class="info-value">Devis détaillé en 48h</div>
             </div>
           </div>
-
-          <!-- Localisation -->
           <div class="info-bloc">
             <div class="info-icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
               </svg>
             </div>
             <div>
@@ -240,50 +377,6 @@ const faqContact = [
               <div class="info-value">Aix-en-Provence</div>
               <div class="info-sub">Intervention dans toute la France</div>
             </div>
-          </div>
-
-          <!-- Séparateur -->
-          <hr class="info-sep" />
-
-          <!-- Calendly (emplacement prévu) -->
-          <div class="calendly-bloc" id="calendly-slot">
-            <div class="calendly-label">Préférez-vous planifier directement ?</div>
-            <!-- Remplacer ce bloc par le widget Calendly quand disponible -->
-            <div class="calendly-placeholder">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8"  y1="2" x2="8"  y2="6"/>
-                <line x1="3"  y1="10" x2="21" y2="10"/>
-              </svg>
-              <div>
-                <div class="calendly-titre">Réserver un créneau</div>
-                <div class="calendly-desc">Disponible prochainement</div>
-              </div>
-            </div>
-            <!-- Décommenter quand Calendly est configuré :
-            <div
-              class="calendly-inline-widget"
-              data-url="https://calendly.com/votre-lien/30min"
-              style="min-width:280px; height:400px;"
-            ></div>
-            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-            -->
-          </div>
-
-          <!-- Rassurants -->
-          <div class="rassurants">
-            {rassurants.map(r => (
-              <div class="rassurant-item">
-                <div class="rassurant-icon" aria-hidden="true">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={r.icon} />
-                </div>
-                <div>
-                  <div class="rassurant-titre">{r.titre}</div>
-                  <div class="rassurant-desc">{r.desc}</div>
-                </div>
-              </div>
-            ))}
           </div>
         </aside>
       </div>
@@ -295,7 +388,6 @@ const faqContact = [
     <div class="container" style="max-width: 720px;">
       <span class="section-label reveal">Questions</span>
       <h2 class="section-title reveal">Avant de remplir le formulaire.</h2>
-
       <div style="margin-top: 36px;" class="reveal">
         {faqContact.map(item => (
           <div class="faq-item">
@@ -314,422 +406,432 @@ const faqContact = [
 
 <style>
   /* ─── HERO ─── */
-  .contact-hero {
-    padding: 160px 0 80px;
-    text-align: center;
-  }
-
-  .contact-h1 {
-    font-family: var(--font-display);
-    font-size: clamp(36px, 5vw, 64px);
-    font-weight: 700;
-    letter-spacing: -0.05em;
-    line-height: 1.05;
-    margin: 20px 0 16px;
-  }
-
-  .contact-sub {
-    font-size: clamp(15px, 1.3vw, 18px);
-    line-height: 1.65;
-    max-width: 520px;
-    margin: 0 auto;
-  }
+  .contact-hero { padding: 160px 0 80px; text-align: center; }
+  .contact-h1 { font-family: var(--font-display); font-size: clamp(36px, 5vw, 64px); font-weight: 700; letter-spacing: -0.05em; line-height: 1.05; margin: 20px 0 16px; }
+  .contact-sub { font-size: clamp(15px, 1.3vw, 18px); line-height: 1.65; max-width: 520px; margin: 0 auto; }
 
   /* ─── GRID CONTACT ─── */
-  .contact-section {
-    padding-top: 0;
-  }
+  .contact-section { padding-top: 0; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: start; }
 
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 64px;
-    align-items: start;
-  }
-
-  /* ─── FORMULAIRE ─── */
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  /* ─── FORM WRAPPER ─── */
+  .contact-form-wrapper {
     background: var(--white);
     border: 1.5px solid var(--gray-100);
     border-radius: var(--radius-xl);
     padding: 40px;
-  }
-
-  .form-required {
-    color: var(--aurora);
-    margin-left: 2px;
-  }
-
-  .form-hint-link {
-    color: var(--aurora);
-    font-weight: 500;
-    margin-left: 4px;
-    transition: var(--transition);
-  }
-
-  .form-hint-link:hover {
-    color: var(--aurora-dark);
-  }
-
-  /* Submit */
-  .form-submit {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding-top: 4px;
-  }
-
-  .form-btn {
-    width: 100%;
-    justify-content: center;
     position: relative;
+    overflow: hidden;
   }
 
-  .form-btn-loading {
-    display: none;
-    align-items: center;
-    gap: 8px;
-  }
+  /* ─── PROGRESS BAR ─── */
+  .mf-progress-wrapper { margin-bottom: 32px; }
+  .mf-progress-bar { width: 100%; height: 4px; background: var(--gray-100); border-radius: 2px; overflow: hidden; }
+  .mf-progress-fill { height: 100%; background: var(--aurora); border-radius: 2px; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); width: 33.33%; }
+  .mf-progress-text { font-size: 12px; font-weight: 600; color: var(--aurora); letter-spacing: 0.05em; margin-top: 8px; }
 
-  .form-btn.loading .form-btn-text   { display: none; }
-  .form-btn.loading .form-btn-loading { display: inline-flex; }
-
-  .form-rgpd {
-    font-size: 12px;
-    color: var(--gray-500);
-    line-height: 1.6;
-    margin: 0;
-    text-align: center;
-  }
-
-  /* Confirmation */
-  .form-success {
-    background: var(--aurora-pale);
-    border: 1.5px solid rgba(255,107,26,0.2);
-    border-radius: var(--radius-xl);
-    padding: 48px 40px;
-    text-align: center;
-  }
-
-  .success-icon {
-    width: 56px;
-    height: 56px;
-    background: var(--aurora);
-    color: var(--white);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: 700;
-    margin: 0 auto 20px;
-  }
-
-  .form-success h3 {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 8px;
-  }
-
-  .form-success p {
-    font-size: 15px;
-    color: var(--gray-500);
-    margin: 0;
-  }
-
-  /* ─── INFOS LATÉRALES ─── */
-  .contact-infos {
-    position: sticky;
-    top: 100px;
+  /* ─── STEPS ─── */
+  .mf-step {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    animation: mfSlideIn 0.3s ease;
+  }
+  .mf-step[hidden] { display: none; }
+  .mf-step-title { font-family: var(--font-display); font-size: clamp(20px, 2.5vw, 26px); font-weight: 700; letter-spacing: -0.03em; color: var(--black); margin: 0; }
+
+  @keyframes mfSlideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
   }
 
-  .info-bloc {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-  }
+  /* ─── CLICKABLE CARDS ─── */
+  .mf-cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .mf-cards-grid.mf-cards-3 { grid-template-columns: repeat(3, 1fr); }
+  .mf-cards-grid.mf-cards-4 { grid-template-columns: repeat(2, 1fr); }
 
-  .info-icon {
-    width: 40px;
-    height: 40px;
-    background: var(--aurora-pale);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--aurora);
-    flex-shrink: 0;
+  .mf-card { cursor: pointer; }
+  .mf-card input { position: absolute; opacity: 0; pointer-events: none; }
+  .mf-card-inner {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    padding: 24px 16px; border: 1.5px solid var(--gray-100); border-radius: var(--radius-lg);
+    text-align: center; transition: var(--transition); color: var(--gray-500);
   }
+  .mf-card-inner:hover { border-color: var(--gray-300); }
+  .mf-card input:checked ~ .mf-card-inner { border-color: var(--aurora); background: var(--aurora-pale); color: var(--aurora); }
+  .mf-card-label { font-size: 14px; font-weight: 600; color: var(--black); }
+  .mf-card input:checked ~ .mf-card-inner .mf-card-label { color: var(--aurora-dark); }
+  .mf-card-desc { font-size: 12px; line-height: 1.4; }
 
-  .info-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--gray-500);
-    margin-bottom: 3px;
-  }
+  .mf-card-sm .mf-card-inner { padding: 16px 12px; gap: 6px; }
 
-  .info-value {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--black);
-    letter-spacing: -0.01em;
-    transition: var(--transition);
+  /* ─── TOGGLE BUTTONS ─── */
+  .mf-toggle-group { display: flex; gap: 8px; }
+  .mf-toggle {
+    padding: 10px 24px; border: 1.5px solid var(--gray-100); border-radius: 100px;
+    font-size: 14px; font-weight: 500; font-family: var(--font-display);
+    background: var(--white); color: var(--black); cursor: pointer; transition: var(--transition);
   }
+  .mf-toggle:hover { border-color: var(--gray-300); }
+  .mf-toggle.active { border-color: var(--aurora); background: var(--aurora-pale); color: var(--aurora); font-weight: 600; }
 
-  a.info-value:hover {
-    color: var(--aurora);
+  /* ─── CHECKBOXES ─── */
+  .mf-checkboxes { display: flex; flex-wrap: wrap; gap: 8px; }
+  .mf-checkbox-label {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 18px; border: 1.5px solid var(--gray-100); border-radius: 100px;
+    font-size: 14px; font-weight: 500; cursor: pointer; transition: var(--transition);
+    user-select: none;
   }
+  .mf-checkbox-label:hover { border-color: var(--gray-300); }
+  .mf-checkbox-label:has(.mf-checkbox:checked) { border-color: var(--aurora); background: var(--aurora-pale); color: var(--aurora); font-weight: 600; }
+  .mf-checkbox { accent-color: var(--aurora); width: 15px; height: 15px; }
 
-  .info-sub {
-    font-size: 12px;
-    color: var(--gray-500);
-    margin-top: 2px;
-  }
+  /* ─── FIELD GROUPS ─── */
+  .mf-field-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .mf-field-group:last-child { margin-bottom: 0; }
+  .mf-sub-field { margin-top: 8px; }
+  .mf-sub-field[hidden] { display: none; }
+  .mf-fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .mf-conditional[hidden] { display: none; }
 
-  .info-sep {
-    border: none;
-    border-top: 1px solid var(--gray-100);
-    margin: 4px 0;
-  }
+  /* ─── NAV BUTTONS ─── */
+  .mf-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+  .mf-btn-next:disabled, .mf-btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  /* Calendly */
-  .calendly-bloc {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+  /* ─── SUBMIT BUTTON ─── */
+  .mf-btn-submit { position: relative; justify-content: center; }
+  .mf-btn-loading { display: none; align-items: center; gap: 8px; }
+  .mf-btn-submit.loading .mf-btn-text { display: none; }
+  .mf-btn-submit.loading .mf-btn-loading { display: inline-flex; }
 
-  .calendly-label {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--gray-500);
-  }
+  /* ─── CONSENT ─── */
+  .form-consent { margin-top: 4px; }
+  .form-checkbox-label { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.55; color: var(--gray-700); cursor: pointer; }
+  .form-checkbox { margin-top: 3px; flex-shrink: 0; accent-color: var(--aurora); width: 16px; height: 16px; }
+  .form-checkbox-label a { color: var(--aurora); text-decoration: underline; text-underline-offset: 3px; }
+  .form-checkbox-label a:hover { color: var(--aurora-dark); }
+  .form-required { color: var(--aurora); margin-left: 2px; }
+  .form-rgpd { font-size: 12px; color: var(--gray-500); line-height: 1.6; margin: 8px 0 0; text-align: center; }
 
-  .calendly-placeholder {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px;
-    border: 1.5px dashed var(--gray-300);
-    border-radius: var(--radius-md);
-    color: var(--gray-500);
-    transition: var(--transition);
-  }
+  /* ─── SUCCESS / ERROR ─── */
+  .form-success { background: var(--aurora-pale); border: 1.5px solid rgba(255,107,26,0.2); border-radius: var(--radius-xl); padding: 48px 40px; text-align: center; }
+  .success-icon { width: 56px; height: 56px; background: var(--aurora); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+  .form-success h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+  .form-success p { font-size: 15px; color: var(--gray-500); margin: 0; }
+  .form-error-banner { background: #FEF2F2; border: 1.5px solid #FECACA; border-radius: var(--radius-md); padding: 16px 20px; color: #991B1B; font-size: 14px; line-height: 1.6; text-align: center; margin-top: 12px; }
+  .form-error-banner a { color: #991B1B; font-weight: 600; text-decoration: underline; }
 
-  .calendly-placeholder svg {
-    flex-shrink: 0;
-    color: var(--gray-300);
-  }
-
-  .calendly-titre {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--gray-700);
-    letter-spacing: -0.01em;
-  }
-
-  .calendly-desc {
-    font-size: 12px;
-    color: var(--gray-500);
-    margin-top: 2px;
-  }
-
-  /* Rassurants */
-  .rassurants {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px;
-    background: var(--gray-50);
-    border-radius: var(--radius-md);
-    border: 1.5px solid var(--gray-100);
-  }
-
-  .rassurant-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .rassurant-icon {
-    width: 28px;
-    height: 28px;
-    background: var(--aurora-pale);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--aurora);
-    flex-shrink: 0;
-  }
-
-  .rassurant-titre {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--black);
-    letter-spacing: -0.01em;
-    margin-bottom: 2px;
-  }
-
-  .rassurant-desc {
-    font-size: 12px;
-    color: var(--gray-500);
-    line-height: 1.5;
-  }
+  /* ─── INFOS LATÉRALES ─── */
+  .contact-infos { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 20px; }
+  .info-bloc { display: flex; align-items: flex-start; gap: 14px; }
+  .info-icon { width: 40px; height: 40px; background: var(--aurora-pale); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--aurora); flex-shrink: 0; }
+  .info-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-500); margin-bottom: 3px; }
+  .info-value { font-size: 15px; font-weight: 600; color: var(--black); letter-spacing: -0.01em; transition: var(--transition); }
+  a.info-value:hover { color: var(--aurora); }
+  .info-sub { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 1024px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-
-    .contact-infos {
-      position: static;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .info-sep,
-    .calendly-bloc {
-      grid-column: 1 / -1;
-    }
-
-    .rassurants {
-      grid-column: 1 / -1;
-    }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .contact-infos { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   }
 
   @media (max-width: 768px) {
-    .contact-hero {
-      padding: 120px 0 56px;
-    }
-
-    .contact-form {
-      padding: 24px 20px;
-      border-radius: var(--radius-lg);
-    }
-
-    .contact-infos {
-      grid-template-columns: 1fr;
-    }
+    .contact-hero { padding: 120px 0 56px; }
+    .contact-form-wrapper { padding: 24px 20px; border-radius: var(--radius-lg); }
+    .contact-infos { grid-template-columns: 1fr; }
+    .mf-cards-grid { grid-template-columns: 1fr; }
+    .mf-cards-grid.mf-cards-3 { grid-template-columns: 1fr; }
+    .mf-cards-grid.mf-cards-4 { grid-template-columns: 1fr; }
+    .mf-cards-grid.mf-cards-2 { grid-template-columns: 1fr; }
+    .mf-fields-row { grid-template-columns: 1fr; }
+    .mf-nav { flex-direction: column-reverse; gap: 12px; }
+    .mf-nav .btn { width: 100%; justify-content: center; }
   }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // ─── State ───
+    const state: Record<string, any> = {
+      step: 1,
+      projectType: '',
+      activite: '',
+      ville: '',
+      // Step 2 - site
+      hasLogo: '',
+      hasDomain: '',
+      budgetSite: '',
+      delaiSite: '',
+      // Step 2 - logiciel
+      besoin: '',
+      hasTools: '',
+      outils: '',
+      budgetLogiciel: '',
+      delaiLogiciel: '',
+      // Step 2 - carte
+      prestations: [] as string[],
+      hasSite: '',
+      plateforme: '',
+      budgetCarte: '',
+      // Step 3 - coordonnées
+      prenom: '',
+      nom: '',
+      email: '',
+      telephone: '',
+      messageComplementaire: '',
+      consentement: false,
+    };
+
+    const wrapper = document.getElementById('contact-form-wrapper') as HTMLElement;
+    const progressFill = document.getElementById('mf-progress-fill') as HTMLElement;
+    const progressText = document.getElementById('mf-progress-text') as HTMLElement;
+    const successBlock = document.getElementById('form-success') as HTMLElement;
+    const errorBlock = document.getElementById('form-error') as HTMLElement;
+
+    // ─── Navigation ───
+    const totalSteps = 3;
+
+    function goToStep(n: number) {
+      document.querySelectorAll('.mf-step').forEach(s => (s as HTMLElement).hidden = true);
+      state.step = n;
+
+      const target = document.getElementById(`mf-step-${n}`) as HTMLElement;
+      if (target) {
+        target.hidden = false;
+        target.style.animation = 'none';
+        target.offsetHeight; // force reflow
+        target.style.animation = '';
+      }
+
+      const progress = (n / totalSteps) * 100;
+      progressFill.style.width = `${progress}%`;
+      progressText.textContent = `Étape ${n} / ${totalSteps}`;
+
+      if (state.step === 2) showConditionalStep2();
+
+      updateSubmitState();
+      wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showConditionalStep2() {
+      const condSite = document.getElementById('mf-cond-site') as HTMLElement;
+      const condLogiciel = document.getElementById('mf-cond-logiciel') as HTMLElement;
+      const condCarte = document.getElementById('mf-cond-carte') as HTMLElement;
+      condSite.hidden = true;
+      condLogiciel.hidden = true;
+      condCarte.hidden = true;
+
+      if (state.projectType === 'site-vitrine' || state.projectType === 'site-reservation') {
+        condSite.hidden = false;
+      } else if (state.projectType === 'logiciel-metier') {
+        condLogiciel.hidden = false;
+      } else if (state.projectType === 'prestation-carte') {
+        condCarte.hidden = false;
+      }
+    }
+
+    // ─── Step 1: Project type cards ───
+    const projectCards = document.querySelectorAll('#mf-project-type input[type="radio"]');
+    const nextBtn1 = document.getElementById('mf-next-1') as HTMLButtonElement;
+
+    projectCards.forEach(radio => {
+      radio.addEventListener('change', () => {
+        state.projectType = (radio as HTMLInputElement).value;
+        nextBtn1.disabled = false;
+      });
+    });
+
+    nextBtn1.addEventListener('click', () => {
+      state.activite = (document.getElementById('mf-activite') as HTMLInputElement).value;
+      state.ville = (document.getElementById('mf-ville') as HTMLInputElement).value;
+      goToStep(2);
+    });
+
+    // ─── Toggle buttons ───
+    document.querySelectorAll('.mf-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const field = (btn as HTMLElement).dataset.field!;
+        const value = (btn as HTMLElement).dataset.value!;
+        state[field] = value;
+
+        // Update active state within group
+        const group = btn.parentElement!;
+        group.querySelectorAll('.mf-toggle').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Show/hide sub-fields
+        if (field === 'hasTools') {
+          (document.getElementById('mf-tools-detail') as HTMLElement).hidden = value !== 'oui';
+        }
+        if (field === 'hasSite') {
+          (document.getElementById('mf-site-detail') as HTMLElement).hidden = value !== 'oui';
+        }
+      });
+    });
+
+    // ─── Step 2 next ───
+    const nextBtn2 = document.getElementById('mf-next-2') as HTMLButtonElement;
+    nextBtn2.addEventListener('click', () => {
+      // Collect step 2 state
+      if (state.projectType === 'site-vitrine' || state.projectType === 'site-reservation') {
+        const budgetRadio = document.querySelector('input[name="budgetSite"]:checked') as HTMLInputElement;
+        const delaiRadio = document.querySelector('input[name="delaiSite"]:checked') as HTMLInputElement;
+        state.budgetSite = budgetRadio?.value || '';
+        state.delaiSite = delaiRadio?.value || '';
+      } else if (state.projectType === 'logiciel-metier') {
+        state.besoin = (document.getElementById('mf-besoin') as HTMLTextAreaElement).value;
+        state.outils = (document.getElementById('mf-outils') as HTMLInputElement).value;
+        const budgetRadio = document.querySelector('input[name="budgetLogiciel"]:checked') as HTMLInputElement;
+        const delaiRadio = document.querySelector('input[name="delaiLogiciel"]:checked') as HTMLInputElement;
+        state.budgetLogiciel = budgetRadio?.value || '';
+        state.delaiLogiciel = delaiRadio?.value || '';
+      } else if (state.projectType === 'prestation-carte') {
+        const checked = document.querySelectorAll('input[name="prestations"]:checked');
+        state.prestations = Array.from(checked).map(c => (c as HTMLInputElement).value);
+        state.plateforme = (document.getElementById('mf-plateforme') as HTMLInputElement)?.value || '';
+        const budgetRadio = document.querySelector('input[name="budgetCarte"]:checked') as HTMLInputElement;
+        state.budgetCarte = budgetRadio?.value || '';
+      }
+      goToStep(3);
+    });
+
+    // ─── Prev buttons ───
+    document.querySelectorAll('.mf-btn-prev').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const prev = parseInt((btn as HTMLElement).dataset.prev || '1');
+        goToStep(prev);
+      });
+    });
+
+    // ─── Step 3: Submit validation ───
+    const submitBtn = document.getElementById('mf-submit') as HTMLButtonElement;
+    const prenomInput = document.getElementById('mf-prenom') as HTMLInputElement;
+    const nomInput = document.getElementById('mf-nom') as HTMLInputElement;
+    const emailInput = document.getElementById('mf-email') as HTMLInputElement;
+    const consentInput = document.getElementById('mf-consent') as HTMLInputElement;
+
+    function updateSubmitState() {
+      if (state.step !== 3) return;
+      const valid = prenomInput.value.trim() !== '' &&
+                    nomInput.value.trim() !== '' &&
+                    emailInput.value.trim() !== '' &&
+                    emailInput.validity.valid &&
+                    consentInput.checked;
+      submitBtn.disabled = !valid;
+    }
+
+    [prenomInput, nomInput, emailInput, consentInput].forEach(el => {
+      el.addEventListener('input', updateSubmitState);
+      el.addEventListener('change', updateSubmitState);
+    });
+
+    // ─── Submit ───
+    submitBtn.addEventListener('click', async () => {
+      // Collect step 3 data
+      state.prenom = prenomInput.value.trim();
+      state.nom = nomInput.value.trim();
+      state.email = emailInput.value.trim();
+      state.telephone = (document.getElementById('mf-telephone') as HTMLInputElement).value.trim();
+      state.messageComplementaire = (document.getElementById('mf-message') as HTMLTextAreaElement).value.trim();
+
+      // Validate
+      if (!state.prenom || !state.nom || !state.email) return;
+
+      // UI loading
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+      errorBlock.hidden = true;
+
+      // Labels for project types
+      const projectLabels: Record<string, string> = {
+        'site-vitrine': 'Nouveau site vitrine',
+        'site-reservation': 'Site avec réservation ou paiement',
+        'logiciel-metier': 'Logiciel sur mesure',
+        'prestation-carte': 'Prestation à la carte',
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            // Step 1
+            projectType: state.projectType,
+            projectTypeLabel: projectLabels[state.projectType] || state.projectType,
+            activite: state.activite,
+            ville: state.ville,
+            // Step 2
+            hasLogo: state.hasLogo,
+            hasDomain: state.hasDomain,
+            budgetSite: state.budgetSite,
+            delaiSite: state.delaiSite,
+            besoin: state.besoin,
+            hasTools: state.hasTools,
+            outils: state.outils,
+            budgetLogiciel: state.budgetLogiciel,
+            delaiLogiciel: state.delaiLogiciel,
+            prestations: state.prestations,
+            hasSite: state.hasSite,
+            plateforme: state.plateforme,
+            budgetCarte: state.budgetCarte,
+            // Step 3
+            prenom: state.prenom,
+            nom: state.nom,
+            email: state.email,
+            telephone: state.telephone,
+            messageComplementaire: state.messageComplementaire,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          wrapper.hidden = true;
+          successBlock.hidden = false;
+          successBlock.focus();
+        } else {
+          throw new Error(data.error || 'Erreur serveur');
+        }
+      } catch {
+        errorBlock.hidden = false;
+        errorBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } finally {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        updateSubmitState();
+      }
+    });
+
     // ─── Animations GSAP ───
     // @ts-ignore
     if (typeof gsap !== 'undefined') {
       // @ts-ignore
       gsap.registerPlugin(ScrollTrigger);
+      gsap.config({ force3D: true });
       // @ts-ignore
       gsap.timeline({ delay: 0.1 })
         // @ts-ignore
-        .from('.hero-eyebrow', { y: 16, opacity: 0, duration: 0.9, ease: 'power2.out' })
+        .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
         // @ts-ignore
-        .from('.contact-h1',   { y: 24, opacity: 0, duration: 1.0, ease: 'power2.out' }, '-=0.25')
+        .fromTo('.contact-h1',   { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
         // @ts-ignore
-        .from('.contact-sub',  { y: 16, opacity: 0, duration: 0.9, ease: 'power2.out' }, '-=0.25')
+        .fromTo('.contact-sub',  { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
         // @ts-ignore
-        .from('.contact-form', { y: 32, opacity: 0, duration: 1.1, ease: 'power2.out' }, '-=0.2')
+        .fromTo('.contact-form-wrapper', { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, ease: 'power2.out' }, '-=0.2')
         // @ts-ignore
-        .from('.contact-infos', { y: 24, opacity: 0, duration: 0.55, ease: 'power2.out' }, '-=0.4');
+        .fromTo('.contact-infos', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out' }, '-=0.4');
 
       // @ts-ignore
       gsap.utils.toArray('.reveal').forEach((el: any) => {
         // @ts-ignore
-        gsap.from(el, {
+        gsap.fromTo(el, { y: 40, opacity: 0 }, {
+          y: 0, opacity: 1,
           scrollTrigger: { trigger: el, start: 'top 85%' },
-          y: 40, opacity: 0, duration: 1.1, ease: 'power2.out'
+          duration: 1.1, ease: 'power2.out'
         });
       });
     }
-
-    // ─── Validation & soumission formulaire ───
-    const form = document.querySelector('.contact-form') as HTMLFormElement | null;
-    const successBlock = document.getElementById('form-success');
-    const submitBtn = form?.querySelector('.form-btn') as HTMLButtonElement | null;
-
-    if (!form || !successBlock || !submitBtn) return;
-
-    // Validation inline
-    form.querySelectorAll('[required]').forEach(field => {
-      field.addEventListener('blur', () => validateField(field as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement));
-    });
-
-    function validateField(field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): boolean {
-      const group = field.closest('.form-group');
-      const existing = group?.querySelector('.form-error');
-      if (existing) existing.remove();
-
-      if (!field.validity.valid) {
-        const err = document.createElement('span');
-        err.className = 'form-error';
-        err.setAttribute('role', 'alert');
-        err.textContent = field.type === 'email'
-          ? 'Adresse email invalide.'
-          : `Ce champ est requis.`;
-        group?.appendChild(err);
-        return false;
-      }
-      return true;
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      // Valider tous les champs requis
-      let valid = true;
-      form.querySelectorAll('[required]').forEach(field => {
-        if (!validateField(field as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement)) {
-          valid = false;
-        }
-      });
-      if (!valid) return;
-
-      // UI loading
-      submitBtn.classList.add('loading');
-      submitBtn.disabled = true;
-
-      try {
-        const data = new FormData(form);
-        const response = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
-        });
-
-        if (response.ok) {
-          form.hidden = true;
-          successBlock.hidden = false;
-          successBlock.focus();
-        } else {
-          throw new Error('Erreur serveur');
-        }
-      } catch {
-        // Fallback : ouvrir le client mail
-        const nom     = (form.querySelector('#nom')     as HTMLInputElement)?.value;
-        const email   = (form.querySelector('#email')   as HTMLInputElement)?.value;
-        const message = (form.querySelector('#message') as HTMLTextAreaElement)?.value;
-        const body    = encodeURIComponent(`Nom : ${nom}\n\n${message}`);
-        window.location.href = `mailto:contact@agence-aurore.fr?subject=Demande de devis — aurore&body=${body}`;
-      } finally {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
-      }
-    });
   });
 </script>

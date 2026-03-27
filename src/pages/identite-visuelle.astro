@@ -33,7 +33,7 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Création d'identité visuelle — Logo et charte graphique | aurore"
+  title="Création d'identité visuelle, Logo et charte graphique | aurore"
   description="Création de logo et charte graphique sur mesure pour artisans et indépendants. 2 propositions, retouches incluses, fichiers sources livrés. À partir de 150 €. aurore, France."
   slug="identite-visuelle"
   schema={[serviceSchema, faqSchema]}
@@ -41,13 +41,9 @@ const faqSchema = {
 
   <section class="service-hero section-aurora-gradient">
     <div class="container">
-      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center;margin-bottom:24px;">
-        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
-        <span aria-current="page">Identité visuelle</span>
-      </nav>
       <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Identité visuelle · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
       <h1 class="service-h1">Votre image,<br /><span class="hero-serif">enfin cohérente.</span></h1>
-      <p class="service-sub">Un logo professionnel et une charte graphique qui reflètent vraiment ce que vous faites — pour que vos clients vous reconnaissent partout.</p>
+      <p class="service-sub">Un logo professionnel et une charte graphique qui reflètent vraiment ce que vous faites, pour que vos clients vous reconnaissent partout.</p>
       <div class="hero-ctas">
         <a href="/contact/" class="btn btn-primary btn-lg">Demander un devis →</a>
         <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
@@ -64,7 +60,7 @@ const faqSchema = {
         {[
           { titre:"Logo vectoriel",          desc:"Logotype en SVG, PNG fond transparent et PDF. Redimensionnable à l'infini sans perte de qualité." },
           { titre:"Versions clair & sombre",  desc:"Votre logo sur fond blanc, fond coloré et fond noir. Prêt pour tous les usages." },
-          { titre:"Palette de couleurs",      desc:"2 à 4 couleurs principales avec leurs codes Hex, RGB et CMJN — pour le web comme pour l'imprimé." },
+          { titre:"Palette de couleurs",      desc:"2 à 4 couleurs principales avec leurs codes Hex, RGB et CMJN, pour le web comme pour l'imprimé." },
           { titre:"Typographies",             desc:"2 polices sélectionnées et paramétrées : une pour les titres, une pour le corps de texte. Libres de droits." },
           { titre:"Guide d'utilisation",      desc:"Un document simple qui explique comment utiliser votre identité correctement et de façon cohérente." },
           { titre:"Fichiers sources",         desc:"Vous possédez tout. Les fichiers sources (.ai ou .figma) sont livrés avec votre identité complète." },
@@ -91,7 +87,7 @@ const faqSchema = {
           { n:"01", titre:"Brief créatif",          desc:"On parle de votre activité, vos valeurs, votre cible et vos inspirations visuelles. 30 minutes par email ou en appel." },
           { n:"02", titre:"2 propositions",         desc:"Deux directions distinctes vous sont soumises. Pas de pré-sélection interne : vous voyez deux vraies options." },
           { n:"03", titre:"Retouches & validation", desc:"Deux rondes de retouches incluses sur la direction choisie. On affine jusqu'à ce que ce soit juste." },
-          { n:"04", titre:"Livraison des fichiers", desc:"Tous les formats livrés par email ou Dropbox. Logo, charte, fichiers sources — vous êtes propriétaire à 100 %." },
+          { n:"04", titre:"Livraison des fichiers", desc:"Tous les formats livrés par email ou Dropbox. Logo, charte, fichiers sources, vous êtes propriétaire à 100 %." },
         ].map(s => (
           <div class="process-item card">
             <div class="process-num" aria-hidden="true">{s.n}</div>
@@ -111,7 +107,7 @@ const faqSchema = {
       <div class="grid-2 reveal-stagger" style="margin-top:48px;">
         {[
           { titre:"Première impression professionnelle", desc:"Vos clients vous jugent en 3 secondes. Un logo soigné et cohérent envoie immédiatement le signal que vous êtes sérieux et compétent." },
-          { titre:"Cohérence sur tous vos supports",    desc:"Même couleurs, même police, même esprit — sur votre site, vos cartes, Instagram, vos devis. La cohérence construit la confiance." },
+          { titre:"Cohérence sur tous vos supports",    desc:"Même couleurs, même police, même esprit, sur votre site, vos cartes, Instagram, vos devis. La cohérence construit la confiance." },
           { titre:"Vous vous démarquez",                desc:"90 % des indépendants utilisent un logo générique ou bricolé sur Canva. Une identité sur mesure vous différencie immédiatement de vos concurrents." },
           { titre:"Vous assumez votre communication",   desc:"Quand vous aimez votre logo, vous le montrez. Vous publiez plus, vous envoyez vos devis avec plus de confiance, vous vous positionnez mieux." },
         ].map(b => (
@@ -154,7 +150,7 @@ const faqSchema = {
           <a href="/contact/" class="btn btn-aurora" style="width:100%;justify-content:center;">Commander</a>
         </div>
       </div>
-      <p class="tarif-note reveal" style="text-align:center;margin-top:24px;font-size:13px;color:var(--gray-500);">Ces tarifs s'appliquent seuls. Inclus dans les packs site web (Essentiel et supérieurs).</p>
+      <p class="tarif-note reveal" style="text-align:center;margin-top:24px;font-size:13px;color:var(--gray-500);">Ces tarifs s'appliquent seuls. Le logo est inclus dans les formules Vitrine et Pro.</p>
     </div>
   </section>
 
@@ -208,11 +204,12 @@ const faqSchema = {
   document.addEventListener('DOMContentLoaded', () => {
     // @ts-ignore
     if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
     // @ts-ignore
-    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.9,ease:'power2.out'}).from('.service-h1',{y:24,opacity:0,duration:1.0,ease:'power2.out'},'-=0.25').from('.service-sub',{y:16,opacity:0,duration:0.9,ease:'power2.out'},'-=0.25').from('.hero-ctas',{y:16,opacity:0,duration:0.4,ease:'power2.out'},'-=0.2');
+    gsap.timeline({delay:0.1}).fromTo('.hero-eyebrow',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'}).fromTo('.service-h1',{y:24,opacity:0},{y:0,opacity:1,duration:1.0,ease:'power2.out'},'-=0.25').fromTo('.service-sub',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.25').fromTo('.hero-ctas',{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:'power2.out'},'-=0.2');
     // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:40,opacity:0,duration:1.1,ease:'power2.out'}));
+    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.fromTo(el,{y:40,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:el,start:'top 85%'},duration:1.1,ease:'power2.out'}));
     // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.from(c.children,{scrollTrigger:{trigger:c,start:'top 80%'},y:24,opacity:0,stagger:0.15,duration:0.55,ease:'power2.out'}));
+    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.fromTo(c.children,{y:24,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:c,start:'top 80%'},stagger:0.15,duration:0.55,ease:'power2.out'}));
   });
 </script>

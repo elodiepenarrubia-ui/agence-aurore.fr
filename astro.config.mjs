@@ -1,13 +1,19 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel';
+import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://agence-aurore.fr',
-  output: 'static',
+  output: 'server',
+  adapter: vercel(),
+  integrations: [sitemap({ filter: (page) => !page.includes('/devis-generateur/') })],
   compressHTML: true,
   build: {
-    // Génère des dossiers avec index.html pour les URLs propres (/page/ au lieu de /page.html)
-    format: 'directory',
+    format: 'directory'
   },
+  vite: {
+    build: {
+      assetsInlineLimit: 0
+    }
+  }
 });

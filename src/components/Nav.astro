@@ -1,0 +1,248 @@
+---
+// ─── Nav.astro, Navigation principale réutilisable
+// agence-aurore.fr
+const path = Astro.url.pathname;
+const isServicePage = path.startsWith('/creation-site-web') || path === '/identite-visuelle/' || path === '/referencement-seo/' || path === '/automatisation/';
+---
+
+<header>
+  <nav class="nav" id="main-nav" aria-label="Navigation principale">
+    <a href="/" class="logo nav-logo" aria-label="aurore, retour à l'accueil">
+      aur<span class="logo-o">o</span>re
+    </a>
+
+    <ul class="nav-links" id="nav-links" role="list">
+      <li><a href="/" class={path === '/' ? 'nav-active' : ''}>Accueil</a></li>
+      <li class="nav-dropdown-parent">
+        <button
+          class={`nav-dropdown-trigger${isServicePage ? ' nav-active' : ''}`}
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          Services
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <ul class="nav-dropdown" role="list">
+          <li><a href="/creation-site-web/" class={path.startsWith('/creation-site-web') ? 'nav-active' : ''}>Création de site web</a></li>
+          <li><a href="/identite-visuelle/" class={path === '/identite-visuelle/' ? 'nav-active' : ''}>Identité visuelle</a></li>
+          <li><a href="/referencement-seo/" class={path === '/referencement-seo/' ? 'nav-active' : ''}>Référencement SEO</a></li>
+          <li><a href="/automatisation/" class={path === '/automatisation/' ? 'nav-active' : ''}>Automatisation</a></li>
+        </ul>
+      </li>
+      <li><a href="/realisations/" class={path.startsWith('/realisations') ? 'nav-active' : ''}>Réalisations</a></li>
+      <li><a href="/tarifs/" class={path === '/tarifs/' ? 'nav-active' : ''}>Tarifs</a></li>
+      <li><a href="/blog/" class={path.startsWith('/blog') ? 'nav-active' : ''}>Blog</a></li>
+      <li class="nav-mobile-cta">
+        <a href="/contact/" class="btn btn-outline" style="color: var(--aurora); border-color: var(--aurora);">Devis gratuit →</a>
+      </li>
+    </ul>
+
+    <div class="nav-cta">
+      <a href="/contact/" class="btn btn-primary">Devis gratuit →</a>
+      <button
+        class="nav-burger"
+        id="nav-burger"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+        aria-controls="nav-links"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<style>
+  /* ─── CTA mobile dans menu ─── */
+  .nav-mobile-cta {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links.open .nav-mobile-cta {
+      display: block;
+      margin: 24px;
+      padding: 0;
+    }
+
+    .nav-mobile-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* ─── Dropdown desktop ─── */
+  .nav-dropdown-parent {
+    position: relative;
+  }
+
+  .nav-dropdown-trigger {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-700);
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .nav-dropdown-trigger:hover {
+    color: var(--aurora);
+  }
+
+  .nav-dropdown-trigger.nav-active {
+    color: var(--aurora);
+    font-weight: 600;
+  }
+
+  .nav-dropdown-trigger svg {
+    transition: transform 0.2s ease;
+  }
+
+  .nav-dropdown-parent.open .nav-dropdown-trigger svg {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+    padding: 8px;
+    padding-top: 8px;
+    margin-top: 4px;
+    min-width: 220px;
+    z-index: 110;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    list-style: none;
+  }
+
+  /* Pont invisible entre le trigger et le dropdown */
+  .nav-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 12px;
+  }
+
+  .nav-dropdown-parent.open .nav-dropdown {
+    display: block;
+    opacity: 1;
+  }
+
+  .nav-dropdown li {
+    width: 100%;
+  }
+
+  .nav-dropdown a {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-700);
+    padding: 10px 16px;
+    border-radius: calc(var(--radius-md) - 4px);
+    transition: var(--transition);
+    white-space: nowrap;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-dropdown a:hover {
+    background: var(--aurora-pale);
+    color: var(--aurora);
+  }
+
+  .nav-dropdown a.nav-active {
+    color: var(--aurora);
+    font-weight: 600;
+  }
+
+  /* ─── Mobile dropdown ─── */
+  @media (max-width: 768px) {
+    .nav-dropdown-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--black);
+      padding: 12px 0;
+      text-align: center;
+      border-bottom: 1px solid var(--gray-100);
+      background: transparent;
+    }
+
+    .nav-dropdown-trigger:hover {
+      color: var(--black);
+    }
+
+    .nav-dropdown-trigger.nav-active {
+      color: var(--aurora);
+    }
+
+    .nav-dropdown-trigger svg {
+      position: relative;
+      margin-left: 6px;
+      width: 12px;
+      height: 7px;
+    }
+
+    .nav-dropdown {
+      position: static;
+      transform: none;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      margin-top: 0;
+      min-width: auto;
+      background: transparent;
+    }
+
+    .nav-dropdown::before {
+      display: none;
+    }
+
+    .nav-dropdown-parent.open .nav-dropdown {
+      opacity: 1;
+    }
+
+    .nav-dropdown a {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--gray-700);
+      padding: 10px 24px;
+      text-align: center;
+      border-radius: 0;
+      border-bottom: 1px solid var(--gray-100);
+      background: transparent;
+      width: 100%;
+    }
+
+    .nav-dropdown a:hover {
+      background: transparent;
+      color: var(--gray-700);
+    }
+
+    .nav-dropdown a.nav-active {
+      background: transparent;
+      color: var(--aurora);
+    }
+  }
+</style>

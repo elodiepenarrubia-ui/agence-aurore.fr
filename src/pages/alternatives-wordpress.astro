@@ -1,0 +1,633 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "WordPress vs site sur mesure : le vrai comparatif en 2026",
+  "description": "WordPress semble gratuit. Mais hébergement, plugins premium, maintenance et failles de sécurité changent tout. Comparatif honnête WordPress vs aurore.",
+  "author": { "@type": "Person", "name": "Élodie", "jobTitle": "Fondatrice d'Aurore" },
+  "publisher": { "@type": "Organization", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "datePublished": "2026-03-26",
+  "url": "https://agence-aurore.fr/alternatives-wordpress/"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "WordPress est-il vraiment dangereux ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WordPress lui-même est bien maintenu, mais l'écosystème de plugins crée des vulnérabilités. 43% des sites hackés tournent sur WordPress selon Sucuri."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je garder mon contenu si je migre ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, je récupère tous vos textes, images et pages avant la reconstruction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mon SEO sera-t-il préservé ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, les redirections sont mises en place et votre contenu optimisé SEO est conservé."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Est-ce que je perds des fonctionnalités ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les fonctionnalités essentielles (formulaire, blog, réservation) sont toutes disponibles avec aurore, sans plugin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps prend la migration ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1 à 2 semaines selon la taille de votre site."
+      }
+    }
+  ]
+};
+
+const comparatif = [
+  { critere: "Logiciel",              wp: "Gratuit",                            aurore: "Gratuit" },
+  { critere: "Hébergement",           wp: "5–20 €/mois",                       aurore: "0 € à vie" },
+  { critere: "Thème premium",         wp: "50–200 €/an",                       aurore: "Inclus" },
+  { critere: "Plugins indispensables",wp: "100–500 €/an",                      aurore: "Inclus" },
+  { critere: "Certificat SSL",        wp: "Parfois payant",                    aurore: "Inclus" },
+  { critere: "Mises à jour sécurité", wp: "1–2h/mois ou prestataire",          aurore: "Zéro" },
+  { critere: "Sauvegardes",           wp: "Plugin payant ou manuel",           aurore: "Automatique" },
+  { critere: "Vitesse",               wp: "Lente sans optimisation",           aurore: "Ultra-rapide nativement" },
+  { critere: "Failles de sécurité",   wp: "Très fréquentes (43% des sites hackés)", aurore: "Inexistantes (site statique)" },
+  { critere: "Propriété",             wp: "Vous êtes propriétaire",            aurore: "Vous êtes propriétaire" },
+];
+
+const profils = [
+  { nom: "Profil Basique",  detail: "Hébergement 10 €/mois + thème 60 €/an + 2 plugins", total: "240 €/an", note: "minimum" },
+  { nom: "Profil Standard", detail: "Hébergement 15 €/mois + thème 100 €/an + 5 plugins + maintenance", total: "500 €/an", note: "en moyenne" },
+  { nom: "Profil Avancé",   detail: "Hébergement 20 €/mois + Elementor Pro + WooCommerce + maintenance", total: "800 €/an", note: "pour un site complet" },
+];
+
+const problemes = [
+  {
+    titre: "Failles de sécurité",
+    desc: "WordPress représente 43 % des sites hackés sur le web. Chaque plugin est une porte d'entrée potentielle.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`
+  },
+  {
+    titre: "Lenteur",
+    desc: "Un WordPress non optimisé score 40–60 sur PageSpeed. Le vôtre score 93+.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
+  },
+  {
+    titre: "Mises à jour interminables",
+    desc: "Core, thème, plugins : chaque mise à jour peut casser votre site.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>`
+  },
+  {
+    titre: "Dépendance aux plugins",
+    desc: "Désactiver un plugin peut faire disparaître des fonctionnalités entières.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`
+  },
+  {
+    titre: "Coût de la maintenance",
+    desc: "Soit vous y passez du temps, soit vous payez quelqu'un. Les deux options coûtent.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`
+  },
+];
+
+const migrationPoints = [
+  {
+    texte: "Récupération de tout votre contenu existant",
+    icon: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="var(--aurora-pale)"/><path d="M5.5 9.5l2 2L12.5 7" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  },
+  {
+    texte: "Reconstruction en code pur, ultra-rapide et sécurisé",
+    icon: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="var(--aurora-pale)"/><path d="M5.5 9.5l2 2L12.5 7" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  },
+  {
+    texte: "Conservation de votre domaine et de vos emails",
+    icon: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="var(--aurora-pale)"/><path d="M5.5 9.5l2 2L12.5 7" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  },
+  {
+    texte: "SEO préservé + redirections mises en place",
+    icon: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="var(--aurora-pale)"/><path d="M5.5 9.5l2 2L12.5 7" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  },
+];
+---
+
+<BaseLayout
+  title="WordPress vs site sur mesure : le vrai comparatif en 2026 | aurore"
+  description="WordPress semble gratuit. Mais hébergement, plugins premium, maintenance et failles de sécurité changent tout. Comparatif honnête WordPress vs aurore."
+  slug="alternatives-wordpress"
+  schema={[articleSchema, faqSchema]}
+>
+
+  <!-- ─── HERO ─── -->
+  <section class="wp-hero section-aurora-gradient">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line" aria-hidden="true"></span>
+        Comparatif honnête
+        <span class="eyebrow-line" aria-hidden="true"></span>
+      </div>
+      <h1 class="wp-h1">WordPress est gratuit.<br />Tout le reste ne l'est pas.</h1>
+      <p class="hero-serif">Le vrai coût que personne ne calcule.</p>
+      <p class="wp-sub">Hébergement, thème premium, plugins indispensables, maintenance, failles de sécurité. WordPress cache une facture mensuelle que peu de gens anticipent.</p>
+      <div class="hero-ctas">
+        <a href="/simulateur/" class="btn btn-primary btn-lg">Calculer mon économie →</a>
+        <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TABLEAU COMPARATIF ─── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">La facture cachée de WordPress</span>
+      <h2 class="section-title reveal">WordPress gratuit ?<br />Voici ce que ça coûte vraiment.</h2>
+      <p class="section-subtitle reveal">Un comparatif point par point, sans parti pris. Les faits, rien que les faits.</p>
+
+      <div class="comparatif-table reveal" style="margin-top: 48px;">
+        <!-- En-tête -->
+        <div class="comparatif-row comparatif-header">
+          <div class="comparatif-cell comparatif-critere"></div>
+          <div class="comparatif-cell comparatif-col-wp">WordPress</div>
+          <div class="comparatif-cell comparatif-col-aurore">aurore</div>
+        </div>
+        <!-- Lignes -->
+        {comparatif.map(row => (
+          <div class="comparatif-row">
+            <div class="comparatif-cell comparatif-critere">{row.critere}</div>
+            <div class="comparatif-cell comparatif-col-wp">
+              <span class="comparatif-icon comparatif-icon-wp" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="#DC2626" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              {row.wp}
+            </div>
+            <div class="comparatif-cell comparatif-col-aurore">
+              <span class="comparatif-icon comparatif-icon-aurore" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 4" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              {row.aurore}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CALCUL ANNUEL ─── -->
+  <section class="section" style="background: var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Le calcul que WordPress ne fait pas pour vous</span>
+      <h2 class="section-title reveal">En comptant tout, WordPress coûte<br />entre 300 € et 800 € par an.</h2>
+
+      <div class="calcul-grid reveal" style="margin-top: 48px;">
+        {profils.map(item => (
+          <div class="calcul-card card">
+            <div class="calcul-plan">{item.nom}</div>
+            <div class="calcul-detail">{item.detail}</div>
+            <div class="calcul-total">{item.total}<span class="calcul-duree"> {item.note}</span></div>
+          </div>
+        ))}
+      </div>
+
+      <div class="calcul-message reveal" style="margin-top: 40px;">
+        <p>Avec <strong>aurore</strong>, votre investissement est unique. <strong>Zéro hébergement, zéro plugin, zéro mise à jour.</strong></p>
+        <a href="/simulateur/" class="btn btn-aurora" style="margin-top: 20px;">Calculer mon économie →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 5 PROBLÈMES ─── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">5 problèmes WordPress que personne n'anticipe</span>
+      <h2 class="section-title reveal">WordPress est puissant.<br />Il est aussi complexe, lent et vulnérable.</h2>
+
+      <div class="problemes-grid reveal" style="margin-top: 48px;">
+        {problemes.map(item => (
+          <div class="probleme-card card">
+            <div class="probleme-icon" set:html={item.icon} />
+            <h3 class="probleme-titre">{item.titre}</h3>
+            <p class="probleme-desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MIGRATION ─── -->
+  <section class="section" style="background: var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Migration WordPress</span>
+      <h2 class="section-title reveal">Vous avez un site WordPress ?<br />Migrez pour 190 €.</h2>
+      <p class="section-subtitle reveal">Je récupère votre contenu, vos textes, vos images. Je reconstruis tout en code pur, ultra-rapide et sécurisé. Vous arrêtez de payer l'hébergement et les plugins pour toujours.</p>
+
+      <div class="migration-points reveal" style="margin-top: 40px;">
+        {migrationPoints.map(item => (
+          <div class="migration-point">
+            <span class="migration-check" aria-hidden="true" set:html={item.icon} />
+            <span>{item.texte}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="hero-ctas reveal" style="margin-top: 40px;">
+        <a href="/contact/?type=migration" class="btn btn-aurora btn-lg">Demander ma migration →</a>
+        <a href="/migration/" class="btn btn-outline btn-lg">En savoir plus</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section class="section">
+    <div class="container" style="max-width: 720px;">
+      <span class="section-label reveal">Questions fréquentes</span>
+      <h2 class="section-title reveal">WordPress vs aurore : vos questions.</h2>
+
+      <div style="margin-top: 40px;" class="reveal">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            WordPress est-il vraiment dangereux ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            WordPress lui-même est bien maintenu, mais l'écosystème de plugins crée des vulnérabilités. 43 % des sites hackés tournent sur WordPress selon Sucuri. Chaque plugin installé est une porte d'entrée potentielle pour les hackers.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Puis-je garder mon contenu si je migre ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Oui, je récupère tous vos textes, images et pages avant la reconstruction. Rien n'est perdu.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Mon SEO sera-t-il préservé ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Oui, les redirections sont mises en place et votre contenu optimisé SEO est conservé. Votre positionnement Google n'est pas impacté.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Est-ce que je perds des fonctionnalités ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Les fonctionnalités essentielles (formulaire, blog, réservation) sont toutes disponibles avec aurore, sans plugin. Vous gagnez en vitesse et en sécurité.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Combien de temps prend la migration ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            1 à 2 semaines selon la taille de votre site. Votre site WordPress reste en ligne pendant toute la durée de la migration.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA FINAL ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-section reveal">
+        <h2>Un site plus rapide, plus sûr, sans abonnement.</h2>
+        <p>Arrêtez de payer l'hébergement, les plugins et la maintenance. Investissez une seule fois.</p>
+        <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis gratuit →</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ─── HERO ─── */
+  .wp-hero {
+    padding: 160px 0 80px;
+    text-align: center;
+  }
+
+  .wp-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    color: var(--black);
+    margin: 20px 0 0;
+  }
+
+  .wp-hero .hero-serif {
+    color: var(--aurora);
+    margin-top: 8px;
+    margin-bottom: 0;
+  }
+
+  .wp-sub {
+    font-size: clamp(15px, 1.3vw, 18px);
+    color: var(--gray-500);
+    line-height: 1.65;
+    max-width: 580px;
+    margin: 20px auto 0;
+  }
+
+  /* ─── TABLEAU COMPARATIF ─── */
+  .comparatif-table {
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .comparatif-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .comparatif-row:last-child {
+    border-bottom: none;
+  }
+
+  .comparatif-header {
+    background: var(--gray-50);
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .comparatif-header .comparatif-col-aurore {
+    color: var(--aurora);
+  }
+
+  .comparatif-cell {
+    padding: 14px 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .comparatif-critere {
+    font-weight: 600;
+    color: var(--black);
+    background: var(--gray-50);
+  }
+
+  .comparatif-col-wp {
+    color: var(--gray-700);
+    border-left: 1px solid var(--gray-100);
+  }
+
+  .comparatif-col-aurore {
+    color: var(--gray-700);
+    border-left: 1px solid var(--gray-100);
+    background: var(--aurora-pale);
+  }
+
+  .comparatif-row:not(.comparatif-header) .comparatif-col-aurore {
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  .comparatif-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comparatif-icon-wp {
+    background: #FEE2E2;
+  }
+
+  .comparatif-icon-aurore {
+    background: var(--aurora-pale);
+  }
+
+  /* ─── CALCUL ANNUEL ─── */
+  .calcul-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .calcul-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .calcul-plan {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-500);
+  }
+
+  .calcul-detail {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.5;
+    max-width: 240px;
+  }
+
+  .calcul-total {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: #DC2626;
+    line-height: 1;
+    margin-top: 4px;
+  }
+
+  .calcul-duree {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gray-500);
+    letter-spacing: 0;
+  }
+
+  .calcul-message {
+    text-align: center;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .calcul-message p {
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.7;
+    color: var(--gray-700);
+  }
+
+  /* ─── PROBLÈMES ─── */
+  .problemes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .probleme-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .probleme-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--aurora-pale);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--aurora);
+  }
+
+  .probleme-titre {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    line-height: 1.3;
+  }
+
+  .probleme-desc {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ─── MIGRATION POINTS ─── */
+  .migration-points {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 480px;
+  }
+
+  .migration-point {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--gray-700);
+  }
+
+  .migration-point .migration-check {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .comparatif-row {
+      grid-template-columns: 160px 1fr 1fr;
+    }
+
+    .problemes-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .wp-hero {
+      padding: 120px 0 56px;
+    }
+
+    .comparatif-table {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .comparatif-row {
+      grid-template-columns: 120px 1fr 1fr;
+      min-width: 580px;
+    }
+
+    .comparatif-cell {
+      padding: 12px 14px;
+      font-size: 13px;
+    }
+
+    .calcul-grid {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .problemes-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    // @ts-ignore
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
+
+    // Hero
+    // @ts-ignore
+    gsap.timeline({ delay: 0.15 })
+      // @ts-ignore
+      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
+      // @ts-ignore
+      .fromTo('.wp-h1',       { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
+      // @ts-ignore
+      .fromTo('.wp-hero .hero-serif', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
+      // @ts-ignore
+      .fromTo('.wp-sub',      { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2')
+      // @ts-ignore
+      .fromTo('.hero-ctas',    { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2');
+
+    // Scroll reveals
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el: any) => {
+      // @ts-ignore
+      gsap.fromTo(el, { y: 40, opacity: 0 }, {
+        y: 0, opacity: 1,
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        duration: 1.1, ease: 'power2.out'
+      });
+    });
+  });
+</script>

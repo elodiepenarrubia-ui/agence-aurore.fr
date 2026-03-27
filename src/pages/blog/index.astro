@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 const blogSchema = {
   "@context": "https://schema.org",
   "@type": "Blog",
-  "name": "Blog aurore — Création de site web et présence digitale",
+  "name": "Blog aurore, Création de site web et présence digitale",
   "description": "Conseils et guides pratiques sur la création de site web, le SEO local et la présence digitale pour TPE et indépendants.",
   "url": "https://agence-aurore.fr/blog/",
   "publisher": { "@type": "Organization", "name": "Aurore", "url": "https://agence-aurore.fr" },
@@ -26,7 +26,7 @@ function readingTime(post: any) {
 ---
 
 <BaseLayout
-  title="Blog — Conseils création de site web et SEO | aurore"
+  title="Blog, Conseils création de site web et SEO | aurore"
   description="Guides pratiques sur la création de site web, le référencement SEO local et la présence digitale pour artisans, thérapeutes et indépendants."
   slug="blog"
   schema={blogSchema}
@@ -36,11 +36,15 @@ function readingTime(post: any) {
     <div class="container">
       <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Blog · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
       <h1 class="blog-h1">Conseils pour votre<br /><span class="hero-serif">présence digitale.</span></h1>
-      <p class="blog-sub">Guides pratiques sur la création de site web, le SEO local et l'automatisation — écrits pour les indépendants et les TPE.</p>
+      <p class="blog-sub">Guides pratiques sur la création de site web, le SEO local et l'automatisation, écrits pour les indépendants et les TPE.</p>
+      <div class="hero-ctas">
+        <a href="#articles" class="btn btn-primary btn-lg">Lire les articles →</a>
+        <a href="/a-propos/" class="btn btn-outline btn-lg">À propos d'aurore</a>
+      </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="articles">
     <div class="container" style="max-width:840px;">
       {posts.length === 0 ? (
         <p style="text-align:center;color:var(--gray-500);">Les premiers articles arrivent bientôt.</p>
@@ -104,9 +108,10 @@ function readingTime(post: any) {
   document.addEventListener('DOMContentLoaded', () => {
     // @ts-ignore
     if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
     // @ts-ignore
-    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.9,ease:'power2.out'}).from('.blog-h1',{y:24,opacity:0,duration:1.0,ease:'power2.out'},'-=0.25').from('.blog-sub',{y:16,opacity:0,duration:0.9,ease:'power2.out'},'-=0.25');
+    gsap.timeline({delay:0.1}).fromTo('.hero-eyebrow',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'}).fromTo('.blog-h1',{y:24,opacity:0},{y:0,opacity:1,duration:1.0,ease:'power2.out'},'-=0.25').fromTo('.blog-sub',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.25').fromTo('.hero-ctas',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.2');
     // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%'},y:32,opacity:0,duration:1.0,ease:'power2.out'}));
+    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.fromTo(el,{y:32,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:el,start:'top 88%'},duration:1.0,ease:'power2.out'}));
   });
 </script>

@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page introuvable"
+  description="Cette page n'existe pas ou a été déplacée."
+  slug="/404"
+  noindex={true}
+>
+
+  <section class="section section-aurora-gradient" style="min-height:70vh;display:flex;align-items:center;">
+    <div class="container" style="text-align:center;">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line" aria-hidden="true"></span>
+        Erreur 404
+        <span class="eyebrow-line" aria-hidden="true"></span>
+      </div>
+      <h1 class="section-title" style="font-size:clamp(36px,5vw,64px);margin-bottom:16px;">Page introuvable</h1>
+      <p style="max-width:480px;margin:0 auto 32px;">Cette page n'existe pas ou a été déplacée.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="/" class="btn btn-primary">Retour à l'accueil →</a>
+        <a href="/tarifs/" class="btn btn-outline">Voir les tarifs</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 
@@ -44,11 +46,6 @@ const articleSchema = {
 
     <header class="article-header section-aurora-gradient">
       <div class="container" style="max-width:760px;">
-        <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center;margin-bottom:24px;">
-          <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
-          <a href="/blog/">Blog</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
-          <span aria-current="page">{post.data.title}</span>
-        </nav>
         <div class="article-meta">
           <time datetime={post.data.date.toISOString()} class="article-date">
             {formatDate(post.data.date)}
@@ -71,7 +68,7 @@ const articleSchema = {
           <div class="article-author card">
             <div class="author-avatar" aria-hidden="true">É</div>
             <div>
-              <div class="author-name">Élodie — aurore</div>
+              <div class="author-name">Élodie, aurore</div>
               <p class="author-bio">Créatrice de présences digitales pour TPE et indépendants, basée à Aix-en-Provence.</p>
               <a href="/a-propos/" class="author-link">En savoir plus →</a>
             </div>

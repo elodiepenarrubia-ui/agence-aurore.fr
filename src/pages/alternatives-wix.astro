@@ -1,0 +1,620 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Wix vs site sur mesure : ce que personne ne vous dit",
+  "description": "Wix semble gratuit et simple. Mais combien ça coûte vraiment sur 3 ans ? Comparatif honnête entre Wix et un site professionnel sur mesure avec aurore.",
+  "author": { "@type": "Person", "name": "Élodie", "jobTitle": "Fondatrice d'Aurore" },
+  "publisher": { "@type": "Organization", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "datePublished": "2026-03-26",
+  "url": "https://agence-aurore.fr/alternatives-wix/"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Puis-je garder mon domaine si je quitte Wix ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, votre domaine vous appartient indépendamment de Wix. Je le reconnecte à votre nouveau site sans interruption."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Est-ce que je perds mon contenu en quittant Wix ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, je récupère tous vos textes et images avant de reconstruire le site."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mon référencement Google sera-t-il impacté ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Une migration bien faite préserve votre SEO. Je mets en place les redirections nécessaires."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps prend la migration ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Entre 1 et 2 semaines selon la taille de votre site actuel."
+      }
+    }
+  ]
+};
+
+const comparatif = [
+  { critere: "Prix",                     wix: "17–55 €/mois (204–660 €/an)", aurore: "Investissement unique 290–1 290 €" },
+  { critere: "Propriété du site",        wix: "Non, vous louez",              aurore: "Oui, code source inclus" },
+  { critere: "Hébergement",              wix: "Inclus dans l'abonnement",     aurore: "Gratuit à vie (GitHub Pages)" },
+  { critere: "Nom de domaine",           wix: "En sus ou plan supérieur",     aurore: "Inclus dans toutes les formules" },
+  { critere: "Publicités Wix",           wix: "Présentes sur les plans gratuits", aurore: "Aucune" },
+  { critere: "Mention tierce",           wix: "\"Créé avec Wix\" visible",   aurore: "Aucune mention tierce" },
+  { critere: "Personnalisation",         wix: "Templates limités",            aurore: "100 % sur mesure" },
+  { critere: "SEO",                      wix: "Basique, limité",              aurore: "SEO complet inclus" },
+  { critere: "Vitesse",                  wix: "Lente (JavaScript lourd)",     aurore: "Ultra-rapide (site statique)" },
+  { critere: "Portabilité",              wix: "Impossible d'exporter",        aurore: "Code source livré" },
+];
+
+const calculs = [
+  { plan: "Wix Basic",    prix: "17 €/mois", total: "612 €", note: "sans jamais posséder le site" },
+  { plan: "Wix Core",     prix: "29 €/mois", total: "1 044 €", note: "avec limitations SEO" },
+  { plan: "Wix Business", prix: "36 €/mois", total: "1 296 €", note: "pour les fonctions e-commerce basiques" },
+];
+
+const blocages = [
+  {
+    titre: "Vous voulez changer d'hébergeur",
+    desc: "Impossible — votre site est prisonnier de Wix. Aucune exportation, aucun transfert.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
+  },
+  {
+    titre: "Vous voulez un vrai SEO technique",
+    desc: "Les limitations de Wix vous plafonnent : pas de contrôle sur le HTML, le balisage ou la vitesse.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="m8 11 2 2 4-4"/></svg>`
+  },
+  {
+    titre: "Wix change ses conditions ou ses prix",
+    desc: "Vous n'avez aucun recours. En 2023, Wix a augmenté ses tarifs de 30 % sans préavis.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>`
+  },
+  {
+    titre: "Vous voulez une fonctionnalité spécifique",
+    desc: "Vous êtes limité aux apps du Wix App Market. Pas de code personnalisé, pas de liberté.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`
+  },
+  {
+    titre: "Vous voulez vendre votre business",
+    desc: "Un site Wix ne se transfère pas facilement. Votre présence en ligne n'a aucune valeur de revente.",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg>`
+  },
+];
+
+const migrationPoints = [
+  {
+    texte: "Récupération de tout votre contenu existant",
+    icon: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="var(--aurora-pale)"/><path d="M5.5 9.5l2 2L12.5 7" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  },
+  {
+    texte: "Reconstruction en code pur, rapide et léger",
+    icon: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="var(--aurora-pale)"/><path d="M5.5 9.5l2 2L12.5 7" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  },
+  {
+    texte: "Conservation de votre domaine actuel",
+    icon: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="var(--aurora-pale)"/><path d="M5.5 9.5l2 2L12.5 7" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  },
+  {
+    texte: "SEO préservé + redirections mises en place",
+    icon: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="var(--aurora-pale)"/><path d="M5.5 9.5l2 2L12.5 7" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  },
+];
+---
+
+<BaseLayout
+  title="Wix vs site sur mesure : ce que personne ne vous dit | aurore"
+  description="Wix semble gratuit et simple. Mais combien ça coûte vraiment sur 3 ans ? Comparatif honnête entre Wix et un site professionnel sur mesure avec aurore."
+  slug="alternatives-wix"
+  schema={[articleSchema, faqSchema]}
+>
+
+  <!-- ─── HERO ─── -->
+  <section class="wix-hero section-aurora-gradient">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line" aria-hidden="true"></span>
+        Comparatif honnête
+        <span class="eyebrow-line" aria-hidden="true"></span>
+      </div>
+      <h1 class="wix-h1">Wix, c'est bien.<br />Jusqu'à ce que ce ne le soit plus.</h1>
+      <p class="hero-serif">Ce que personne ne vous dit.</p>
+      <p class="wix-sub">Abonnement mensuel, limitations cachées, site qui ne vous appartient pas. Voici la vérité sur Wix — et ce que vous perdez à long terme.</p>
+      <div class="hero-ctas">
+        <a href="/simulateur/" class="btn btn-primary btn-lg">Calculer mon économie →</a>
+        <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TABLEAU COMPARATIF ─── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">Ce que Wix ne dit pas dans ses pubs</span>
+      <h2 class="section-title reveal">Wix, c'est 17 €/mois minimum.<br />Et ça monte vite.</h2>
+      <p class="section-subtitle reveal">Un comparatif point par point, sans parti pris. Les faits, rien que les faits.</p>
+
+      <div class="comparatif-table reveal" style="margin-top: 48px;">
+        <!-- En-tête -->
+        <div class="comparatif-row comparatif-header">
+          <div class="comparatif-cell comparatif-critere"></div>
+          <div class="comparatif-cell comparatif-col-wix">Wix</div>
+          <div class="comparatif-cell comparatif-col-aurore">aurore</div>
+        </div>
+        <!-- Lignes -->
+        {comparatif.map(row => (
+          <div class="comparatif-row">
+            <div class="comparatif-cell comparatif-critere">{row.critere}</div>
+            <div class="comparatif-cell comparatif-col-wix">
+              <span class="comparatif-icon comparatif-icon-wix" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="#DC2626" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              {row.wix}
+            </div>
+            <div class="comparatif-cell comparatif-col-aurore">
+              <span class="comparatif-icon comparatif-icon-aurore" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 4" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              {row.aurore}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CALCUL SUR 3 ANS ─── -->
+  <section class="section" style="background: var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Le calcul que Wix ne veut pas que vous fassiez</span>
+      <h2 class="section-title reveal">Sur 3 ans, Wix coûte plus cher<br />qu'un site sur mesure.</h2>
+
+      <div class="calcul-grid reveal" style="margin-top: 48px;">
+        {calculs.map(item => (
+          <div class="calcul-card card">
+            <div class="calcul-plan">{item.plan}</div>
+            <div class="calcul-prix">{item.prix}</div>
+            <div class="calcul-total">{item.total}<span class="calcul-duree"> sur 3 ans</span></div>
+            <p class="calcul-note">{item.note}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="calcul-message reveal" style="margin-top: 40px;">
+        <p>Avec <strong>aurore</strong>, votre investissement est unique. Dans 3 ans, 5 ans, 10 ans — <strong>vous ne payez plus rien.</strong></p>
+        <a href="/simulateur/" class="btn btn-aurora" style="margin-top: 20px;">Calculer mon économie personnalisée →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 5 BLOCAGES ─── -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label reveal">5 situations où Wix vous bloque</span>
+      <h2 class="section-title reveal">Wix est pratique au début.<br />Puis vient le moment où…</h2>
+
+      <div class="blocages-grid reveal" style="margin-top: 48px;">
+        {blocages.map(item => (
+          <div class="blocage-card card">
+            <div class="blocage-icon" set:html={item.icon} />
+            <h3 class="blocage-titre">{item.titre}</h3>
+            <p class="blocage-desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MIGRATION ─── -->
+  <section class="section" style="background: var(--gray-50);">
+    <div class="container">
+      <span class="section-label reveal">Pourquoi des milliers de pros quittent Wix</span>
+      <h2 class="section-title reveal">La migration Wix → aurore :<br />190 € et c'est fini.</h2>
+      <p class="section-subtitle reveal">Je récupère votre contenu existant, je le reconstruis en code pur. Vous gardez votre domaine, vos textes, vos images. Vous arrêtez de payer pour toujours.</p>
+
+      <div class="migration-points reveal" style="margin-top: 40px;">
+        {migrationPoints.map(item => (
+          <div class="migration-point">
+            <span class="migration-check" aria-hidden="true" set:html={item.icon} />
+            <span>{item.texte}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="hero-ctas reveal" style="margin-top: 40px;">
+        <a href="/contact/?type=migration" class="btn btn-aurora btn-lg">Demander ma migration →</a>
+        <a href="/migration/" class="btn btn-outline btn-lg">En savoir plus</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section class="section">
+    <div class="container" style="max-width: 720px;">
+      <span class="section-label reveal">Questions fréquentes</span>
+      <h2 class="section-title reveal">Quitter Wix, mode d'emploi.</h2>
+
+      <div style="margin-top: 40px;" class="reveal">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Puis-je garder mon domaine si je quitte Wix ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Oui, votre domaine vous appartient indépendamment de Wix. Je le reconnecte à votre nouveau site sans interruption.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Est-ce que je perds mon contenu en quittant Wix ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Non, je récupère tous vos textes et images avant de reconstruire le site. Rien n'est perdu.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Mon référencement Google sera-t-il impacté ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Une migration bien faite préserve votre SEO. Je mets en place les redirections nécessaires pour que Google retrouve chaque page à sa nouvelle adresse.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Combien de temps prend la migration ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            Entre 1 et 2 semaines selon la taille de votre site actuel. Votre site Wix reste en ligne pendant toute la durée de la migration.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA FINAL ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-section reveal">
+        <h2>Prêt à arrêter de louer votre site ?</h2>
+        <p>Un investissement unique. Un site qui vous appartient. Zéro abonnement.</p>
+        <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis gratuit →</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ─── HERO ─── */
+  .wix-hero {
+    padding: 160px 0 80px;
+    text-align: center;
+  }
+
+  .wix-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    color: var(--black);
+    margin: 20px 0 0;
+  }
+
+  .wix-hero .hero-serif {
+    color: var(--aurora);
+    margin-top: 8px;
+    margin-bottom: 0;
+  }
+
+  .wix-sub {
+    font-size: clamp(15px, 1.3vw, 18px);
+    color: var(--gray-500);
+    line-height: 1.65;
+    max-width: 560px;
+    margin: 20px auto 0;
+  }
+
+  /* ─── TABLEAU COMPARATIF ─── */
+  .comparatif-table {
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .comparatif-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .comparatif-row:last-child {
+    border-bottom: none;
+  }
+
+  .comparatif-header {
+    background: var(--gray-50);
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .comparatif-header .comparatif-col-aurore {
+    color: var(--aurora);
+  }
+
+  .comparatif-cell {
+    padding: 14px 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .comparatif-critere {
+    font-weight: 600;
+    color: var(--black);
+    background: var(--gray-50);
+  }
+
+  .comparatif-col-wix {
+    color: var(--gray-700);
+    border-left: 1px solid var(--gray-100);
+  }
+
+  .comparatif-col-aurore {
+    color: var(--gray-700);
+    border-left: 1px solid var(--gray-100);
+    background: var(--aurora-pale);
+  }
+
+  .comparatif-row:not(.comparatif-header) .comparatif-col-aurore {
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  .comparatif-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comparatif-icon-wix {
+    background: #FEE2E2;
+  }
+
+  .comparatif-icon-aurore {
+    background: var(--aurora-pale);
+  }
+
+  /* ─── CALCUL 3 ANS ─── */
+  .calcul-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .calcul-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .calcul-plan {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-500);
+  }
+
+  .calcul-prix {
+    font-size: 15px;
+    color: var(--gray-700);
+  }
+
+  .calcul-total {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: #DC2626;
+    line-height: 1;
+  }
+
+  .calcul-duree {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gray-500);
+    letter-spacing: 0;
+  }
+
+  .calcul-note {
+    font-size: 13px;
+    color: var(--gray-500);
+    font-style: italic;
+    margin: 0;
+  }
+
+  .calcul-message {
+    text-align: center;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .calcul-message p {
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.7;
+    color: var(--gray-700);
+  }
+
+  /* ─── BLOCAGES ─── */
+  .blocages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .blocage-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .blocage-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--aurora-pale);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--aurora);
+  }
+
+  .blocage-titre {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    line-height: 1.3;
+  }
+
+  .blocage-desc {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ─── MIGRATION POINTS ─── */
+  .migration-points {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 480px;
+  }
+
+  .migration-point {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--gray-700);
+  }
+
+  .migration-point .migration-check {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .comparatif-row {
+      grid-template-columns: 140px 1fr 1fr;
+    }
+
+    .blocages-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .wix-hero {
+      padding: 120px 0 56px;
+    }
+
+    .comparatif-table {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .comparatif-row {
+      grid-template-columns: 120px 1fr 1fr;
+      min-width: 580px;
+    }
+
+    .comparatif-cell {
+      padding: 12px 14px;
+      font-size: 13px;
+    }
+
+    .calcul-grid {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .blocages-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    // @ts-ignore
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
+
+    // Hero
+    // @ts-ignore
+    gsap.timeline({ delay: 0.15 })
+      // @ts-ignore
+      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
+      // @ts-ignore
+      .fromTo('.wix-h1',       { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
+      // @ts-ignore
+      .fromTo('.wix-hero .hero-serif', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
+      // @ts-ignore
+      .fromTo('.wix-sub',      { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2')
+      // @ts-ignore
+      .fromTo('.hero-ctas',    { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2');
+
+    // Scroll reveals
+    // @ts-ignore
+    gsap.utils.toArray('.reveal').forEach((el: any) => {
+      // @ts-ignore
+      gsap.fromTo(el, { y: 40, opacity: 0 }, {
+        y: 0, opacity: 1,
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        duration: 1.1, ease: 'power2.out'
+      });
+    });
+  });
+</script>

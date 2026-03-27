@@ -22,19 +22,19 @@ const faqSchema = {
     { "@type": "Question", "name": "Qu'est-ce que le SEO on-page ?",
       "acceptedAnswer": { "@type": "Answer", "text": "Le SEO on-page regroupe toutes les optimisations réalisées directement sur votre site : balises title et meta description, structure des titres (H1, H2, H3), vitesse de chargement, balisage Schema.org, URL propres, textes alt sur les images. C'est la base indispensable pour que Google comprenne et référence correctement vos pages." }},
     { "@type": "Question", "name": "Combien de temps faut-il pour voir des résultats en SEO ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Les résultats SEO ne sont pas immédiats — c'est la nature du référencement naturel. En général, les premiers effets (apparition dans Google Search Console, premiers clics) se voient dans les 4 à 8 semaines. Pour un positionnement solide sur des mots-clés concurrentiels, comptez 3 à 6 mois. Le SEO local (votre ville + votre activité) donne des résultats plus rapides." }},
+      "acceptedAnswer": { "@type": "Answer", "text": "Les résultats SEO ne sont pas immédiats, c'est la nature du référencement naturel. En général, les premiers effets (apparition dans Google Search Console, premiers clics) se voient dans les 4 à 8 semaines. Pour un positionnement solide sur des mots-clés concurrentiels, comptez 3 à 6 mois. Le SEO local (votre ville + votre activité) donne des résultats plus rapides." }},
     { "@type": "Question", "name": "À quoi sert la fiche Google Business ?",
       "acceptedAnswer": { "@type": "Answer", "text": "La fiche Google Business est la carte d'identité de votre activité sur Google Maps et dans les résultats locaux. Quand quelqu'un cherche 'massothérapeute Aix-en-Provence' ou 'plombier près de moi', ce sont les fiches Google Business qui apparaissent en premier. Une fiche optimisée avec photos, horaires, catégories et avis augmente drastiquement votre visibilité locale." }},
     { "@type": "Question", "name": "Le SEO est-il inclus dans les packs site web ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Oui. Le SEO on-page de base (balises, structure, Schema.org, vitesse), la création et l'optimisation de votre fiche Google Business, et la connexion à Google Search Console sont inclus dans tous les packs site web Essentiel et supérieurs. Le SEO à la carte s'adresse aux sites existants ou aux besoins spécifiques." }},
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui. Le SEO on-page et la fiche Google Business sont inclus dans toutes les formules site web (Starter, Vitrine, Pro). Le SEO à la carte s'adresse aux sites existants ou aux besoins spécifiques." }},
     { "@type": "Question", "name": "Faites-vous du SEO de contenu ou de la rédaction d'articles ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "L'optimisation technique et on-page est incluse. La rédaction d'articles de blog et la stratégie de contenu longue durée ne font pas partie des offres actuelles, mais un blog est intégré au pack Autonome pour que vous puissiez publier vous-même. C'est souvent la meilleure approche : vous connaissez votre métier mieux que n'importe quel rédacteur." }},
+      "acceptedAnswer": { "@type": "Answer", "text": "L'optimisation technique et on-page est incluse dans toutes les formules. La rédaction d'articles de blog et la stratégie de contenu longue durée ne font pas partie des offres actuelles, mais un blog est intégré à la formule Pro pour que vous puissiez publier vous-même. C'est souvent la meilleure approche : vous connaissez votre métier mieux que n'importe quel rédacteur." }},
   ],
 };
 ---
 
 <BaseLayout
-  title="Référencement SEO — Google Business et SEO on-page | aurore"
+  title="Référencement SEO, Google Business et SEO on-page | aurore"
   description="Référencement SEO local pour artisans et indépendants : optimisation on-page, fiche Google Business, Search Console. Inclus dans tous les packs web. aurore, France."
   slug="referencement-seo"
   schema={[serviceSchema, faqSchema]}
@@ -42,13 +42,9 @@ const faqSchema = {
 
   <section class="service-hero section-aurora-gradient">
     <div class="container">
-      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center;margin-bottom:24px;">
-        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
-        <span aria-current="page">Référencement SEO</span>
-      </nav>
       <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Référencement SEO · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
       <h1 class="service-h1">Être trouvé sur Google,<br /><span class="hero-serif">sans y penser.</span></h1>
-      <p class="service-sub">Un site invisible sur Google est un site inutile. Chaque page livrée est optimisée pour les moteurs de recherche — technique, locale et structurelle.</p>
+      <p class="service-sub">Un site invisible sur Google est un site inutile. Chaque page livrée est optimisée pour les moteurs de recherche, technique, locale et structurelle.</p>
       <div class="hero-ctas">
         <a href="/contact/" class="btn btn-primary btn-lg">Améliorer mon référencement →</a>
         <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
@@ -90,7 +86,7 @@ const faqSchema = {
         <div>
           <span class="section-label">SEO local</span>
           <h2 class="section-title">Vos clients vous cherchent<br />près de chez eux.</h2>
-          <p class="section-subtitle" style="margin-top:16px;">75 % des recherches sur mobile incluent une intention locale. "Ostéopathe Marseille", "artisan plombier 13", "coach sportif près de moi" — ce sont ces requêtes qui amènent des clients réels, pas des visiteurs.</p>
+          <p class="section-subtitle" style="margin-top:16px;">75 % des recherches sur mobile incluent une intention locale. "Ostéopathe Marseille", "artisan plombier 13", "coach sportif près de moi", ce sont ces requêtes qui amènent des clients réels, pas des visiteurs.</p>
           <p style="font-size:15px;line-height:1.7;color:var(--gray-500);margin-top:16px;">La fiche Google Business est souvent le premier point de contact. Elle doit être complète, précise et régulièrement mise à jour. C'est ce qui détermine si vous apparaissez dans le "pack local" en tête des résultats.</p>
         </div>
         <div class="local-visual card" aria-hidden="true">
@@ -98,7 +94,7 @@ const faqSchema = {
             <div class="serp-bar"></div>
             <div class="serp-pack">
               <div class="serp-pack-title">Résultats locaux</div>
-              {["🟢 Votre activité · Aix-en-Provence","Concurrent A · ★★★☆☆","Concurrent B · ★★★★☆"].map((r,i) => (
+              {["● Votre activité · Aix-en-Provence","Concurrent A · ★★★☆☆","Concurrent B · ★★★★☆"].map((r,i) => (
                 <div class={`serp-result ${i===0?'serp-result-first':''}`}>{r}</div>
               ))}
             </div>
@@ -149,7 +145,7 @@ const faqSchema = {
 
   <section class="section"><div class="container"><div class="cta-section reveal">
     <h2>Votre site est-il vraiment visible sur Google ?</h2>
-    <p>Décrivez votre situation actuelle — site existant ou nouveau projet. On identifie ensemble les axes d'amélioration prioritaires.</p>
+    <p>Décrivez votre situation actuelle, site existant ou nouveau projet. On identifie ensemble les axes d'amélioration prioritaires.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
       <a href="/contact/" class="btn btn-aurora btn-lg">Améliorer mon SEO →</a>
       <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
@@ -186,11 +182,12 @@ const faqSchema = {
   document.addEventListener('DOMContentLoaded', () => {
     // @ts-ignore
     if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
     // @ts-ignore
-    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.9,ease:'power2.out'}).from('.service-h1',{y:24,opacity:0,duration:1.0,ease:'power2.out'},'-=0.25').from('.service-sub',{y:16,opacity:0,duration:0.9,ease:'power2.out'},'-=0.25').from('.hero-ctas',{y:16,opacity:0,duration:0.4,ease:'power2.out'},'-=0.2');
+    gsap.timeline({delay:0.1}).fromTo('.hero-eyebrow',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'}).fromTo('.service-h1',{y:24,opacity:0},{y:0,opacity:1,duration:1.0,ease:'power2.out'},'-=0.25').fromTo('.service-sub',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.25').fromTo('.hero-ctas',{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:'power2.out'},'-=0.2');
     // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:40,opacity:0,duration:1.1,ease:'power2.out'}));
+    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.fromTo(el,{y:40,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:el,start:'top 85%'},duration:1.1,ease:'power2.out'}));
     // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.from(c.children,{scrollTrigger:{trigger:c,start:'top 80%'},y:24,opacity:0,stagger:0.15,duration:0.55,ease:'power2.out'}));
+    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.fromTo(c.children,{y:24,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:c,start:'top 80%'},stagger:0.15,duration:0.55,ease:'power2.out'}));
   });
 </script>

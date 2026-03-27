@@ -32,7 +32,7 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Automatisation et emails transactionnels — Workflows sur mesure | aurore"
+  title="Automatisation et emails transactionnels, Workflows sur mesure | aurore"
   description="Automatisez vos processus : emails de confirmation, rappels, notifications, intégrations Notion, Airtable, Google Sheets. À partir de 100 € par automatisation. aurore, France."
   slug="automatisation"
   schema={[serviceSchema, faqSchema]}
@@ -40,13 +40,9 @@ const faqSchema = {
 
   <section class="service-hero section-aurora-gradient">
     <div class="container">
-      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center;margin-bottom:24px;">
-        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
-        <span aria-current="page">Automatisation</span>
-      </nav>
       <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Automatisation · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
       <h1 class="service-h1">Les tâches répétitives,<br /><span class="hero-serif">faites sans vous.</span></h1>
-      <p class="service-sub">Emails de confirmation, rappels, exports, notifications — tout ce que vous faites manuellement et qui prend du temps peut être automatisé.</p>
+      <p class="service-sub">Emails de confirmation, rappels, exports, notifications, tout ce que vous faites manuellement et qui prend du temps peut être automatisé.</p>
       <div class="hero-ctas">
         <a href="/contact/" class="btn btn-primary btn-lg">Automatiser mon activité →</a>
         <a href="#exemples" class="btn btn-outline btn-lg">Voir des exemples</a>
@@ -61,15 +57,15 @@ const faqSchema = {
       <h2 class="section-title reveal">Ce qu'on peut automatiser<br />pour vous.</h2>
       <div class="grid-3 reveal-stagger" style="margin-top:48px;">
         {[
-          { icon:"✉️", titre:"Email de confirmation",      desc:"Chaque nouveau formulaire déclenche un email automatique à votre client et une notification à vous. Immédiat, professionnel." },
-          { icon:"🔔", titre:"Rappel de rendez-vous",      desc:"24h avant chaque RDV, votre client reçoit un rappel automatique. Moins de no-shows, moins d'appels pour confirmer." },
-          { icon:"📊", titre:"Export Google Sheets",       desc:"Chaque réservation, chaque paiement ou chaque contact est ajouté automatiquement à votre tableau de bord partagé." },
-          { icon:"🔄", titre:"Synchronisation Airtable",   desc:"Vos contacts web arrivent directement dans votre base Airtable, triés et catégorisés selon le type de demande." },
-          { icon:"💬", titre:"Notification Slack/Discord",  desc:"Un client réserve ou envoie un message ? Vous êtes notifié instantanément sur l'outil de communication de votre équipe." },
-          { icon:"🧾", titre:"Suivi des paiements",        desc:"Chaque paiement Stripe déclenche un email de reçu, une mise à jour dans votre outil de suivi et une notification comptable." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>', titre:"Email de confirmation",      desc:"Chaque nouveau formulaire déclenche un email automatique à votre client et une notification à vous. Immédiat, professionnel." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>', titre:"Rappel de rendez-vous",      desc:"24h avant chaque RDV, votre client reçoit un rappel automatique. Moins de no-shows, moins d'appels pour confirmer." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>', titre:"Export Google Sheets",       desc:"Chaque réservation, chaque paiement ou chaque contact est ajouté automatiquement à votre tableau de bord partagé." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>', titre:"Synchronisation Airtable",   desc:"Vos contacts web arrivent directement dans votre base Airtable, triés et catégorisés selon le type de demande." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>', titre:"Notification Slack/Discord",  desc:"Un client réserve ou envoie un message ? Vous êtes notifié instantanément sur l'outil de communication de votre équipe." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>', titre:"Suivi des paiements",        desc:"Chaque paiement Stripe déclenche un email de reçu, une mise à jour dans votre outil de suivi et une notification comptable." },
         ].map(c => (
           <div class="card auto-card">
-            <div class="auto-icon" aria-hidden="true">{c.icon}</div>
+            <div class="auto-icon" aria-hidden="true" set:html={c.icon}></div>
             <h3 class="auto-titre">{c.titre}</h3>
             <p class="auto-desc">{c.desc}</p>
           </div>
@@ -108,7 +104,7 @@ const faqSchema = {
           </ul>
         </div>
       </div>
-      <p class="flow-note reveal" style="text-align:center;margin-top:32px;font-size:14px;color:var(--gray-500);">Chaque automatisation est construite sur mesure selon vos processus réels — pas sur un template générique.</p>
+      <p class="flow-note reveal" style="text-align:center;margin-top:32px;font-size:14px;color:var(--gray-500);">Chaque automatisation est construite sur mesure selon vos processus réels, pas sur un template générique.</p>
     </div>
   </section>
 
@@ -174,7 +170,7 @@ const faqSchema = {
 
   <section class="section" style="background:var(--gray-50);"><div class="container"><div class="cta-section reveal">
     <h2>Quelle tâche voudriez-vous<br />ne plus jamais faire manuellement ?</h2>
-    <p>Décrivez-moi le processus — je vous dis si c'est automatisable et combien ça coûte.</p>
+    <p>Décrivez-moi le processus, je vous dis si c'est automatisable et combien ça coûte.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
       <a href="/contact/" class="btn btn-aurora btn-lg">Décrire ma tâche →</a>
       <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
@@ -189,7 +185,7 @@ const faqSchema = {
   .service-sub   { font-size:clamp(15px,1.3vw,18px); line-height:1.65; max-width:520px; margin:0 auto 32px; }
 
   .auto-card  { display:flex; flex-direction:column; gap:10px; }
-  .auto-icon  { font-size:28px; line-height:1; }
+  .auto-icon  { display:flex; align-items:center; justify-content:center; }
   .auto-titre { font-size:15px; font-weight:600; letter-spacing:-0.02em; }
   .auto-desc  { font-size:14px; color:var(--gray-500); line-height:1.65; margin:0; }
 
@@ -216,11 +212,12 @@ const faqSchema = {
   document.addEventListener('DOMContentLoaded', () => {
     // @ts-ignore
     if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
     // @ts-ignore
-    gsap.timeline({delay:0.1}).from('.hero-eyebrow',{y:16,opacity:0,duration:0.9,ease:'power2.out'}).from('.service-h1',{y:24,opacity:0,duration:1.0,ease:'power2.out'},'-=0.25').from('.service-sub',{y:16,opacity:0,duration:0.9,ease:'power2.out'},'-=0.25').from('.hero-ctas',{y:16,opacity:0,duration:0.4,ease:'power2.out'},'-=0.2');
+    gsap.timeline({delay:0.1}).fromTo('.hero-eyebrow',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'}).fromTo('.service-h1',{y:24,opacity:0},{y:0,opacity:1,duration:1.0,ease:'power2.out'},'-=0.25').fromTo('.service-sub',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.25').fromTo('.hero-ctas',{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:'power2.out'},'-=0.2');
     // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:40,opacity:0,duration:1.1,ease:'power2.out'}));
+    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.fromTo(el,{y:40,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:el,start:'top 85%'},duration:1.1,ease:'power2.out'}));
     // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.from(c.children,{scrollTrigger:{trigger:c,start:'top 80%'},y:24,opacity:0,stagger:0.15,duration:0.55,ease:'power2.out'}));
+    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.fromTo(c.children,{y:24,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:c,start:'top 80%'},stagger:0.15,duration:0.55,ease:'power2.out'}));
   });
 </script>

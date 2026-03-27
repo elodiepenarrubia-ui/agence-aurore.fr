@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Mentions légales | aurore"
-  description="Mentions légales du site agence-aurore.fr — Élodie, auto-entrepreneur, Aix-en-Provence."
+  description="Mentions légales du site agence-aurore.fr — Elodie Penarrubia, entrepreneur individuel, Aix-en-Provence."
   slug="mentions-legales"
   noindex={true}
 >
@@ -12,48 +12,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="section" style="padding-top:140px;">
     <div class="container" style="max-width:720px;">
 
-      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="margin-bottom:32px;">
-        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
-        <span aria-current="page">Mentions légales</span>
-      </nav>
 
       <h1 class="mentions-h1">Mentions légales</h1>
-      <p class="mentions-date">Dernière mise à jour : janvier 2025</p>
+      <p class="mentions-date">Dernière mise à jour : mars 2026</p>
 
       <div class="prose">
 
         <h2>1. Éditeur du site</h2>
         <p>
           Le site <strong>agence-aurore.fr</strong> est édité par :<br />
-          <strong>Élodie [NOM]</strong><br />
-          Auto-entrepreneur<br />
-          SIRET : [À compléter après immatriculation]<br />
-          Siège social : Aix-en-Provence (13100), France<br />
-          Email : <a href="mailto:contact@agence-aurore.fr">contact@agence-aurore.fr</a>
+          <strong>Elodie Penarrubia</strong> (nom commercial : Aurore)<br />
+          Entrepreneur individuel<br />
+          SIREN : 913 875 431<br />
+          SIRET : 913 875 431 00017<br />
+          Code APE : 62.01Z — Programmation informatique<br />
+          Date d'immatriculation : 20/03/2026<br />
+          Siège social : 17 rue Fermée, 13100 Aix-en-Provence, France<br />
+          Email : <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a><br />
+          Téléphone : 06 59 65 92 18
         </p>
 
         <h2>2. Directrice de la publication</h2>
-        <p>Élodie [NOM], en qualité de propriétaire du site.</p>
+        <p>Elodie Penarrubia, en qualité de propriétaire du site.</p>
 
         <h2>3. Hébergement</h2>
         <p>
           Ce site est hébergé par :<br />
-          <strong>GitHub, Inc.</strong><br />
-          88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis<br />
-          Service : GitHub Pages — <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">pages.github.com</a>
+          <strong>Vercel Inc.</strong><br />
+          340 Pine Street Suite 701, San Francisco, CA 94104, États-Unis<br />
+          <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a>
         </p>
 
         <h2>4. Propriété intellectuelle</h2>
         <p>
-          L'ensemble des contenus présents sur ce site (textes, images, graphismes, logo, icônes, structure) est la propriété exclusive d'aurore / Élodie [NOM], sauf mention contraire.
+          L'ensemble des contenus présents sur ce site (textes, images, graphismes, logo, icônes, structure) est la propriété exclusive d'aurore / Elodie Penarrubia, sauf mention contraire.
         </p>
         <p>
           Toute reproduction, distribution, modification ou utilisation de ces contenus, en tout ou partie, est interdite sans autorisation préalable écrite de l'éditeur.
         </p>
 
-        <h2>5. Données personnelles (RGPD)</h2>
+        <h2 id="confidentialite">5. Données personnelles (RGPD)</h2>
         <p>
-          Conformément au Règlement Général sur la Protection des Données (RGPD — UE 2016/679) et à la loi Informatique et Libertés, vous disposez des droits suivants concernant vos données personnelles :
+          Conformément au Règlement Général sur la Protection des Données (RGPD, UE 2016/679) et à la loi Informatique et Libertés, vous disposez des droits suivants concernant vos données personnelles :
         </p>
         <ul>
           <li>Droit d'accès à vos données</li>
@@ -63,10 +63,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <li>Droit d'opposition au traitement</li>
         </ul>
         <p>
-          Pour exercer ces droits ou pour toute question relative à vos données, contactez : <a href="mailto:contact@agence-aurore.fr">contact@agence-aurore.fr</a>
+          Pour exercer ces droits ou pour toute question relative à vos données, contactez : <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a>
         </p>
 
-        <h3>Données collectées via le formulaire de contact</h3>
+        <h2>Données collectées via le formulaire de contact</h2>
         <p>
           Les informations transmises via le formulaire de contact (nom, email, message) sont utilisées uniquement pour répondre à votre demande. Elles ne sont pas transmises à des tiers, ni utilisées à des fins commerciales sans votre consentement.
         </p>
@@ -74,9 +74,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           Durée de conservation : les échanges par email sont conservés le temps nécessaire à la relation commerciale, avec un maximum de 3 ans après le dernier contact.
         </p>
 
-        <h3>Cookies</h3>
+        <h2 id="cookies">Cookies et Google Analytics</h2>
         <p>
-          Ce site n'utilise pas de cookies de traçage ni d'outils d'analyse comportementale (Google Analytics, Hotjar, etc.). Aucun cookie tiers n'est déposé sur votre terminal sans votre consentement.
+          Ce site utilise <strong>Google Analytics 4</strong> (GA4) pour analyser le trafic et améliorer l'expérience utilisateur. GA4 est un service fourni par Google LLC. Il collecte des données anonymisées de navigation (pages visitées, durée de session, appareil utilisé).
+        </p>
+        <p>
+          <strong>Votre consentement est requis</strong> : le script GA4 ne se charge qu'après votre acceptation via le bandeau de cookies affiché lors de votre première visite. Si vous refusez, aucun cookie de traçage n'est déposé.
+        </p>
+        <p>
+          <strong>Durée de conservation</strong> : les données collectées par GA4 sont conservées pour une durée maximale de <strong>13 mois</strong>, conformément aux recommandations de la CNIL.
+        </p>
+        <p>
+          <strong>Transfert de données</strong> : Google Analytics peut transférer des données vers les États-Unis. Ce transfert est encadré par les <strong>clauses contractuelles types (CCT)</strong> adoptées par la Commission européenne, garantissant un niveau de protection adéquat conformément au RGPD.
+        </p>
+        <p>
+          Vous pouvez à tout moment retirer votre consentement en cliquant sur le lien « Gérer les cookies » en bas de chaque page du site. Cela réaffichera le bandeau de consentement.
+        </p>
+        <p>
+          Pour en savoir plus sur la politique de confidentialité de Google Analytics : <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.
         </p>
 
         <h2>6. Liens hypertextes</h2>
@@ -100,7 +115,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <h2>9. Contact</h2>
         <p>
           Pour toute question concernant ce site ou ces mentions légales :<br />
-          <a href="mailto:contact@agence-aurore.fr">contact@agence-aurore.fr</a>
+          <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a>
         </p>
 
       </div>

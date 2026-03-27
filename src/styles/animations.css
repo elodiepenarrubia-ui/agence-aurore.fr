@@ -134,6 +134,26 @@
   margin: 16px 0;
 }
 
+/* ─── FALLBACK GSAP ─── */
+.anim-done .reveal,
+.anim-done .reveal-stagger > * {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ─── PROGRESS BAR SCROLL ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  height: 2px;
+  width: 0%;
+  background: var(--aurora);
+  pointer-events: none;
+  transition: none;
+}
+
 /* ─── ACCESSIBILITÉ ─── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -142,4 +162,6 @@
     transition-duration: 0.01ms !important;
   }
   .aurora-orb { animation: none; opacity: 0.06; }
+  .scroll-progress { display: none; }
 }
+

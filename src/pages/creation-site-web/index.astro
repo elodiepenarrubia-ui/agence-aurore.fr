@@ -9,9 +9,9 @@ const serviceSchema = {
   "areaServed": "France",
   "description": "Création de sites web professionnels pour TPE et indépendants : site vitrine, site avec réservation, logiciel métier. Hébergement gratuit, livraison en 2 semaines. Basé à Aix-en-Provence.",
   "offers": [
-    { "@type": "Offer", "name": "Pack Starter",            "priceCurrency": "EUR", "price": "290"  },
-    { "@type": "Offer", "name": "Site statique Essentiel", "priceCurrency": "EUR", "price": "590"  },
-    { "@type": "Offer", "name": "Site vitrine Autonome",   "priceCurrency": "EUR", "price": "1490" },
+    { "@type": "Offer", "name": "Starter",  "priceCurrency": "EUR", "price": "290"  },
+    { "@type": "Offer", "name": "Vitrine",  "priceCurrency": "EUR", "price": "690"  },
+    { "@type": "Offer", "name": "Pro",      "priceCurrency": "EUR", "price": "1290" },
   ],
 };
 
@@ -20,39 +20,39 @@ const faqSchema = {
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Combien coûte la création d'un site web à Aix-en-Provence ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Les tarifs d'aurore commencent à 290 € pour le Pack Starter (site 3 pages, domaine, emails, Google Business). Un site vitrine complet est proposé à partir de 590 € et un site avec réservation en ligne à partir de 1 400 €. Tous les tarifs sont affichés publiquement sur la page Tarifs." }},
+      "acceptedAnswer": { "@type": "Answer", "text": "Les tarifs d'aurore commencent à 290 € pour le Starter (site 3 pages, domaine, emails, Google Business, SEO inclus). La formule Vitrine est à 690 € et la formule Pro avec réservation en ligne à 1 290 €. Le SEO on-page et la fiche Google Business sont inclus dans toutes les formules." }},
     { "@type": "Question", "name": "Combien de temps faut-il pour créer un site web ?",
       "acceptedAnswer": { "@type": "Answer", "text": "La plupart des sites vitrines sont livrés en 2 semaines à compter du briefing et de la réception de vos contenus. Les sites avec réservation ou les logiciels métier peuvent nécessiter 3 à 4 semaines selon la complexité." }},
     { "@type": "Question", "name": "Quel est l'avantage de GitHub Pages par rapport à un hébergement classique ?",
       "acceptedAnswer": { "@type": "Answer", "text": "GitHub Pages est un hébergement statique gratuit, fiable (SLA 99,9 %) et maintenu par Microsoft. Il n'y a aucun frais mensuel, aucune base de données à maintenir, aucune mise à jour de serveur à gérer. Votre seul coût récurrent est le nom de domaine (~15 €/an)." }},
     { "@type": "Question", "name": "Puis-je modifier le contenu de mon site moi-même ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Oui, avec les packs Autonome, Decap CMS est intégré au site. Vous pouvez modifier textes, images et articles de blog depuis une interface simple, sans aucune connaissance technique. Une formation est incluse." }},
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui, avec les formules Vitrine et Pro, un espace de rédaction est intégré au site. Vous pouvez modifier textes, images et articles de blog depuis une interface simple, sans aucune connaissance technique. Une formation vidéo est incluse dans toutes les formules." }},
     { "@type": "Question", "name": "Aurore crée-t-elle des sites WordPress ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Non. Aurore se spécialise dans les sites statiques (HTML/CSS/JS), qui sont plus rapides, plus sécurisés et ne nécessitent aucun hébergement payant. Pour les cas nécessitant un CMS, Decap CMS est utilisé — sans les lourdeurs ni les failles de sécurité de WordPress." }},
+      "acceptedAnswer": { "@type": "Answer", "text": "Non. Aurore se spécialise dans les sites statiques (HTML/CSS/JS), qui sont plus rapides, plus sécurisés et ne nécessitent aucun hébergement payant. Pour les cas nécessitant un espace de rédaction, un outil custom est développé, sans les lourdeurs ni les failles de sécurité de WordPress." }},
     { "@type": "Question", "name": "Intervenez-vous uniquement à Aix-en-Provence ?",
       "acceptedAnswer": { "@type": "Answer", "text": "Non. Aurore intervient dans toute la France en télétravail. La totalité du projet se déroule à distance : briefing en visio, prévisualisation en ligne, livraison par lien. La qualité est identique quelle que soit votre localisation." }},
   ],
 };
 
 const sousServices = [
-  { href: "/creation-site-web/site-vitrine/",   titre: "Site vitrine",         desc: "De 590 à 1 490 €. L'essentiel pour présenter votre activité et être trouvé localement.", prix: "590 €" },
-  { href: "/creation-site-web/site-reservation/", titre: "Site avec réservation", desc: "De 1 400 à 1 800 €. Prise de RDV en ligne, paiement Stripe, emails transactionnels.", prix: "1 400 €" },
+  { href: "/creation-site-web/site-vitrine/",   titre: "Site vitrine",         desc: "À partir de 690 €. Jusqu'à 6 pages, SEO complet, formulaire de contact, espace rédaction inclus.", prix: "690 €" },
+  { href: "/creation-site-web/site-reservation/", titre: "Site avec réservation", desc: "1 290 €. Prise de RDV en ligne, paiement Stripe, emails automatisés, tout Vitrine inclus.", prix: "1 290 €" },
   { href: "/creation-site-web/logiciel-metier/",  titre: "Logiciel métier",      desc: "Sur devis (cadrage 300 €). Application web sur mesure pour automatiser vos processus.", prix: "Sur devis" },
 ];
 
 const benefices = [
   { titre: "Livraison en 2 semaines",        desc: "Un process rodé, pas de réunions inutiles. Du briefing à la mise en ligne en 14 jours." },
   { titre: "0 € d'hébergement",             desc: "GitHub Pages : gratuit, fiable, maintenu par Microsoft. Vous ne payez que le domaine (~15 €/an)." },
-  { titre: "Optimisé pour le SEO",          desc: "Structure sémantique, balises méta, Google Business, Search Console — tout est configuré dès la livraison." },
+  { titre: "Optimisé pour le SEO",          desc: "Structure sémantique, balises méta, Google Business, Search Console, tout est configuré dès la livraison." },
   { titre: "Responsive et rapide",          desc: "Mobile-first par défaut. Score Lighthouse élevé. Vos clients vous trouvent et restent sur votre site." },
-  { titre: "Clé en main, vraiment",         desc: "Domaine, DNS, emails pro, analytics — tout est opérationnel le jour J. Zéro configuration de votre côté." },
+  { titre: "Clé en main, vraiment",         desc: "Domaine, DNS, emails pro, analytics, tout est opérationnel le jour J. Zéro configuration de votre côté." },
   { titre: "Interlocuteur unique",          desc: "Pas de chef de projet + développeur + graphiste. Une seule personne, du devis à la livraison." },
 ];
 ---
 
 <BaseLayout
-  title="Création de site web Aix-en-Provence — Site vitrine, réservation | aurore"
-  description="Aurore crée votre site web à Aix-en-Provence et partout en France : site vitrine dès 590 €, site avec réservation, logiciel métier. Hébergement gratuit, livraison 2 semaines."
+  title="Création de site web Aix-en-Provence, Site vitrine, réservation | aurore"
+  description="Aurore crée votre site web à Aix-en-Provence et partout en France : Starter dès 290 €, Vitrine 690 €, Pro 1 290 €. SEO et fiche Google inclus. Hébergement gratuit, livraison 2 semaines."
   slug="creation-site-web"
   schema={[serviceSchema, faqSchema]}
 >
@@ -60,17 +60,13 @@ const benefices = [
   <!-- ─── HERO ─── -->
   <section class="service-hero section-aurora-gradient">
     <div class="container">
-      <nav class="breadcrumb" aria-label="Fil d'Ariane" style="justify-content:center; margin-bottom:24px;">
-        <a href="/">Accueil</a><span class="breadcrumb-sep" aria-hidden="true">›</span>
-        <span aria-current="page">Création de site web</span>
-      </nav>
       <div class="hero-eyebrow">
         <span class="eyebrow-line" aria-hidden="true"></span>
         Service · Création de site web
         <span class="eyebrow-line" aria-hidden="true"></span>
       </div>
       <h1 class="service-h1">Votre site web professionnel,<br /><span class="hero-serif">livré en 2 semaines.</span></h1>
-      <p class="service-sub">Sites statiques ultra-rapides, hébergement gratuit, SEO intégré. À partir de 290 € — sans mauvaise surprise.</p>
+      <p class="service-sub">Sites statiques ultra-rapides, hébergement gratuit, SEO intégré. À partir de 290 €, sans mauvaise surprise.</p>
       <div class="hero-ctas">
         <a href="/contact/" class="btn btn-primary btn-lg">Demander un devis →</a>
         <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
@@ -122,7 +118,7 @@ const benefices = [
         <div>
           <span class="section-label">Technique</span>
           <h2 class="section-title">Pourquoi des sites statiques ?</h2>
-          <p class="section-subtitle">Un site WordPress nécessite un serveur PHP, une base de données, des mises à jour régulières — et coûte 20 à 50 €/mois d'hébergement. Un site statique n'a besoin de rien de tout ça.</p>
+          <p class="section-subtitle">Un site WordPress nécessite un serveur PHP, une base de données, des mises à jour régulières, et coûte 20 à 50 €/mois d'hébergement. Un site statique n'a besoin de rien de tout ça.</p>
           <ul class="stack-liste" style="margin-top:24px;">
             {[
               "Temps de chargement 2–5× plus rapide",
@@ -236,25 +232,26 @@ const benefices = [
     if (typeof gsap === 'undefined') return;
     // @ts-ignore
     gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true });
     // @ts-ignore
     gsap.timeline({ delay:0.1 })
       // @ts-ignore
-      .from('.hero-eyebrow', { y:16, opacity:0, duration:0.9, ease:'power2.out' })
+      .fromTo('.hero-eyebrow', { y:16, opacity:0 }, { y:0, opacity:1, duration:0.9, ease:'power2.out' })
       // @ts-ignore
-      .from('.service-h1',   { y:24, opacity:0, duration:1.0, ease:'power2.out' }, '-=0.25')
+      .fromTo('.service-h1', { y:24, opacity:0 }, { y:0, opacity:1, duration:1.0, ease:'power2.out' }, '-=0.25')
       // @ts-ignore
-      .from('.service-sub',  { y:16, opacity:0, duration:0.9, ease:'power2.out' }, '-=0.25')
+      .fromTo('.service-sub', { y:16, opacity:0 }, { y:0, opacity:1, duration:0.9, ease:'power2.out' }, '-=0.25')
       // @ts-ignore
-      .from('.hero-ctas',    { y:16, opacity:0, duration:0.4, ease:'power2.out' }, '-=0.2');
+      .fromTo('.hero-ctas', { y:16, opacity:0 }, { y:0, opacity:1, duration:0.4, ease:'power2.out' }, '-=0.2');
     // @ts-ignore
     gsap.utils.toArray('.reveal').forEach((el:any) => {
       // @ts-ignore
-      gsap.from(el, { scrollTrigger:{ trigger:el, start:'top 85%' }, y:40, opacity:0, duration:1.1, ease:'power2.out' });
+      gsap.fromTo(el, { y:40, opacity:0 }, { y:0, opacity:1, scrollTrigger:{ trigger:el, start:'top 85%' }, duration:1.1, ease:'power2.out' });
     });
     // @ts-ignore
     gsap.utils.toArray('.reveal-stagger').forEach((c:any) => {
       // @ts-ignore
-      gsap.from(c.children, { scrollTrigger:{ trigger:c, start:'top 80%' }, y:24, opacity:0, stagger:0.15, duration:0.55, ease:'power2.out' });
+      gsap.fromTo(c.children, { y:24, opacity:0 }, { y:0, opacity:1, scrollTrigger:{ trigger:c, start:'top 80%' }, stagger:0.15, duration:0.55, ease:'power2.out' });
     });
   });
 </script>
