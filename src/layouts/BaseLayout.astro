@@ -21,6 +21,9 @@ import '../styles/global.css';
 import '../styles/components.css';
 import '../styles/animations.css';
 
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
 const {
   title,
   description,
@@ -106,37 +109,7 @@ const schemaJson = schema
   <body class={bodyClass}>
 
     <!-- ─── NAVIGATION ─── -->
-    <header>
-      <nav class="nav" id="main-nav" aria-label="Navigation principale">
-        <a href="/" class="logo" aria-label="aurore — retour à l'accueil">
-          aur<span class="logo-o">o</span>re
-        </a>
-
-        <ul class="nav-links" id="nav-links" role="list">
-          <li><a href="/creation-site-web/">Création de site</a></li>
-          <li><a href="/identite-visuelle/">Identité visuelle</a></li>
-          <li><a href="/referencement-seo/">SEO</a></li>
-          <li><a href="/realisations/">Réalisations</a></li>
-          <li><a href="/tarifs/">Tarifs</a></li>
-          <li><a href="/blog/">Blog</a></li>
-        </ul>
-
-        <div class="nav-cta">
-          <a href="/contact/" class="btn btn-primary">Devis gratuit →</a>
-          <button
-            class="nav-burger"
-            id="nav-burger"
-            aria-label="Ouvrir le menu"
-            aria-expanded="false"
-            aria-controls="nav-links"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </nav>
-    </header>
+    <Nav />
 
     <!-- ─── CONTENU DE LA PAGE ─── -->
     <main>
@@ -144,42 +117,7 @@ const schemaJson = schema
     </main>
 
     <!-- ─── FOOTER ─── -->
-    <footer class="footer" aria-label="Pied de page">
-      <div class="container">
-        <div class="footer-top">
-          <div class="footer-brand">
-            <a href="/" class="logo" aria-label="aurore — retour à l'accueil">
-              aur<span class="logo-o">o</span>re
-            </a>
-            <p>Faites passer votre entreprise<br />de l'ombre à la lumière.</p>
-          </div>
-
-          <nav class="footer-nav" aria-label="Navigation footer">
-            <div>
-              <strong>Services</strong>
-              <a href="/creation-site-web/">Création de site web</a>
-              <a href="/identite-visuelle/">Identité visuelle</a>
-              <a href="/referencement-seo/">Référencement SEO</a>
-              <a href="/automatisation/">Automatisation</a>
-            </div>
-            <div>
-              <strong>aurore</strong>
-              <a href="/realisations/">Réalisations</a>
-              <a href="/tarifs/">Tarifs</a>
-              <a href="/a-propos/">À propos</a>
-              <a href="/blog/">Blog</a>
-              <a href="/contact/">Contact</a>
-            </div>
-          </nav>
-        </div>
-
-        <div class="footer-bottom">
-          <p>© 2025 aurore — Élodie · Auto-entrepreneur · Aix-en-Provence</p>
-          <a href="/mentions-legales/">Mentions légales</a>
-          <a href="/admin/" style="font-size:11px;color:rgba(255,255,255,0.2);">Admin</a>
-        </div>
-      </div>
-    </footer>
+    <Footer />
 
     <!-- ─── SCRIPTS ─── -->
     <script is:inline>
@@ -239,6 +177,35 @@ if (typeof document !== 'undefined') {
           }
         });
       }
+
+      // ─── Dropdown Services (Nav) ───
+      document.querySelectorAll('.nav-dropdown-parent').forEach(parent => {
+        const trigger = parent.querySelector('.nav-dropdown-trigger');
+        if (!trigger) return;
+
+        trigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = parent.classList.toggle('open');
+          trigger.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        // Fermer au hover-out sur desktop
+        parent.addEventListener('mouseleave', () => {
+          if (window.innerWidth > 768) {
+            parent.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Fermer les dropdowns au clic ailleurs
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.nav-dropdown-parent.open').forEach(p => {
+          p.classList.remove('open');
+          const t = p.querySelector('.nav-dropdown-trigger');
+          if (t) t.setAttribute('aria-expanded', 'false');
+        });
+      });
 
       // ─── FAQ accordion ───
       document.querySelectorAll('.faq-question').forEach(btn => {
