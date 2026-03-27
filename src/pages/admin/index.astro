@@ -1,0 +1,699 @@
+---
+// src/pages/admin/index.astro
+// Page d'administration — publication d'articles
+// Accessible sur agence-aurore.fr/admin/
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aurore — Administration</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --aurora: #FF6B1A;
+      --aurora-dark: #C2510A;
+      --aurora-pale: #FFF3EB;
+      --black: #0A0A0A;
+      --gray-700: #3D3D3D;
+      --gray-500: #6B6B6B;
+      --gray-300: #C4C4C4;
+      --gray-100: #F2F2F2;
+      --gray-50: #F8F8F8;
+      --white: #FFFFFF;
+      --radius: 14px;
+    }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--gray-50);
+      color: var(--black);
+      min-height: 100vh;
+    }
+
+    /* ─── ÉCRAN DE CONNEXION ─── */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .login-card {
+      background: var(--white);
+      border: 1.5px solid var(--gray-100);
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .login-logo {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+    .login-logo span { color: var(--aurora); }
+    .login-subtitle {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-bottom: 32px;
+    }
+    .login-input {
+      width: 100%;
+      padding: 13px 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      border: 1.5px solid var(--gray-300);
+      border-radius: 10px;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+    .login-input:focus { border-color: var(--aurora); }
+    .login-btn {
+      width: 100%;
+      padding: 13px;
+      background: var(--black);
+      color: white;
+      border: none;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-btn:hover { background: var(--gray-700); }
+    .login-error {
+      color: #DC2626;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* ─── APP PRINCIPALE ─── */
+    #app { display: none; }
+
+    header {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1.5px solid var(--gray-100);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -0.04em;
+    }
+    .header-logo span { color: var(--aurora); }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header-date { font-size: 12px; color: var(--gray-500); }
+    .logout-btn {
+      font-size: 12px;
+      color: var(--gray-500);
+      background: none;
+      border: 1px solid var(--gray-300);
+      padding: 5px 12px;
+      border-radius: 100px;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+    }
+    .logout-btn:hover { color: var(--black); border-color: var(--black); }
+
+    .main { max-width: 680px; margin: 0 auto; padding: 32px 24px 80px; }
+
+    /* ─── STEPS ─── */
+    .steps {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .step-dot {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .step-dot.done { background: var(--aurora); color: white; }
+    .step-dot.active { background: var(--black); color: white; }
+    .step-dot.pending { background: var(--gray-100); color: var(--gray-500); }
+    .step-label {
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .step-label.active { font-weight: 600; color: var(--black); }
+    .step-label.done { color: var(--aurora); }
+    .step-label.pending { color: var(--gray-500); }
+    .step-line {
+      flex: 1;
+      height: 1.5px;
+      margin: 0 12px;
+      transition: background 0.2s;
+    }
+    .step-line.done { background: var(--aurora); }
+    .step-line.pending { background: var(--gray-100); }
+
+    /* ─── PANELS ─── */
+    .panel { display: none; flex-direction: column; gap: 20px; }
+    .panel.active { display: flex; }
+
+    .panel-title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+    .panel-subtitle { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+
+    /* ─── CHAMPS ─── */
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field-label {
+      font-size: 13px; font-weight: 600;
+      color: var(--black); letter-spacing: -0.01em;
+    }
+    .field-hint { font-size: 12px; color: var(--gray-500); margin-top: -3px; }
+    .field-input, .field-textarea, .field-select {
+      width: 100%;
+      padding: 12px 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      color: var(--black);
+      background: var(--white);
+      border: 1.5px solid var(--gray-300);
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field-input:focus, .field-textarea:focus { border-color: var(--aurora); }
+    .field-textarea { resize: vertical; line-height: 1.6; }
+    .field-mono { font-family: 'Courier New', monospace; font-size: 13px; }
+    .char-count {
+      font-size: 11px;
+      text-align: right;
+      margin-top: 3px;
+    }
+    .char-count.warn { color: var(--aurora); }
+    .char-count.ok { color: var(--gray-500); }
+
+    .slug-preview {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-top: 5px;
+    }
+    .slug-preview span { color: var(--aurora); font-weight: 500; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* ─── BOUTONS ─── */
+    .btn-row { display: flex; gap: 12px; }
+    .btn-primary {
+      flex: 1;
+      padding: 14px 24px;
+      background: var(--black);
+      color: white;
+      border: none;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px; font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary:hover { background: var(--gray-700); }
+    .btn-primary:disabled { background: var(--gray-300); cursor: not-allowed; }
+    .btn-aurora {
+      flex: 1;
+      padding: 14px 24px;
+      background: var(--aurora);
+      color: white;
+      border: none;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px; font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-aurora:hover { background: var(--aurora-dark); }
+    .btn-aurora:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-ghost {
+      padding: 14px 20px;
+      background: var(--gray-100);
+      color: var(--black);
+      border: none;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px; font-weight: 500;
+      cursor: pointer;
+    }
+    .btn-ghost:hover { background: var(--gray-300); }
+
+    /* ─── APERÇU ─── */
+    .preview-card {
+      background: var(--white);
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .preview-header {
+      background: linear-gradient(135deg, #FFF3EB 0%, #FFF8F4 100%);
+      padding: 28px;
+      border-bottom: 1.5px solid rgba(255,107,26,0.1);
+    }
+    .preview-meta {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--aurora);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .preview-titre {
+      font-size: clamp(18px, 3vw, 26px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+    .preview-desc { font-size: 13px; color: var(--gray-500); line-height: 1.6; }
+    .preview-body { padding: 20px 28px; }
+    .preview-intro { font-size: 14px; color: var(--gray-700); line-height: 1.8; margin-bottom: 12px; }
+    .preview-corps {
+      background: var(--gray-100);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 12px;
+      font-family: monospace;
+      color: var(--gray-500);
+      line-height: 1.6;
+      max-height: 100px;
+      overflow: hidden;
+      position: relative;
+    }
+    .preview-corps::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 32px;
+      background: linear-gradient(transparent, var(--gray-100));
+    }
+    .preview-cta {
+      padding: 16px 28px;
+      border-top: 1.5px solid var(--gray-100);
+      background: var(--gray-50);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .preview-cta-label { font-size: 12px; color: var(--gray-500); }
+    .preview-cta-btn {
+      background: var(--aurora);
+      color: white;
+      padding: 7px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .url-preview {
+      background: var(--aurora-pale);
+      border: 1.5px solid rgba(255,107,26,0.15);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+    }
+    .url-preview .url { color: var(--aurora); font-weight: 600; }
+
+    /* ─── STATUTS ─── */
+    .status-success {
+      background: #ECFDF5;
+      border: 1.5px solid #6EE7B7;
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .status-success-title { font-weight: 600; color: #065F46; }
+    .status-success-sub { font-size: 13px; color: #047857; margin-top: 2px; }
+    .status-error {
+      background: #FEF2F2;
+      border: 1.5px solid #FCA5A5;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #DC2626;
+    }
+
+    @media (max-width: 480px) {
+      .two-col { grid-template-columns: 1fr; }
+      .login-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── ÉCRAN DE CONNEXION ─── -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="login-logo">aur<span>o</span>re</div>
+      <p class="login-subtitle">Administration · Publication d'articles</p>
+      <input
+        type="password"
+        class="login-input"
+        id="password-input"
+        placeholder="Mot de passe"
+        autocomplete="current-password"
+      />
+      <button class="login-btn" onclick="tryLogin()">Connexion →</button>
+      <p class="login-error" id="login-error">Mot de passe incorrect.</p>
+    </div>
+  </div>
+
+  <!-- ─── APPLICATION ─── -->
+  <div id="app">
+    <header>
+      <div class="header-logo">aur<span>o</span>re <span style="font-size:12px;font-weight:400;color:var(--gray-500)">· Admin</span></div>
+      <div class="header-right">
+        <span class="header-date" id="header-date"></span>
+        <button class="logout-btn" onclick="logout()">Déconnexion</button>
+      </div>
+    </header>
+
+    <div class="main">
+
+      <!-- Steps -->
+      <div class="steps">
+        <div class="step-item" onclick="goToStep(0)">
+          <div class="step-dot active" id="dot-0">1</div>
+          <span class="step-label active" id="label-0">Informations</span>
+        </div>
+        <div class="step-line pending" id="line-0"></div>
+        <div class="step-item" onclick="goToStep(1)">
+          <div class="step-dot pending" id="dot-1">2</div>
+          <span class="step-label pending" id="label-1">Contenu</span>
+        </div>
+        <div class="step-line pending" id="line-1"></div>
+        <div class="step-item" onclick="goToStep(2)">
+          <div class="step-dot pending" id="dot-2">3</div>
+          <span class="step-label pending" id="label-2">Aperçu</span>
+        </div>
+      </div>
+
+      <!-- Panel 0 : Informations -->
+      <div class="panel active" id="panel-0">
+        <div>
+          <h1 class="panel-title">Informations de l'article</h1>
+          <p class="panel-subtitle">Ces informations apparaissent dans Google et sur la liste du blog.</p>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Titre de l'article *</label>
+          <p class="field-hint">Soyez précis — c'est ce que Google affiche en premier</p>
+          <input type="text" class="field-input" id="titre" placeholder="Ex : Comment créer un site web professionnel en 2025 ?" oninput="updateSlug()" />
+          <p class="slug-preview" id="slug-preview" style="display:none">URL : <span id="slug-display"></span></p>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Description SEO *</label>
+          <p class="field-hint">1-2 phrases qui résument l'article (max 160 caractères)</p>
+          <textarea class="field-textarea" id="description" rows="3" maxlength="160" placeholder="Guide complet pour créer un site web professionnel..." oninput="updateCharCount()"></textarea>
+          <p class="char-count ok" id="char-count">0/160</p>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Auteur</label>
+          <input type="text" class="field-input" id="auteur" value="Élodie — aurore" />
+        </div>
+
+        <button class="btn-primary" id="btn-next-0" onclick="goToStep(1)" disabled>Continuer →</button>
+      </div>
+
+      <!-- Panel 1 : Contenu -->
+      <div class="panel" id="panel-1">
+        <div>
+          <h1 class="panel-title">Contenu de l'article</h1>
+          <p class="panel-subtitle">Pour les sous-titres, commencez la ligne par <code style="background:var(--gray-100);padding:1px 5px;border-radius:4px;font-size:12px">## </code></p>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Introduction *</label>
+          <p class="field-hint">Premier paragraphe visible — doit accrocher le lecteur</p>
+          <textarea class="field-textarea" id="intro" rows="4" placeholder="Quand on cherche à créer un site web pour son activité..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Corps de l'article *</label>
+          <p class="field-hint">Utilisez ## pour les sous-titres, **texte** pour le gras</p>
+          <textarea class="field-textarea field-mono" id="corps" rows="14" placeholder="## Les 4 grandes options&#10;&#10;### 1. Le template Wix&#10;&#10;Les constructeurs no-code..."></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-ghost" onclick="goToStep(0)">← Retour</button>
+          <button class="btn-primary" id="btn-next-1" onclick="goToStep(2)" disabled>Prévisualiser →</button>
+        </div>
+      </div>
+
+      <!-- Panel 2 : Aperçu -->
+      <div class="panel" id="panel-2">
+        <div>
+          <h1 class="panel-title">Aperçu avant publication</h1>
+          <p class="panel-subtitle">Vérifiez que tout est correct avant de publier.</p>
+        </div>
+
+        <div class="preview-card">
+          <div class="preview-header">
+            <p class="preview-meta" id="preview-meta"></p>
+            <h2 class="preview-titre" id="preview-titre"></h2>
+            <p class="preview-desc" id="preview-desc"></p>
+          </div>
+          <div class="preview-body">
+            <p class="preview-intro" id="preview-intro"></p>
+            <div class="preview-corps" id="preview-corps"></div>
+          </div>
+          <div class="preview-cta">
+            <span class="preview-cta-label">CTA :</span>
+            <span class="preview-cta-btn" id="preview-cta-btn"></span>
+          </div>
+        </div>
+
+        <div class="url-preview">
+          URL : <span class="url" id="preview-url"></span>
+        </div>
+
+        <div id="status-container"></div>
+
+        <div class="btn-row">
+          <button class="btn-ghost" onclick="goToStep(1)">← Modifier</button>
+          <button class="btn-aurora" id="btn-publish" onclick="publier()">Publier l'article →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script is:inline>
+    // ─── CONFIG ───
+    const API_URL = 'https://aurore-api.vercel.app/api/publish-article';
+    const PASSWORD = 'Sh48yf51&*'; // Même mot de passe que PUBLISH_SECRET sur Vercel
+
+    // ─── AUTH ───
+    function tryLogin() {
+      const pwd = document.getElementById('password-input').value;
+      if (pwd === PASSWORD) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        document.getElementById('header-date').textContent = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      } else {
+        document.getElementById('login-error').style.display = 'block';
+      }
+    }
+
+    function logout() {
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('app').style.display = 'none';
+      document.getElementById('password-input').value = '';
+    }
+
+    // Connexion avec Entrée
+    document.getElementById('password-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') tryLogin();
+    });
+
+    // ─── STEPS ───
+    let currentStep = 0;
+
+    function goToStep(n) {
+      if (n === 1 && !canNext0()) return;
+      if (n === 2 && !canNext1()) return;
+      if (n === 2) updatePreview();
+
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-' + n).classList.add('active');
+
+      for (let i = 0; i < 3; i++) {
+        const dot = document.getElementById('dot-' + i);
+        const label = document.getElementById('label-' + i);
+        dot.className = 'step-dot ' + (i < n ? 'done' : i === n ? 'active' : 'pending');
+        label.className = 'step-label ' + (i < n ? 'done' : i === n ? 'active' : 'pending');
+        dot.textContent = i < n ? '✓' : i + 1;
+      }
+      for (let i = 0; i < 2; i++) {
+        document.getElementById('line-' + i).className = 'step-line ' + (i < n ? 'done' : 'pending');
+      }
+      currentStep = n;
+    }
+
+    // ─── VALIDATION ───
+    function canNext0() {
+      return document.getElementById('titre').value.length > 3 &&
+             document.getElementById('description').value.length > 10;
+    }
+    function canNext1() {
+      return document.getElementById('intro').value.length > 20 &&
+             document.getElementById('corps').value.length > 50;
+    }
+
+    document.getElementById('titre').addEventListener('input', () => {
+      document.getElementById('btn-next-0').disabled = !canNext0();
+    });
+    document.getElementById('description').addEventListener('input', () => {
+      document.getElementById('btn-next-0').disabled = !canNext0();
+    });
+    document.getElementById('intro').addEventListener('input', () => {
+      document.getElementById('btn-next-1').disabled = !canNext1();
+    });
+    document.getElementById('corps').addEventListener('input', () => {
+      document.getElementById('btn-next-1').disabled = !canNext1();
+    });
+
+    // ─── SLUG ───
+    function toSlug(str) {
+      return str.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function updateSlug() {
+      const titre = document.getElementById('titre').value;
+      const slug = toSlug(titre);
+      const preview = document.getElementById('slug-preview');
+      const display = document.getElementById('slug-display');
+      if (titre.length > 0) {
+        preview.style.display = 'block';
+        display.textContent = 'agence-aurore.fr/blog/' + slug + '/';
+      } else {
+        preview.style.display = 'none';
+      }
+      document.getElementById('btn-next-0').disabled = !canNext0();
+    }
+
+    // ─── COMPTEUR DESC ───
+    function updateCharCount() {
+      const len = document.getElementById('description').value.length;
+      const el = document.getElementById('char-count');
+      el.textContent = len + '/160';
+      el.className = 'char-count ' + (len > 140 ? 'warn' : 'ok');
+      document.getElementById('btn-next-0').disabled = !canNext0();
+    }
+
+    // ─── APERÇU ───
+    function updatePreview() {
+      const titre = document.getElementById('titre').value;
+      const desc = document.getElementById('description').value;
+      const intro = document.getElementById('intro').value;
+      const corps = document.getElementById('corps').value;
+      const slug = toSlug(titre);
+      const readTime = Math.max(1, Math.round(corps.split(/\s+/).length / 200));
+      const today = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      document.getElementById('preview-meta').textContent = today + ' · ' + readTime + ' min de lecture';
+      document.getElementById('preview-titre').textContent = titre;
+      document.getElementById('preview-desc').textContent = desc;
+      document.getElementById('preview-intro').textContent = intro;
+      document.getElementById('preview-corps').textContent = corps.slice(0, 200) + '...';
+      document.getElementById('preview-url').textContent = 'agence-aurore.fr/blog/' + slug + '/';
+    }
+
+    // ─── PUBLICATION ───
+    async function publier() {
+      const btn = document.getElementById('btn-publish');
+      const container = document.getElementById('status-container');
+
+      const titre = document.getElementById('titre').value;
+      const description = document.getElementById('description').value;
+      const intro = document.getElementById('intro').value;
+      const corps = document.getElementById('corps').value;
+      const slug = toSlug(titre);
+
+const contenu = intro + '\n\n' + corps;
+
+      btn.disabled = true;
+      btn.textContent = 'Publication en cours...';
+      container.innerHTML = '';
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + PASSWORD,
+          },
+          body: JSON.stringify({
+            slug,
+            titre,
+            description,
+            date: new Date().toISOString(),
+            contenu,
+          }),
+        });
+
+        if (!res.ok) throw new Error(await res.text());
+
+        btn.textContent = 'Publié ✓';
+        container.innerHTML = `
+          <div class="status-success">
+            <span style="font-size:20px">✅</span>
+            <div>
+              <div class="status-success-title">Article publié avec succès !</div>
+              <div class="status-success-sub">En ligne dans ~1 minute sur agence-aurore.fr/blog/${slug}/</div>
+            </div>
+          </div>`;
+
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Réessayer';
+        container.innerHTML = `<div class="status-error">❌ Erreur : ${err.message}</div>`;
+      }
+    }
+  </script>
+
+</body>
+</html>
