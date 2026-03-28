@@ -36,7 +36,12 @@ export const POST: APIRoute = async ({ request }) => {
     const claudeMd = generateClaudeMd(data, lead);
 
     // Envoyer à Élodie
-    const resend = new Resend(import.meta.env.RESEND_API_KEY);
+    const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
+    if (!RESEND_API_KEY) {
+      console.error('[onboarding-submit] RESEND_API_KEY manquante');
+      return jsonResponse({ success: false, error: 'Configuration email manquante' }, 500);
+    }
+    const resend = new Resend(RESEND_API_KEY);
 
     await resend.emails.send({
       from: 'Aurore System <elodie@agence-aurore.fr>',

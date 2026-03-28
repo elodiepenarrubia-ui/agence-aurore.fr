@@ -43,10 +43,18 @@ export const POST: APIRoute = async ({ request }) => {
 
     const stripe = new Stripe(STRIPE_SECRET_KEY);
 
-    const totalHTNumber = parseFloat(String(totalHT));
-    const acomptePctNumber = parseFloat(String(acomptePct));
+    const totalHTNumber = parseFloat(String(totalHT).replace(/[^\d.]/g, ''));
+    const acomptePctNumber = parseInt(String(acomptePct)) || 50;
     const soldePct = 100 - acomptePctNumber;
     const amountInCents = Math.round(totalHTNumber * soldePct / 100 * 100);
+
+    if (!totalHTNumber || totalHTNumber <= 0 || amountInCents <= 0) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Montant invalide ou nul' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
     const description = `Solde ${soldePct}% - Devis ${devisNumber}`;
 
     // 1. Chercher ou créer le customer
@@ -92,10 +100,25 @@ export const POST: APIRoute = async ({ request }) => {
     // 4. Finaliser
     const finalizedInvoice = await stripe.invoices.finalizeInvoice(invoice.id);
 
+    // Montant calculé depuis amountInCents (source fiable)
+    const montantEuros = (amountInCents / 100).toLocaleString('fr-FR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }) + ' €';
+
+    console.log('[send-solde] montant:', amountInCents, 'centimes =', montantEuros);
+
     // 5. Envoyer les emails via Resend
-    const resend = new Resend(import.meta.env.RESEND_API_KEY);
+    const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
+    if (!RESEND_API_KEY) {
+      console.error('[send-solde] RESEND_API_KEY manquante');
+      return new Response(
+        JSON.stringify({ success: false, error: 'Configuration email manquante (RESEND_API_KEY)' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    const resend = new Resend(RESEND_API_KEY);
     const invoiceUrl = finalizedInvoice.hosted_invoice_url;
-    const montant = ((finalizedInvoice.amount_due ?? 0) / 100).toFixed(2).replace('.', ',');
     const clientPrenom = clientName.split(' ')[0];
 
     // Email 1 — Au client
@@ -110,7 +133,7 @@ export const POST: APIRoute = async ({ request }) => {
           </div>
           <div style="padding:32px;">
             <p style="font-size:16px;line-height:1.6;">Bonjour ${clientPrenom},</p>
-            <p style="font-size:16px;line-height:1.6;">Votre projet avance bien ! Voici la facture de solde du devis n° <strong>${devisNumber}</strong> d'un montant de <strong>${montant} €</strong>.</p>
+            <p style="font-size:16px;line-height:1.6;">Votre projet avance bien ! Voici la facture de solde du devis n° <strong>${devisNumber}</strong> d'un montant de <strong>${montantEuros}</strong>.</p>
             <p style="font-size:16px;line-height:1.6;">Pour régler le solde en ligne, cliquez ici :</p>
             <div style="text-align:center;margin:32px 0;">
               <a href="${invoiceUrl}" style="display:inline-block;background:#FF6B1A;color:#fff;font-family:'Outfit',Helvetica,Arial,sans-serif;font-size:15px;font-weight:600;padding:14px 32px;border-radius:100px;text-decoration:none;">Payer le solde</a>
@@ -133,7 +156,7 @@ export const POST: APIRoute = async ({ request }) => {
       html: `
         <div style="font-family:'Outfit',Helvetica,Arial,sans-serif;color:#0A0A0A;padding:24px;">
           <p>Facture de solde envoyée à <strong>${clientName}</strong> (${clientEmail}).</p>
-          <p>Montant : <strong>${montant} €</strong><br>Devis : <strong>${devisNumber}</strong></p>
+          <p>Montant : <strong>${montantEuros}</strong><br>Devis : <strong>${devisNumber}</strong></p>
           <p>Lien de paiement : <a href="${invoiceUrl}">${invoiceUrl}</a></p>
         </div>
       `,

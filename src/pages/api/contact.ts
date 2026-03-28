@@ -52,7 +52,15 @@ export const POST: APIRoute = async ({ request }) => {
       // Ne pas bloquer l'envoi d'email si Firestore échoue
     }
 
-    const resend = new Resend(import.meta.env.RESEND_API_KEY);
+    const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
+    if (!RESEND_API_KEY) {
+      console.error('[contact] RESEND_API_KEY manquante');
+      return new Response(
+        JSON.stringify({ error: 'Configuration email manquante' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    const resend = new Resend(RESEND_API_KEY);
 
     // Build situation section based on project type
     let situationHtml = '';

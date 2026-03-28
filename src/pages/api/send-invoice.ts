@@ -81,9 +81,16 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     // 3. Créer l'InvoiceItem attaché directement à l'invoice
-    const totalHTNumber = parseFloat(String(totalHT));
-    const acomptePctNumber = parseFloat(String(acomptePct));
+    const totalHTNumber = parseFloat(String(totalHT).replace(/[^\d.]/g, ''));
+    const acomptePctNumber = parseInt(String(acomptePct)) || 50;
     const amountInCents = Math.round(totalHTNumber * acomptePctNumber / 100 * 100);
+
+    if (!totalHTNumber || totalHTNumber <= 0 || amountInCents <= 0) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Montant invalide ou nul' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
 
     console.log('[send-invoice] InvoiceItem amount:', amountInCents, 'invoice:', invoice.id);
 
@@ -99,9 +106,17 @@ export const POST: APIRoute = async ({ request }) => {
     const finalizedInvoice = await stripe.invoices.finalizeInvoice(invoice.id);
 
     // 5. Envoyer les emails via Resend
-    const resend = new Resend(import.meta.env.RESEND_API_KEY);
+    const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
+    if (!RESEND_API_KEY) {
+      console.error('[send-invoice] RESEND_API_KEY manquante');
+      return new Response(
+        JSON.stringify({ success: false, error: 'Configuration email manquante (RESEND_API_KEY)' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    const resend = new Resend(RESEND_API_KEY);
     const invoiceUrl = finalizedInvoice.hosted_invoice_url;
-    const montant = ((finalizedInvoice.amount_due ?? 0) / 100).toFixed(2).replace('.', ',');
+    const montant = (amountInCents / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const clientPrenom = clientName.split(' ')[0];
 
     // Email 1 — Au client
