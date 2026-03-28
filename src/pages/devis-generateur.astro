@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 const apiToken = import.meta.env.API_SECRET_TOKEN;
+const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
 ---
 
 <BaseLayout
@@ -11,7 +12,7 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
 >
 
 <!-- ─── ÉCRAN CONNEXION ─── -->
-<div id="login-screen" class="devis-login">
+<div id="login-screen" class="devis-login" data-pw={devisPassword}>
   <div class="login-box">
     <span class="logo logo-lg">aur<span class="logo-o">o</span>re</span>
     <p class="login-subtitle">Espace privé — Générateur de devis</p>
@@ -901,6 +902,7 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
   var loginForm = document.getElementById('login-form');
   var loginPassword = document.getElementById('login-password');
   var loginError = document.getElementById('login-error');
+  var DEVIS_PW = loginScreen.dataset.pw;
 
   function showApp() {
     loginScreen.style.display = 'none';
@@ -908,7 +910,7 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
     initDevis();
   }
 
-  if (sessionStorage.getItem('devis-auth') === 'dauphin83') {
+  if (sessionStorage.getItem('devis-auth') === DEVIS_PW) {
     showApp();
   } else {
     loginScreen.style.display = 'flex';
@@ -917,8 +919,8 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
 
   loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    if (loginPassword.value === 'dauphin83') {
-      sessionStorage.setItem('devis-auth', 'dauphin83');
+    if (loginPassword.value === DEVIS_PW) {
+      sessionStorage.setItem('devis-auth', DEVIS_PW);
       showApp();
     } else {
       loginError.style.display = '';
