@@ -20,6 +20,11 @@
   --aurora-pale:  #FFF3EB;
   --aurora-glow:  rgba(255, 107, 26, 0.10);
 
+  --success:      #16a34a;
+  --success-light:#ECFDF5;
+  --success-dark: #065F46;
+  --error:        #dc2626;
+
   --radius-sm:    8px;
   --radius-md:    14px;
   --radius-lg:    22px;
@@ -176,8 +181,10 @@ strong { font-weight: 600; color: var(--black); }
 }
 
 .nav-links a:hover,
-.nav-links a[aria-current="page"] {
-  color: var(--black);
+.nav-links a[aria-current="page"],
+.nav-links a.nav-active {
+  color: var(--aurora);
+  font-weight: 600;
 }
 
 .nav-cta { display: flex; align-items: center; gap: 12px; }

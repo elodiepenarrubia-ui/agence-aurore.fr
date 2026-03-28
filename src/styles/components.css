@@ -32,25 +32,14 @@
   padding: 16px 32px;
 }
 
-.btn-primary {
+.btn-primary,
+.btn-aurora {
   background: var(--aurora);
   color: var(--white);
   font-weight: 600;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.btn-primary:hover {
-  transform: scale(1.04);
-  box-shadow: 0 4px 16px rgba(255, 107, 26, 0.35);
-}
-
-.btn-aurora {
-  background: var(--aurora);
-  color: #FFFFFF;
-  font-weight: 600;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
+.btn-primary:hover,
 .btn-aurora:hover {
   transform: scale(1.04);
   box-shadow: 0 4px 16px rgba(255, 107, 26, 0.35);
@@ -95,7 +84,7 @@
   border: 1.5px solid var(--gray-100);
   border-radius: var(--radius-lg);
   padding: 28px 32px;
-  transition: all 0.25s ease;
+  transition: var(--transition);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   transform: translateY(-2px);
 }
@@ -171,14 +160,14 @@
 .service-card p {
   font-size: 14px;
   line-height: 1.65;
-  color: #4A4A4A;
+  color: var(--gray-700);
   flex: 1;
 }
 
 .service-card-link {
   font-size: 13px;
   font-weight: 600;
-  color: #C2510A;
+  color: var(--aurora-dark);
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -270,8 +259,8 @@
 }
 
 .badge-success {
-  background: #ECFDF5;
-  color: #065F46;
+  background: var(--success-light);
+  color: var(--success-dark);
 }
 
 .tags {
@@ -344,7 +333,7 @@
 
 .form-error {
   font-size: 12px;
-  color: #DC2626;
+  color: var(--error);
 }
 
 .form-grid {
