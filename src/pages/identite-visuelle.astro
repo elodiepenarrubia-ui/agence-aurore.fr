@@ -5,12 +5,12 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "Création d'identité visuelle",
-  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "provider": { "@type": "ProfessionalService", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
   "areaServed": "France",
   "description": "Création d'identité visuelle complète pour TPE et indépendants : logo, charte graphique, couleurs, typographies. À partir de 150 €. Basé à Aix-en-Provence.",
   "offers": [
-    { "@type": "Offer", "name": "Logo seul",        "priceCurrency": "EUR", "price": "150" },
-    { "@type": "Offer", "name": "Charte graphique", "priceCurrency": "EUR", "price": "100" },
+    { "@type": "Offer", "name": "Création de logo (option pack)", "priceCurrency": "EUR", "price": "150" },
+    { "@type": "Offer", "name": "Charte graphique (option pack)", "priceCurrency": "EUR", "price": "100" },
   ],
 };
 
@@ -26,8 +26,8 @@ const faqSchema = {
       "acceptedAnswer": { "@type": "Answer", "text": "Deux propositions distinctes sont soumises à l'issue du brief créatif. Vous choisissez la direction qui vous correspond, puis deux rondes de retouches sont incluses pour affiner le résultat final. L'objectif est d'arriver à un logo que vous assumez pleinement, pas juste un logo générique." }},
     { "@type": "Question", "name": "Mon identité visuelle sera-t-elle cohérente avec mon site web ?",
       "acceptedAnswer": { "@type": "Answer", "text": "C'est précisément l'avantage de travailler avec Aurore sur les deux : le logo et la charte graphique sont conçus dès le départ en tenant compte de votre site, de vos réseaux sociaux et de vos supports imprimés. Tout est pensé ensemble pour une cohérence totale, pas assemblé après coup." }},
-    { "@type": "Question", "name": "Puis-je commander une identité visuelle sans site web ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Oui, tout à fait. Logo seul (150 €) ou logo + charte graphique (250 € au total) sont disponibles indépendamment de toute création de site. Vous recevez tous les fichiers sources et pouvez les utiliser librement sur votre site existant, vos réseaux ou vos supports imprimés." }},
+    { "@type": "Question", "name": "L'identité visuelle est-elle disponible séparément ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "La création de logo (+150 €) et la charte graphique (+100 €) sont disponibles en option avec chaque pack (Starter, Vitrine, Pro ou Migration). Elles ne sont pas proposées comme prestations indépendantes. Vous recevez tous les fichiers sources et pouvez les utiliser librement sur tous vos supports." }},
   ],
 };
 ---
@@ -43,27 +43,34 @@ const faqSchema = {
     <div class="container">
       <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Identité visuelle · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
       <h1 class="service-h1">Votre image,<br /><span class="hero-serif">enfin cohérente.</span></h1>
-      <p class="service-sub">Un logo professionnel et une charte graphique qui reflètent vraiment ce que vous faites, pour que vos clients vous reconnaissent partout.</p>
+      <p class="service-sub">Vos clients vous reconnaissent au premier coup d'oeil et savent immédiatement que vous êtes un professionnel sérieux.</p>
       <div class="hero-ctas">
-        <a href="/contact/" class="btn btn-primary btn-lg">Demander un devis →</a>
-        <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+        <a href="/contact/" class="btn btn-primary btn-lg">Ajouter à mon projet →</a>
+        <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les offres</a>
       </div>
     </div>
   </section>
+
+  <div class="container">
+    <div class="service-notice">
+      Votre identité visuelle s'ajoute en option à votre projet de site. Tout est pensé ensemble pour un résultat cohérent.
+      <a href="/tarifs/">Voir les offres →</a>
+    </div>
+  </div>
 
   <!-- CE QUI EST LIVRÉ -->
   <section class="section">
     <div class="container">
       <span class="section-label fade-in">Ce qui est livré</span>
-      <h2 class="section-title fade-in">Tout ce qu'il faut pour<br />paraître professionnel partout.</h2>
+      <h2 class="section-title fade-in">Tout ce qu'il faut pour<br />inspirer confiance au premier regard.</h2>
       <div class="grid-3 fade-in" style="margin-top:48px;">
         {[
-          { titre:"Logo vectoriel",          desc:"Logotype en SVG, PNG fond transparent et PDF. Redimensionnable à l'infini sans perte de qualité." },
-          { titre:"Versions clair & sombre",  desc:"Votre logo sur fond blanc, fond coloré et fond noir. Prêt pour tous les usages." },
-          { titre:"Palette de couleurs",      desc:"2 à 4 couleurs principales avec leurs codes Hex, RGB et CMJN, pour le web comme pour l'imprimé." },
-          { titre:"Typographies",             desc:"2 polices sélectionnées et paramétrées : une pour les titres, une pour le corps de texte. Libres de droits." },
-          { titre:"Guide d'utilisation",      desc:"Un document simple qui explique comment utiliser votre identité correctement et de façon cohérente." },
-          { titre:"Fichiers sources",         desc:"Vous possédez tout. Les fichiers sources (.ai ou .figma) sont livrés avec votre identité complète." },
+          { titre:"Logo vectoriel",          desc:"Votre logo s'adapte partout : carte de visite, enseigne, site web. Toujours net, quelle que soit la taille." },
+          { titre:"Versions clair & sombre",  desc:"Votre logo reste lisible sur n'importe quel fond : site web, réseaux sociaux, documents imprimés." },
+          { titre:"Palette de couleurs",      desc:"Des couleurs cohérentes qui renforcent votre image professionnelle, sur le web comme à l'impression." },
+          { titre:"Typographies",             desc:"Deux polices qui s'accordent et donnent à votre communication une personnalité reconnaissable." },
+          { titre:"Guide d'utilisation",      desc:"Vous savez exactement comment utiliser votre identité correctement, même sans connaissances en graphisme." },
+          { titre:"Fichiers sources",         desc:"Tout vous appartient. Vous pouvez faire évoluer votre identité librement, sans dépendre de personne." },
         ].map(item => (
           <div class="card livraison-card">
             <div class="livraison-dot" aria-hidden="true"></div>
@@ -81,7 +88,7 @@ const faqSchema = {
   <section class="section" style="background:var(--gray-50);">
     <div class="container">
       <span class="section-label fade-in">Comment ça se passe</span>
-      <h2 class="section-title fade-in">De zéro à une identité<br />que vous assumez.</h2>
+      <h2 class="section-title fade-in">De la première idée à un logo<br />que vous montrez avec fierté.</h2>
       <div class="process-grid fade-in" style="margin-top:48px;">
         {[
           { n:"01", titre:"Brief créatif",          desc:"On parle de votre activité, vos valeurs, votre cible et vos inspirations visuelles. 30 minutes par email ou en appel." },
@@ -106,9 +113,9 @@ const faqSchema = {
       <h2 class="section-title fade-in">Ce que ça change pour votre activité.</h2>
       <div class="grid-2 fade-in" style="margin-top:48px;">
         {[
-          { titre:"Première impression professionnelle", desc:"Vos clients vous jugent en 3 secondes. Un logo soigné et cohérent envoie immédiatement le signal que vous êtes sérieux et compétent." },
+          { titre:"Première impression professionnelle", desc:"Vos clients vous jugent en 3 secondes. Un logo soigné et cohérent leur dit immédiatement que vous êtes sérieux, avant même que vous ayez parlé." },
           { titre:"Cohérence sur tous vos supports",    desc:"Même couleurs, même police, même esprit, sur votre site, vos cartes, Instagram, vos devis. La cohérence construit la confiance." },
-          { titre:"Vous vous démarquez",                desc:"90 % des indépendants utilisent un logo générique ou bricolé sur Canva. Une identité sur mesure vous différencie immédiatement de vos concurrents." },
+          { titre:"Vous vous démarquez",                desc:"La plupart des indépendants utilisent un logo bricolé ou générique. Une identité sur mesure vous différencie immédiatement et reste en mémoire." },
           { titre:"Vous assumez votre communication",   desc:"Quand vous aimez votre logo, vous le montrez. Vous publiez plus, vous envoyez vos devis avec plus de confiance, vous vous positionnez mieux." },
         ].map(b => (
           <div class="card">
@@ -120,37 +127,38 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- TARIFS -->
+  <!-- TARIFS EN OPTION -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container">
       <span class="section-label fade-in">Tarifs</span>
-      <h2 class="section-title fade-in">Simple et transparent.</h2>
-      <div class="grid-2 fade-in" style="margin-top:48px;max-width:800px;margin-left:auto;margin-right:auto;">
-        <div class="pricing-card">
-          <div class="pricing-name">Logo seul</div>
-          <div class="pricing-price"><span class="pricing-currency">€</span><span class="pricing-amount">150</span></div>
-          <p class="pricing-desc">Pour les projets qui ont déjà une direction créative définie.</p>
-          <ul class="pricing-features">
-            {["Logotype sur mesure","2 propositions créatives","2 rondes de retouches","Versions clair & sombre","Formats SVG, PNG, PDF","Fichiers sources inclus"].map(f => (
-              <li class="pricing-feature"><span class="pricing-check" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{f}</li>
-            ))}
-          </ul>
-          <a href="/contact/" class="btn btn-outline" style="width:100%;justify-content:center;">Commander</a>
+      <h2 class="section-title fade-in">En option avec chaque pack.</h2>
+      <div class="options-note fade-in" style="margin-top:48px;max-width:800px;margin-left:auto;margin-right:auto;">
+        <p class="options-title">Options disponibles avec chaque pack</p>
+        <div class="options-grid">
+          <div class="option-item">
+            <span class="option-price">+150 €</span>
+            <span class="option-label">Création de logo</span>
+            <ul class="option-features">
+              {["Logotype sur mesure","2 propositions créatives","2 rondes de retouches","Versions clair & sombre","Formats SVG, PNG, PDF","Fichiers sources inclus"].map(f => (
+                <li>{f}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="option-item">
+            <span class="option-price">+100 €</span>
+            <span class="option-label">Charte graphique complète</span>
+            <ul class="option-features">
+              {["Palette de couleurs complète","Typographies sélectionnées","Guide d'utilisation","Déclinaisons supports (digital + print)"].map(f => (
+                <li>{f}</li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <div class="pricing-card pricing-card-featured">
-          <span class="pricing-badge">Recommandé</span>
-          <div class="pricing-name">Logo + Charte</div>
-          <div class="pricing-price"><span class="pricing-currency">€</span><span class="pricing-amount">250</span></div>
-          <p class="pricing-desc">L'identité visuelle complète pour une cohérence sur tous vos supports.</p>
-          <ul class="pricing-features">
-            {["Tout le pack Logo","Palette de couleurs complète","Typographies sélectionnées","Guide d'utilisation","Déclinaisons supports (digital + print)"].map(f => (
-              <li class="pricing-feature"><span class="pricing-check" aria-hidden="true"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#FF6B1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>{f}</li>
-            ))}
-          </ul>
-          <a href="/contact/" class="btn btn-aurora" style="width:100%;justify-content:center;">Commander</a>
-        </div>
+        <p class="options-mention">Ces options s'ajoutent uniquement à un pack Starter, Vitrine, Pro ou Migration.</p>
       </div>
-      <p class="tarif-note fade-in" style="text-align:center;margin-top:24px;font-size:13px;color:var(--gray-500);">Ces tarifs s'appliquent seuls. Le logo est inclus dans les formules Vitrine et Pro.</p>
+      <div style="text-align:center;margin-top:32px;" class="fade-in">
+        <a href="/tarifs/" class="btn btn-primary btn-lg">Voir les offres →</a>
+      </div>
     </div>
   </section>
 
@@ -171,11 +179,11 @@ const faqSchema = {
   </section>
 
   <section class="section" style="background:var(--gray-50);"><div class="container"><div class="cta-section fade-in">
-    <h2>Votre logo vous représente-t-il vraiment ?</h2>
-    <p>Décrivez votre activité et ce que vous souhaitez transmettre. Je vous soumets deux propositions dans les 5 jours.</p>
+    <h2>Vos clients vous reconnaissent-ils au premier regard ?</h2>
+    <p>Décrivez votre activité et ce que vous souhaitez transmettre. L'identité visuelle s'ajoute en option à votre projet de site.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <a href="/contact/" class="btn btn-aurora btn-lg">Lancer mon identité →</a>
-      <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
+      <a href="/contact/" class="btn btn-aurora btn-lg">Ajouter à mon projet →</a>
+      <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les offres</a>
     </div>
   </div></div></section>
 
@@ -197,6 +205,95 @@ const faqSchema = {
   .process-titre { font-size:15px; font-weight:600; letter-spacing:-0.02em; color:var(--black); }
   .process-desc  { font-size:14px; color:var(--gray-500); line-height:1.6; margin:0; }
 
+  .service-notice {
+    background: var(--aurora-pale);
+    border: 1px solid rgba(255,107,26,0.2);
+    border-radius: var(--radius-md);
+    padding: 16px 24px;
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.6;
+    text-align: center;
+    margin-top: -32px;
+    margin-bottom: 32px;
+  }
+  .service-notice a {
+    color: var(--aurora);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .service-notice a:hover {
+    text-decoration: underline;
+  }
+
+  .options-note {
+    background: var(--white);
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-lg);
+    padding: 40px 32px;
+    text-align: center;
+  }
+  .options-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--aurora);
+    margin-bottom: 24px;
+  }
+  .options-grid {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .option-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .option-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--black);
+  }
+  .option-label {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-bottom: 12px;
+  }
+  .option-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+  .option-features li {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.8;
+    padding-left: 16px;
+    position: relative;
+  }
+  .option-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--aurora);
+    font-size: 11px;
+  }
+  .options-mention {
+    font-size: 12px;
+    color: var(--gray-500);
+    font-style: italic;
+    margin: 0;
+  }
+
   @media (max-width:1024px) { .process-grid { grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:768px)  { .service-hero { padding:120px 0 56px; } .process-grid { grid-template-columns:1fr; } }
+  @media (max-width:768px)  {
+    .service-hero { padding:120px 0 56px; }
+    .process-grid { grid-template-columns:1fr; }
+    .options-grid { flex-direction: column; gap: 32px; }
+  }
 </style>
