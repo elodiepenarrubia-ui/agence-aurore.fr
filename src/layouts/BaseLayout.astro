@@ -150,10 +150,14 @@ const schemaJson = schema
 
       // ─── Compteurs animés globaux ([data-counter]) ───
       function animateCounter(el) {
-        var raw = el.textContent.trim();
-        var target = parseInt(raw.replace(/\D/g, ''));
+        var target = parseInt(el.dataset.target || el.textContent.replace(/\D/g, ''));
         if (!target || target === 0) return;
-        var suffix = raw.replace(/[\d\s]/g, '');
+
+        // Préserver le <span> suffixe s'il existe (ex: <span>€</span>)
+        var suffixSpan = el.querySelector('span');
+        var suffixHTML = suffixSpan ? suffixSpan.outerHTML : '';
+        var plainSuffix = suffixSpan ? '' : el.textContent.replace(/[\d]/g, '').trim();
+
         var duration = 1800;
         var start = performance.now();
 
@@ -161,9 +165,20 @@ const schemaJson = schema
           var elapsed = now - start;
           var progress = Math.min(elapsed / duration, 1);
           var eased = 1 - Math.pow(1 - progress, 3);
-          el.textContent = Math.floor(eased * target) + suffix;
+          var val = Math.floor(eased * target);
+          if (suffixHTML) {
+            el.innerHTML = val + suffixHTML;
+          } else {
+            el.textContent = val + plainSuffix;
+          }
           if (progress < 1) requestAnimationFrame(update);
-          else el.textContent = target + suffix;
+          else {
+            if (suffixHTML) {
+              el.innerHTML = target + suffixHTML;
+            } else {
+              el.textContent = target + plainSuffix;
+            }
+          }
         }
         requestAnimationFrame(update);
       }
@@ -176,7 +191,7 @@ const schemaJson = schema
               counterObserver.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.3 });
         document.querySelectorAll('[data-counter]').forEach(function(el) { counterObserver.observe(el); });
       }
 
