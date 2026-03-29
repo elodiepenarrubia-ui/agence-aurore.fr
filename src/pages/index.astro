@@ -59,13 +59,45 @@ const faqSchema = {
     { "@type": "Question", "name": "Comment démarrer un projet avec Aurore ?", "acceptedAnswer": { "@type": "Answer", "text": "Remplissez le formulaire de contact en 2 minutes. Je vous envoie un devis détaillé sous 48h. Vous réglez 50% pour démarrer, je crée votre site en 2 semaines, vous validez et votre site est en ligne." } }
   ]
 };
+
+const reviewSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Aurore",
+  "url": "https://www.agence-aurore.fr",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "2",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Delphine M." },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Élodie a créé mon site en 10 jours. Résultat impeccable, elle a compris exactement ce que je voulais sans que j'aie besoin de tout expliquer.",
+      "datePublished": "2025-11-01",
+      "publisher": { "@type": "Organization", "name": "Aurore" }
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Organization", "name": "Le Mazarin" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Notre site a été livré clé en main, SEO inclus. On est maintenant en première page Google sur nos mots-clés principaux.",
+      "datePublished": "2025-12-01",
+      "publisher": { "@type": "Organization", "name": "Aurore" }
+    }
+  ]
+};
 ---
 
 <BaseLayout
   title="Création de site web Aix-en-Provence | aurore"
   description="Site web professionnel livré en 2 semaines à partir de 290 €. Logo, SEO, emails pro et fiche Google inclus. Hébergement gratuit. aurore — Aix-en-Provence."
   slug="/"
-  schema={[schema, faqSchema]}
+  schema={[schema, faqSchema, reviewSchema]}
 >
 
   <div class="announcement-bar">
@@ -256,6 +288,7 @@ const faqSchema = {
             <div>
               <cite class="testimonial-name">Delphine M.</cite>
               <div class="testimonial-role">Massothérapeute · Brignoles</div>
+              <div class="testimonial-stars">★★★★★</div>
             </div>
           </footer>
         </blockquote>
@@ -266,6 +299,7 @@ const faqSchema = {
             <div>
               <cite class="testimonial-name">Le Mazarin</cite>
               <div class="testimonial-role">Conciergerie · Aix-en-Provence</div>
+              <div class="testimonial-stars">★★★★★</div>
             </div>
           </footer>
         </blockquote>
@@ -427,6 +461,7 @@ const faqSchema = {
   .testimonial-avatar-placeholder { width: 40px; height: 40px; border-radius: 50%; background: var(--aurora-pale); color: var(--aurora); font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .testimonial-name { font-size: 14px; font-weight: 600; color: var(--black); font-style: normal; display: block; }
   .testimonial-role { font-size: 13px; color: var(--gray-500); }
+  .testimonial-stars { color: #FBBC04; font-size: 14px; letter-spacing: 2px; margin-top: 4px; }
 
   .testimonial-cta { background: var(--aurora-pale); border: none !important; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 16px; position: relative; overflow: hidden; }
   .marching-ants { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
