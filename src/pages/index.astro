@@ -48,7 +48,7 @@ const faqSchema = {
   </div>
 
   <!-- ─── HERO ─── -->
-  <section class="service-hero" style="background:var(--white);">
+  <section class="service-hero" style="background: radial-gradient(ellipse at 60% 50%, rgba(255, 107, 26, 0.12) 0%, transparent 70%), #ffffff;">
     <div class="aurora-orb" id="aurora-orb" aria-hidden="true"></div>
     <div class="container">
       <div class="hero-eyebrow">
@@ -344,44 +344,7 @@ const faqSchema = {
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function() {
-    // ─── COMPTEURS ANIMÉS via IntersectionObserver ───
-    function animateCounter(el) {
-      var target = parseInt(el.getAttribute('data-count'));
-      var suffix = el.querySelector('span');
-      var suffixText = suffix ? suffix.textContent : '';
-      var duration = 1500;
-      var start = performance.now();
-
-      function update(now) {
-        var elapsed = now - start;
-        var progress = Math.min(elapsed / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 3);
-        el.innerHTML = Math.floor(eased * target) + (suffix ? '<span>' + suffixText + '</span>' : '');
-        if (progress < 1) requestAnimationFrame(update);
-        else el.innerHTML = target + (suffix ? '<span>' + suffixText + '</span>' : '');
-      }
-      requestAnimationFrame(update);
-    }
-
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reducedMotion) {
-      document.querySelectorAll('[data-count]').forEach(function(el) {
-        var target = el.getAttribute('data-count');
-        var suffix = el.querySelector('span');
-        var suffixText = suffix ? suffix.textContent : '';
-        el.innerHTML = target + (suffix ? '<span>' + suffixText + '</span>' : '');
-      });
-    } else {
-      var counterObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            animateCounter(entry.target);
-            counterObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.5 });
-      document.querySelectorAll('[data-count]').forEach(function(el) { counterObserver.observe(el); });
-    }
 
     // ─── PARALLAX HERO ORB ───
     if (!reducedMotion) {
