@@ -142,20 +142,38 @@ function generateClaudeMd(data: any, lead: any): string {
   let category = 'site';
   if (lower.includes('migration')) category = 'migration';
   else if (lower.includes('seo')) category = 'seo';
-  else if (lower.includes('identité') || lower.includes('identite') || lower.includes('branding') || lower.includes('logo seul')) category = 'branding';
   else if (lower.includes('automatisation')) category = 'auto';
   else if (lower.includes('google') || lower.includes('gbp')) category = 'gbp';
   else if (lower.includes('logiciel')) category = 'logiciel';
 
-  const skills: Record<string, string> = {
-    'site': '- aurore-astro-setup\n- aurore-seo\n- aurore-resend',
-    'migration': '- aurore-astro-setup\n- aurore-seo\n- aurore-resend',
-    'seo': '- aurore-seo',
-    'branding': '- aurore-branding',
-    'auto': '- aurore-automatisation',
-    'gbp': '- aurore-gbp',
-    'logiciel': '- aurore-astro-setup\n- aurore-firebase-cms\n- aurore-auth-simple',
-  };
+  function getSkillsForOffre(offerType: string, offre: string): string {
+    const offreLower = offre.toLowerCase();
+    if (offerType === 'site') {
+      if (offreLower.includes('pro') || offreLower.includes('réservation') || offreLower.includes('reservation')) {
+        return '- aurore-astro-setup\n- aurore-seo\n- aurore-resend\n- aurore-firebase-cms\n- aurore-auth-simple\n- aurore-stripe-workflow';
+      }
+      if (offreLower.includes('vitrine')) {
+        return '- aurore-astro-setup\n- aurore-seo\n- aurore-resend\n- aurore-firebase-cms\n- aurore-auth-simple';
+      }
+      return '- aurore-astro-setup\n- aurore-seo\n- aurore-resend';
+    }
+    if (offerType === 'migration') {
+      return '- aurore-astro-setup\n- aurore-seo\n- aurore-resend';
+    }
+    if (offerType === 'seo') {
+      return '- aurore-seo';
+    }
+    if (offerType === 'auto') {
+      return '- aurore-resend\n- aurore-stripe-workflow';
+    }
+    if (offerType === 'gbp') {
+      return '- aurore-seo';
+    }
+    if (offerType === 'logiciel') {
+      return '- aurore-astro-setup\n- aurore-firebase-cms\n- aurore-auth-simple';
+    }
+    return '- aurore-astro-setup\n- aurore-seo\n- aurore-resend';
+  }
 
   const schemaTypes: Record<string, string> = {
     'santé': 'HealthAndBeautyBusiness',
@@ -174,10 +192,10 @@ function generateClaudeMd(data: any, lead: any): string {
   let md = `# CLAUDE.md — ${data.nomCommercial || lead.nom}
 
 ## Offre
-${offre}
+${lead.offre || lead.typeProjet || 'Starter'}
 
 ## Skills à charger
-${skills[category] || skills['site']}
+${getSkillsForOffre(category, offre)}
 
 ---
 
@@ -289,24 +307,6 @@ ${data.systemeReservation ? `### Réservation\n- Système souhaité : ${data.sys
 - Objectif principal : ${data.objectifSEO || 'À compléter'}
 - Budget contenu : ${data.budgetContenu || 'À compléter'}
 - Délai souhaité : ${data.delaiResultats || 'À compléter'}
-`;
-  } else if (category === 'branding') {
-    md += `
-## Entreprise
-- Logo existant : ${data.logoExistant || 'Non'}
-${data.logoExistant === 'oui' ? `- Ce qui ne convient plus : ${data.logoProbleme || 'À compléter'}` : ''}
-- Mots décrivant l'entreprise : ${data.motsCles3 || 'À compléter'}
-- Valeurs : ${Array.isArray(data.valeurs) ? data.valeurs.join(', ') : (data.valeurs || 'À compléter')}
-- Public cible : ${data.publicCible || 'À compléter'}
-- Concurrents/logos : ${data.concurrentsLogos || 'À compléter'}
-
-## Préférences visuelles
-- Couleurs : ${data.couleurs?.filter(Boolean).join(', ') || 'À définir'}
-- Polices : ${data.polices || 'À définir'}
-- Styles aimés : ${Array.isArray(data.stylesAimes) ? data.stylesAimes.join(', ') : (data.stylesAimes || 'À définir')}
-- Logos aimés : ${data.logosAimes?.filter(Boolean).join(', ') || 'Aucun'}
-- Logos non aimés : ${data.logosNonAimes?.filter(Boolean).join(', ') || 'Aucun'}
-- Formats nécessaires : ${Array.isArray(data.formats) ? data.formats.join(', ') : (data.formats || 'À définir')}
 `;
   } else if (category === 'auto') {
     md += `

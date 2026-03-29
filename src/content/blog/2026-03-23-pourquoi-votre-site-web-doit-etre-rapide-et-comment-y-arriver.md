@@ -1,22 +1,22 @@
 ---
-title: "Pourquoi votre site web doit être rapide — et comment y arriver"
+title: "Pourquoi votre site web doit être rapide, et comment y arriver"
 description: "Un site lent fait fuir vos visiteurs et pénalise votre référencement Google. Voici comment améliorer la vitesse de votre site web simplement."
 date: 2026-02-02
 ---
 
-Vous avez un beau site web, mais vos visiteurs partent avant même de l'avoir vu. La raison ? Il est trop lent. Google le sait, vos clients le ressentent — et ça vous coûte des clients.
+Vous avez un beau site web, mais vos visiteurs partent avant même de l'avoir vu. La raison ? Il est trop lent. Google le sait, vos clients le ressentent, et ça vous coûte des clients.
 
 ## Pourquoi la vitesse est cruciale pour votre site
 
 Google utilise la vitesse comme critère de classement depuis 2021 avec les Core Web Vitals. Concrètement : un site qui met plus de 3 secondes à charger perd en moyenne 40 % de ses visiteurs avant même qu'ils aient lu une ligne. Et ces visiteurs perdus, ce sont des clients potentiels qui sont partis chez votre concurrent.
 
-Mais ce n'est pas tout. Un site lent envoie un signal négatif à Google, qui le pénalise dans les résultats de recherche. Vous pouvez avoir le meilleur contenu du monde — si votre site est lent, Google ne le montrera pas.
+Mais ce n'est pas tout. Un site lent envoie un signal négatif à Google, qui le pénalise dans les résultats de recherche. Vous pouvez avoir le meilleur contenu du monde : si votre site est lent, Google ne le montrera pas.
 
 ## Les 5 erreurs qui ralentissent votre site
 
 ### 1. Des images non optimisées
 
-C'est la cause numéro 1 des sites lents. Une photo prise avec un smartphone peut peser 5 à 8 Mo — soit 10 à 20 fois trop lourd pour le web. La règle : aucune image ne devrait dépasser 200 Ko sur un site vitrine. Le format WebP, plus léger que le JPEG, est aujourd'hui supporté par tous les navigateurs modernes.
+C'est la cause numéro 1 des sites lents. Une photo prise avec un smartphone peut peser 5 à 8 Mo, soit 10 à 20 fois trop lourd pour le web. La règle : aucune image ne devrait dépasser 200 Ko sur un site vitrine. Le format WebP, plus léger que le JPEG, est aujourd'hui supporté par tous les navigateurs modernes.
 
 ### 2. Un hébergement bas de gamme
 
@@ -46,23 +46,23 @@ Si votre score est inférieur à 70, c'est urgent. Entre 70 et 90, il y a des am
 
 ## Ce qu'on fait différemment chez aurore
 
-Les sites que je crée sont construits en HTML statique pur avec Astro — pas de base de données, pas de PHP, pas de WordPress. Le résultat est un ensemble de fichiers HTML, CSS et JavaScript purs, hébergés sur GitHub Pages, un CDN mondial gratuit.
+Les sites que je crée sont construits en HTML statique pur avec Astro : pas de base de données, pas de PHP, pas de WordPress. Le résultat est un ensemble de fichiers HTML, CSS et JavaScript purs, hébergés sur GitHub Pages, un CDN mondial gratuit.
 
 Concrètement, ça donne quoi ? Des scores PageSpeed entre 95 et 100 systématiquement. Des temps de chargement inférieurs à 1 seconde. Et un hébergement à 0 € par mois.
 
-Ce n'est pas de la magie — c'est simplement le bon choix technique dès le départ.
+Ce n'est pas de la magie, c'est simplement le bon choix technique dès le départ.
 
 ## Ce que vous pouvez faire maintenant
 
 Si vous avez déjà un site, commencez par le tester sur PageSpeed Insights. Notez votre score. Ensuite, les actions les plus impactantes dans l'ordre :
 
-Compressez vos images avec un outil comme Squoosh (squoosh.app) — c'est gratuit et ça prend 5 minutes. Supprimez les plugins WordPress inutilisés. Activez la mise en cache si ce n'est pas déjà fait. Passez à un hébergement de qualité si votre score serveur est mauvais.
+Compressez vos images avec un outil comme Squoosh (squoosh.app), c'est gratuit et ça prend 5 minutes. Supprimez les plugins WordPress inutilisés. Activez la mise en cache si ce n'est pas déjà fait. Passez à un hébergement de qualité si votre score serveur est mauvais.
 
 Si vous partez de zéro ou que vous envisagez une refonte, c'est le bon moment pour choisir une stack technique pensée pour la performance dès le départ.
 
 ## En résumé
 
-La vitesse n'est pas un détail technique réservé aux développeurs — c'est un enjeu business direct. Un site rapide convertit mieux, se positionne mieux sur Google, et donne une meilleure impression à vos visiteurs.
+La vitesse n'est pas un détail technique réservé aux développeurs : c'est un enjeu business direct. Un site rapide convertit mieux, se positionne mieux sur Google, et donne une meilleure impression à vos visiteurs.
 
 Si vous voulez savoir où en est votre site, testez-le sur PageSpeed Insights maintenant. Et si vous voulez un site pensé pour la performance dès le départ, parlons-en.
 

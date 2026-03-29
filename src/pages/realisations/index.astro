@@ -65,13 +65,7 @@ const itemListSchema = {
         <a href="#projets" class="btn btn-primary btn-lg">Voir les projets →</a>
         <a href="/contact/" class="btn btn-outline btn-lg">Demander un devis</a>
       </div>
-    </div>
-  </section>
-
-  <!-- ─── COMPTEUR ─── -->
-  <section class="stats-bar">
-    <div class="container">
-      <div class="hero-metrics fade-in">
+      <div class="hero-metrics">
         <div class="metric">
           <span class="metric-value" data-counter data-target="2">2</span>
           <span class="metric-label">projets livrés</span>
@@ -181,7 +175,7 @@ const itemListSchema = {
 <style>
   /* ─── HERO ─── */
   .real-hero {
-    padding: 160px 0 64px;
+    padding: 160px 0 80px;
     text-align: center;
   }
 
@@ -203,50 +197,9 @@ const itemListSchema = {
     margin: 0 auto;
   }
 
-  /* ─── STATS BAR ─── */
-  .stats-bar {
-    border-top: 1px solid var(--gray-100);
-    border-bottom: 1px solid var(--gray-100);
-    padding: 32px 0;
-    background: var(--gray-50);
-  }
-
-  .stats-inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    flex-wrap: wrap;
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    padding: 12px 48px;
-  }
-
-  .stat-value {
-    font-family: var(--font-display);
-    font-size: clamp(22px, 3vw, 32px);
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    color: var(--black);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 12px;
-    color: var(--gray-500);
-    text-align: center;
-  }
-
-  .stat-sep {
-    width: 1px;
-    height: 40px;
-    background: var(--gray-200, var(--gray-300));
-  }
+  /* ─── COMPTEURS (identique accueil) ─── */
+  .metric-value span { font-size: 0.55em; letter-spacing: -0.02em; opacity: 0.7; }
+  .metric-sep { width: 1px; height: 32px; background: var(--gray-300); flex-shrink: 0; }
 
   /* ─── GALERIE ─── */
   .galerie-grid {
@@ -481,23 +434,13 @@ const itemListSchema = {
   }
 
   /* ─── RESPONSIVE ─── */
-  @media (max-width: 1024px) {
-    .stat {
-      padding: 12px 32px;
-    }
-  }
-
   @media (max-width: 768px) {
     .real-hero {
       padding: 120px 0 48px;
     }
 
-    .stat-sep {
+    .metric-sep {
       display: none;
-    }
-
-    .stat {
-      padding: 8px 20px;
     }
 
     .projet-card {

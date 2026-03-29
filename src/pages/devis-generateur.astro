@@ -5,7 +5,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
 ---
 
 <BaseLayout
-  title="Générateur de devis — aurore"
+  title="Générateur de devis - aurore"
   description="Outil interne de génération de devis"
   slug="devis-generateur"
   noindex={true}
@@ -15,7 +15,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
 <div id="login-screen" class="devis-login" data-pw={devisPassword}>
   <div class="login-box">
     <span class="logo logo-lg">aur<span class="logo-o">o</span>re</span>
-    <p class="login-subtitle">Espace privé — Générateur de devis</p>
+    <p class="login-subtitle">Espace privé - Générateur de devis</p>
     <form id="login-form" class="login-form">
       <input type="password" id="login-password" class="input" placeholder="Mot de passe" autocomplete="off" />
       <p id="login-error" class="login-error" style="display:none;">Mot de passe incorrect</p>
@@ -1835,7 +1835,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
       .then(function(data) {
         if (data.success) {
           var montant = (totalHT * acomptePct / 100).toFixed(2).replace('.', ',');
-          showToast('Facture envoyée à ' + email + ' — ' + montant + ' €', 'success');
+          showToast('Facture envoyée à ' + email + ' - ' + montant + ' €', 'success');
           invoiceBtn.innerHTML = '&#10003; Facture envoy\u00E9e';
         } else {
           showToast(data.error || 'Erreur lors de l\u2019envoi de la facture', 'error');
@@ -1953,7 +1953,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
           if (data.success) {
             updateDevisStatus(id, 'factur\u00E9');
             var montant = (devis.totalHT * acomptePct / 100).toFixed(2).replace('.', ',');
-            showToast('Facture envoyée à ' + devis.clientEmail + ' — ' + montant + ' €', 'success');
+            showToast('Facture envoyée à ' + devis.clientEmail + ' - ' + montant + ' €', 'success');
           } else {
             showToast(data.error || 'Erreur facturation', 'error');
             btn.disabled = false;
@@ -1989,7 +1989,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
             updateDevisStatus(id, 'sold\u00E9');
             var soldePct = 100 - acomptePctSolde;
             var montant = (devis.totalHT * soldePct / 100).toFixed(2).replace('.', ',');
-            showToast('Facture de solde envoyée à ' + devis.clientEmail + ' — ' + montant + ' €', 'solde');
+            showToast('Facture de solde envoyée à ' + devis.clientEmail + ' - ' + montant + ' €', 'solde');
           } else {
             showToast(data.error || 'Erreur envoi solde', 'error');
             btn.disabled = false;

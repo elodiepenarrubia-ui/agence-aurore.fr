@@ -10,7 +10,7 @@ Quand on cherche à créer un site web pour son activité, la première question
 
 ### 1. Le template Wix ou Squarespace (0 à 50 €/mois)
 
-Les constructeurs de sites no-code sont accessibles, mais leur coût réel est souvent sous-estimé. Sur 3 ans, un abonnement Squarespace Business représente environ 1 000 € — sans compter le temps passé à bricoler le design.
+Les constructeurs de sites no-code sont accessibles, mais leur coût réel est souvent sous-estimé. Sur 3 ans, un abonnement Squarespace Business représente environ 1 000 €, sans compter le temps passé à bricoler le design.
 
 Le problème principal n'est pas le prix : c'est que votre site ressemble exactement à des milliers d'autres, que vous ne possédez pas votre contenu et que vos performances SEO sont limitées par la plateforme.
 
@@ -25,7 +25,7 @@ WordPress reste la solution la plus répandue. Avec un thème premium (60-80 €
 
 ### 3. Le freelance ou l'agence (800 à 10 000 €+)
 
-C'est la fourchette la plus large — et la plus difficile à interpréter. Un freelance débutant peut proposer un site à 500 €. Une agence Parisienne facturera facilement 5 000 € pour un site vitrine. Qu'est-ce qui justifie ces écarts ?
+C'est la fourchette la plus large, et la plus difficile à interpréter. Un freelance débutant peut proposer un site à 500 €. Une agence Parisienne facturera facilement 5 000 € pour un site vitrine. Qu'est-ce qui justifie ces écarts ?
 
 - L'expérience et la spécialisation
 - La qualité du design (sur mesure vs template customisé)
@@ -41,7 +41,7 @@ C'est l'approche qu'aurore propose : un site généré statiquement avec Astro, 
 Quand quelqu'un vous annonce un prix pour un site, demandez systématiquement :
 
 1. **L'hébergement est-il inclus ?** Et à quel prix après la première année ?
-2. **Le nom de domaine est-il inclus ?** Et qui le détient — vous ou le prestataire ?
+2. **Le nom de domaine est-il inclus ?** Et qui le détient, vous ou le prestataire ?
 3. **Les emails professionnels sont-ils inclus ?** (contact@votre-domaine.fr)
 4. **Le SEO est-il vraiment configuré ?** Balises, Google Business, Search Console ?
 5. **Pouvez-vous modifier le contenu vous-même ?** Ou devez-vous rappeler le prestataire pour chaque changement ?
@@ -59,4 +59,4 @@ Ce qui compte plus que le budget : ce que vous en faites. Un site à 2 000 € q
 
 ---
 
-*Vous souhaitez un devis précis pour votre activité ? [Contactez aurore](/contact/) — réponse sous 48h.*
+*Vous souhaitez un devis précis pour votre activité ? [Contactez aurore](/contact/), réponse sous 48h.*

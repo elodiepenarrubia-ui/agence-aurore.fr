@@ -24,7 +24,6 @@ function getOfferType(offre: string): string {
   if (lower.includes('starter') || lower.includes('vitrine') || lower.includes('pro') || lower.includes('réservation') || lower.includes('reservation')) return 'site';
   if (lower.includes('migration')) return 'migration';
   if (lower.includes('seo')) return 'seo';
-  if (lower.includes('identité') || lower.includes('identite') || lower.includes('branding') || lower.includes('logo')) return 'branding';
   if (lower.includes('automatisation')) return 'auto';
   if (lower.includes('google') || lower.includes('gbp')) return 'gbp';
   if (lower.includes('logiciel')) return 'logiciel';
@@ -37,7 +36,6 @@ const stepConfigs: Record<string, {labels: string[], count: number}> = {
   site:      { labels: ['Activité', 'Identité', 'Contenu', 'SEO', 'Récap'], count: 5 },
   migration: { labels: ['Site actuel', 'Identité', 'SEO actuel', 'Récap'], count: 4 },
   seo:       { labels: ['Situation', 'Objectifs', 'Récap'], count: 3 },
-  branding:  { labels: ['Entreprise', 'Préférences', 'Récap'], count: 3 },
   auto:      { labels: ['Situation', 'Accès', 'Récap'], count: 3 },
   gbp:       { labels: ['Fiche Google', 'Récap'], count: 2 },
   logiciel:  { labels: ['Projet', 'Technique', 'Récap'], count: 3 },
@@ -46,7 +44,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
 ---
 
 <BaseLayout
-  title="Complétez votre dossier — aurore"
+  title="Complétez votre dossier - aurore"
   description="Formulaire d'onboarding client"
   slug={`onboarding/${token}`}
   noindex={true}
@@ -69,7 +67,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
       <div class="success-icon">&#10003;</div>
       <h1>Dossier déjà complété</h1>
       <p>Votre dossier a déjà été envoyé. Je vous contacte très prochainement !</p>
-      <p class="contact-line">Une question ? <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a> — 06 59 65 92 18</p>
+      <p class="contact-line">Une question ? <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a> - 06 59 65 92 18</p>
     </div>
   </section>
 )}
@@ -97,7 +95,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
 
       <!-- Intro box -->
       <div class="ob-intro">
-        <strong>Remplissez ce que vous savez.</strong> Tous les champs sont optionnels —
+        <strong>Remplissez ce que vous savez.</strong> Tous les champs sont optionnels,
         les informations manquantes seront complétées par Élodie lors de la création.
         Plus vous en donnez, plus vite on démarre !
       </div>
@@ -668,162 +666,6 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- BRANDING — Step 1: Entreprise                  -->
-        <!-- ═══════════════════════════════════════════════ -->
-        <div class="step" data-step="1" data-offer="branding" style="display:none;">
-          <h2 class="step-title">Votre entreprise</h2>
-          <div class="field-row">
-            <div class="field">
-              <label for="ob-brand-prenom">Prénom <span class="field-req">*</span></label>
-              <input type="text" id="ob-brand-prenom" class="input" value={lead.prenom || ''} required />
-            </div>
-            <div class="field">
-              <label for="ob-brand-nom">Nom <span class="field-req">*</span></label>
-              <input type="text" id="ob-brand-nom" class="input" value={lead.nom?.split(' ').slice(1).join(' ') || lead.nom || ''} required />
-            </div>
-          </div>
-          <div class="field">
-            <label for="ob-brand-email">Email</label>
-            <input type="email" id="ob-brand-email" class="input input-readonly" value={lead.email || ''} readonly />
-          </div>
-          <div class="field">
-            <label for="ob-brand-telephone">Téléphone</label>
-            <input type="tel" id="ob-brand-telephone" class="input" value={lead.telephone || ''} />
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="ob-brand-entreprise">Nom commercial</label>
-              <input type="text" id="ob-brand-entreprise" class="input" value={lead.entreprise || ''} />
-            </div>
-            <div class="field">
-              <label for="ob-brand-secteur">Secteur</label>
-              <select id="ob-brand-secteur" class="input">
-                <option value="">Sélectionner...</option>
-                <option value="santé">Santé / Bien-être</option>
-                <option value="restaurant">Restaurant / Café</option>
-                <option value="artisan">Artisan / BTP</option>
-                <option value="coach">Coach / Consultant</option>
-                <option value="immobilier">Immobilier</option>
-                <option value="avocat">Avocat / Juridique</option>
-                <option value="architecte">Architecte / Design</option>
-                <option value="photographe">Photographe / Créatif</option>
-                <option value="commerce">Commerce / Boutique</option>
-                <option value="autre">Autre</option>
-              </select>
-            </div>
-          </div>
-          <div class="field">
-            <label>Avez-vous un logo existant ?</label>
-            <div class="radio-group">
-              <label class="radio-card"><input type="radio" name="ob-brand-logo-existant" value="oui" /><span>Oui</span></label>
-              <label class="radio-card"><input type="radio" name="ob-brand-logo-existant" value="non" /><span>Non</span></label>
-            </div>
-          </div>
-          <div class="field" id="field-brand-logo-feedback" style="display:none;">
-            <label for="ob-brand-logo-feedback">Qu'est-ce qui ne vous convient plus ?</label>
-            <textarea id="ob-brand-logo-feedback" class="input textarea" rows="3" placeholder="Ce que vous n'aimez pas dans votre logo actuel..."></textarea>
-          </div>
-          <div class="field">
-            <label for="ob-brand-3mots">3 mots qui décrivent votre entreprise</label>
-            <input type="text" id="ob-brand-3mots" class="input" placeholder="ex: accessible, expert, humain" />
-          </div>
-          <div class="field">
-            <label>Valeurs</label>
-            <div class="checkbox-group">
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="confiance" /><span>Confiance</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="innovation" /><span>Innovation</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="proximité" /><span>Proximité</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="luxe" /><span>Luxe</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="nature" /><span>Nature</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="modernité" /><span>Modernité</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="tradition" /><span>Tradition</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-valeurs" value="autre" /><span>Autre</span></label>
-            </div>
-          </div>
-          <div class="field">
-            <label for="ob-brand-public">Public cible</label>
-            <textarea id="ob-brand-public" class="input textarea" rows="3" placeholder="Décrivez vos clients idéaux..."></textarea>
-          </div>
-          <div class="field">
-            <label for="ob-brand-concurrents-logos">Concurrents / logos de référence</label>
-            <textarea id="ob-brand-concurrents-logos" class="input textarea" rows="3" placeholder="Noms ou URLs de concurrents dont vous aimez le branding..."></textarea>
-          </div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════════ -->
-        <!-- BRANDING — Step 2: Préférences visuelles       -->
-        <!-- ═══════════════════════════════════════════════ -->
-        <div class="step" data-step="2" data-offer="branding" style="display:none;">
-          <h2 class="step-title">Préférences visuelles</h2>
-          <div class="field">
-            <label>Couleurs <span class="field-opt">(jusqu'à 6)</span></label>
-            <div id="colors-list-brand">
-              <div class="color-row">
-                <input type="color" class="ob-color" value="#FF6B1A" />
-                <span class="color-hex">#FF6B1A</span>
-              </div>
-            </div>
-            <button type="button" class="btn-add add-color-btn" data-target="colors-list-brand">+ Ajouter une couleur</button>
-          </div>
-          <div class="field">
-            <label for="ob-brand-polices">Polices préférées <span class="field-opt">(optionnel)</span></label>
-            <input type="text" id="ob-brand-polices" class="input" placeholder="ex: Montserrat, serif élégant..." />
-          </div>
-          <div class="field">
-            <label>Styles de logo aimés</label>
-            <div class="checkbox-group">
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="minimaliste" /><span>Minimaliste</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="géométrique" /><span>Géométrique</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="organique" /><span>Organique</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="typographique" /><span>Typographique</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="illustré" /><span>Illustré</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-styles" value="vintage" /><span>Vintage</span></label>
-            </div>
-          </div>
-          <div class="field">
-            <label>3 logos que vous aimez <span class="field-opt">(nom de marque ou URL)</span></label>
-            <input type="text" id="ob-brand-logo-aime1" class="input" placeholder="Ex: Apple, Nike..." style="margin-bottom:8px;" />
-            <input type="text" id="ob-brand-logo-aime2" class="input" placeholder="Deuxième exemple" style="margin-bottom:8px;" />
-            <input type="text" id="ob-brand-logo-aime3" class="input" placeholder="Troisième exemple" />
-          </div>
-          <div class="field">
-            <label>3 logos que vous n'aimez PAS <span class="field-opt">(nom de marque ou URL)</span></label>
-            <input type="text" id="ob-brand-logo-pas1" class="input" placeholder="Ex: un logo trop chargé..." style="margin-bottom:8px;" />
-            <input type="text" id="ob-brand-logo-pas2" class="input" placeholder="Deuxième exemple" style="margin-bottom:8px;" />
-            <input type="text" id="ob-brand-logo-pas3" class="input" placeholder="Troisième exemple" />
-          </div>
-          <div class="field">
-            <label>Formats nécessaires</label>
-            <div class="checkbox-group">
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="svg" /><span>SVG</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="png-transparent" /><span>PNG transparent</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="version-noir" /><span>Version noir</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="version-blanc" /><span>Version blanc</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="favicon" /><span>Favicon</span></label>
-              <label class="checkbox-card"><input type="checkbox" name="ob-brand-formats" value="carte-visite" /><span>Carte de visite</span></label>
-            </div>
-          </div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════════ -->
-        <!-- BRANDING — Step 3: Récap                       -->
-        <!-- ═══════════════════════════════════════════════ -->
-        <div class="step" data-step="3" data-offer="branding" style="display:none;">
-          <h2 class="step-title">Récapitulatif</h2>
-          <p class="recap-intro">Vérifiez vos informations avant d'envoyer votre dossier.</p>
-          <div class="recap-box">
-            <div id="recap-content-branding"></div>
-          </div>
-          <div class="files-reminder">
-            <p class="files-reminder-title">Pensez à m'envoyer par email :</p>
-            <p>&rarr; Votre logo actuel (si existant)</p>
-            <p>&rarr; Photos de référence</p>
-            <p>&rarr; Tout document de marque existant</p>
-            <p class="files-reminder-email">À <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
-          </div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════════ -->
         <!-- AUTO — Step 1: Situation                       -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="1" data-offer="auto" style="display:none;">
@@ -1135,7 +977,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
           <p>&rarr; Logo, photos, documents utiles</p>
           <p class="files-reminder-email">À <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a></p>
         </div>
-        <p class="contact-line">Une question ? <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a> — 06 59 65 92 18</p>
+        <p class="contact-line">Une question ? <a href="mailto:elodie@agence-aurore.fr">elodie@agence-aurore.fr</a> - 06 59 65 92 18</p>
       </div>
 
     </div>
@@ -1387,7 +1229,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
     border-radius: var(--radius-sm);
   }
   .service-row {
-    grid-template-columns: 1fr 1.5fr 0.7fr;
+    grid-template-columns: 1fr 1fr 120px;
   }
   .temoignage-row {
     grid-template-columns: 1fr;
@@ -1473,24 +1315,24 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
   }
   .recap-row {
     display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    font-size: 13px;
-    border-bottom: 1px solid var(--gray-100);
+    gap: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: baseline;
   }
   .recap-row:last-child {
     border-bottom: none;
   }
   .recap-label {
+    font-size: 13px;
     font-weight: 600;
-    color: var(--gray-700);
+    color: #6B6B6B;
+    min-width: 180px;
+    flex-shrink: 0;
   }
   .recap-value {
-    color: var(--gray-500);
-    text-align: right;
-    max-width: 60%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 14px;
+    color: #1a1a1a;
   }
 
   /* ─── FILES REMINDER ─── */
@@ -1713,7 +1555,6 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
 
   setupRadioToggle('ob-avis-google', 'oui', 'field-avis-lien');
   setupRadioToggle('ob-gbp-existante', 'oui', 'field-gbp-existante-details');
-  setupRadioToggle('ob-brand-logo-existant', 'oui', 'field-brand-logo-feedback');
   setupRadioToggle('ob-log-hebergeur', 'oui', 'field-log-hebergeur-details');
 
   // ─── Dynamic colors ───
@@ -1731,27 +1572,6 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
       });
       row.querySelector('.color-remove').addEventListener('click', function() { row.remove(); });
     });
-  }
-
-  // Branding colors list (separate instance)
-  var addColorBtns = document.querySelectorAll('.add-color-btn');
-  for (var b = 0; b < addColorBtns.length; b++) {
-    (function(btn) {
-      var targetId = btn.dataset.target;
-      var targetList = document.getElementById(targetId);
-      if (!targetList) return;
-      btn.addEventListener('click', function() {
-        if (targetList.querySelectorAll('.color-row').length >= 6) return;
-        var row = document.createElement('div');
-        row.className = 'color-row';
-        row.innerHTML = '<input type="color" class="ob-color" value="#000000" /><span class="color-hex">#000000</span><button type="button" class="color-remove">\u00d7</button>';
-        targetList.appendChild(row);
-        row.querySelector('input').addEventListener('input', function() {
-          row.querySelector('.color-hex').textContent = this.value.toUpperCase();
-        });
-        row.querySelector('.color-remove').addEventListener('click', function() { row.remove(); });
-      });
-    })(addColorBtns[b]);
   }
 
   // Sync color hex for existing inputs
@@ -1849,13 +1669,11 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
       }
       // Restore colors
       if (data._colors) {
-        // For main colors-list and branding colors-list
-        var lists = [document.getElementById('colors-list'), document.getElementById('colors-list-brand')];
+        var lists = [document.getElementById('colors-list')];
         for (var li = 0; li < lists.length; li++) {
           var list = lists[li];
           if (!list) continue;
-          var listKey = list.id === 'colors-list' ? '_colors' : '_colorsBrand';
-          var colorsArr = data[listKey];
+          var colorsArr = data._colors;
           if (!colorsArr || !colorsArr.length) continue;
           // Set the first one
           var firstRow = list.querySelector('.color-row');
@@ -1946,13 +1764,6 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
       data._colors = [];
       for (var i = 0; i < colorInputs.length; i++) data._colors.push(colorInputs[i].value);
     }
-    var colorsList2 = document.getElementById('colors-list-brand');
-    if (colorsList2) {
-      var colorInputs2 = colorsList2.querySelectorAll('.ob-color');
-      data._colorsBrand = [];
-      for (var i = 0; i < colorInputs2.length; i++) data._colorsBrand.push(colorInputs2[i].value);
-    }
-
     // Services
     data._services = collectServices();
 
@@ -2063,7 +1874,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
   }
 
   function recapRow(label, value) {
-    return '<div class="recap-row"><span class="recap-label">' + label + '</span><span class="recap-value">' + (value || '-') + '</span></div>';
+    return '<div class="recap-row"><span class="recap-label">' + label + '</span><span class="recap-value">' + (value || 'Non renseigné') + '</span></div>';
   }
 
   function colorSwatch(hex) {
@@ -2204,33 +2015,6 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
       html += '</div>';
 
       var recapEl = document.getElementById('recap-content-seo');
-      if (recapEl) recapEl.innerHTML = html;
-
-    } else if (OFFER_TYPE === 'branding') {
-      html += '<div class="recap-section">';
-      html += '<div class="recap-section-title">Entreprise</div>';
-      html += recapRow('Nom', escapeHtml(getVal('ob-brand-prenom') + ' ' + getVal('ob-brand-nom')));
-      if (getVal('ob-brand-entreprise')) html += recapRow('Entreprise', escapeHtml(getVal('ob-brand-entreprise')));
-      if (getVal('ob-brand-secteur')) html += recapRow('Secteur', escapeHtml(getVal('ob-brand-secteur')));
-      if (getRadio('ob-brand-logo-existant')) html += recapRow('Logo existant', escapeHtml(getRadio('ob-brand-logo-existant')));
-      if (getVal('ob-brand-3mots')) html += recapRow('3 mots-clés', escapeHtml(getVal('ob-brand-3mots')));
-      var valeurs = getCheckboxes('ob-brand-valeurs');
-      if (valeurs.length) html += recapRow('Valeurs', escapeHtml(valeurs.join(', ')));
-      html += '</div>';
-
-      html += '<div class="recap-section">';
-      html += '<div class="recap-section-title">Préférences visuelles</div>';
-      var colors = getColors('colors-list-brand');
-      for (var c = 0; c < colors.length; c++) {
-        html += recapRow('Couleur ' + (c + 1), colorSwatch(colors[c]));
-      }
-      var styles = getCheckboxes('ob-brand-styles');
-      if (styles.length) html += recapRow('Styles', escapeHtml(styles.join(', ')));
-      var formats = getCheckboxes('ob-brand-formats');
-      if (formats.length) html += recapRow('Formats', escapeHtml(formats.join(', ')));
-      html += '</div>';
-
-      var recapEl = document.getElementById('recap-content-branding');
       if (recapEl) recapEl.innerHTML = html;
 
     } else if (OFFER_TYPE === 'auto') {

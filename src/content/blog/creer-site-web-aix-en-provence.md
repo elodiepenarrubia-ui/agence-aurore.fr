@@ -4,7 +4,7 @@ date: 2026-01-19
 description: "Tout ce qu'il faut savoir pour créer un site web professionnel à Aix-en-Provence en 2025 : prestataires, prix, délais et pièges à éviter."
 ---
 
-Vous êtes artisan, thérapeute, consultant ou indépendant à Aix-en-Provence, et vous cherchez à créer ou refaire votre site web ? Ce guide vous donne une vue complète et honnête de ce que vous trouverez sur le marché local — et ce que ça coûte vraiment.
+Vous êtes artisan, thérapeute, consultant ou indépendant à Aix-en-Provence, et vous cherchez à créer ou refaire votre site web ? Ce guide vous donne une vue complète et honnête de ce que vous trouverez sur le marché local, et ce que ça coûte vraiment.
 
 ## Le contexte : Aix-en-Provence, une ville à fort potentiel digital
 
@@ -26,7 +26,7 @@ Le tissu freelance d'Aix-en-Provence et de la région PACA est actif. On trouve 
 
 Accessibles, mais avec des limites réelles : performances SEO inférieures, coûts récurrents, design générique. Pour une présence sérieuse, elles sont rarement le bon choix long terme.
 
-### aurore — spécialiste des TPE d'Aix-en-Provence
+### aurore, spécialiste des TPE d'Aix-en-Provence
 
 C'est ce que je fais : des sites web sur mesure, pensés pour les indépendants et petites entreprises qui ont besoin d'une vraie présence en ligne sans les tarifs d'une grande agence. À partir de 590 € tout compris (domaine, emails, SEO, Google Business).
 
@@ -42,7 +42,7 @@ Indissociable du site web pour le référencement local. La fiche doit être cr�
 
 ### Un site mobile-first
 
-Plus de 70 % des recherches locales se font depuis un smartphone. Votre site doit s'afficher parfaitement sur mobile — pas juste "être responsive", mais être conçu en pensant mobile d'abord.
+Plus de 70 % des recherches locales se font depuis un smartphone. Votre site doit s'afficher parfaitement sur mobile, pas juste "être responsive", mais être conçu en pensant mobile d'abord.
 
 ### Un hébergement rapide
 
@@ -67,7 +67,7 @@ Avant de signer, posez ces questions :
 - Site avec réservation et paiement en ligne : 3 à 4 semaines
 - Logiciel métier sur mesure : 4 à 12 semaines selon la complexité
 
-Méfiez-vous des délais annoncés inférieurs à 1 semaine pour un site complet — la qualité en pâtit presque toujours.
+Méfiez-vous des délais annoncés inférieurs à 1 semaine pour un site complet, la qualité en pâtit presque toujours.
 
 ---
 
