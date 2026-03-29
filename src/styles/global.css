@@ -217,12 +217,7 @@ strong { font-weight: 600; color: var(--black); }
   padding: 160px 48px 100px;
   position: relative;
   overflow: hidden;
-  background: radial-gradient(
-    ellipse 80% 60% at 50% 40%,
-    #FFFFFF 0%,
-    var(--aurora-pale) 60%,
-    rgba(255, 107, 26, 0.08) 100%
-  );
+  background: #ffffff;
 }
 
 .hero-eyebrow {
