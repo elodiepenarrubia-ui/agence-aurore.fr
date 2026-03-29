@@ -3,40 +3,52 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const schema = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "ProfessionalService",
   "name": "Aurore",
-  "description": "Création de présence digitale clé en main pour TPE et professionnels. Logo, site web, emails, SEO et automatisations.",
-  "url": "https://agence-aurore.fr",
+  "description": "Création de sites web clé en main pour TPE, artisans et indépendants. Livraison en 2 semaines, hébergement inclus.",
+  "url": "https://www.agence-aurore.fr",
+  "telephone": "+33659659218",
   "email": "elodie@agence-aurore.fr",
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": "17 rue Fermée",
     "addressLocality": "Aix-en-Provence",
-    "addressRegion": "Provence-Alpes-Côte d'Azur",
+    "postalCode": "13100",
     "addressCountry": "FR"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "43.5297",
+    "longitude": "5.4474"
+  },
   "areaServed": "France",
-  "serviceType": ["Création de site web", "Identité visuelle", "SEO", "Automatisation email"],
   "priceRange": "€€",
-  "founder": { "@type": "Person", "name": "Élodie", "jobTitle": "Fondatrice" },
-  "sameAs": ["https://agence-aurore.fr", "https://www.linkedin.com/in/elodie-penarrubia"]
+  "founder": {
+    "@type": "Person",
+    "name": "Élodie Penarrubia"
+  },
+  "sameAs": [
+    "https://maps.app.goo.gl/ufBFSYzddh9PQzhw6"
+  ]
 };
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Combien coûte la création d'un site web avec aurore ?", "acceptedAnswer": { "@type": "Answer", "text": "Nos tarifs commencent à 290 € pour le Starter et vont jusqu'à 1 290 € pour le pack Pro avec réservation en ligne, blog et automatisations." } },
-    { "@type": "Question", "name": "Combien de temps faut-il pour créer un site web ?", "acceptedAnswer": { "@type": "Answer", "text": "La plupart de nos sites sont livrés en 2 semaines." } },
-    { "@type": "Question", "name": "Aurore intervient-elle uniquement à Aix-en-Provence ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, aurore intervient dans toute la France." } },
-    { "@type": "Question", "name": "Est-ce que je peux modifier mon site moi-même ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, avec nos formules Vitrine et Pro, un espace de rédaction est intégré. Une formation vidéo est incluse dans toutes les formules." } },
-    { "@type": "Question", "name": "Y a-t-il des frais d'hébergement ?", "acceptedAnswer": { "@type": "Answer", "text": "L'hébergement est gratuit grâce à GitHub Pages. Vous ne payez que le nom de domaine (~15 €/an)." } }
+    { "@type": "Question", "name": "Combien coûte la création d'un site web avec aurore ?", "acceptedAnswer": { "@type": "Answer", "text": "Nos tarifs commencent à 290 € pour le Starter et vont jusqu'à 1 290 € pour le pack Pro avec réservation en ligne, blog et automatisations. Le SEO on-page et la fiche Google Business sont inclus dans toutes les formules." } },
+    { "@type": "Question", "name": "Combien de temps faut-il pour créer un site web ?", "acceptedAnswer": { "@type": "Answer", "text": "La plupart de nos sites sont livrés en 2 semaines. Le délai dépend de la complexité du projet et de la réactivité pour fournir les contenus." } },
+    { "@type": "Question", "name": "Vous intervenez uniquement à Aix-en-Provence ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, aurore intervient dans toute la France. Basée à Aix-en-Provence, nous travaillons à distance avec des clients sur tout le territoire." } },
+    { "@type": "Question", "name": "Puis-je modifier mon site moi-même après livraison ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, avec nos formules Vitrine et Pro, un espace de rédaction est intégré qui vous permet de modifier textes, images et articles sans aucune connaissance technique. Une formation vidéo est incluse dans toutes les formules." } },
+    { "@type": "Question", "name": "Y a-t-il des frais d'hébergement mensuels ?", "acceptedAnswer": { "@type": "Answer", "text": "L'hébergement est gratuit grâce à GitHub Pages. Vous ne payez que le nom de domaine (~15 €/an). Aucun abonnement, aucun frais caché." } },
+    { "@type": "Question", "name": "Pourquoi vos tarifs sont-ils inférieurs à ceux d'une agence classique ?", "acceptedAnswer": { "@type": "Answer", "text": "Aurore est une auto-entreprise avec zéro frais généraux : pas de locaux, pas d'équipe commerciale, pas d'intermédiaire. Vous payez uniquement le travail de création." } }
   ]
 };
 ---
 
 <BaseLayout
   title="Création de site web Aix-en-Provence | aurore"
-  description="Aurore crée votre présence digitale de A à Z : logo, site web, emails professionnels, SEO et automatisations. Basé à Aix-en-Provence. À partir de 290 €."
+  description="Site web professionnel livré en 2 semaines à partir de 290 €. Logo, SEO, emails pro et fiche Google inclus. Hébergement gratuit. aurore — Aix-en-Provence."
   slug="/"
   schema={[schema, faqSchema]}
 >
@@ -57,11 +69,17 @@ const faqSchema = {
         <span class="eyebrow-line" aria-hidden="true"></span>
       </div>
       <h1 class="service-h1">
-        De l'ombre à la<br /><span class="hero-serif">lumière.</span>
+        Votre site web professionnel, livré en 2 semaines<br /><span class="hero-serif">à partir de 290 €</span>
       </h1>
       <p class="service-sub">
-        Logo, site web, emails, SEO et automatisations : tout ce dont votre entreprise a besoin pour exister en ligne, livré clé en main en 2 semaines.
+        Logo, site web, emails, SEO et automatisations : tout ce dont votre entreprise a besoin pour exister en ligne, livré clé en main.
       </p>
+      <div class="hero-pills">
+        <a href="/site-web-massotherapeute/" class="hero-pill">Thérapeute</a>
+        <a href="/site-web-artisan/" class="hero-pill">Artisan</a>
+        <a href="/site-web-conciergerie/" class="hero-pill">Conciergerie</a>
+        <a href="/site-web-restaurant/" class="hero-pill">Restaurant</a>
+      </div>
       <div class="hero-ctas">
         <a href="/tarifs/" class="btn btn-primary btn-lg">Voir les offres →</a>
         <a href="/contact/" class="btn btn-outline btn-lg">Demander un devis gratuit</a>
@@ -107,6 +125,7 @@ const faqSchema = {
           <div class="service-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
           <h3>Identité visuelle</h3>
           <p>Logo, palette de couleurs, typographie, supports print, une marque cohérente qui inspire confiance dès le premier regard.</p>
+          <span class="service-card-option">En option avec chaque pack</span>
           <a href="/identite-visuelle/" class="service-card-link">Découvrir →</a>
         </article>
         <article class="card service-card">
@@ -131,7 +150,7 @@ const faqSchema = {
           <p style="color:rgba(255,255,255,0.5);font-size:13px;text-transform:uppercase;letter-spacing:0.12em;font-weight:600;">Pack Starter</p>
           <h3 style="color:white;font-size:clamp(22px,2.5vw,32px);margin:8px 0;">Site clé en main<br /><span style="color:var(--aurora);">à 290 €</span></h3>
           <p style="color:rgba(255,255,255,0.6);">Domaine, emails pro, SEO on-page et fiche Google Business inclus dans toutes les formules.</p>
-          <a href="/tarifs/" class="btn btn-aurora" style="margin-top:auto;align-self:flex-start;">Voir les offres →</a>
+          <a href="/simulateur/" class="btn btn-aurora" style="margin-top:auto;align-self:flex-start;">Calculer mon budget →</a>
         </article>
       </div>
     </div>
@@ -194,6 +213,18 @@ const faqSchema = {
           <p>GitHub Pages, c'est gratuit et fiable. Vos seuls frais récurrents : le nom de domaine (~15 €/an). Aucun abonnement caché.</p>
         </div>
       </div>
+      <div class="elodie-block">
+        <img src="/elodie.webp" alt="Élodie Penarrubia - Fondatrice d'Aurore" class="elodie-portrait" />
+        <div class="elodie-text">
+          <p class="elodie-quote">
+            "Je crée des sites qui ressemblent à vos clients, pas à des templates.
+            Chaque projet est unique, livré en 2 semaines, sans jargon technique."
+          </p>
+          <p class="elodie-signature">
+            <strong>Élodie Penarrubia</strong> · Fondatrice d'Aurore · Aix-en-Provence
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -230,8 +261,15 @@ const faqSchema = {
           </div>
           <h3 class="testimonial-cta-title">Soyez le prochain</h3>
           <p class="testimonial-cta-sub">Rejoignez nos clients et donnez vie à votre présence digitale.</p>
-          <a href="/contact/" class="btn btn-aurora">Demander un devis →</a>
+          <a href="/realisations/" class="btn btn-aurora">Ils m'ont fait confiance →</a>
         </div>
+      </div>
+      <div style="text-align:center;margin-top:32px;">
+        <a href="https://maps.app.goo.gl/ufBFSYzddh9PQzhw6" target="_blank" rel="noopener" class="google-reviews-link">
+          <span class="stars">★★★★★</span>
+          <span>Voir nos avis Google</span>
+          <span class="arrow">→</span>
+        </a>
       </div>
     </div>
   </section>
@@ -274,7 +312,7 @@ const faqSchema = {
         <h2>Parlons de votre projet.</h2>
         <p>Un formulaire de 2 minutes suffit pour recevoir un devis détaillé sous 48h.</p>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px;">
-          <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis →</a>
+          <a href="/contact/" class="btn btn-aurora btn-lg">Commencer votre projet →</a>
           <a href="/realisations/" class="btn btn-outline btn-lg">Voir les réalisations</a>
         </div>
       </div>
@@ -293,6 +331,7 @@ const faqSchema = {
 
   .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 48px; }
   .service-card-link { margin-top: auto; }
+  .service-card-option { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--aurora); background: var(--aurora-pale); padding: 4px 10px; border-radius: 100px; margin-bottom: 8px; }
 
   .steps-grid { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 24px; align-items: start; }
   .step-large { display: flex; flex-direction: column; gap: 12px; }
@@ -330,6 +369,51 @@ const faqSchema = {
   .faq-answer { font-size: 15px; color: var(--gray-700); line-height: 1.7; padding-bottom: 20px; display: none; }
   .faq-item.open .faq-answer { display: block; }
 
+  .hero-tagline {
+    font-family: var(--font-display); font-size: clamp(18px, 2vw, 22px);
+    font-weight: 400; color: var(--gray-500); margin: 20px 0 20px;
+    letter-spacing: -0.01em;
+  }
+  .hero-tagline em {
+    font-family: var(--font-serif); font-style: italic; color: var(--aurora);
+  }
+
+  .hero-pills {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; margin: 16px 0 28px;
+  }
+  .hero-pill {
+    padding: 6px 16px; border: 1.5px solid var(--aurora);
+    border-radius: 100px; font-size: 13px; font-weight: 500;
+    color: var(--aurora); text-decoration: none;
+    transition: all 0.2s ease; background: transparent;
+  }
+  .hero-pill:hover { background: var(--aurora); color: white; }
+
+  .elodie-block {
+    display: flex; align-items: center; gap: 32px;
+    padding: 32px; background: var(--gray-50);
+    border-radius: var(--radius-md); margin-top: 40px;
+  }
+  .elodie-portrait {
+    width: 80px; height: 80px; border-radius: 50%;
+    object-fit: cover; object-position: top; flex-shrink: 0;
+  }
+  .elodie-quote {
+    font-size: 15px; line-height: 1.7; font-style: italic;
+    color: var(--gray-700); margin: 0 0 8px;
+  }
+  .elodie-signature { font-size: 13px; color: var(--gray-500); margin: 0; }
+
+  .google-reviews-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border: 1.5px solid #e0e0e0;
+    border-radius: 100px; font-size: 14px; color: var(--black);
+    text-decoration: none; transition: border-color 0.2s;
+  }
+  .google-reviews-link:hover { border-color: var(--aurora); }
+  .stars { color: #FBBC04; letter-spacing: 2px; }
+
   @media (max-width: 1024px) {
     .services-grid { grid-template-columns: repeat(2,1fr); }
     .steps-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -339,6 +423,7 @@ const faqSchema = {
     .service-hero { padding: 90px 0 56px; }
     .services-grid, .why-grid, .testimonials-grid { grid-template-columns: 1fr; }
     .metric-sep { display: none; }
+    .elodie-block { flex-direction: column; text-align: center; }
   }
 </style>
 
