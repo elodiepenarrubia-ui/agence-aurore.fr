@@ -1,7 +1,7 @@
 ---
 title: "Pourquoi votre site web doit être rapide — et comment y arriver"
 description: "Un site lent fait fuir vos visiteurs et pénalise votre référencement Google. Voici comment améliorer la vitesse de votre site web simplement."
-date: 2026-03-23T13:37:39.426Z
+date: 2026-02-02
 ---
 
 Vous avez un beau site web, mais vos visiteurs partent avant même de l'avoir vu. La raison ? Il est trop lent. Google le sait, vos clients le ressentent — et ça vous coûte des clients.

@@ -1,7 +1,7 @@
 ---
 title: "Fiche Google Business : le guide complet pour les TPE en 2025"
 description: "Créer et optimiser sa fiche Google Business est gratuit et indispensable pour être visible localement. Voici comment faire en 30 minutes."
-date: 2026-03-23T14:26:10.262Z
+date: 2026-01-26
 ---
 
 Quand un client potentiel cherche votre activité sur Google, la première chose qu'il voit n'est pas votre site web. C'est votre fiche Google Business. Et si elle n'existe pas ou qu'elle est mal remplie, vous perdez des clients chaque jour sans le savoir.

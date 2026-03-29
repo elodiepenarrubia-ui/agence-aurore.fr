@@ -1,6 +1,6 @@
 ---
 title: "Combien coûte la création d'un site web en 2025 ?"
-date: 2025-01-15
+date: 2026-01-05
 description: "Prix d'un site web en 2025 : freelance, agence, template ou sur mesure. Ce que vous payez vraiment, et pourquoi les écarts sont si importants."
 ---
 

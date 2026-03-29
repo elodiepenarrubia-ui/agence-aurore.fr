@@ -1,6 +1,6 @@
 ---
 title: "Pourquoi votre entreprise a besoin d'une fiche Google Business"
-date: 2025-02-03
+date: 2026-01-12
 description: "La fiche Google Business est souvent le premier point de contact entre un client potentiel et votre activité. Voici pourquoi elle est indispensable et comment bien la configurer."
 ---
 

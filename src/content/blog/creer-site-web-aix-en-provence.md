@@ -1,6 +1,6 @@
 ---
 title: "Créer un site web à Aix-en-Provence : guide complet 2025"
-date: 2025-02-20
+date: 2026-01-19
 description: "Tout ce qu'il faut savoir pour créer un site web professionnel à Aix-en-Provence en 2025 : prestataires, prix, délais et pièges à éviter."
 ---
 
