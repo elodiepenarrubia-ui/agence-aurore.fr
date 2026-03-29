@@ -53,35 +53,35 @@ const faqSchema = {
 
 const comparatif = [
   { critere: "Prix création",           agence: "3 000–15 000 €",       freelance: "800–3 000 €",        ionos: "0 € puis abonnement",     yello: "Abonnement 50–150 €/mois",  aurore: "290–1 290 €" },
-  { critere: "Hébergement",             agence: "20–50 €/mois",         freelance: "10–20 €/mois",       ionos: "Inclus abonnement",        yello: "Inclus abonnement",         aurore: "0 € à vie" },
+  { critere: "Hébergement",             agence: "20–50 €/mois",         freelance: "10–20 €/mois",       ionos: "Inclus abonnement",        yello: "Inclus abonnement",         aurore: "0 € à vie, zéro abonnement" },
   { critere: "Délai",                   agence: "2–6 mois",             freelance: "1–3 mois",           ionos: "Immédiat",                 yello: "Immédiat",                  aurore: "2 semaines" },
   { critere: "Interlocuteur",           agence: "Plusieurs",            freelance: "Un",                 ionos: "Support anonyme",          yello: "Support anonyme",           aurore: "Une seule personne" },
   { critere: "Personnalisation",        agence: "Totale",               freelance: "Partielle",          ionos: "Templates",                yello: "Templates",                 aurore: "Totale" },
-  { critere: "SEO inclus",             agence: "Souvent en option",    freelance: "Basique",            ionos: "Basique",                  yello: "Basique",                   aurore: "Complet inclus" },
+  { critere: "SEO inclus",             agence: "Souvent en option",    freelance: "Basique",            ionos: "Basique",                  yello: "Basique",                   aurore: "Visibilité Google complète incluse" },
   { critere: "Propriété du site",       agence: "Oui",                  freelance: "Oui",                ionos: "Non",                      yello: "Non",                       aurore: "Oui" },
-  { critere: "Formation incluse",       agence: "Rarement",             freelance: "Rarement",           ionos: "Non",                      yello: "Non",                       aurore: "Vidéo incluse" },
+  { critere: "Formation incluse",       agence: "Rarement",             freelance: "Rarement",           ionos: "Non",                      yello: "Non",                       aurore: "Formation vidéo incluse" },
   { critere: "Prix connu dès le début", agence: "Rarement",             freelance: "Parfois",            ionos: "Oui",                      yello: "Oui",                       aurore: "Toujours" },
 ];
 
 const revelations = [
   {
     titre: "Agences web",
-    desc: "Les agences facturent des équipes entières — chef de projet, designer, développeur, commercial. Vous payez leur structure, pas uniquement votre site.",
+    desc: "Les agences facturent des équipes entières : chef de projet, designer, développeur, commercial. Vous payez leur structure, pas uniquement votre site.",
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9h.01"/><path d="M9 13h.01"/><path d="M9 17h.01"/></svg>`
   },
   {
-    titre: "Freelances WordPress",
-    desc: "Un freelance WordPress livre un site. Mais qui s'occupe des mises à jour, des failles de sécurité, des plugins qui cassent à chaque mise à jour de WordPress ?",
+    titre: "Freelances classiques",
+    desc: "Un freelance vous livre un site. Mais qui s'occupe des mises à jour et de la sécurité ensuite ? Souvent, personne.",
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`
   },
   {
     titre: "1&1 et Yello",
-    desc: "Ces plateformes vous louent un site. Le jour où vous arrêtez de payer, votre site disparaît. Vous n'êtes pas propriétaire — vous êtes locataire.",
+    desc: "Ces plateformes vous louent un site. Le jour où vous arrêtez de payer, votre site disparaît. Vous n'êtes pas propriétaire, vous êtes locataire.",
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
   },
   {
     titre: "aurore",
-    desc: "Un seul interlocuteur, du brief à la livraison. Tarifs affichés, délais tenus, site qui vous appartient à 100 %. Pas de structure à financer, pas d'intermédiaire.",
+    desc: "Un seul interlocuteur, du premier échange à la livraison. Tarifs affichés, délais tenus, site qui vous appartient à 100 %. Pas de structure à financer, pas d'intermédiaire.",
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
     highlighted: true
   },
@@ -90,12 +90,12 @@ const revelations = [
 const recommandations = [
   {
     titre: "Choisissez une agence si",
-    points: ["Budget +5 000 €", "Projet complexe e-commerce", "Équipe technique interne"],
+    points: ["Budget +5 000 €", "Projet complexe avec vente en ligne", "Équipe technique en interne"],
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>`
   },
   {
     titre: "Choisissez un freelance si",
-    points: ["Budget 1 000–2 000 €", "Projet simple", "Vous aimez gérer la technique"],
+    points: ["Budget 1 000–2 000 €", "Projet simple", "Vous acceptez de gérer la technique vous-même"],
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>`
   },
   {
@@ -129,7 +129,7 @@ const recommandations = [
       </div>
       <h1 class="ag-h1">Agence, freelance ou aurore :<br />qui choisir pour votre site ?</h1>
       <p class="hero-serif">Le comparatif que personne ne fait.</p>
-      <p class="ag-sub">Agence web à 5 000 €, freelance WordPress, grande plateforme à abonnement ou aurore à 690 € clé en main. Voici les vraies différences — sans langue de bois.</p>
+      <p class="ag-sub">Agence web à 5 000 €, freelance classique, grande plateforme à abonnement ou aurore à 690 € clé en main. Voici les vraies différences, sans langue de bois.</p>
       <div class="hero-ctas">
         <a href="/tarifs/" class="btn btn-primary btn-lg">Voir les tarifs aurore →</a>
         <a href="/contact/" class="btn btn-outline btn-lg">Demander un devis</a>
@@ -141,15 +141,15 @@ const recommandations = [
   <section class="section">
     <div class="container">
       <span class="section-label fade-in">Tous les prestataires, côte à côte</span>
-      <h2 class="section-title fade-in">Le comparatif complet — sans langue de bois.</h2>
-      <p class="section-subtitle fade-in">5 prestataires, 9 critères, zéro bullshit.</p>
+      <h2 class="section-title fade-in">Le comparatif complet, sans langue de bois.</h2>
+      <p class="section-subtitle fade-in">5 prestataires, 9 critères, zéro baratin.</p>
 
       <div class="comparatif-table fade-in" style="margin-top: 48px;">
         <!-- En-tête -->
         <div class="comparatif-row comparatif-header">
           <div class="comparatif-cell comparatif-critere"></div>
           <div class="comparatif-cell">Agence web</div>
-          <div class="comparatif-cell">Freelance WP</div>
+          <div class="comparatif-cell">Freelance</div>
           <div class="comparatif-cell">1&1</div>
           <div class="comparatif-cell">Yello</div>
           <div class="comparatif-cell comparatif-col-aurore">aurore</div>
@@ -227,7 +227,7 @@ const recommandations = [
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer">
-            Pas nécessairement. La qualité dépend de l'équipe, pas de la structure. Une agence vous facture ses locaux, son commercial et son chef de projet en plus du travail de création.
+            Pas nécessairement. La qualité dépend des personnes, pas de la structure. Une agence vous facture ses locaux, son commercial et son chef de projet en plus du travail de création.
           </div>
         </div>
 
@@ -253,11 +253,11 @@ const recommandations = [
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            Comment choisir entre aurore et un freelance WordPress ?
+            Comment choisir entre aurore et un freelance classique ?
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer">
-            Si vous voulez zéro maintenance, zéro hébergement et SEO inclus d'emblée, aurore est plus adapté. Un freelance WordPress vous demandera de gérer l'hébergement et les mises à jour vous-même.
+            Si vous voulez zéro maintenance, zéro frais d'hébergement et une visibilité Google incluse dès le départ, aurore est plus adapté. Un freelance classique vous demandera de gérer l'hébergement et les mises à jour vous-même.
           </div>
         </div>
       </div>
