@@ -464,19 +464,19 @@ strong { font-weight: 600; color: var(--black); }
     --container-px: 24px;
   }
 
-  .nav { padding: 16px 24px; }
+  .nav { padding: 16px 24px; z-index: 99999; }
   .nav.scrolled { padding: 12px 24px; }
 
   .nav-links {
     display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: white;
+    background: #ffffff;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 32px;
-    z-index: 9999;
+    z-index: 99999;
   }
 
   .nav-links.open { display: flex; }
