@@ -5,7 +5,7 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "Création de site web à Aix-en-Provence",
-  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "provider": { "@type": "ProfessionalService", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
   "areaServed": "France",
   "description": "Création de sites web professionnels pour TPE et indépendants : site vitrine, site avec réservation, logiciel métier. Hébergement gratuit, livraison en 2 semaines. Basé à Aix-en-Provence.",
   "offers": [
@@ -35,18 +35,18 @@ const faqSchema = {
 };
 
 const sousServices = [
-  { href: "/creation-site-web/site-vitrine/",   titre: "Site vitrine",         desc: "À partir de 690 €. Jusqu'à 6 pages, SEO complet, formulaire de contact, espace rédaction inclus.", prix: "690 €" },
-  { href: "/creation-site-web/site-reservation/", titre: "Site avec réservation", desc: "1 290 €. Prise de RDV en ligne, paiement Stripe, emails automatisés, tout Vitrine inclus.", prix: "1 290 €" },
-  { href: "/creation-site-web/logiciel-metier/",  titre: "Logiciel métier",      desc: "Sur devis (cadrage 300 €). Application web sur mesure pour automatiser vos processus.", prix: "Sur devis" },
+  { href: "/creation-site-web/site-vitrine/",   titre: "Site vitrine",         desc: "Vos clients vous trouvent, vous contactent et vous font confiance. Jusqu'à 6 pages, visibilité Google complète.", prix: "690 €" },
+  { href: "/creation-site-web/site-reservation/", titre: "Site avec réservation", desc: "Vos clients réservent et paient en ligne pendant que vous travaillez. Confirmations automatiques incluses.", prix: "1 290 €" },
+  { href: "/creation-site-web/logiciel-metier/",  titre: "Logiciel métier",      desc: "Un outil taillé pour votre activité. Vos clients et votre équipe gagnent du temps au quotidien.", prix: "Sur devis" },
 ];
 
 const benefices = [
-  { titre: "Livraison en 2 semaines",        desc: "Un process rodé, pas de réunions inutiles. Du briefing à la mise en ligne en 14 jours." },
-  { titre: "0 € d'hébergement",             desc: "GitHub Pages : gratuit, fiable, maintenu par Microsoft. Vous ne payez que le domaine (~15 €/an)." },
-  { titre: "Optimisé pour le SEO",          desc: "Structure sémantique, balises méta, Google Business, Search Console, tout est configuré dès la livraison." },
-  { titre: "Responsive et rapide",          desc: "Mobile-first par défaut. Score Lighthouse élevé. Vos clients vous trouvent et restent sur votre site." },
-  { titre: "Clé en main, vraiment",         desc: "Domaine, DNS, emails pro, analytics, tout est opérationnel le jour J. Zéro configuration de votre côté." },
-  { titre: "Interlocuteur unique",          desc: "Pas de chef de projet + développeur + graphiste. Une seule personne, du devis à la livraison." },
+  { titre: "En ligne avant la fin du mois",  desc: "Pas de projet qui traîne 3 mois. Vos clients vous trouvent en 2 semaines." },
+  { titre: "Zéro abonnement mensuel",       desc: "Votre site tourne 24h/24 sans rien payer chaque mois. Vous êtes propriétaire pour toujours." },
+  { titre: "Google vous montre à vos futurs clients", desc: "Quand quelqu'un cherche votre métier près de chez vous, c'est votre site qui apparaît." },
+  { titre: "Vos clients vous trouvent sur mobile", desc: "Votre site s'affiche aussi bien sur un téléphone que sur un ordinateur, et il charge en moins d'une seconde." },
+  { titre: "Vous n'avez rien à faire",      desc: "Votre adresse web, vos emails pro, votre visibilité Google : tout fonctionne le jour de la livraison." },
+  { titre: "Une seule personne, du début à la fin", desc: "Pas de relais entre 3 interlocuteurs. Vous parlez toujours à la même personne, celle qui construit votre site." },
 ];
 ---
 
@@ -66,7 +66,7 @@ const benefices = [
         <span class="eyebrow-line" aria-hidden="true"></span>
       </div>
       <h1 class="service-h1">Votre site web professionnel,<br /><span class="hero-serif">livré en 2 semaines.</span></h1>
-      <p class="service-sub">Sites statiques ultra-rapides, hébergement gratuit, SEO intégré. À partir de 290 €, sans mauvaise surprise.</p>
+      <p class="service-sub">Vos clients vous trouvent sur Google, vous contactent directement et reviennent. En ligne avant la fin du mois, à partir de 290 €.</p>
       <div class="hero-ctas">
         <a href="/contact/" class="btn btn-primary btn-lg">Demander un devis →</a>
         <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
@@ -78,7 +78,7 @@ const benefices = [
   <section class="section">
     <div class="container">
       <span class="section-label fade-in">Trois formules</span>
-      <h2 class="section-title fade-in">Quel type de site vous faut-il ?</h2>
+      <h2 class="section-title fade-in">Quel résultat attendez-vous ?</h2>
       <div class="grid-3 fade-in" style="margin-top:48px;">
         {sousServices.map(s => (
           <a href={s.href} class="card service-card sous-service-card">
@@ -117,15 +117,15 @@ const benefices = [
       <div class="stack-grid fade-in">
         <div>
           <span class="section-label">Technique</span>
-          <h2 class="section-title">Pourquoi des sites statiques ?</h2>
-          <p class="section-subtitle">Un site WordPress nécessite un serveur PHP, une base de données, des mises à jour régulières, et coûte 20 à 50 €/mois d'hébergement. Un site statique n'a besoin de rien de tout ça.</p>
+          <h2 class="section-title">Pourquoi votre site sera plus rapide et moins cher ?</h2>
+          <p class="section-subtitle">Les plateformes classiques vous coûtent 20 à 50 € par mois d'abonnement, nécessitent des mises à jour constantes et ralentissent votre site. La technologie que j'utilise élimine tout ça.</p>
           <ul class="stack-liste" style="margin-top:24px;">
             {[
-              "Temps de chargement 2–5× plus rapide",
-              "Zéro faille de sécurité WordPress/PHP",
-              "Hébergement GitHub Pages totalement gratuit",
-              "Sauvegarde automatique via Git",
-              "Score Lighthouse > 90 par défaut",
+              "Votre site charge 2 à 5 fois plus vite",
+              "Aucune faille de sécurité à surveiller",
+              "Zéro abonnement mensuel pour l'hébergement",
+              "Sauvegarde automatique de chaque modification",
+              "Visible sur Google dès la mise en ligne",
             ].map(item => (
               <li class="stack-item">
                 <span class="stack-dot" aria-hidden="true"></span>
@@ -142,7 +142,7 @@ const benefices = [
             ))}
           </div>
           <div class="versus-col versus-col-us">
-            <div class="versus-titre">aurore (statique)</div>
+            <div class="versus-titre">aurore</div>
             {["0 € d'hébergement","Aucune mise à jour serveur","Sécurisé par nature","Chargement < 1 s","Code livré, vous êtes propriétaire"].map(i => (
               <div class="versus-item"><span aria-hidden="true">✓</span>{i}</div>
             ))}
@@ -174,7 +174,7 @@ const benefices = [
   <section class="section">
     <div class="container">
       <div class="cta-section fade-in">
-        <h2>Prêt à créer votre site web ?</h2>
+        <h2>Prêt à être trouvé par vos futurs clients ?</h2>
         <p>Décrivez votre projet en 2 minutes. Je vous réponds sous 48h avec un devis détaillé.</p>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
           <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis gratuit →</a>
