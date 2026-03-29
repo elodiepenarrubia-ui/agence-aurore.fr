@@ -5,7 +5,7 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "Référencement SEO",
-  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "provider": { "@type": "ProfessionalService", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
   "areaServed": "France",
   "description": "Référencement SEO on-page pour TPE et indépendants : balises, structure, Schema.org, Google Business, Search Console. Inclus dans tous les packs site web. À la carte à partir de 60 €.",
   "offers": [
@@ -44,7 +44,7 @@ const faqSchema = {
     <div class="container">
       <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Référencement SEO · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
       <h1 class="service-h1">Être trouvé sur Google,<br /><span class="hero-serif">sans y penser.</span></h1>
-      <p class="service-sub">Un site invisible sur Google est un site inutile. Chaque page livrée est optimisée pour les moteurs de recherche, technique, locale et structurelle.</p>
+      <p class="service-sub">Un site que personne ne trouve est un site inutile. Je fais en sorte que vos futurs clients vous trouvent quand ils cherchent votre métier sur Google.</p>
       <div class="hero-ctas">
         <a href="/contact/" class="btn btn-primary btn-lg">Améliorer mon référencement →</a>
         <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
@@ -56,12 +56,12 @@ const faqSchema = {
   <section class="section">
     <div class="container">
       <span class="section-label fade-in">Ce qui est optimisé</span>
-      <h2 class="section-title fade-in">Le SEO n'est pas magique.<br />C'est méthodique.</h2>
+      <h2 class="section-title fade-in">Ce n'est pas de la magie.<br />C'est du travail bien fait.</h2>
       <div class="seo-grid fade-in" style="margin-top:48px;">
         {[
-          { label:"Technique",   items:["Balises title et meta description","Structure des titres (H1 → H6)","Vitesse de chargement (Core Web Vitals)","HTTPS et sécurité","Sitemap XML + robots.txt","URLs propres et canoniques"] },
-          { label:"Sémantique",  items:["Balisage Schema.org JSON-LD","Données structurées Service, FAQ, LocalBusiness","Open Graph pour les réseaux sociaux","Textes alt sur toutes les images","Maillage interne cohérent","Contenu structuré autour des mots-clés cibles"] },
-          { label:"Local",       items:["Fiche Google Business créée et optimisée","Photos, catégories, horaires, description","Google Search Console connectée","Indexation vérifiée et soumise","Positionnement géographique ciblé","Suivi des performances mensuelles"] },
+          { label:"Technique",   items:["Votre activité clairement décrite pour Google","Un contenu organisé que Google comprend facilement","Un site rapide qui ne fait pas fuir vos visiteurs","Un site sécurisé qui inspire confiance","Google explore et indexe toutes vos pages correctement","Des adresses web claires et professionnelles"] },
+          { label:"Sémantique",  items:["Google comprend exactement ce que vous faites et pour qui","Vos services, vos questions fréquentes et votre adresse apparaissent directement dans Google","Un aperçu professionnel quand on partage votre site","Vos images aussi travaillent pour votre référencement","Vos visiteurs naviguent naturellement d'une page à l'autre","Votre contenu répond aux questions que se posent vos futurs clients"] },
+          { label:"Local",       items:["Vous apparaissez quand quelqu'un cherche votre métier près de chez vous","Votre fiche complète avec toutes les infos utiles pour vos clients","Vous voyez exactement combien de personnes vous trouvent sur Google","Votre site est bien pris en compte par Google","Vous ciblez les clients de votre ville et de votre région","Vous suivez vos résultats mois après mois"] },
         ].map(col => (
           <div class="seo-col card">
             <div class="seo-col-label">{col.label}</div>
@@ -86,8 +86,8 @@ const faqSchema = {
         <div>
           <span class="section-label">SEO local</span>
           <h2 class="section-title">Vos clients vous cherchent<br />près de chez eux.</h2>
-          <p class="section-subtitle" style="margin-top:16px;">75 % des recherches sur mobile incluent une intention locale. "Ostéopathe Marseille", "artisan plombier 13", "coach sportif près de moi", ce sont ces requêtes qui amènent des clients réels, pas des visiteurs.</p>
-          <p style="font-size:15px;line-height:1.7;color:var(--gray-500);margin-top:16px;">La fiche Google Business est souvent le premier point de contact. Elle doit être complète, précise et régulièrement mise à jour. C'est ce qui détermine si vous apparaissez dans le "pack local" en tête des résultats.</p>
+          <p class="section-subtitle" style="margin-top:16px;">3 recherches sur 4 sur téléphone incluent une ville ou "près de moi". "Ostéopathe Marseille", "plombier Aix-en-Provence", "coach sportif près de moi" : ce sont ces recherches qui amènent des clients concrets, pas des visiteurs.</p>
+          <p style="font-size:15px;line-height:1.7;color:var(--gray-500);margin-top:16px;">Votre fiche Google est souvent la première chose que voient vos futurs clients. Elle doit être complète, précise et régulièrement mise à jour. C'est elle qui détermine si vous apparaissez en tête des résultats locaux.</p>
         </div>
         <div class="local-visual card" aria-hidden="true">
           <div class="serp-mock">
@@ -111,11 +111,11 @@ const faqSchema = {
       <h2 class="section-title fade-in">Ce que ça change pour votre activité.</h2>
       <div class="grid-3 fade-in" style="margin-top:48px;">
         {[
-          { titre:"Des visiteurs qui cherchent vraiment",   desc:"Contrairement à la publicité, le SEO attire des gens qui cherchent activement ce que vous proposez. La conversion est naturellement plus élevée." },
+          { titre:"Des visiteurs qui cherchent vraiment",   desc:"Contrairement à la publicité, le référencement attire des gens qui cherchent activement ce que vous proposez. Ce sont des clients potentiels, pas des curieux." },
           { titre:"Un trafic gratuit et durable",           desc:"Une fois positionné, votre visibilité ne disparaît pas dès que vous arrêtez de payer. C'est un actif que vous construisez dans le temps." },
           { titre:"Crédibilité par l'association",          desc:"Apparaître en haut de Google envoie un signal de confiance. Les clients font confiance aux sites bien référencés." },
-          { titre:"Présence 24h/24 sur Google Maps",        desc:"Votre fiche Google Business permet à des clients de vous trouver, lire vos avis et prendre contact même quand vous ne travaillez pas." },
-          { titre:"Mesure précise des résultats",           desc:"Google Search Console vous montre exactement quelles requêtes génèrent du trafic, depuis quelles pages et depuis quelles villes." },
+          { titre:"Présence 24h/24 sur Google Maps",        desc:"Votre fiche Google permet à vos clients de vous trouver, lire vos avis et vous contacter même quand vous ne travaillez pas." },
+          { titre:"Mesure précise des résultats",           desc:"Vous voyez exactement quelles recherches amènent des visiteurs sur votre site, depuis quelles villes et sur quelles pages." },
           { titre:"Avantage concurrentiel local",           desc:"La majorité des TPE et indépendants n'ont pas de SEO correctement configuré. Bien faire les bases vous place immédiatement devant eux." },
         ].map(b => (
           <div class="card">
