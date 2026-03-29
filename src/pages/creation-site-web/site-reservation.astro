@@ -31,13 +31,23 @@ const faqSchema = {
       "acceptedAnswer": { "@type": "Answer", "text": "Je crée et configure votre compte Stripe lors de la livraison. Vous n'avez qu'à vérifier votre identité (processus standard) et renseigner votre IBAN pour recevoir les paiements. Le reste est géré automatiquement." }},
   ],
 };
+
+const catalogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Site web avec réservation en ligne",
+  "description": "Création de site web avec prise de rendez-vous et paiement en ligne via Stripe. Idéal pour thérapeutes, coachs, restaurants et prestataires de services.",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
+  "areaServed": "France",
+  "offers": { "@type": "Offer", "name": "Pack Pro avec réservation", "price": "1290", "priceCurrency": "EUR", "description": "Site avec réservation en ligne, paiement Stripe, blog, automatisations et espace rédaction." }
+};
 ---
 
 <BaseLayout
   title="Site web avec réservation en ligne, Paiement Stripe intégré | aurore"
-  description="Créez votre site avec réservation en ligne et paiement sécurisé. Système automatisé d'emails, gestion des RDV, Stripe intégré. Dès 1 400 €, livraison 2 semaines."
+  description="Créez votre site avec réservation en ligne et paiement sécurisé. Système automatisé d'emails, gestion des RDV, Stripe intégré. Dès 1 290 €, livraison 2 semaines."
   slug="creation-site-web/site-reservation"
-  schema={[serviceSchema, faqSchema]}
+  schema={[serviceSchema, faqSchema, catalogSchema]}
 >
 
   <section class="service-hero section-aurora-gradient">

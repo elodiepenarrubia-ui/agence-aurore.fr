@@ -27,13 +27,23 @@ const faqSchema = {
       "acceptedAnswer": { "@type": "Answer", "text": "Si vous avez besoin de gérer des données (clients, stocks, réservations complexes, workflows internes) avec une logique spécifique à votre activité, un logiciel métier est plus adapté. Si vous avez besoin d'une présence en ligne pour vous faire connaître et prendre contact, un site vitrine suffit. En cas de doute, la session de cadrage vous permet de trancher sans engagement." }},
   ],
 };
+
+const catalogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Développement de logiciel métier",
+  "description": "Développement d'applications web métier sur mesure pour TPE : outils de gestion, tableaux de bord, automatisation. Démarrage par une session de cadrage.",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
+  "areaServed": "France",
+  "offers": { "@type": "Offer", "name": "Session de cadrage", "price": "300", "priceCurrency": "EUR", "description": "Session de cadrage pour définir le périmètre, l'architecture et produire un devis précis. Déduit du prix final si signature." }
+};
 ---
 
 <BaseLayout
   title="Logiciel métier sur mesure, Application web pour TPE | aurore"
   description="Développement d'applications web métier sur mesure : outils de gestion, tableaux de bord, automatisation. Cadrage 300 € déduit si projet signé. aurore, France."
   slug="creation-site-web/logiciel-metier"
-  schema={[serviceSchema, faqSchema]}
+  schema={[serviceSchema, faqSchema, catalogSchema]}
 >
 
   <section class="service-hero section-aurora-gradient">

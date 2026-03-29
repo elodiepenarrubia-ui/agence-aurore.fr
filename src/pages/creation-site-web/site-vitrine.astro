@@ -40,13 +40,23 @@ const benefices = [
   { titre: "0 € d'hébergement à vie",       desc: "GitHub Pages est gratuit et fiable. Votre seul coût récurrent : le nom de domaine (~15 €/an)." },
   { titre: "Livré en 2 semaines",           desc: "Pas de projet interminable. Du briefing initial à la mise en ligne : 14 jours maximum." },
 ];
+
+const catalogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Création de site vitrine",
+  "description": "Site vitrine professionnel pour artisans et indépendants. SEO on-page, fiche Google Business, emails pro et hébergement inclus. Livraison en 2 semaines.",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
+  "areaServed": "France",
+  "offers": { "@type": "Offer", "name": "Pack Vitrine", "price": "690", "priceCurrency": "EUR", "description": "Site vitrine jusqu'à 6 pages avec blog, espace rédaction, SEO et fiche Google Business." }
+};
 ---
 
 <BaseLayout
   title="Création de site vitrine professionnel, À partir de 690 € | aurore"
   description="Site vitrine professionnel pour artisans et indépendants. SEO, fiche Google, emails pro, hébergement gratuit. Livraison en 2 semaines. À partir de 690 €. aurore, Aix-en-Provence."
   slug="creation-site-web/site-vitrine"
-  schema={[serviceSchema, faqSchema]}
+  schema={[serviceSchema, faqSchema, catalogSchema]}
 >
 
   <section class="service-hero section-aurora-gradient">

@@ -30,13 +30,30 @@ const faqSchema = {
       "acceptedAnswer": { "@type": "Answer", "text": "La création de logo (+150 €) et la charte graphique (+100 €) sont disponibles en option avec chaque pack (Starter, Vitrine, Pro ou Migration). Elles ne sont pas proposées comme prestations indépendantes. Vous recevez tous les fichiers sources et pouvez les utiliser librement sur tous vos supports." }},
   ],
 };
+
+const catalogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Création d'identité visuelle",
+  "description": "Création de logo et charte graphique sur mesure pour artisans et indépendants. Option disponible avec chaque pack de création ou migration de site.",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
+  "areaServed": "France",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Options identité visuelle",
+    "itemListElement": [
+      { "@type": "Offer", "name": "Création de logo", "price": "150", "priceCurrency": "EUR", "description": "Création de logo sur mesure, livré en formats SVG, PNG et PDF." },
+      { "@type": "Offer", "name": "Charte graphique", "price": "100", "priceCurrency": "EUR", "description": "Charte graphique complète : couleurs, typographies, règles d'usage." }
+    ]
+  }
+};
 ---
 
 <BaseLayout
   title="Création d'identité visuelle, Logo et charte graphique | aurore"
   description="Création de logo et charte graphique sur mesure pour artisans et indépendants. 2 propositions, retouches incluses, fichiers sources livrés. À partir de 150 €. aurore, France."
   slug="identite-visuelle"
-  schema={[serviceSchema, faqSchema]}
+  schema={[serviceSchema, faqSchema, catalogSchema]}
 >
 
   <section class="service-hero section-aurora-gradient">

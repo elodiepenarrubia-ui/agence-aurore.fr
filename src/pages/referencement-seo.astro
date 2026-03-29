@@ -31,13 +31,31 @@ const faqSchema = {
       "acceptedAnswer": { "@type": "Answer", "text": "L'optimisation technique et on-page est incluse dans toutes les formules. La rédaction d'articles de blog et la stratégie de contenu longue durée ne font pas partie des offres actuelles, mais un blog est intégré à la formule Pro pour que vous puissiez publier vous-même. C'est souvent la meilleure approche : vous connaissez votre métier mieux que n'importe quel rédacteur." }},
   ],
 };
+
+const catalogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Référencement SEO local",
+  "description": "Optimisation SEO on-page, fiche Google Business et Google Search Console pour artisans et indépendants. Visibilité locale garantie.",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
+  "areaServed": "France",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Offres SEO",
+    "itemListElement": [
+      { "@type": "Offer", "name": "SEO on-page", "price": "150", "priceCurrency": "EUR", "description": "Optimisation complète des balises, structure, Schema.org et vitesse de chargement." },
+      { "@type": "Offer", "name": "Fiche Google Business", "price": "90", "priceCurrency": "EUR", "description": "Création et optimisation complète de votre fiche Google Business pour la visibilité locale." },
+      { "@type": "Offer", "name": "Google Search Console", "price": "60", "priceCurrency": "EUR", "description": "Configuration et connexion de Google Search Console pour suivre votre visibilité sur Google." }
+    ]
+  }
+};
 ---
 
 <BaseLayout
   title="Référencement SEO, Google Business et SEO on-page | aurore"
   description="Référencement SEO local pour artisans et indépendants : optimisation on-page, fiche Google Business, Search Console. Inclus dans tous les packs web. aurore, France."
   slug="referencement-seo"
-  schema={[serviceSchema, faqSchema]}
+  schema={[serviceSchema, faqSchema, catalogSchema]}
 >
 
   <section class="service-hero section-aurora-gradient">

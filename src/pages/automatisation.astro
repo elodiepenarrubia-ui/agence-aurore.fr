@@ -29,13 +29,23 @@ const faqSchema = {
       "acceptedAnswer": { "@type": "Answer", "text": "Oui, c'est exactement le type de scénarios couverts. Par exemple : chaque nouveau contact de votre formulaire web est ajouté automatiquement à votre base Airtable, ou chaque réservation génère une ligne dans un Google Sheet partagé avec votre comptable. La condition est que l'outil cible dispose d'une API ou d'une intégration compatible." }},
   ],
 };
+
+const catalogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Automatisation et emails transactionnels",
+  "description": "Automatisation de vos processus métier : emails de confirmation, rappels, notifications et workflows sur mesure pour TPE et indépendants.",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
+  "areaServed": "France",
+  "offers": { "@type": "Offer", "name": "Automatisation sur mesure", "price": "100", "priceCurrency": "EUR", "description": "Création d'une automatisation sur mesure : email, workflow, notification ou intégration." }
+};
 ---
 
 <BaseLayout
   title="Automatisation et emails transactionnels, Workflows sur mesure | aurore"
   description="Automatisez vos processus : emails de confirmation, rappels, notifications, intégrations Notion, Airtable, Google Sheets. À partir de 100 € par automatisation. aurore, France."
   slug="automatisation"
-  schema={[serviceSchema, faqSchema]}
+  schema={[serviceSchema, faqSchema, catalogSchema]}
 >
 
   <section class="service-hero section-aurora-gradient">

@@ -54,13 +54,23 @@ const faqMigration = [
   { q: "Vais-je devoir tout réécrire depuis zéro ?", r: "Non. On récupère intégralement votre contenu existant : textes, images, pages, articles de blog. On l'optimise et on le restructure sur une base technique moderne. Vous ne repartez pas de zéro, vous améliorez ce qui existe." },
   { q: "Pourquoi migrer maintenant plutôt que d'attendre ?", r: "Chaque mois que vous restez sur Wix ou Squarespace est un mois d'abonnement payé pour un site qui ne vous appartient pas. En migrant, vous arrêtez immédiatement ces frais récurrents et vous gagnez en performances SEO. Le coût de la migration est souvent amorti en moins d'un an d'abonnements économisés." },
 ];
+
+const catalogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Migration de site web",
+  "description": "Migration de site WordPress, Wix ou Squarespace vers un site rapide, sécurisé et sans abonnement. Conservation du SEO et du domaine.",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
+  "areaServed": "France",
+  "offers": { "@type": "Offer", "name": "Migration site web", "price": "190", "priceCurrency": "EUR", "description": "Migration complète depuis WordPress, Wix ou Squarespace. Conservation du domaine, du contenu et du SEO." }
+};
 ---
 
 <BaseLayout
   title="Migration WordPress, Wix, Squarespace → code propre | aurore"
   description="Migrez votre site WordPress, Wix ou Squarespace pour 190 €. Arrêtez de payer un abonnement mensuel. Hébergement gratuit, code en propre."
   slug="migration"
-  schema={schema}
+  schema={[...schema, catalogSchema]}
 >
 
   <!-- ─── HERO ─── -->

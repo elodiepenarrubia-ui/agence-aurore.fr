@@ -48,13 +48,31 @@ const benefices = [
   { titre: "Vous n'avez rien à faire",      desc: "Votre adresse web, vos emails pro, votre visibilité Google : tout fonctionne le jour de la livraison." },
   { titre: "Une seule personne, du début à la fin", desc: "Pas de relais entre 3 interlocuteurs. Vous parlez toujours à la même personne, celle qui construit votre site." },
 ];
+
+const catalogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Création de site web",
+  "description": "Création de site web clé en main pour artisans, thérapeutes et indépendants. SEO, fiche Google Business et hébergement inclus. Livraison en 2 semaines.",
+  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
+  "areaServed": "France",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Offres création de site web",
+    "itemListElement": [
+      { "@type": "Offer", "name": "Pack Starter", "price": "290", "priceCurrency": "EUR", "description": "Site 3 pages, domaine, emails pro, SEO on-page, fiche Google Business inclus." },
+      { "@type": "Offer", "name": "Pack Vitrine", "price": "690", "priceCurrency": "EUR", "description": "Jusqu'à 6 pages, blog, espace rédaction, SEO avancé, fiche Google Business inclus." },
+      { "@type": "Offer", "name": "Pack Pro", "price": "1290", "priceCurrency": "EUR", "description": "Jusqu'à 10 pages, réservation en ligne, paiement Stripe, blog, automatisations inclus." }
+    ]
+  }
+};
 ---
 
 <BaseLayout
   title="Création de site web Aix-en-Provence, Site vitrine, réservation | aurore"
   description="Aurore crée votre site web à Aix-en-Provence et partout en France : Starter dès 290 €, Vitrine 690 €, Pro 1 290 €. SEO et fiche Google inclus. Hébergement gratuit, livraison 2 semaines."
   slug="creation-site-web"
-  schema={[serviceSchema, faqSchema]}
+  schema={[serviceSchema, faqSchema, catalogSchema]}
 >
 
   <!-- ─── HERO ─── -->
