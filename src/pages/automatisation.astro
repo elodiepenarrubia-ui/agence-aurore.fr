@@ -5,7 +5,7 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "Automatisation et emails transactionnels",
-  "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "provider": { "@type": "ProfessionalService", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
   "areaServed": "France",
   "description": "Automatisation de vos processus : emails transactionnels, notifications, rappels, intégrations d'outils. À partir de 100 € par automatisation. aurore, France.",
   "offers": [
@@ -42,7 +42,7 @@ const faqSchema = {
     <div class="container">
       <div class="hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Automatisation · aurore<span class="eyebrow-line" aria-hidden="true"></span></div>
       <h1 class="service-h1">Les tâches répétitives,<br /><span class="hero-serif">faites sans vous.</span></h1>
-      <p class="service-sub">Emails de confirmation, rappels, exports, notifications, tout ce que vous faites manuellement et qui prend du temps peut être automatisé.</p>
+      <p class="service-sub">Emails de confirmation, rappels de rendez-vous, exports, notifications : tout ce que vous faites manuellement et qui vous prend du temps, votre site le fait maintenant tout seul.</p>
       <div class="hero-ctas">
         <a href="/contact/" class="btn btn-primary btn-lg">Automatiser mon activité →</a>
         <a href="#exemples" class="btn btn-outline btn-lg">Voir des exemples</a>
@@ -54,15 +54,15 @@ const faqSchema = {
   <section class="section" id="exemples">
     <div class="container">
       <span class="section-label fade-in">Exemples concrets</span>
-      <h2 class="section-title fade-in">Ce qu'on peut automatiser<br />pour vous.</h2>
+      <h2 class="section-title fade-in">Ce que votre site peut faire<br />pendant que vous travaillez.</h2>
       <div class="grid-3 fade-in" style="margin-top:48px;">
         {[
-          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>', titre:"Email de confirmation",      desc:"Chaque nouveau formulaire déclenche un email automatique à votre client et une notification à vous. Immédiat, professionnel." },
-          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>', titre:"Rappel de rendez-vous",      desc:"24h avant chaque RDV, votre client reçoit un rappel automatique. Moins de no-shows, moins d'appels pour confirmer." },
-          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>', titre:"Export Google Sheets",       desc:"Chaque réservation, chaque paiement ou chaque contact est ajouté automatiquement à votre tableau de bord partagé." },
-          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>', titre:"Synchronisation Airtable",   desc:"Vos contacts web arrivent directement dans votre base Airtable, triés et catégorisés selon le type de demande." },
-          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>', titre:"Notification Slack/Discord",  desc:"Un client réserve ou envoie un message ? Vous êtes notifié instantanément sur l'outil de communication de votre équipe." },
-          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>', titre:"Suivi des paiements",        desc:"Chaque paiement Stripe déclenche un email de reçu, une mise à jour dans votre outil de suivi et une notification comptable." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>', titre:"Email de confirmation",      desc:"Chaque prospect reçoit une réponse immédiate, même le dimanche à 23h. Vous êtes notifié en temps réel." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>', titre:"Rappel de rendez-vous",      desc:"24h avant chaque rendez-vous, votre client reçoit un rappel. Résultat : moins d'absences et plus aucun appel de confirmation à passer." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>', titre:"Export Google Sheets",       desc:"Chaque réservation, chaque paiement ou chaque contact est ajouté automatiquement à votre tableau de suivi. Zéro saisie manuelle." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>', titre:"Synchronisation Airtable",   desc:"Vos contacts web arrivent directement dans votre base de données, triés et catégorisés. Vous ne perdez plus aucune information." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>', titre:"Notification Slack/Discord",  desc:"Un client réserve ou envoie un message ? Vous êtes prévenu instantanément sur votre téléphone ou votre outil préféré." },
+          { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>', titre:"Suivi des paiements",        desc:"Chaque paiement déclenche un reçu automatique pour votre client et une notification pour votre comptabilité. Tout est tracé." },
         ].map(c => (
           <div class="card auto-card">
             <div class="auto-icon" aria-hidden="true" set:html={c.icon}></div>
@@ -115,10 +115,10 @@ const faqSchema = {
       <h2 class="section-title fade-in">Du temps récupéré,<br />des erreurs évitées.</h2>
       <div class="grid-2 fade-in" style="margin-top:48px;">
         {[
-          { titre:"Zéro oubli",                    desc:"Une automatisation ne tombe jamais malade, ne part pas en vacances et n'oublie pas d'envoyer l'email de confirmation. Chaque action est déclenchée systématiquement." },
-          { titre:"Image professionnelle immédiate", desc:"Un email de confirmation bien conçu qui part en secondes envoie un signal fort : votre activité est organisée et réactive, même si c'est vous seul qui gérez tout." },
+          { titre:"Zéro oubli",                    desc:"Une automatisation ne tombe jamais malade et n'oublie jamais d'envoyer l'email de confirmation. Chaque action se déclenche systématiquement, 7 jours sur 7." },
+          { titre:"Image professionnelle immédiate", desc:"Un email de confirmation qui part en secondes envoie un signal fort : votre activité est organisée et réactive. Même si c'est vous seul qui gérez tout." },
           { titre:"Moins de charge mentale",         desc:"Ne plus avoir à penser à 'est-ce que j'ai envoyé la confirmation ?' ou 'il faut que je notifie X' libère de l'énergie pour ce qui compte vraiment." },
-          { titre:"Scalabilité sans effort",         desc:"Que vous ayez 2 ou 20 réservations par semaine, l'automatisation tourne de la même façon. Vous grandissez sans devoir ajouter du temps administratif." },
+          { titre:"Scalabilité sans effort",         desc:"Que vous ayez 2 ou 20 réservations par semaine, tout fonctionne de la même façon. Votre activité grandit sans ajouter du travail administratif." },
         ].map(b => (
           <div class="card">
             <h3 style="font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-bottom:8px;">{b.titre}</h3>
@@ -133,11 +133,11 @@ const faqSchema = {
   <section class="section" style="background:var(--gray-50);">
     <div class="container" style="max-width:640px;">
       <span class="section-label fade-in">Tarif</span>
-      <h2 class="section-title fade-in">Simple comme une automatisation.</h2>
+      <h2 class="section-title fade-in">Un prix, un résultat.</h2>
       <div class="tarif-auto card fade-in" style="margin-top:40px;text-align:center;padding:40px;">
         <div class="pricing-price" style="margin-bottom:8px;"><span class="pricing-currency">€</span><span class="pricing-amount">100</span></div>
         <div style="font-size:15px;font-weight:600;color:var(--black);margin-bottom:12px;">par automatisation</div>
-        <p style="font-size:14px;color:var(--gray-500);line-height:1.65;max-width:400px;margin:0 auto 24px;">Une automatisation = un scénario complet, testé, documenté et opérationnel. Pas de frais mensuels ni de licence supplémentaire de notre côté.</p>
+        <p style="font-size:14px;color:var(--gray-500);line-height:1.65;max-width:400px;margin:0 auto 24px;">Un scénario complet, testé et opérationnel. Pas de frais mensuels, pas de surprise.</p>
         <div class="tarif-inclus">
           {["Analyse de votre processus","Configuration sur mesure","Tests de bout en bout","Documentation remise","Mise en production"].map(f => (
             <div class="tarif-inclus-item">
