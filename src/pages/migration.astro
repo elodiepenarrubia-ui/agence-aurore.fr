@@ -31,21 +31,21 @@ const plateformes = [
 
 const inclus = [
   { icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>', label: 'Récupération du contenu existant (textes, images)' },
-  { icon: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>', label: 'Reconstruction en code Astro propre' },
-  { icon: '<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>', label: 'Conservation de votre nom de domaine' },
-  { icon: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>', label: 'Configuration hébergement gratuit' },
-  { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'Mise en ligne et vérification' },
+  { icon: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>', label: 'Reconstruction en site rapide et léger' },
+  { icon: '<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>', label: 'Vous gardez votre adresse web actuelle' },
+  { icon: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>', label: 'Votre site tourne sans abonnement mensuel' },
+  { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'Mise en ligne et vérification complète' },
 ];
 
 const options = [
-  { label: 'SEO on-page', prix: '150 €' },
+  { label: 'Visibilité Google', prix: '150 €' },
   { label: 'Logo professionnel', prix: '150 €' },
   { label: 'Formulaire de contact', prix: '60 €' },
-  { label: 'Espace rédaction (CMS)', prix: '150 €' },
+  { label: 'Publiez vos contenus vous-même', prix: '150 €' },
 ];
 
 const faqMigration = [
-  { q: "Que comprend la migration à 190 € ?", r: "Récupération de votre contenu existant (textes, images), reconstruction en code Astro propre, conservation de votre domaine, configuration hébergement gratuit et mise en ligne." },
+  { q: "Que comprend la migration à 190 € ?", r: "Récupération de votre contenu existant (textes, images), reconstruction en site rapide et léger, conservation de votre domaine, configuration hébergement gratuit et mise en ligne." },
   { q: "Est-ce que je perds mon référencement en migrant ?", r: "Non. Les URLs sont conservées ou redirigées, et le code propre améliore généralement les performances et donc le SEO." },
   { q: "Combien de temps prend une migration ?", r: "En moyenne 5 à 7 jours ouvrés selon la taille du site." },
   { q: "Est-ce que je garde mon nom de domaine ?", r: "Oui, absolument. Votre domaine est transféré ou reconfiguré pour pointer vers votre nouveau site." },
@@ -72,8 +72,8 @@ const faqMigration = [
         <span class="hero-serif">Possédez-le.</span>
       </h1>
       <p class="mig-sub">
-        Je migre votre site WordPress, Wix ou Squarespace vers du code pur.
-        Vous arrêtez de payer un abonnement. Pour toujours.
+        Vous payez 17 à 50 € par mois pour un site qui ne vous appartient pas.
+        Je récupère tout votre contenu et le reconstruis proprement. Vous arrêtez de payer pour toujours.
       </p>
       <div class="mig-ctas">
         <a href="/contact/?type=migration" class="btn btn-aurora btn-lg">Demander ma migration →</a>
@@ -86,7 +86,7 @@ const faqMigration = [
   <section class="section">
     <div class="container" style="max-width:820px;">
       <span class="section-label">L'offre</span>
-      <h2 class="section-title">Ce qui est inclus dans la migration à 190 €</h2>
+      <h2 class="section-title">Pour 190 €, vous arrêtez de payer un abonnement qui vous coûte des centaines d'euros par an</h2>
 
       <div class="mig-inclus">
         {inclus.map(item => (
@@ -103,7 +103,7 @@ const faqMigration = [
         <div class="mig-prix-tag">190 €</div>
         <div class="mig-prix-detail">
           <span>Prix unique, tout inclus</span>
-          <span class="mig-prix-note">Puis 0 € / mois — seulement ~15 €/an pour le domaine</span>
+          <span class="mig-prix-note">Puis 0 € par mois. Vos seuls frais : ~15 €/an pour le domaine</span>
         </div>
       </div>
     </div>
@@ -114,7 +114,7 @@ const faqMigration = [
     <div class="container" style="max-width:820px;">
       <span class="section-label">Les chiffres</span>
       <h2 class="section-title">Ce que vous économisez</h2>
-      <p class="section-subtitle">Votre abonnement actuel cumulé sur 3 ans, comparé à une migration unique à 190 €.</p>
+      <p class="section-subtitle">Votre abonnement actuel vous coûte des centaines d'euros par an. Voici ce que vous perdez en restant.</p>
 
       <div class="mig-table">
         <div class="mig-table-head">
@@ -162,7 +162,7 @@ const faqMigration = [
       <div class="cta-section">
         <span class="section-label" style="color:var(--aurora);">Faites le calcul</span>
         <h2>Combien vous coûte votre site aujourd'hui ?</h2>
-        <p>Comparez votre abonnement actuel avec un investissement unique aurore. Résultat en 30 secondes.</p>
+        <p>Combien avez-vous déjà payé en abonnements pour un site qui ne vous appartient pas ? Faites le calcul en 30 secondes.</p>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px;">
           <a href="/simulateur/" class="btn btn-aurora btn-lg">Calculer mon économie →</a>
         </div>
