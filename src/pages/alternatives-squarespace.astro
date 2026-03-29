@@ -53,13 +53,13 @@ const faqSchema = {
 
 const comparatif = [
   { critere: "Prix",                     sqsp: "16–49 €/mois (192–588 €/an)", aurore: "Investissement unique 290–1 290 €" },
-  { critere: "Propriété du site",        sqsp: "Non, vous louez",              aurore: "Oui, code source inclus" },
-  { critere: "Hébergement",              sqsp: "Inclus dans l'abonnement",     aurore: "Gratuit à vie (GitHub Pages)" },
+  { critere: "Propriété du site",        sqsp: "Non, vous louez",              aurore: "Oui, le site vous appartient à 100 %" },
+  { critere: "Hébergement",              sqsp: "Inclus dans l'abonnement",     aurore: "Gratuit à vie, zéro abonnement" },
   { critere: "Templates",               sqsp: "Beaux mais fixes",             aurore: "100 % sur mesure" },
   { critere: "Flexibilité technique",   sqsp: "Très limitée",                 aurore: "Totale" },
-  { critere: "SEO",                      sqsp: "Basique",                      aurore: "Complet inclus" },
-  { critere: "Vitesse",                  sqsp: "Moyenne (JS lourd)",           aurore: "Ultra-rapide (site statique)" },
-  { critere: "Export du site",           sqsp: "Partiel uniquement",           aurore: "Code source livré" },
+  { critere: "SEO",                      sqsp: "Basique",                      aurore: "Visibilité Google complète incluse" },
+  { critere: "Vitesse",                  sqsp: "Moyenne (chargement lent)",    aurore: "Ultra-rapide (moins d'une seconde)" },
+  { critere: "Export du site",           sqsp: "Partiel uniquement",           aurore: "Le site vous appartient, vous en faites ce que vous voulez" },
   { critere: "Mention Squarespace",     sqsp: "Visible sur certains plans",   aurore: "Aucune" },
 ];
 
@@ -92,7 +92,7 @@ const blocages = [
   },
   {
     titre: "Vous voulez un vrai SEO technique",
-    desc: "Les options avancées — Schema.org personnalisé, optimisation de la vitesse, données structurées — ne sont pas disponibles.",
+    desc: "Les optimisations avancées pour que Google vous trouve ne sont pas disponibles.",
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="m8 11 2 2 4-4"/></svg>`
   },
 ];
@@ -103,7 +103,7 @@ const migrationPoints = [
     icon: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="var(--aurora-pale)"/><path d="M5.5 9.5l2 2L12.5 7" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
   },
   {
-    texte: "Reconstruction en code pur, rapide et léger",
+    texte: "Un site rapide et léger, reconstruit proprement",
     icon: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="var(--aurora-pale)"/><path d="M5.5 9.5l2 2L12.5 7" stroke="var(--aurora)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
   },
   {
@@ -134,7 +134,7 @@ const migrationPoints = [
       </div>
       <h1 class="sqsp-h1">Squarespace est élégant.<br />Mais vous ne serez jamais propriétaire.</h1>
       <p class="hero-serif">Ce que le design cache.</p>
-      <p class="sqsp-sub">Des templates magnifiques, une interface intuitive — et un abonnement mensuel à vie pour un site qui ne vous appartient pas. Voici la vérité sur Squarespace.</p>
+      <p class="sqsp-sub">Des templates magnifiques, une interface intuitive, et un abonnement mensuel à vie pour un site qui ne vous appartient pas. Chaque mois, vous perdez de l'argent.</p>
       <div class="hero-ctas">
         <a href="/simulateur/" class="btn btn-primary btn-lg">Calculer mon économie →</a>
         <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>
@@ -225,7 +225,7 @@ const migrationPoints = [
     <div class="container">
       <span class="section-label fade-in">Vous avez déjà un site Squarespace ?</span>
       <h2 class="section-title fade-in">Vous avez un site Squarespace ?<br />Migrez pour 190 €.</h2>
-      <p class="section-subtitle fade-in">Je récupère votre contenu existant, je le reconstruis en code pur. Vous gardez votre domaine, vos textes, vos images. Vous arrêtez de payer pour toujours.</p>
+      <p class="section-subtitle fade-in">Je récupère votre contenu existant et je le reconstruis proprement. Vous gardez votre domaine, vos textes, vos images. Vous arrêtez de payer pour toujours.</p>
 
       <div class="migration-points fade-in" style="margin-top: 40px;">
         {migrationPoints.map(item => (
