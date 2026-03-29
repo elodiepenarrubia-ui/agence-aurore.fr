@@ -64,9 +64,9 @@ const faqSchema = {
   <!-- ─── PROBLÈME ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Le problème</span>
-      <h2 class="section-title reveal">Sans site, vous êtes invisible.<br />Avec le mauvais site, vous perdez des clients.</h2>
-      <div class="lp-problems reveal-stagger">
+      <span class="section-label fade-in">Le problème</span>
+      <h2 class="section-title fade-in">Sans site, vous êtes invisible.<br />Avec le mauvais site, vous perdez des clients.</h2>
+      <div class="lp-problems fade-in">
         <div class="card lp-problem-card">
           <div class="lp-problem-icon" aria-hidden="true">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D94F00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
@@ -92,9 +92,9 @@ const faqSchema = {
   <!-- ─── CE QU'AURORE CRÉE ─── -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Ce qu'aurore crée pour vous</span>
-      <h2 class="section-title reveal">Un site pensé pour votre activité de coaching.</h2>
-      <div class="lp-features reveal-stagger">
+      <span class="section-label fade-in">Ce qu'aurore crée pour vous</span>
+      <h2 class="section-title fade-in">Un site pensé pour votre activité de coaching.</h2>
+      <div class="lp-features fade-in">
         {[
           { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`, title: "Design qui inspire confiance et autorité", desc: "Un site professionnel qui reflète la valeur de votre accompagnement et rassure vos prospects." },
           { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`, title: "Page de présentation de vos offres et programmes", desc: "Vos services, vos méthodes et vos résultats — présentés pour convaincre et convertir." },
@@ -116,10 +116,10 @@ const faqSchema = {
   <!-- ─── RÉALISATIONS & TÉMOIGNAGES ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Ils nous font confiance</span>
-      <h2 class="section-title reveal">Voici ce que nos clients retiennent de leur expérience avec aurore.</h2>
-      <div class="lp-testimonials reveal-stagger">
-        <div class="lp-realisation reveal">
+      <span class="section-label fade-in">Ils nous font confiance</span>
+      <h2 class="section-title fade-in">Voici ce que nos clients retiennent de leur expérience avec aurore.</h2>
+      <div class="lp-testimonials fade-in">
+        <div class="lp-realisation fade-in">
           <div class="lp-realisation-img">
             <img src="/delphine-1.webp" alt="Site web de Delphine Millot, massothérapeute à Brignoles, créé par aurore" loading="lazy" />
           </div>
@@ -133,7 +133,7 @@ const faqSchema = {
             <a href="/realisations/delphine-millot-massage-brignoles/" class="btn btn-link">Voir la réalisation complète →</a>
           </div>
         </div>
-        <div class="lp-realisation reveal">
+        <div class="lp-realisation fade-in">
           <div class="lp-realisation-img">
             <img src="/lemazarin-1.webp" alt="Site web de Le Mazarin, conciergerie à Aix-en-Provence, créé par aurore" loading="lazy" />
           </div>
@@ -154,9 +154,9 @@ const faqSchema = {
   <!-- ─── TARIFS ─── -->
   <section class="section section-aurora-gradient">
     <div class="container">
-      <span class="section-label reveal" style="color:var(--aurora);">Tarifs</span>
-      <h2 class="section-title reveal">Des tarifs clairs, sans surprise.</h2>
-      <div class="lp-pricing reveal-stagger">
+      <span class="section-label fade-in" style="color:var(--aurora);">Tarifs</span>
+      <h2 class="section-title fade-in">Des tarifs clairs, sans surprise.</h2>
+      <div class="lp-pricing fade-in">
         <div class="card lp-price-card">
           <div class="lp-price-badge">Starter</div>
           <div class="lp-price">290 <span>€</span></div>
@@ -194,9 +194,9 @@ const faqSchema = {
   <!-- ─── FAQ ─── -->
   <section class="section" id="faq">
     <div class="container" style="max-width:720px;">
-      <span class="section-label reveal">FAQ</span>
-      <h2 class="section-title reveal">Questions fréquentes.</h2>
-      <div class="faq-list reveal">
+      <span class="section-label fade-in">FAQ</span>
+      <h2 class="section-title fade-in">Questions fréquentes.</h2>
+      <div class="faq-list fade-in">
         {faqSchema.mainEntity.map((item: any) => (
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
@@ -287,27 +287,3 @@ const faqSchema = {
     .lp-realisation { grid-template-columns: 1fr; gap: 32px; }
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap === 'undefined') return; gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-
-    // Hero animation
-    // @ts-ignore
-    gsap.timeline({ delay: 0.1 })
-      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
-      .fromTo('.lp-h1', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
-      .fromTo('.hero-serif-line', { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.9, ease: 'power3.out' }, '-=0.4')
-      .fromTo('.lp-sub', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
-      .fromTo('.hero-ctas', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2');
-
-    // Scroll reveals
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el: any) => gsap.fromTo(el, { y: 40, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: { trigger: el, start: 'top 85%' }, duration: 1.1, ease: 'power2.out' }));
-    // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c: any) => gsap.fromTo(c.children, { y: 24, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: { trigger: c, start: 'top 80%' }, stagger: 0.15, duration: 0.55, ease: 'power2.out' }));
-
-  });
-</script>

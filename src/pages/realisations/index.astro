@@ -71,7 +71,7 @@ const itemListSchema = {
   <!-- ─── COMPTEUR ─── -->
   <section class="stats-bar">
     <div class="container">
-      <div class="stats-inner reveal-stagger">
+      <div class="stats-inner fade-in">
         <div class="stat">
           <span class="stat-value">2</span>
           <span class="stat-label">projets livrés</span>
@@ -100,7 +100,7 @@ const itemListSchema = {
     <div class="container">
       <div class="galerie-grid">
         {projets.map((projet, i) => (
-          <article class="projet-card reveal" style={`--card-accent: ${projet.couleur};`}>
+          <article class="projet-card fade-in" style={`--card-accent: ${projet.couleur};`}>
             <!-- Capture placeholder -->
             <a
               href={`/realisations/${projet.slug}/`}
@@ -149,7 +149,7 @@ const itemListSchema = {
       </div>
 
       <!-- Prochain projet -->
-      <div class="prochain-projet reveal">
+      <div class="prochain-projet fade-in">
         <div class="prochain-inner">
           <div class="prochain-text">
             <span class="section-label" style="margin-bottom: 8px;">Votre projet ici</span>
@@ -165,7 +165,7 @@ const itemListSchema = {
   <!-- ─── CTA ─── -->
   <section class="section" style="padding-top: 0;">
     <div class="container">
-      <div class="cta-section reveal">
+      <div class="cta-section fade-in">
         <h2>Votre entreprise mérite une belle présence en ligne.</h2>
         <p>Un formulaire de 2 minutes suffit pour recevoir un devis détaillé sous 48h.</p>
         <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
@@ -527,44 +527,3 @@ const itemListSchema = {
     }
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap === 'undefined') return;
-    // @ts-ignore
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-
-    // @ts-ignore
-    gsap.timeline({ delay: 0.1 })
-      // @ts-ignore
-      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
-      // @ts-ignore
-      .fromTo('.real-h1', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.real-sub', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.hero-ctas', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2');
-
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el: any) => {
-      // @ts-ignore
-      gsap.fromTo(el, { y: 40, opacity: 0 }, {
-        y: 0, opacity: 1,
-        scrollTrigger: { trigger: el, start: 'top 85%' },
-        duration: 1.1, ease: 'power2.out'
-      });
-    });
-
-    // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((container: any) => {
-      // @ts-ignore
-      gsap.fromTo(container.children, { y: 24, opacity: 0 }, {
-        y: 0, opacity: 1,
-        scrollTrigger: { trigger: container, start: 'top 80%' },
-        stagger: 0.15, duration: 0.55, ease: 'power2.out'
-      });
-    });
-  });
-</script>

@@ -53,9 +53,9 @@ const faqSchema = {
   <!-- EXEMPLES -->
   <section class="section" id="exemples">
     <div class="container">
-      <span class="section-label reveal">Exemples concrets</span>
-      <h2 class="section-title reveal">Ce qu'on peut automatiser<br />pour vous.</h2>
-      <div class="grid-3 reveal-stagger" style="margin-top:48px;">
+      <span class="section-label fade-in">Exemples concrets</span>
+      <h2 class="section-title fade-in">Ce qu'on peut automatiser<br />pour vous.</h2>
+      <div class="grid-3 fade-in" style="margin-top:48px;">
         {[
           { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>', titre:"Email de confirmation",      desc:"Chaque nouveau formulaire déclenche un email automatique à votre client et une notification à vous. Immédiat, professionnel." },
           { icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aurora)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>', titre:"Rappel de rendez-vous",      desc:"24h avant chaque RDV, votre client reçoit un rappel automatique. Moins de no-shows, moins d'appels pour confirmer." },
@@ -77,9 +77,9 @@ const faqSchema = {
   <!-- COMMENT ÇA MARCHE -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Le principe</span>
-      <h2 class="section-title reveal">Un déclencheur.<br />Une action. Automatique.</h2>
-      <div class="flow-grid reveal" style="margin-top:48px;">
+      <span class="section-label fade-in">Le principe</span>
+      <h2 class="section-title fade-in">Un déclencheur.<br />Une action. Automatique.</h2>
+      <div class="flow-grid fade-in" style="margin-top:48px;">
         <div class="flow-box flow-trigger card">
           <div class="flow-label">Déclencheur</div>
           <ul class="flow-list">
@@ -104,16 +104,16 @@ const faqSchema = {
           </ul>
         </div>
       </div>
-      <p class="flow-note reveal" style="text-align:center;margin-top:32px;font-size:14px;color:var(--gray-500);">Chaque automatisation est construite sur mesure selon vos processus réels, pas sur un template générique.</p>
+      <p class="flow-note fade-in" style="text-align:center;margin-top:32px;font-size:14px;color:var(--gray-500);">Chaque automatisation est construite sur mesure selon vos processus réels, pas sur un template générique.</p>
     </div>
   </section>
 
   <!-- BÉNÉFICES -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Ce que ça change</span>
-      <h2 class="section-title reveal">Du temps récupéré,<br />des erreurs évitées.</h2>
-      <div class="grid-2 reveal-stagger" style="margin-top:48px;">
+      <span class="section-label fade-in">Ce que ça change</span>
+      <h2 class="section-title fade-in">Du temps récupéré,<br />des erreurs évitées.</h2>
+      <div class="grid-2 fade-in" style="margin-top:48px;">
         {[
           { titre:"Zéro oubli",                    desc:"Une automatisation ne tombe jamais malade, ne part pas en vacances et n'oublie pas d'envoyer l'email de confirmation. Chaque action est déclenchée systématiquement." },
           { titre:"Image professionnelle immédiate", desc:"Un email de confirmation bien conçu qui part en secondes envoie un signal fort : votre activité est organisée et réactive, même si c'est vous seul qui gérez tout." },
@@ -132,9 +132,9 @@ const faqSchema = {
   <!-- TARIF -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container" style="max-width:640px;">
-      <span class="section-label reveal">Tarif</span>
-      <h2 class="section-title reveal">Simple comme une automatisation.</h2>
-      <div class="tarif-auto card reveal" style="margin-top:40px;text-align:center;padding:40px;">
+      <span class="section-label fade-in">Tarif</span>
+      <h2 class="section-title fade-in">Simple comme une automatisation.</h2>
+      <div class="tarif-auto card fade-in" style="margin-top:40px;text-align:center;padding:40px;">
         <div class="pricing-price" style="margin-bottom:8px;"><span class="pricing-currency">€</span><span class="pricing-amount">100</span></div>
         <div style="font-size:15px;font-weight:600;color:var(--black);margin-bottom:12px;">par automatisation</div>
         <p style="font-size:14px;color:var(--gray-500);line-height:1.65;max-width:400px;margin:0 auto 24px;">Une automatisation = un scénario complet, testé, documenté et opérationnel. Pas de frais mensuels ni de licence supplémentaire de notre côté.</p>
@@ -155,9 +155,9 @@ const faqSchema = {
   <!-- FAQ -->
   <section class="section">
     <div class="container" style="max-width:720px;">
-      <span class="section-label reveal">FAQ</span>
-      <h2 class="section-title reveal">Questions sur l'automatisation.</h2>
-      <div style="margin-top:36px;" class="reveal">
+      <span class="section-label fade-in">FAQ</span>
+      <h2 class="section-title fade-in">Questions sur l'automatisation.</h2>
+      <div style="margin-top:36px;" class="fade-in">
         {faqSchema.mainEntity.map((item: any) => (
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
@@ -168,7 +168,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <section class="section" style="background:var(--gray-50);"><div class="container"><div class="cta-section reveal">
+  <section class="section" style="background:var(--gray-50);"><div class="container"><div class="cta-section fade-in">
     <h2>Quelle tâche voudriez-vous<br />ne plus jamais faire manuellement ?</h2>
     <p>Décrivez-moi le processus, je vous dis si c'est automatisable et combien ça coûte.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
@@ -208,16 +208,3 @@ const faqSchema = {
     .flow-arrow { transform:rotate(90deg); }
   }
 </style>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-    // @ts-ignore
-    gsap.timeline({delay:0.1}).fromTo('.hero-eyebrow',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'}).fromTo('.service-h1',{y:24,opacity:0},{y:0,opacity:1,duration:1.0,ease:'power2.out'},'-=0.25').fromTo('.service-sub',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.25').fromTo('.hero-ctas',{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:'power2.out'},'-=0.2');
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.fromTo(el,{y:40,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:el,start:'top 85%'},duration:1.1,ease:'power2.out'}));
-    // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.fromTo(c.children,{y:24,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:c,start:'top 80%'},stagger:0.15,duration:0.55,ease:'power2.out'}));
-  });
-</script>

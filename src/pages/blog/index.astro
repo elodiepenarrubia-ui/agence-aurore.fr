@@ -51,7 +51,7 @@ function readingTime(post: any) {
       ) : (
         <div class="posts-list">
           {posts.map((post, i) => (
-            <article class={`post-card card reveal ${i === 0 ? 'post-card-featured' : ''}`}>
+            <article class={`post-card card fade-in ${i === 0 ? 'post-card-featured' : ''}`}>
               <div class="post-meta">
                 <time datetime={post.data.date.toISOString()} class="post-date">
                   {formatDate(post.data.date)}
@@ -72,7 +72,7 @@ function readingTime(post: any) {
     </div>
   </section>
 
-  <section class="section" style="background:var(--gray-50);"><div class="container"><div class="cta-section reveal">
+  <section class="section" style="background:var(--gray-50);"><div class="container"><div class="cta-section fade-in">
     <h2>Un projet en tête ?</h2>
     <p>Ces articles vous donnent des bases solides. Pour aller plus loin, parlons de votre situation spécifique.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
@@ -104,14 +104,3 @@ function readingTime(post: any) {
 
   @media (max-width:768px) { .blog-hero { padding:120px 0 56px; } .post-card { padding:24px; } }
 </style>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-    // @ts-ignore
-    gsap.timeline({delay:0.1}).fromTo('.hero-eyebrow',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'}).fromTo('.blog-h1',{y:24,opacity:0},{y:0,opacity:1,duration:1.0,ease:'power2.out'},'-=0.25').fromTo('.blog-sub',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.25').fromTo('.hero-ctas',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.2');
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.fromTo(el,{y:32,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:el,start:'top 88%'},duration:1.0,ease:'power2.out'}));
-  });
-</script>

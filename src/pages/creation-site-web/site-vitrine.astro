@@ -62,9 +62,9 @@ const benefices = [
   <!-- INCLUS -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Ce qui est inclus</span>
-      <h2 class="section-title reveal">Tout ce dont vous avez besoin,<br />rien de superflu.</h2>
-      <div class="inclus-grid reveal-stagger" style="margin-top:48px;">
+      <span class="section-label fade-in">Ce qui est inclus</span>
+      <h2 class="section-title fade-in">Tout ce dont vous avez besoin,<br />rien de superflu.</h2>
+      <div class="inclus-grid fade-in" style="margin-top:48px;">
         {[
           { titre:"Design sur mesure",        desc:"Maquette unique à votre activité et votre image. Pas de template générique." },
           { titre:"Jusqu'à 8 pages",          desc:"Accueil, Services, À propos, Contact, Blog, selon vos besoins." },
@@ -90,9 +90,9 @@ const benefices = [
   <!-- BÉNÉFICES -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Bénéfices concrets</span>
-      <h2 class="section-title reveal">Ce que ça change pour votre activité.</h2>
-      <div class="grid-3 reveal-stagger" style="margin-top:48px;">
+      <span class="section-label fade-in">Bénéfices concrets</span>
+      <h2 class="section-title fade-in">Ce que ça change pour votre activité.</h2>
+      <div class="grid-3 fade-in" style="margin-top:48px;">
         {benefices.map(b => (
           <div class="card">
             <h3 style="font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-bottom:8px;">{b.titre}</h3>
@@ -106,9 +106,9 @@ const benefices = [
   <!-- PACKS -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Formule</span>
-      <h2 class="section-title reveal">La formule Vitrine.</h2>
-      <div class="reveal-stagger" style="margin-top:48px;max-width:400px;margin-left:auto;margin-right:auto;">
+      <span class="section-label fade-in">Formule</span>
+      <h2 class="section-title fade-in">La formule Vitrine.</h2>
+      <div class="fade-in" style="margin-top:48px;max-width:400px;margin-left:auto;margin-right:auto;">
         <div class="pricing-card pricing-card-featured">
           <span class="pricing-badge">Recommandé</span>
           <div class="pricing-name">Vitrine</div>
@@ -130,9 +130,9 @@ const benefices = [
   <!-- FAQ -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container" style="max-width:720px;">
-      <span class="section-label reveal">FAQ</span>
-      <h2 class="section-title reveal">Questions sur le site vitrine.</h2>
-      <div style="margin-top:36px;" class="reveal">
+      <span class="section-label fade-in">FAQ</span>
+      <h2 class="section-title fade-in">Questions sur le site vitrine.</h2>
+      <div style="margin-top:36px;" class="fade-in">
         {faqSchema.mainEntity.map((item: any) => (
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
@@ -144,7 +144,7 @@ const benefices = [
   </section>
 
   <!-- CTA -->
-  <section class="section"><div class="container"><div class="cta-section reveal">
+  <section class="section"><div class="container"><div class="cta-section fade-in">
     <h2>Parlons de votre site vitrine.</h2>
     <p>Décrivez votre activité en quelques lignes. Je reviens vers vous sous 48h avec un devis détaillé.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
@@ -169,18 +169,3 @@ const benefices = [
   @media (max-width:1024px) { .inclus-grid { grid-template-columns:repeat(2,1fr); } }
   @media (max-width:768px)  { .service-hero { padding:120px 0 56px; } .inclus-grid { grid-template-columns:1fr; } }
 </style>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap==='undefined') return;
-    // @ts-ignore
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-    // @ts-ignore
-    gsap.timeline({delay:0.1}).fromTo('.hero-eyebrow',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'}).fromTo('.service-h1',{y:24,opacity:0},{y:0,opacity:1,duration:1.0,ease:'power2.out'},'-=0.25').fromTo('.service-sub',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.25').fromTo('.hero-ctas',{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:'power2.out'},'-=0.2');
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any)=>{ gsap.fromTo(el,{y:40,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:el,start:'top 85%'},duration:1.1,ease:'power2.out'}); });
-    // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>{ gsap.fromTo(c.children,{y:24,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:c,start:'top 80%'},stagger:0.15,duration:0.55,ease:'power2.out'}); });
-  });
-</script>

@@ -49,9 +49,9 @@ const faqSchema = {
   <!-- ─── TABLEAU COMPARATIF ─── -->
   <section class="section" id="comparatif">
     <div class="container">
-      <span class="section-label reveal">Comparatif détaillé</span>
-      <h2 class="section-title reveal">Les 7 solutions comparées point par point.</h2>
-      <div class="comparatif-table-wrapper reveal">
+      <span class="section-label fade-in">Comparatif détaillé</span>
+      <h2 class="section-title fade-in">Les 7 solutions comparées point par point.</h2>
+      <div class="comparatif-table-wrapper fade-in">
         <table class="comparatif-table">
           <thead>
             <tr>
@@ -175,9 +175,9 @@ const faqSchema = {
   <!-- ─── QUEL CHOIX SELON VOTRE PROFIL ─── -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Quel choix selon votre profil</span>
-      <h2 class="section-title reveal">La bonne solution dépend de votre situation.</h2>
-      <div class="lp-profiles reveal-stagger">
+      <span class="section-label fade-in">Quel choix selon votre profil</span>
+      <h2 class="section-title fade-in">La bonne solution dépend de votre situation.</h2>
+      <div class="lp-profiles fade-in">
         <div class="card lp-profile-card">
           <div class="lp-profile-badge">Budget serré</div>
           <h3>Besoin simple, budget limité</h3>
@@ -219,9 +219,9 @@ const faqSchema = {
   <!-- ─── FAQ ─── -->
   <section class="section" id="faq">
     <div class="container" style="max-width:720px;">
-      <span class="section-label reveal">FAQ</span>
-      <h2 class="section-title reveal">Questions fréquentes.</h2>
-      <div class="faq-list reveal">
+      <span class="section-label fade-in">FAQ</span>
+      <h2 class="section-title fade-in">Questions fréquentes.</h2>
+      <div class="faq-list fade-in">
         {faqSchema.mainEntity.map((item: any) => (
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
@@ -293,22 +293,3 @@ const faqSchema = {
     .lp-hero { padding: 100px 0 56px; }
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap === 'undefined') return; gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-    // @ts-ignore
-    gsap.timeline({ delay: 0.1 })
-      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
-      .fromTo('.lp-h1', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
-      .fromTo('.hero-serif-line', { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.9, ease: 'power3.out' }, '-=0.4')
-      .fromTo('.lp-sub', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
-      .fromTo('.hero-ctas', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2');
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el: any) => gsap.fromTo(el, { y: 40, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: { trigger: el, start: 'top 85%' }, duration: 1.1, ease: 'power2.out' }));
-    // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c: any) => gsap.fromTo(c.children, { y: 24, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: { trigger: c, start: 'top 80%' }, stagger: 0.15, duration: 0.55, ease: 'power2.out' }));
-  });
-</script>

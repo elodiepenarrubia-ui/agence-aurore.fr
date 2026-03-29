@@ -154,11 +154,11 @@ const migrationPoints = [
   <!-- ─── TABLEAU COMPARATIF ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">La facture cachée de WordPress</span>
-      <h2 class="section-title reveal">WordPress gratuit ?<br />Voici ce que ça coûte vraiment.</h2>
-      <p class="section-subtitle reveal">Un comparatif point par point, sans parti pris. Les faits, rien que les faits.</p>
+      <span class="section-label fade-in">La facture cachée de WordPress</span>
+      <h2 class="section-title fade-in">WordPress gratuit ?<br />Voici ce que ça coûte vraiment.</h2>
+      <p class="section-subtitle fade-in">Un comparatif point par point, sans parti pris. Les faits, rien que les faits.</p>
 
-      <div class="comparatif-table reveal" style="margin-top: 48px;">
+      <div class="comparatif-table fade-in" style="margin-top: 48px;">
         <!-- En-tête -->
         <div class="comparatif-row comparatif-header">
           <div class="comparatif-cell comparatif-critere"></div>
@@ -190,10 +190,10 @@ const migrationPoints = [
   <!-- ─── CALCUL ANNUEL ─── -->
   <section class="section" style="background: var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Le calcul que WordPress ne fait pas pour vous</span>
-      <h2 class="section-title reveal">En comptant tout, WordPress coûte<br />entre 300 € et 800 € par an.</h2>
+      <span class="section-label fade-in">Le calcul que WordPress ne fait pas pour vous</span>
+      <h2 class="section-title fade-in">En comptant tout, WordPress coûte<br />entre 300 € et 800 € par an.</h2>
 
-      <div class="calcul-grid reveal" style="margin-top: 48px;">
+      <div class="calcul-grid fade-in" style="margin-top: 48px;">
         {profils.map(item => (
           <div class="calcul-card card">
             <div class="calcul-plan">{item.nom}</div>
@@ -203,7 +203,7 @@ const migrationPoints = [
         ))}
       </div>
 
-      <div class="calcul-message reveal" style="margin-top: 40px;">
+      <div class="calcul-message fade-in" style="margin-top: 40px;">
         <p>Avec <strong>aurore</strong>, votre investissement est unique. <strong>Zéro hébergement, zéro plugin, zéro mise à jour.</strong></p>
         <a href="/simulateur/" class="btn btn-aurora" style="margin-top: 20px;">Calculer mon économie →</a>
       </div>
@@ -213,10 +213,10 @@ const migrationPoints = [
   <!-- ─── 5 PROBLÈMES ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">5 problèmes WordPress que personne n'anticipe</span>
-      <h2 class="section-title reveal">WordPress est puissant.<br />Il est aussi complexe, lent et vulnérable.</h2>
+      <span class="section-label fade-in">5 problèmes WordPress que personne n'anticipe</span>
+      <h2 class="section-title fade-in">WordPress est puissant.<br />Il est aussi complexe, lent et vulnérable.</h2>
 
-      <div class="problemes-grid reveal" style="margin-top: 48px;">
+      <div class="problemes-grid fade-in" style="margin-top: 48px;">
         {problemes.map(item => (
           <div class="probleme-card card">
             <div class="probleme-icon" set:html={item.icon} />
@@ -231,11 +231,11 @@ const migrationPoints = [
   <!-- ─── MIGRATION ─── -->
   <section class="section" style="background: var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Migration WordPress</span>
-      <h2 class="section-title reveal">Vous avez un site WordPress ?<br />Migrez pour 190 €.</h2>
-      <p class="section-subtitle reveal">Je récupère votre contenu, vos textes, vos images. Je reconstruis tout en code pur, ultra-rapide et sécurisé. Vous arrêtez de payer l'hébergement et les plugins pour toujours.</p>
+      <span class="section-label fade-in">Migration WordPress</span>
+      <h2 class="section-title fade-in">Vous avez un site WordPress ?<br />Migrez pour 190 €.</h2>
+      <p class="section-subtitle fade-in">Je récupère votre contenu, vos textes, vos images. Je reconstruis tout en code pur, ultra-rapide et sécurisé. Vous arrêtez de payer l'hébergement et les plugins pour toujours.</p>
 
-      <div class="migration-points reveal" style="margin-top: 40px;">
+      <div class="migration-points fade-in" style="margin-top: 40px;">
         {migrationPoints.map(item => (
           <div class="migration-point">
             <span class="migration-check" aria-hidden="true" set:html={item.icon} />
@@ -244,7 +244,7 @@ const migrationPoints = [
         ))}
       </div>
 
-      <div class="hero-ctas reveal" style="margin-top: 40px;">
+      <div class="hero-ctas fade-in" style="margin-top: 40px;">
         <a href="/contact/?type=migration" class="btn btn-aurora btn-lg">Demander ma migration →</a>
         <a href="/migration/" class="btn btn-outline btn-lg">En savoir plus</a>
       </div>
@@ -254,10 +254,10 @@ const migrationPoints = [
   <!-- ─── FAQ ─── -->
   <section class="section">
     <div class="container" style="max-width: 720px;">
-      <span class="section-label reveal">Questions fréquentes</span>
-      <h2 class="section-title reveal">WordPress vs aurore : vos questions.</h2>
+      <span class="section-label fade-in">Questions fréquentes</span>
+      <h2 class="section-title fade-in">WordPress vs aurore : vos questions.</h2>
 
-      <div style="margin-top: 40px;" class="reveal">
+      <div style="margin-top: 40px;" class="fade-in">
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
             WordPress est-il vraiment dangereux ?
@@ -314,7 +314,7 @@ const migrationPoints = [
   <!-- ─── CTA FINAL ─── -->
   <section class="section">
     <div class="container">
-      <div class="cta-section reveal">
+      <div class="cta-section fade-in">
         <h2>Un site plus rapide, plus sûr, sans abonnement.</h2>
         <p>Arrêtez de payer l'hébergement, les plugins et la maintenance. Investissez une seule fois.</p>
         <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis gratuit →</a>
@@ -596,38 +596,3 @@ const migrationPoints = [
     }
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-    // @ts-ignore
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-
-    // Hero
-    // @ts-ignore
-    gsap.timeline({ delay: 0.15 })
-      // @ts-ignore
-      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
-      // @ts-ignore
-      .fromTo('.wp-h1',       { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.wp-hero .hero-serif', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.wp-sub',      { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2')
-      // @ts-ignore
-      .fromTo('.hero-ctas',    { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2');
-
-    // Scroll reveals
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el: any) => {
-      // @ts-ignore
-      gsap.fromTo(el, { y: 40, opacity: 0 }, {
-        y: 0, opacity: 1,
-        scrollTrigger: { trigger: el, start: 'top 85%' },
-        duration: 1.1, ease: 'power2.out'
-      });
-    });
-  });
-</script>

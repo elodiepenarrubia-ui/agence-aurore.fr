@@ -55,9 +55,9 @@ const faqSchema = {
   <!-- CE QUI EST FAIT -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Ce qui est optimisé</span>
-      <h2 class="section-title reveal">Le SEO n'est pas magique.<br />C'est méthodique.</h2>
-      <div class="seo-grid reveal-stagger" style="margin-top:48px;">
+      <span class="section-label fade-in">Ce qui est optimisé</span>
+      <h2 class="section-title fade-in">Le SEO n'est pas magique.<br />C'est méthodique.</h2>
+      <div class="seo-grid fade-in" style="margin-top:48px;">
         {[
           { label:"Technique",   items:["Balises title et meta description","Structure des titres (H1 → H6)","Vitesse de chargement (Core Web Vitals)","HTTPS et sécurité","Sitemap XML + robots.txt","URLs propres et canoniques"] },
           { label:"Sémantique",  items:["Balisage Schema.org JSON-LD","Données structurées Service, FAQ, LocalBusiness","Open Graph pour les réseaux sociaux","Textes alt sur toutes les images","Maillage interne cohérent","Contenu structuré autour des mots-clés cibles"] },
@@ -82,7 +82,7 @@ const faqSchema = {
   <!-- LOCAL SEO -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container">
-      <div class="local-grid reveal">
+      <div class="local-grid fade-in">
         <div>
           <span class="section-label">SEO local</span>
           <h2 class="section-title">Vos clients vous cherchent<br />près de chez eux.</h2>
@@ -107,9 +107,9 @@ const faqSchema = {
   <!-- BÉNÉFICES -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Bénéfices concrets</span>
-      <h2 class="section-title reveal">Ce que ça change pour votre activité.</h2>
-      <div class="grid-3 reveal-stagger" style="margin-top:48px;">
+      <span class="section-label fade-in">Bénéfices concrets</span>
+      <h2 class="section-title fade-in">Ce que ça change pour votre activité.</h2>
+      <div class="grid-3 fade-in" style="margin-top:48px;">
         {[
           { titre:"Des visiteurs qui cherchent vraiment",   desc:"Contrairement à la publicité, le SEO attire des gens qui cherchent activement ce que vous proposez. La conversion est naturellement plus élevée." },
           { titre:"Un trafic gratuit et durable",           desc:"Une fois positionné, votre visibilité ne disparaît pas dès que vous arrêtez de payer. C'est un actif que vous construisez dans le temps." },
@@ -130,9 +130,9 @@ const faqSchema = {
   <!-- FAQ -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container" style="max-width:720px;">
-      <span class="section-label reveal">FAQ</span>
-      <h2 class="section-title reveal">Questions sur le référencement SEO.</h2>
-      <div style="margin-top:36px;" class="reveal">
+      <span class="section-label fade-in">FAQ</span>
+      <h2 class="section-title fade-in">Questions sur le référencement SEO.</h2>
+      <div style="margin-top:36px;" class="fade-in">
         {faqSchema.mainEntity.map((item: any) => (
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
@@ -143,7 +143,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <section class="section"><div class="container"><div class="cta-section reveal">
+  <section class="section"><div class="container"><div class="cta-section fade-in">
     <h2>Votre site est-il vraiment visible sur Google ?</h2>
     <p>Décrivez votre situation actuelle, site existant ou nouveau projet. On identifie ensemble les axes d'amélioration prioritaires.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
@@ -178,16 +178,3 @@ const faqSchema = {
   @media (max-width:1024px) { .seo-grid { grid-template-columns:1fr; } .local-grid { grid-template-columns:1fr; gap:40px; } }
   @media (max-width:768px)  { .service-hero { padding:120px 0 56px; } }
 </style>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-    // @ts-ignore
-    gsap.timeline({delay:0.1}).fromTo('.hero-eyebrow',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'}).fromTo('.service-h1',{y:24,opacity:0},{y:0,opacity:1,duration:1.0,ease:'power2.out'},'-=0.25').fromTo('.service-sub',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.25').fromTo('.hero-ctas',{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:'power2.out'},'-=0.2');
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.fromTo(el,{y:40,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:el,start:'top 85%'},duration:1.1,ease:'power2.out'}));
-    // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.fromTo(c.children,{y:24,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:c,start:'top 80%'},stagger:0.15,duration:0.55,ease:'power2.out'}));
-  });
-</script>

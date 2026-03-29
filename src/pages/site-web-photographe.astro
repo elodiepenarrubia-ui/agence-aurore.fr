@@ -64,9 +64,9 @@ const faqSchema = {
   <!-- ─── PROBLÈME ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Le problème</span>
-      <h2 class="section-title reveal">Sans site, votre talent reste invisible.<br />Avec le mauvais site, vos photos ne parlent pas.</h2>
-      <div class="lp-problems reveal-stagger">
+      <span class="section-label fade-in">Le problème</span>
+      <h2 class="section-title fade-in">Sans site, votre talent reste invisible.<br />Avec le mauvais site, vos photos ne parlent pas.</h2>
+      <div class="lp-problems fade-in">
         <div class="card lp-problem-card">
           <div class="lp-problem-icon" aria-hidden="true">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D94F00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
@@ -92,9 +92,9 @@ const faqSchema = {
   <!-- ─── CE QU'AURORE CRÉE ─── -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Ce qu'aurore crée pour vous</span>
-      <h2 class="section-title reveal">Un site qui sublime votre travail.</h2>
-      <div class="lp-features reveal-stagger">
+      <span class="section-label fade-in">Ce qu'aurore crée pour vous</span>
+      <h2 class="section-title fade-in">Un site qui sublime votre travail.</h2>
+      <div class="lp-features fade-in">
         {[
           { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`, title: "Galerie photos optimisée ultra-rapide", desc: "Vos images chargent instantanément grâce à l'optimisation automatique, sans perte de qualité visible." },
           { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>`, title: "Portfolio organisé par catégories", desc: "Mariage, portrait, corporate, nature — vos visiteurs trouvent immédiatement ce qu'ils cherchent." },
@@ -116,9 +116,9 @@ const faqSchema = {
   <!-- ─── TÉMOIGNAGES ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Ils nous font confiance</span>
-      <h2 class="section-title reveal">Des professionnels satisfaits partout en France.</h2>
-      <div class="lp-testimonials reveal-stagger">
+      <span class="section-label fade-in">Ils nous font confiance</span>
+      <h2 class="section-title fade-in">Des professionnels satisfaits partout en France.</h2>
+      <div class="lp-testimonials fade-in">
         <div class="card lp-testimonial-card">
           <blockquote>
             <p>« Mon portfolio en ligne est exactement ce que j'imaginais. Les photos chargent vite et le design est épuré. Mes clients adorent. »</p>
@@ -138,9 +138,9 @@ const faqSchema = {
   <!-- ─── TARIFS ─── -->
   <section class="section section-aurora-gradient">
     <div class="container">
-      <span class="section-label reveal" style="color:var(--aurora);">Tarifs</span>
-      <h2 class="section-title reveal">Des tarifs clairs, sans surprise.</h2>
-      <div class="lp-pricing reveal-stagger">
+      <span class="section-label fade-in" style="color:var(--aurora);">Tarifs</span>
+      <h2 class="section-title fade-in">Des tarifs clairs, sans surprise.</h2>
+      <div class="lp-pricing fade-in">
         <div class="card lp-price-card">
           <div class="lp-price-badge">Starter</div>
           <div class="lp-price">290 <span>€</span></div>
@@ -178,9 +178,9 @@ const faqSchema = {
   <!-- ─── FAQ ─── -->
   <section class="section" id="faq">
     <div class="container" style="max-width:720px;">
-      <span class="section-label reveal">FAQ</span>
-      <h2 class="section-title reveal">Questions fréquentes.</h2>
-      <div class="faq-list reveal">
+      <span class="section-label fade-in">FAQ</span>
+      <h2 class="section-title fade-in">Questions fréquentes.</h2>
+      <div class="faq-list fade-in">
         {faqSchema.mainEntity.map((item: any) => (
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
@@ -254,22 +254,3 @@ const faqSchema = {
     .lp-testimonials { grid-template-columns: 1fr; }
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap === 'undefined') return; gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-    // @ts-ignore
-    gsap.timeline({ delay: 0.1 })
-      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
-      .fromTo('.lp-h1', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
-      .fromTo('.hero-serif-line', { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.9, ease: 'power3.out' }, '-=0.4')
-      .fromTo('.lp-sub', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
-      .fromTo('.hero-ctas', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2');
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el: any) => gsap.fromTo(el, { y: 40, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: { trigger: el, start: 'top 85%' }, duration: 1.1, ease: 'power2.out' }));
-    // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c: any) => gsap.fromTo(c.children, { y: 24, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: { trigger: c, start: 'top 80%' }, stagger: 0.15, duration: 0.55, ease: 'power2.out' }));
-  });
-</script>

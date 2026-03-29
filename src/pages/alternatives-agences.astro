@@ -140,11 +140,11 @@ const recommandations = [
   <!-- ─── TABLEAU COMPARATIF 5 COLONNES ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Tous les prestataires, côte à côte</span>
-      <h2 class="section-title reveal">Le comparatif complet — sans langue de bois.</h2>
-      <p class="section-subtitle reveal">5 prestataires, 9 critères, zéro bullshit.</p>
+      <span class="section-label fade-in">Tous les prestataires, côte à côte</span>
+      <h2 class="section-title fade-in">Le comparatif complet — sans langue de bois.</h2>
+      <p class="section-subtitle fade-in">5 prestataires, 9 critères, zéro bullshit.</p>
 
-      <div class="comparatif-table reveal" style="margin-top: 48px;">
+      <div class="comparatif-table fade-in" style="margin-top: 48px;">
         <!-- En-tête -->
         <div class="comparatif-row comparatif-header">
           <div class="comparatif-cell comparatif-critere"></div>
@@ -177,10 +177,10 @@ const recommandations = [
   <!-- ─── CE QUE CHAQUE PRESTATAIRE NE DIT PAS ─── -->
   <section class="section" style="background: var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Ce que chaque prestataire ne vous dit pas</span>
-      <h2 class="section-title reveal">Les vérités que personne ne met<br />sur sa page d'accueil.</h2>
+      <span class="section-label fade-in">Ce que chaque prestataire ne vous dit pas</span>
+      <h2 class="section-title fade-in">Les vérités que personne ne met<br />sur sa page d'accueil.</h2>
 
-      <div class="revelations-grid reveal" style="margin-top: 48px;">
+      <div class="revelations-grid fade-in" style="margin-top: 48px;">
         {revelations.map(item => (
           <div class:list={["revelation-card", "card", { "card-aurora": item.highlighted }]}>
             <div class="revelation-icon" set:html={item.icon} />
@@ -195,10 +195,10 @@ const recommandations = [
   <!-- ─── POUR QUEL PROFIL ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Pour quel profil choisir quoi ?</span>
-      <h2 class="section-title reveal">Le bon prestataire selon votre situation.</h2>
+      <span class="section-label fade-in">Pour quel profil choisir quoi ?</span>
+      <h2 class="section-title fade-in">Le bon prestataire selon votre situation.</h2>
 
-      <div class="reco-grid reveal" style="margin-top: 48px;">
+      <div class="reco-grid fade-in" style="margin-top: 48px;">
         {recommandations.map(item => (
           <div class:list={["reco-card", "card", { "card-aurora": item.highlighted }]}>
             <div class="reco-icon" set:html={item.icon} />
@@ -217,10 +217,10 @@ const recommandations = [
   <!-- ─── FAQ ─── -->
   <section class="section" style="background: var(--gray-50);">
     <div class="container" style="max-width: 720px;">
-      <span class="section-label reveal">Questions fréquentes</span>
-      <h2 class="section-title reveal">Choisir son prestataire web : vos questions.</h2>
+      <span class="section-label fade-in">Questions fréquentes</span>
+      <h2 class="section-title fade-in">Choisir son prestataire web : vos questions.</h2>
 
-      <div style="margin-top: 40px;" class="reveal">
+      <div style="margin-top: 40px;" class="fade-in">
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
             Une agence web est-elle toujours meilleure qu'un indépendant ?
@@ -267,7 +267,7 @@ const recommandations = [
   <!-- ─── CTA FINAL ─── -->
   <section class="section">
     <div class="container">
-      <div class="cta-section reveal">
+      <div class="cta-section fade-in">
         <h2>Transparent, clé en main, et vous êtes propriétaire.</h2>
         <p>Un seul interlocuteur. Un prix affiché. Un site qui vous appartient pour toujours.</p>
         <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis gratuit →</a>
@@ -525,38 +525,3 @@ const recommandations = [
     }
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-    // @ts-ignore
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-
-    // Hero
-    // @ts-ignore
-    gsap.timeline({ delay: 0.15 })
-      // @ts-ignore
-      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
-      // @ts-ignore
-      .fromTo('.ag-h1',       { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.ag-hero .hero-serif', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.ag-sub',      { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2')
-      // @ts-ignore
-      .fromTo('.hero-ctas',    { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2');
-
-    // Scroll reveals
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el: any) => {
-      // @ts-ignore
-      gsap.fromTo(el, { y: 40, opacity: 0 }, {
-        y: 0, opacity: 1,
-        scrollTrigger: { trigger: el, start: 'top 85%' },
-        duration: 1.1, ease: 'power2.out'
-      });
-    });
-  });
-</script>

@@ -125,17 +125,28 @@ const schemaJson = schema
       document.documentElement.classList.add('js-loaded');
       document.body.classList.add('js-loaded');
 
-// Fallback : si GSAP ne charge pas en 3s, rendre tout visible
-if (typeof document !== 'undefined') {
-  setTimeout(() => {
-    if (typeof gsap === 'undefined') {
-      document.querySelectorAll('.reveal, .reveal-stagger > *').forEach(el => {
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-      });
-    }
-  }, 3000);
-}
+      // ─── Barre de progression scroll ───
+      var progressBar = document.createElement('div');
+      progressBar.id = 'scroll-progress';
+      progressBar.style.cssText = 'position:fixed;top:0;left:0;height:3px;background:#FF6B1A;z-index:9999;width:0%;transition:width 0.1s linear;pointer-events:none;';
+      document.body.appendChild(progressBar);
+      window.addEventListener('scroll', function() {
+        var scrollTop = window.scrollY;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = progress + '%';
+      }, { passive: true });
+
+      // ─── Fade-in minimal via IntersectionObserver ───
+      var fadeObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(function(el) { fadeObserver.observe(el); });
 
       // ─── Navigation : scroll behavior ───
       const nav = document.getElementById('main-nav');

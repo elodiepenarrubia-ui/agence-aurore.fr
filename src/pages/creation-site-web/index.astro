@@ -77,9 +77,9 @@ const benefices = [
   <!-- ─── SOUS-SERVICES ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Trois formules</span>
-      <h2 class="section-title reveal">Quel type de site vous faut-il ?</h2>
-      <div class="grid-3 reveal-stagger" style="margin-top:48px;">
+      <span class="section-label fade-in">Trois formules</span>
+      <h2 class="section-title fade-in">Quel type de site vous faut-il ?</h2>
+      <div class="grid-3 fade-in" style="margin-top:48px;">
         {sousServices.map(s => (
           <a href={s.href} class="card service-card sous-service-card">
             <div class="sous-service-prix">{s.prix}</div>
@@ -95,9 +95,9 @@ const benefices = [
   <!-- ─── BÉNÉFICES ─── -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Pourquoi aurore</span>
-      <h2 class="section-title reveal">Ce que vous obtenez,<br />concrètement.</h2>
-      <div class="grid-3 reveal-stagger" style="margin-top:48px;">
+      <span class="section-label fade-in">Pourquoi aurore</span>
+      <h2 class="section-title fade-in">Ce que vous obtenez,<br />concrètement.</h2>
+      <div class="grid-3 fade-in" style="margin-top:48px;">
         {benefices.map(b => (
           <div class="card benefice-card">
             <div class="benefice-check" aria-hidden="true">
@@ -114,7 +114,7 @@ const benefices = [
   <!-- ─── STACK TECHNIQUE ─── -->
   <section class="section">
     <div class="container">
-      <div class="stack-grid reveal">
+      <div class="stack-grid fade-in">
         <div>
           <span class="section-label">Technique</span>
           <h2 class="section-title">Pourquoi des sites statiques ?</h2>
@@ -155,9 +155,9 @@ const benefices = [
   <!-- ─── FAQ ─── -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container" style="max-width:720px;">
-      <span class="section-label reveal">FAQ</span>
-      <h2 class="section-title reveal">Questions fréquentes sur la création de site web.</h2>
-      <div style="margin-top:36px;" class="reveal">
+      <span class="section-label fade-in">FAQ</span>
+      <h2 class="section-title fade-in">Questions fréquentes sur la création de site web.</h2>
+      <div style="margin-top:36px;" class="fade-in">
         {faqSchema.mainEntity.map((item: any) => (
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">
@@ -173,7 +173,7 @@ const benefices = [
   <!-- ─── CTA ─── -->
   <section class="section">
     <div class="container">
-      <div class="cta-section reveal">
+      <div class="cta-section fade-in">
         <h2>Prêt à créer votre site web ?</h2>
         <p>Décrivez votre projet en 2 minutes. Je vous réponds sous 48h avec un devis détaillé.</p>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
@@ -225,33 +225,3 @@ const benefices = [
     .versus-col-us .versus-item { border-left:none; }
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap === 'undefined') return;
-    // @ts-ignore
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-    // @ts-ignore
-    gsap.timeline({ delay:0.1 })
-      // @ts-ignore
-      .fromTo('.hero-eyebrow', { y:16, opacity:0 }, { y:0, opacity:1, duration:0.9, ease:'power2.out' })
-      // @ts-ignore
-      .fromTo('.service-h1', { y:24, opacity:0 }, { y:0, opacity:1, duration:1.0, ease:'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.service-sub', { y:16, opacity:0 }, { y:0, opacity:1, duration:0.9, ease:'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.hero-ctas', { y:16, opacity:0 }, { y:0, opacity:1, duration:0.4, ease:'power2.out' }, '-=0.2');
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any) => {
-      // @ts-ignore
-      gsap.fromTo(el, { y:40, opacity:0 }, { y:0, opacity:1, scrollTrigger:{ trigger:el, start:'top 85%' }, duration:1.1, ease:'power2.out' });
-    });
-    // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c:any) => {
-      // @ts-ignore
-      gsap.fromTo(c.children, { y:24, opacity:0 }, { y:0, opacity:1, scrollTrigger:{ trigger:c, start:'top 80%' }, stagger:0.15, duration:0.55, ease:'power2.out' });
-    });
-  });
-</script>

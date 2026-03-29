@@ -80,7 +80,7 @@ const valeurs = [
   <!-- ─── PRÉSENTATION PRINCIPALE ─── -->
   <section class="section">
     <div class="container">
-      <div class="apropos-grid reveal">
+      <div class="apropos-grid fade-in">
         <!-- Photo placeholder -->
         <div class="photo-col">
           <img src="/elodie.webp" alt="Élodie, fondatrice d'Aurore, agence web à Aix-en-Provence" width="480" height="600" loading="eager" style="width:100%;border-radius:var(--radius-lg);object-fit:cover;aspect-ratio:3/4;" />
@@ -115,7 +115,7 @@ const valeurs = [
 
           <div class="bio-facts">
             <div class="fact">
-              <span class="fact-value">2024</span>
+              <span class="fact-value">2026</span>
               <span class="fact-label">Création d'aurore</span>
             </div>
             <div class="fact">
@@ -137,12 +137,12 @@ const valeurs = [
     <div class="container">
       <div class="parcours-grid">
         <div>
-          <span class="section-label reveal">Le Mazarin</span>
-          <h2 class="section-title reveal">De conciergerie<br />à agence digitale.</h2>
-          <p class="section-subtitle reveal">Un parcours qui n'était pas prévu, mais qui fait toute la différence.</p>
+          <span class="section-label">Le Mazarin</span>
+          <h2 class="section-title">De conciergerie<br />à agence digitale.</h2>
+          <p class="section-subtitle">Un parcours qui n'était pas prévu, mais qui fait toute la différence.</p>
         </div>
 
-        <div class="timeline reveal">
+        <div class="timeline fade-in">
           <div class="timeline-item">
             <div class="timeline-dot" aria-hidden="true"></div>
             <div class="timeline-content">
@@ -164,7 +164,7 @@ const valeurs = [
           <div class="timeline-item">
             <div class="timeline-dot timeline-dot-aurora" aria-hidden="true"></div>
             <div class="timeline-content">
-              <div class="timeline-date">2024</div>
+              <div class="timeline-date">2026</div>
               <h3 class="timeline-titre">Création d'aurore</h3>
               <p>Lancement d'aurore, auto-entreprise de présence digitale clé en main. L'idée : rendre accessibles aux TPE et indépendants les outils digitaux que seules les grandes entreprises pouvaient se payer.</p>
             </div>
@@ -186,10 +186,10 @@ const valeurs = [
   <!-- ─── VALEURS ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Ce qui me guide</span>
-      <h2 class="section-title reveal">Quatre valeurs,<br />pas une de plus.</h2>
+      <span class="section-label">Ce qui me guide</span>
+      <h2 class="section-title">Quatre valeurs,<br />pas une de plus.</h2>
 
-      <div class="grid-2 reveal-stagger" style="margin-top: 48px;">
+      <div class="grid-2 fade-in" style="margin-top: 48px;">
         {valeurs.map(v => (
           <div class="card valeur-card">
             <div class="valeur-icon" aria-hidden="true">
@@ -208,12 +208,12 @@ const valeurs = [
     <div class="container">
       <div class="diff-grid">
         <div>
-          <span class="section-label reveal">La différence</span>
-          <h2 class="section-title reveal">Pourquoi travailler<br />avec moi plutôt qu'une agence ?</h2>
+          <span class="section-label">La différence</span>
+          <h2 class="section-title">Pourquoi travailler<br />avec moi plutôt qu'une agence ?</h2>
         </div>
 
         <div class="diff-col">
-          <div class="diff-comparaison reveal">
+          <div class="diff-comparaison fade-in">
             <div class="diff-col-header diff-col-them">
               <span>Agence traditionnelle</span>
             </div>
@@ -249,7 +249,7 @@ const valeurs = [
   <!-- ─── LOCALISATION ─── -->
   <section class="section">
     <div class="container">
-      <div class="localisation-block reveal">
+      <div class="localisation-block fade-in">
         <div class="localisation-text">
           <span class="section-label">Localisation</span>
           <h2 class="section-title">Basée à Aix-en-Provence,<br />j'interviens partout en France.</h2>
@@ -284,7 +284,7 @@ const valeurs = [
   <!-- ─── CTA ─── -->
   <section class="section" style="padding-top: 0;">
     <div class="container">
-      <div class="cta-section reveal">
+      <div class="cta-section fade-in">
         <h2>Vous avez un projet en tête ?</h2>
         <p>Un formulaire de 2 minutes suffit pour recevoir un devis détaillé sous 48h. Je vous dis honnêtement si je peux vous aider et comment.</p>
         <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
@@ -665,41 +665,3 @@ const valeurs = [
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap === 'undefined') return;
-    // @ts-ignore
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-
-    // @ts-ignore
-    gsap.timeline({ delay: 0.1 })
-      // @ts-ignore
-      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
-      // @ts-ignore
-      .fromTo('.apropos-h1',   { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.apropos-sub',  { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25');
-
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el: any) => {
-      // @ts-ignore
-      gsap.fromTo(el, { y: 40, opacity: 0 }, {
-        y: 0, opacity: 1,
-        scrollTrigger: { trigger: el, start: 'top 85%' },
-        duration: 1.1, ease: 'power2.out'
-      });
-    });
-
-    // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((container: any) => {
-      // @ts-ignore
-      gsap.fromTo(container.children, { y: 24, opacity: 0 }, {
-        y: 0, opacity: 1,
-        scrollTrigger: { trigger: container, start: 'top 80%' },
-        stagger: 0.15, duration: 0.55, ease: 'power2.out'
-      });
-    });
-  });
-</script>

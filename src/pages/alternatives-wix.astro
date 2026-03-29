@@ -146,11 +146,11 @@ const migrationPoints = [
   <!-- ─── TABLEAU COMPARATIF ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Ce que Wix ne dit pas dans ses pubs</span>
-      <h2 class="section-title reveal">Wix, c'est 17 €/mois minimum.<br />Et ça monte vite.</h2>
-      <p class="section-subtitle reveal">Un comparatif point par point, sans parti pris. Les faits, rien que les faits.</p>
+      <span class="section-label fade-in">Ce que Wix ne dit pas dans ses pubs</span>
+      <h2 class="section-title fade-in">Wix, c'est 17 €/mois minimum.<br />Et ça monte vite.</h2>
+      <p class="section-subtitle fade-in">Un comparatif point par point, sans parti pris. Les faits, rien que les faits.</p>
 
-      <div class="comparatif-table reveal" style="margin-top: 48px;">
+      <div class="comparatif-table fade-in" style="margin-top: 48px;">
         <!-- En-tête -->
         <div class="comparatif-row comparatif-header">
           <div class="comparatif-cell comparatif-critere"></div>
@@ -182,10 +182,10 @@ const migrationPoints = [
   <!-- ─── CALCUL SUR 3 ANS ─── -->
   <section class="section" style="background: var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Le calcul que Wix ne veut pas que vous fassiez</span>
-      <h2 class="section-title reveal">Sur 3 ans, Wix coûte plus cher<br />qu'un site sur mesure.</h2>
+      <span class="section-label fade-in">Le calcul que Wix ne veut pas que vous fassiez</span>
+      <h2 class="section-title fade-in">Sur 3 ans, Wix coûte plus cher<br />qu'un site sur mesure.</h2>
 
-      <div class="calcul-grid reveal" style="margin-top: 48px;">
+      <div class="calcul-grid fade-in" style="margin-top: 48px;">
         {calculs.map(item => (
           <div class="calcul-card card">
             <div class="calcul-plan">{item.plan}</div>
@@ -196,7 +196,7 @@ const migrationPoints = [
         ))}
       </div>
 
-      <div class="calcul-message reveal" style="margin-top: 40px;">
+      <div class="calcul-message fade-in" style="margin-top: 40px;">
         <p>Avec <strong>aurore</strong>, votre investissement est unique. Dans 3 ans, 5 ans, 10 ans — <strong>vous ne payez plus rien.</strong></p>
         <a href="/simulateur/" class="btn btn-aurora" style="margin-top: 20px;">Calculer mon économie personnalisée →</a>
       </div>
@@ -206,10 +206,10 @@ const migrationPoints = [
   <!-- ─── 5 BLOCAGES ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">5 situations où Wix vous bloque</span>
-      <h2 class="section-title reveal">Wix est pratique au début.<br />Puis vient le moment où…</h2>
+      <span class="section-label fade-in">5 situations où Wix vous bloque</span>
+      <h2 class="section-title fade-in">Wix est pratique au début.<br />Puis vient le moment où…</h2>
 
-      <div class="blocages-grid reveal" style="margin-top: 48px;">
+      <div class="blocages-grid fade-in" style="margin-top: 48px;">
         {blocages.map(item => (
           <div class="blocage-card card">
             <div class="blocage-icon" set:html={item.icon} />
@@ -224,11 +224,11 @@ const migrationPoints = [
   <!-- ─── MIGRATION ─── -->
   <section class="section" style="background: var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Pourquoi des milliers de pros quittent Wix</span>
-      <h2 class="section-title reveal">La migration Wix → aurore :<br />190 € et c'est fini.</h2>
-      <p class="section-subtitle reveal">Je récupère votre contenu existant, je le reconstruis en code pur. Vous gardez votre domaine, vos textes, vos images. Vous arrêtez de payer pour toujours.</p>
+      <span class="section-label fade-in">Pourquoi des milliers de pros quittent Wix</span>
+      <h2 class="section-title fade-in">La migration Wix → aurore :<br />190 € et c'est fini.</h2>
+      <p class="section-subtitle fade-in">Je récupère votre contenu existant, je le reconstruis en code pur. Vous gardez votre domaine, vos textes, vos images. Vous arrêtez de payer pour toujours.</p>
 
-      <div class="migration-points reveal" style="margin-top: 40px;">
+      <div class="migration-points fade-in" style="margin-top: 40px;">
         {migrationPoints.map(item => (
           <div class="migration-point">
             <span class="migration-check" aria-hidden="true" set:html={item.icon} />
@@ -237,7 +237,7 @@ const migrationPoints = [
         ))}
       </div>
 
-      <div class="hero-ctas reveal" style="margin-top: 40px;">
+      <div class="hero-ctas fade-in" style="margin-top: 40px;">
         <a href="/contact/?type=migration" class="btn btn-aurora btn-lg">Demander ma migration →</a>
         <a href="/migration/" class="btn btn-outline btn-lg">En savoir plus</a>
       </div>
@@ -247,10 +247,10 @@ const migrationPoints = [
   <!-- ─── FAQ ─── -->
   <section class="section">
     <div class="container" style="max-width: 720px;">
-      <span class="section-label reveal">Questions fréquentes</span>
-      <h2 class="section-title reveal">Quitter Wix, mode d'emploi.</h2>
+      <span class="section-label fade-in">Questions fréquentes</span>
+      <h2 class="section-title fade-in">Quitter Wix, mode d'emploi.</h2>
 
-      <div style="margin-top: 40px;" class="reveal">
+      <div style="margin-top: 40px;" class="fade-in">
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
             Puis-je garder mon domaine si je quitte Wix ?
@@ -297,7 +297,7 @@ const migrationPoints = [
   <!-- ─── CTA FINAL ─── -->
   <section class="section">
     <div class="container">
-      <div class="cta-section reveal">
+      <div class="cta-section fade-in">
         <h2>Prêt à arrêter de louer votre site ?</h2>
         <p>Un investissement unique. Un site qui vous appartient. Zéro abonnement.</p>
         <a href="/contact/" class="btn btn-aurora btn-lg">Demander un devis gratuit →</a>
@@ -583,38 +583,3 @@ const migrationPoints = [
     }
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-    // @ts-ignore
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-
-    // Hero
-    // @ts-ignore
-    gsap.timeline({ delay: 0.15 })
-      // @ts-ignore
-      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
-      // @ts-ignore
-      .fromTo('.wix-h1',       { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.wix-hero .hero-serif', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.wix-sub',      { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2')
-      // @ts-ignore
-      .fromTo('.hero-ctas',    { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2');
-
-    // Scroll reveals
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el: any) => {
-      // @ts-ignore
-      gsap.fromTo(el, { y: 40, opacity: 0 }, {
-        y: 0, opacity: 1,
-        scrollTrigger: { trigger: el, start: 'top 85%' },
-        duration: 1.1, ease: 'power2.out'
-      });
-    });
-  });
-</script>

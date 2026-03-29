@@ -386,9 +386,9 @@ const faqContact = [
   <!-- ─── FAQ CONTACT ─── -->
   <section class="section" style="background: var(--gray-50);">
     <div class="container" style="max-width: 720px;">
-      <span class="section-label reveal">Questions</span>
-      <h2 class="section-title reveal">Avant de remplir le formulaire.</h2>
-      <div style="margin-top: 36px;" class="reveal">
+      <span class="section-label fade-in">Questions</span>
+      <h2 class="section-title fade-in">Avant de remplir le formulaire.</h2>
+      <div style="margin-top: 36px;" class="fade-in">
         {faqContact.map(item => (
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">
@@ -804,34 +804,5 @@ const faqContact = [
       }
     });
 
-    // ─── Animations GSAP ───
-    // @ts-ignore
-    if (typeof gsap !== 'undefined') {
-      // @ts-ignore
-      gsap.registerPlugin(ScrollTrigger);
-      gsap.config({ force3D: true });
-      // @ts-ignore
-      gsap.timeline({ delay: 0.1 })
-        // @ts-ignore
-        .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
-        // @ts-ignore
-        .fromTo('.contact-h1',   { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
-        // @ts-ignore
-        .fromTo('.contact-sub',  { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
-        // @ts-ignore
-        .fromTo('.contact-form-wrapper', { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, ease: 'power2.out' }, '-=0.2')
-        // @ts-ignore
-        .fromTo('.contact-infos', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out' }, '-=0.4');
-
-      // @ts-ignore
-      gsap.utils.toArray('.reveal').forEach((el: any) => {
-        // @ts-ignore
-        gsap.fromTo(el, { y: 40, opacity: 0 }, {
-          y: 0, opacity: 1,
-          scrollTrigger: { trigger: el, start: 'top 85%' },
-          duration: 1.1, ease: 'power2.out'
-        });
-      });
-    }
   });
 </script>

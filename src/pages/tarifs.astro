@@ -132,11 +132,11 @@ const atLaCarte = [
   <!-- ─── GRILLE TARIFAIRE ─── -->
   <section class="section" id="offres" style="background: var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Nos formules</span>
-      <h2 class="section-title reveal">La formule qui correspond<br />à votre projet.</h2>
-      <p class="section-subtitle reveal">SEO on-page et fiche Google Business inclus dans toutes les formules. Hébergement gratuit, livraison en 2 semaines.</p>
+      <span class="section-label fade-in">Nos formules</span>
+      <h2 class="section-title fade-in">La formule qui correspond<br />à votre projet.</h2>
+      <p class="section-subtitle fade-in">SEO on-page et fiche Google Business inclus dans toutes les formules. Hébergement gratuit, livraison en 2 semaines.</p>
 
-      <div class="pricing-grid reveal">
+      <div class="pricing-grid fade-in">
         <!-- STARTER -->
         <div class="pricing-card">
           <div>
@@ -235,7 +235,7 @@ const atLaCarte = [
   <!-- ─── MIGRATION ─── -->
   <section class="section migration-section">
     <div class="container">
-      <div class="migration-block reveal">
+      <div class="migration-block fade-in">
         <div class="migration-content">
           <span class="migration-badge">Vous avez déjà un site ?</span>
           <h2 class="migration-title">Arrêtez de payer<br />un abonnement.</h2>
@@ -280,11 +280,11 @@ const atLaCarte = [
   <!-- ─── PRESTATIONS À LA CARTE ─── -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Flexibilité</span>
-      <h2 class="section-title reveal">Prestations à la carte.</h2>
-      <p class="section-subtitle reveal">Vous avez déjà un site et souhaitez l'améliorer ? Choisissez uniquement ce dont vous avez besoin.</p>
+      <span class="section-label fade-in">Flexibilité</span>
+      <h2 class="section-title fade-in">Prestations à la carte.</h2>
+      <p class="section-subtitle fade-in">Vous avez déjà un site et souhaitez l'améliorer ? Choisissez uniquement ce dont vous avez besoin.</p>
 
-      <div class="carte-grid reveal" style="margin-top: 40px;">
+      <div class="carte-grid fade-in" style="margin-top: 40px;">
         {atLaCarte.map(item => (
           <div class="carte-item">
             <span class="carte-label">{item.label}</span>
@@ -303,10 +303,10 @@ const atLaCarte = [
   <!-- ─── FAQ TARIFS ─── -->
   <section class="section" style="background: var(--gray-50);">
     <div class="container" style="max-width: 720px;">
-      <span class="section-label reveal">Questions fréquentes</span>
-      <h2 class="section-title reveal">Tout savoir sur les tarifs.</h2>
+      <span class="section-label fade-in">Questions fréquentes</span>
+      <h2 class="section-title fade-in">Tout savoir sur les tarifs.</h2>
 
-      <div style="margin-top: 40px;" class="reveal">
+      <div style="margin-top: 40px;" class="fade-in">
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
             Pourquoi vos tarifs sont-ils inférieurs à ceux d'une agence classique ?
@@ -373,7 +373,7 @@ const atLaCarte = [
   <!-- ─── CTA DEVIS ─── -->
   <section class="section">
     <div class="container">
-      <div class="cta-section reveal">
+      <div class="cta-section fade-in">
         <h2>Un projet en tête ?</h2>
         <p>Un formulaire de 2 minutes suffit pour recevoir un devis détaillé sous 48h.</p>
         <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
@@ -823,35 +823,3 @@ const atLaCarte = [
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-    // @ts-ignore
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-
-    // Hero
-    // @ts-ignore
-    gsap.timeline({ delay: 0.15 })
-      // @ts-ignore
-      .fromTo('.hero-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' })
-      // @ts-ignore
-      .fromTo('.tarifs-h1',    { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.tarifs-sub',   { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.25')
-      // @ts-ignore
-      .fromTo('.hero-ctas',    { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.2');
-
-    // Scroll reveals
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el: any) => {
-      // @ts-ignore
-      gsap.fromTo(el, { y: 40, opacity: 0 }, {
-        y: 0, opacity: 1,
-        scrollTrigger: { trigger: el, start: 'top 85%' },
-        duration: 1.1, ease: 'power2.out'
-      });
-    });
-  });
-</script>

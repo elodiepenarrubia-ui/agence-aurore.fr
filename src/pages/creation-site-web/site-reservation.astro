@@ -53,9 +53,9 @@ const faqSchema = {
   <!-- FLUX -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Le parcours client</span>
-      <h2 class="section-title reveal">De la visite à la réservation<br />confirmée, sans vous.</h2>
-      <div class="flux-grid reveal-stagger" style="margin-top:48px;">
+      <span class="section-label fade-in">Le parcours client</span>
+      <h2 class="section-title fade-in">De la visite à la réservation<br />confirmée, sans vous.</h2>
+      <div class="flux-grid fade-in" style="margin-top:48px;">
         {[
           { n:"01", titre:"Le client arrive sur votre site",    desc:"Via Google, Instagram ou bouche-à-oreille. Il voit vos services, vos tarifs, vos disponibilités en temps réel." },
           { n:"02", titre:"Il choisit un créneau et règle",     desc:"Sélection de la date, de l'heure, du service. Paiement par carte sécurisé via Stripe en 30 secondes." },
@@ -75,9 +75,9 @@ const faqSchema = {
   <!-- BÉNÉFICES -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container">
-      <span class="section-label reveal">Bénéfices concrets</span>
-      <h2 class="section-title reveal">Ce que ça change concrètement.</h2>
-      <div class="grid-2 reveal-stagger" style="margin-top:48px;">
+      <span class="section-label fade-in">Bénéfices concrets</span>
+      <h2 class="section-title fade-in">Ce que ça change concrètement.</h2>
+      <div class="grid-2 fade-in" style="margin-top:48px;">
         {[
           { titre:"Réservations 24h/24, 7j/7",      desc:"Votre agenda est disponible à toute heure. Un client qui vous trouve le soir peut réserver immédiatement, sans attendre votre ouverture." },
           { titre:"Zéro aller-retour email",         desc:"Fini les échanges \"vous êtes disponible le 15 ?\" → \"non, plutôt le 17 ?\" Le client voit vos créneaux et réserve en autonomie." },
@@ -98,9 +98,9 @@ const faqSchema = {
   <!-- PACKS -->
   <section class="section">
     <div class="container">
-      <span class="section-label reveal">Formule</span>
-      <h2 class="section-title reveal">La formule Pro.</h2>
-      <div class="reveal-stagger" style="margin-top:48px;max-width:400px;margin-left:auto;margin-right:auto;">
+      <span class="section-label fade-in">Formule</span>
+      <h2 class="section-title fade-in">La formule Pro.</h2>
+      <div class="fade-in" style="margin-top:48px;max-width:400px;margin-left:auto;margin-right:auto;">
         <div class="pricing-card pricing-card-featured">
           <span class="pricing-badge">Tout inclus</span>
           <div class="pricing-name">Pro</div>
@@ -120,9 +120,9 @@ const faqSchema = {
   <!-- FAQ -->
   <section class="section" style="background:var(--gray-50);">
     <div class="container" style="max-width:720px;">
-      <span class="section-label reveal">FAQ</span>
-      <h2 class="section-title reveal">Questions sur le site avec réservation.</h2>
-      <div style="margin-top:36px;" class="reveal">
+      <span class="section-label fade-in">FAQ</span>
+      <h2 class="section-title fade-in">Questions sur le site avec réservation.</h2>
+      <div style="margin-top:36px;" class="fade-in">
         {faqSchema.mainEntity.map((item: any) => (
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">{item.name}<span class="faq-icon" aria-hidden="true">+</span></button>
@@ -133,7 +133,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <section class="section"><div class="container"><div class="cta-section reveal">
+  <section class="section"><div class="container"><div class="cta-section fade-in">
     <h2>Automatisez vos réservations.</h2>
     <p>Dites-moi comment fonctionne votre activité, je vous propose la solution la mieux adaptée.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
@@ -156,16 +156,3 @@ const faqSchema = {
   @media (max-width:1024px) { .flux-grid { grid-template-columns:repeat(2,1fr); } }
   @media (max-width:768px)  { .service-hero { padding:120px 0 56px; } .flux-grid { grid-template-columns:1fr; } }
 </style>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // @ts-ignore
-    if (typeof gsap==='undefined') return; gsap.registerPlugin(ScrollTrigger);
-    gsap.config({ force3D: true });
-    // @ts-ignore
-    gsap.timeline({delay:0.1}).fromTo('.hero-eyebrow',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'}).fromTo('.service-h1',{y:24,opacity:0},{y:0,opacity:1,duration:1.0,ease:'power2.out'},'-=0.25').fromTo('.service-sub',{y:16,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power2.out'},'-=0.25').fromTo('.hero-ctas',{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:'power2.out'},'-=0.2');
-    // @ts-ignore
-    gsap.utils.toArray('.reveal').forEach((el:any)=>gsap.fromTo(el,{y:40,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:el,start:'top 85%'},duration:1.1,ease:'power2.out'}));
-    // @ts-ignore
-    gsap.utils.toArray('.reveal-stagger').forEach((c:any)=>gsap.fromTo(c.children,{y:24,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:c,start:'top 80%'},stagger:0.15,duration:0.55,ease:'power2.out'}));
-  });
-</script>
