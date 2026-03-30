@@ -60,10 +60,10 @@ export const POST: APIRoute = async ({ request }) => {
         <p style="margin:0 0 8px;font-size:13px;font-weight:700;text-transform:uppercase;
           letter-spacing:0.05em;color:#FF6B1A;">Vos formations vid\u00E9o</p>
         <p style="margin:0 0 8px;font-size:14px;line-height:1.7;">
-          Des formations vid\u00E9o vous expliquent comment g\u00E9rer votre site en autonomie.
+          7 formations vid\u00E9o pour g\u00E9rer votre pr\u00E9sence en ligne en autonomie : Google Business, Search Console, Analytics, blog, charte graphique, Stripe et r\u00E9servation.
         </p>
         <p style="margin:0 0 12px;font-size:14px;line-height:1.7;">
-          Code d'acc\u00E8s : <strong style="color:#FF6B1A;letter-spacing:0.04em;">${formationsCode}</strong>
+          Votre code d'acc\u00E8s : <strong style="color:#FF6B1A;letter-spacing:0.04em;">${formationsCode}</strong>
         </p>
         <a href="https://www.agence-aurore.fr/formations/" target="_blank"
            style="display:inline-block;padding:10px 20px;background:#1a1a1a;color:white;

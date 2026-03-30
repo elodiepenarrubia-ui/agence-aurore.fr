@@ -22,10 +22,13 @@ const formationsCode = import.meta.env.PUBLIC_FORMATIONS_CODE;
       </div>
 
       <h1 class="merci-h1">Accès activé !</h1>
-      <p class="merci-sub">Merci pour votre achat. Voici votre code d'accès valable 1 an :</p>
+      <p class="merci-sub">Merci pour votre achat.</p>
 
-      <div class="code-display" id="code-display">{formationsCode}</div>
-      <p class="code-note">Conservez ce code précieusement — il vous permet d'accéder aux formations à tout moment.</p>
+      <div class="merci-code">
+        <p class="merci-code-label">Votre code d'accès valable 1 an :</p>
+        <div class="code-display">{formationsCode}</div>
+        <p class="code-note">Conservez ce code — il vous donne accès à toutes les formations.</p>
+      </div>
 
       <a href="/formations/" class="btn btn-aurora btn-lg" style="margin-top:24px;">Accéder aux formations →</a>
 
@@ -52,6 +55,14 @@ const formationsCode = import.meta.env.PUBLIC_FORMATIONS_CODE;
     line-height: 1.65;
     margin: 0 0 24px;
   }
+  .merci-code {
+    margin: 0 0 8px;
+  }
+  .merci-code-label {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin: 0 0 12px;
+  }
   .code-display {
     display: inline-block;
     font-family: var(--font-display);
@@ -76,4 +87,13 @@ const formationsCode = import.meta.env.PUBLIC_FORMATIONS_CODE;
 <script>
   // Activer automatiquement l'accès
   sessionStorage.setItem('formations-access', 'true');
+
+  // Stocker les formations individuelles achetées
+  var params = new URLSearchParams(window.location.search);
+  var slug = params.get('formation');
+  if (slug) {
+    var achats = JSON.parse(sessionStorage.getItem('formations-achetees') || '[]');
+    if (achats.indexOf(slug) === -1) achats.push(slug);
+    sessionStorage.setItem('formations-achetees', JSON.stringify(achats));
+  }
 </script>

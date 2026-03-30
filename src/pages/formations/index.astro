@@ -1,154 +1,80 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formations, pack } from '../../data/formations';
 
 const formationsCode = import.meta.env.PUBLIC_FORMATIONS_CODE;
+const totalPrix = formations.reduce((sum, f) => sum + f.prix, 0);
 ---
 
 <BaseLayout
   title="Formations vidéo — Gérez votre présence en ligne | aurore"
-  description="Formations vidéo gratuites et premium pour gérer votre site web, Google Business, Search Console, Analytics et votre espace rédaction. Par aurore, Aix-en-Provence."
+  description="Formations vidéo courtes et concrètes pour artisans et indépendants : Google Business, Search Console, Analytics, blog, charte graphique, Stripe, réservation. Par aurore, Aix-en-Provence."
   slug="formations"
 >
 
   <!-- ─── HERO ─── -->
   <section class="fm-hero section-aurora-gradient">
     <div class="container">
-      <div class="hero-eyebrow">
-        <span class="eyebrow-line" aria-hidden="true"></span>
-        Formations · aurore
-        <span class="eyebrow-line" aria-hidden="true"></span>
-      </div>
-      <h1 class="fm-h1">Formations vidéo<br /><span class="hero-serif">Gérez votre présence en ligne.</span></h1>
-      <p class="fm-sub">Tout ce qu'il faut savoir pour tirer le meilleur de votre site web et de vos outils digitaux.</p>
+      <span class="section-label">Formations vidéo</span>
+      <h1 class="fm-h1">Gérez votre présence en ligne<br /><span class="hero-serif">comme un pro.</span></h1>
+      <p class="fm-sub">Des formations courtes et concrètes pour les artisans, thérapeutes et indépendants. Chaque formation inclut une checklist PDF téléchargeable.</p>
     </div>
   </section>
 
-  <!-- ─── VIDÉO GRATUITE ─── -->
   <section class="section">
     <div class="container">
-      <div class="formation-card formation-free fade-in">
-        <span class="formation-badge">Gratuit</span>
-        <h2 class="formation-title">Google Business Profile</h2>
-        <p class="formation-desc">Comment créer, optimiser et gérer votre fiche Google pour apparaître sur Google Maps.</p>
-        <div class="loom-embed">
-          <div class="loom-placeholder">
-            <span class="loom-placeholder-icon" aria-hidden="true">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="var(--aurora-pale)"/><path d="M20 16l12 8-12 8V16z" fill="var(--aurora)"/></svg>
-            </span>
-            <p>Vidéo disponible prochainement</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ─── FORMATIONS VERROUILLÉES ─── -->
-  <section class="section" style="background:var(--gray-50);">
-    <div class="container">
-
-      <div class="formations-locked" id="formations-locked">
-        <span class="section-label fade-in">Formations complètes</span>
-        <h2 class="section-title fade-in">Accédez à toutes les formations</h2>
-
-        <div class="formations-grid fade-in">
-          <div class="formation-card locked">
-            <span class="lock-icon" aria-hidden="true">🔒</span>
-            <h3 class="formation-title-sm">Google Search Console</h3>
-            <p class="formation-desc-sm">Comprendre ce que voit Google, détecter les erreurs, suivre vos positions.</p>
-          </div>
-          <div class="formation-card locked">
-            <span class="lock-icon" aria-hidden="true">🔒</span>
-            <h3 class="formation-title-sm">Google Analytics</h3>
-            <p class="formation-desc-sm">Lire vos statistiques, comprendre d'où viennent vos visiteurs.</p>
-          </div>
-          <div class="formation-card locked">
-            <span class="lock-icon" aria-hidden="true">🔒</span>
-            <h3 class="formation-title-sm">Espace rédaction</h3>
-            <p class="formation-desc-sm">Publier un article, modifier une page, ajouter des photos.</p>
-          </div>
-          <div class="formation-card locked">
-            <span class="lock-icon" aria-hidden="true">🔒</span>
-            <h3 class="formation-title-sm">Votre charte graphique</h3>
-            <p class="formation-desc-sm">Utiliser vos couleurs, polices et logo de façon cohérente.</p>
-          </div>
-        </div>
-
-        <div class="access-options fade-in">
-          <div class="access-box">
-            <p class="access-title">Vous êtes client Aurore ?</p>
-            <p class="access-subtitle">Entrez le code reçu dans votre email de livraison</p>
-            <input type="text" id="code-input" class="input" placeholder="AURORE-XXXX" autocomplete="off" />
-            <button id="btn-code" class="btn btn-aurora" style="width:100%;justify-content:center;margin-top:12px;">Accéder gratuitement</button>
-            <p id="code-error" style="display:none;color:#dc2626;font-size:13px;margin-top:8px;">Code incorrect</p>
-          </div>
-          <div class="access-box">
-            <p class="access-title">Pas encore client ?</p>
-            <p class="access-subtitle">Accès 1 an à toutes les formations</p>
-            <p class="access-price">7€</p>
-            <a href="/formations/acces/" class="btn btn-outline" style="width:100%;justify-content:center;">Acheter l'accès →</a>
-          </div>
-        </div>
+      <!-- ─── PACK MIS EN AVANT ─── -->
+      <div class="pack-card">
+        <span class="pack-badge">Meilleure valeur</span>
+        <h2 class="pack-title">Pack complet — 7 formations</h2>
+        <p class="pack-desc">Toutes les formations + tous les PDFs. Accès 1 an.</p>
+        <div class="pack-price">{pack.prix / 100}€ <span>au lieu de {totalPrix / 100}€</span></div>
+        <button class="btn btn-aurora" id="btn-pack">Accéder au pack →</button>
       </div>
 
-      <!-- ─── FORMATIONS DÉVERROUILLÉES ─── -->
-      <div class="formations-unlocked" id="formations-unlocked" style="display:none;">
-        <span class="section-label">Vos formations</span>
-        <h2 class="section-title">Toutes les formations</h2>
-        <p class="fm-access-note">Accès activé</p>
+      <!-- ─── GRILLE DES FORMATIONS ─── -->
+      <div class="formations-grid">
+        {formations.map((f) => (
+          <div class="formation-card">
+            <div class="formation-header">
+              <span class={`formation-tag ${f.gratuit ? 'formation-tag-free' : ''}`}>
+                {f.gratuit ? 'Gratuit' : f.duree}
+              </span>
+              {!f.gratuit && <span class="formation-duration">{f.duree}</span>}
+            </div>
+            <h3 class="formation-card-title">{f.titre}</h3>
+            <p class="formation-card-desc">{f.description}</p>
+            <ul class="formation-points">
+              {f.points.slice(0, 3).map((p) => (
+                <li>{p}</li>
+              ))}
+            </ul>
+            <div class="formation-footer">
+              <span class="formation-price">{f.gratuit ? 'Gratuit' : `${f.prix / 100}€`}</span>
+              <a href={`/formations/${f.slug}/`} class="btn btn-outline btn-sm">
+                Voir la formation →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
 
-        <div class="formations-grid" style="margin-top:32px;">
-          <div class="formation-card">
-            <span class="formation-badge">Inclus</span>
-            <h3 class="formation-title-sm">Google Search Console</h3>
-            <p class="formation-desc-sm">Comprendre ce que voit Google, détecter les erreurs, suivre vos positions.</p>
-            <div class="loom-embed">
-              <div class="loom-placeholder loom-placeholder-sm">
-                <span class="loom-placeholder-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="var(--aurora-pale)"/><path d="M20 16l12 8-12 8V16z" fill="var(--aurora)"/></svg></span>
-                <p>Vidéo disponible prochainement</p>
-              </div>
-            </div>
-          </div>
-          <div class="formation-card">
-            <span class="formation-badge">Inclus</span>
-            <h3 class="formation-title-sm">Google Analytics</h3>
-            <p class="formation-desc-sm">Lire vos statistiques, comprendre d'où viennent vos visiteurs.</p>
-            <div class="loom-embed">
-              <div class="loom-placeholder loom-placeholder-sm">
-                <span class="loom-placeholder-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="var(--aurora-pale)"/><path d="M20 16l12 8-12 8V16z" fill="var(--aurora)"/></svg></span>
-                <p>Vidéo disponible prochainement</p>
-              </div>
-            </div>
-          </div>
-          <div class="formation-card">
-            <span class="formation-badge">Inclus</span>
-            <h3 class="formation-title-sm">Espace rédaction</h3>
-            <p class="formation-desc-sm">Publier un article, modifier une page, ajouter des photos.</p>
-            <div class="loom-embed">
-              <div class="loom-placeholder loom-placeholder-sm">
-                <span class="loom-placeholder-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="var(--aurora-pale)"/><path d="M20 16l12 8-12 8V16z" fill="var(--aurora)"/></svg></span>
-                <p>Vidéo disponible prochainement</p>
-              </div>
-            </div>
-          </div>
-          <div class="formation-card">
-            <span class="formation-badge">Inclus</span>
-            <h3 class="formation-title-sm">Votre charte graphique</h3>
-            <p class="formation-desc-sm">Utiliser vos couleurs, polices et logo de façon cohérente.</p>
-            <div class="loom-embed">
-              <div class="loom-placeholder loom-placeholder-sm">
-                <span class="loom-placeholder-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="var(--aurora-pale)"/><path d="M20 16l12 8-12 8V16z" fill="var(--aurora)"/></svg></span>
-                <p>Vidéo disponible prochainement</p>
-              </div>
-            </div>
-          </div>
+      <!-- ─── CODE CLIENT ─── -->
+      <div class="client-code-section">
+        <p class="client-code-text">Déjà client Aurore ? Accédez gratuitement à toutes les formations.</p>
+        <div class="code-input-group">
+          <input type="text" id="code-input" class="input" placeholder="PADT2825-AURORE" autocomplete="off" />
+          <button id="btn-code" class="btn btn-aurora">Accéder</button>
         </div>
+        <p id="code-error" class="code-error">Code incorrect</p>
       </div>
 
     </div>
   </section>
 
   <!-- ─── CTA ─── -->
-  <section class="section fade-in">
+  <section class="section" style="background:var(--gray-50);">
     <div class="container">
       <div class="cta-section">
         <h2>Besoin d'un site web professionnel ?</h2>
@@ -181,164 +107,210 @@ const formationsCode = import.meta.env.PUBLIC_FORMATIONS_CODE;
     font-size: clamp(15px, 1.3vw, 18px);
     color: var(--gray-500);
     line-height: 1.65;
-    max-width: 520px;
+    max-width: 580px;
     margin: 0 auto;
   }
 
-  /* ─── CARDS ─── */
+  /* ─── PACK ─── */
+  .pack-card {
+    background: var(--aurora-pale);
+    border: 2px solid var(--aurora);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    position: relative;
+    margin: 32px 0;
+  }
+  .pack-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--aurora);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 16px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .pack-title {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin: 0 0 8px;
+  }
+  .pack-desc {
+    color: var(--gray-500);
+    font-size: 15px;
+    margin: 0;
+  }
+  .pack-price {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--aurora);
+    margin: 16px 0;
+  }
+  .pack-price span {
+    font-size: 16px;
+    color: var(--gray-500);
+    text-decoration: line-through;
+    font-weight: 400;
+  }
+
+  /* ─── GRID ─── */
+  .formations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 48px 0;
+  }
   .formation-card {
     background: white;
-    border: 1.5px solid var(--gray-100);
-    border-radius: var(--radius-lg);
-    padding: 28px 32px;
-    position: relative;
+    border: 1px solid var(--gray-100);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: box-shadow 0.2s;
   }
-  .formation-card.formation-free {
-    border-color: rgba(255, 107, 26, 0.2);
+  .formation-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  .formation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .formation-tag {
     background: var(--aurora-pale);
-  }
-  .formation-card.locked {
-    opacity: 0.6;
-    filter: blur(0.5px);
-  }
-  .formation-badge {
-    display: inline-block;
-    background: var(--aurora-light);
     color: var(--aurora);
     font-size: 11px;
     font-weight: 700;
     padding: 3px 10px;
     border-radius: 100px;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 12px;
   }
-  .lock-icon {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    font-size: 18px;
+  .formation-tag-free {
+    background: #dcfce7;
+    color: #16a34a;
   }
-  .formation-title {
+  .formation-duration {
+    font-size: 12px;
+    color: var(--gray-500);
+  }
+  .formation-card-title {
     font-family: var(--font-display);
-    font-size: clamp(20px, 2.5vw, 26px);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: var(--black);
-    margin: 0 0 8px;
-  }
-  .formation-title-sm {
-    font-family: var(--font-display);
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--black);
-    margin: 0 0 6px;
+    margin: 0;
   }
-  .formation-desc {
-    font-size: 15px;
-    color: var(--gray-500);
-    line-height: 1.65;
-    margin: 0 0 20px;
-    max-width: 600px;
-  }
-  .formation-desc-sm {
+  .formation-card-desc {
     font-size: 14px;
     color: var(--gray-500);
     line-height: 1.6;
-    margin: 0 0 16px;
+    margin: 0;
   }
-
-  /* ─── LOOM EMBED ─── */
-  .loom-embed {
-    border-radius: var(--radius-md);
-    overflow: hidden;
-  }
-  .loom-placeholder {
-    background: var(--gray-50);
-    border: 1.5px dashed var(--gray-300);
-    border-radius: var(--radius-md);
-    padding: 64px 24px;
-    text-align: center;
-    color: var(--gray-500);
-    font-size: 14px;
-  }
-  .loom-placeholder-sm {
-    padding: 32px 16px;
-  }
-  .loom-placeholder p {
-    margin: 12px 0 0;
-  }
-  .loom-placeholder-icon {
-    display: inline-flex;
-  }
-
-  /* ─── GRID ─── */
-  .formations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-    margin: 24px 0;
-  }
-
-  /* ─── ACCESS OPTIONS ─── */
-  .access-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-top: 32px;
-  }
-  .access-box {
-    background: white;
-    border: 1.5px solid var(--gray-100);
-    border-radius: var(--radius-lg);
-    padding: 28px 24px;
-    text-align: center;
-  }
-  .access-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--black);
-    margin: 0 0 4px;
-  }
-  .access-subtitle {
-    color: var(--gray-500);
+  .formation-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     font-size: 13px;
-    margin: 0 0 16px;
-    line-height: 1.5;
+    color: var(--gray-700);
   }
-  .access-price {
-    font-family: var(--font-display);
-    font-size: 32px;
+  .formation-points li::before {
+    content: "→ ";
+    color: var(--aurora);
+    font-weight: 700;
+  }
+  .formation-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray-100);
+  }
+  .formation-price {
+    font-size: 20px;
     font-weight: 800;
     color: var(--aurora);
-    margin: 0 0 16px;
   }
 
-  .fm-access-note {
-    display: inline-block;
-    background: #dcfce7;
-    color: #16a34a;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 100px;
+  /* ─── CODE CLIENT ─── */
+  .client-code-section {
+    text-align: center;
+    padding: 48px 0;
+    border-top: 1px solid var(--gray-100);
+    margin-top: 48px;
+  }
+  .client-code-text {
+    font-size: 15px;
+    color: var(--gray-500);
+    margin: 0;
+  }
+  .code-input-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 16px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .code-error {
+    display: none;
+    color: #dc2626;
+    font-size: 13px;
     margin-top: 8px;
   }
 
   @media (max-width: 768px) {
     .fm-hero { padding: 120px 0 56px; }
-    .access-options { grid-template-columns: 1fr; }
+    .formations-grid { grid-template-columns: 1fr; }
   }
 </style>
 
 <script define:vars={{ formationsCode }}>
-  // Vérifier si déjà connecté
-  if (sessionStorage.getItem('formations-access') === 'true') {
-    showFormations();
+  // Pack achat
+  var btnPack = document.getElementById('btn-pack');
+  if (btnPack) {
+    btnPack.addEventListener('click', function() {
+      btnPack.disabled = true;
+      btnPack.textContent = 'Redirection…';
+      fetch('/api/create-formation-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: 'pack-complet' }),
+      })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.url) {
+            window.location.href = data.url;
+          } else {
+            alert('Erreur : ' + (data.error || 'Impossible de créer le paiement'));
+            btnPack.disabled = false;
+            btnPack.textContent = 'Accéder au pack →';
+          }
+        })
+        .catch(function() {
+          alert('Erreur réseau, veuillez réessayer.');
+          btnPack.disabled = false;
+          btnPack.textContent = 'Accéder au pack →';
+        });
+    });
   }
 
+  // Code client
   var btnCode = document.getElementById('btn-code');
   if (btnCode) {
     btnCode.addEventListener('click', function() {
@@ -346,14 +318,13 @@ const formationsCode = import.meta.env.PUBLIC_FORMATIONS_CODE;
       var code = input.value.trim().toUpperCase();
       if (code === formationsCode) {
         sessionStorage.setItem('formations-access', 'true');
-        showFormations();
+        window.location.reload();
       } else {
         document.getElementById('code-error').style.display = 'block';
       }
     });
   }
 
-  // Enter key sur le champ code
   var codeInput = document.getElementById('code-input');
   if (codeInput) {
     codeInput.addEventListener('keydown', function(e) {
@@ -363,12 +334,5 @@ const formationsCode = import.meta.env.PUBLIC_FORMATIONS_CODE;
       }
       document.getElementById('code-error').style.display = 'none';
     });
-  }
-
-  function showFormations() {
-    var locked = document.getElementById('formations-locked');
-    var unlocked = document.getElementById('formations-unlocked');
-    if (locked) locked.style.display = 'none';
-    if (unlocked) unlocked.style.display = 'block';
   }
 </script>

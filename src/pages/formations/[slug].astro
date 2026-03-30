@@ -1,0 +1,331 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formations } from '../../data/formations';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return formations.map((f) => ({
+    params: { slug: f.slug },
+    props: { formation: f },
+  }));
+}
+
+const { formation } = Astro.props;
+const f = formation;
+---
+
+<BaseLayout
+  title={`${f.titre} — Formation vidéo | aurore`}
+  description={f.description}
+  slug={`formations/${f.slug}`}
+>
+
+  <!-- ─── BREADCRUMB ─── -->
+  <section class="section" style="padding-top:120px;padding-bottom:0;">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="/formations/">Formations</a>
+        <span aria-hidden="true">→</span>
+        <span>{f.titre}</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ─── FORMATION DETAIL ─── -->
+  <section class="section" style="padding-top:32px;">
+    <div class="container">
+      <div class="formation-detail-layout">
+
+        <!-- Contenu principal -->
+        <div class="formation-detail-content">
+          <span class={`formation-tag ${f.gratuit ? 'formation-tag-free' : ''}`}>
+            {f.gratuit ? 'Gratuit' : f.duree}
+          </span>
+          <h1 class="fd-h1">{f.titre}</h1>
+          <p class="fd-description">{f.description}</p>
+
+          <!-- Valeur ajoutée -->
+          <div class="valeur-box">
+            <span class="valeur-label">Ce que YouTube ne dit pas</span>
+            <p class="valeur-text">{f.valeur}</p>
+          </div>
+
+          <!-- Points -->
+          <h2 class="fd-h2">Ce que vous apprendrez</h2>
+          <ul class="points-list">
+            {f.points.map((p) => (
+              <li>{p}</li>
+            ))}
+          </ul>
+
+          <!-- PDF inclus -->
+          <div class="pdf-included">
+            <span aria-hidden="true">&#x1F4C4;</span>
+            <span>Inclus : {f.pdf}</span>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="formation-sidebar">
+
+          <!-- Vidéo (si gratuit ou accès) -->
+          <div class="video-container" id="video-container" style={f.gratuit ? '' : 'display:none;'}>
+            <div class="loom-placeholder">
+              <span class="loom-icon" aria-hidden="true">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="var(--aurora-pale)"/><path d="M20 16l12 8-12 8V16z" fill="var(--aurora)"/></svg>
+              </span>
+              <p>Vidéo disponible prochainement</p>
+            </div>
+          </div>
+
+          <!-- Carte achat (si pas gratuit et pas accès) -->
+          <div class="purchase-card" id="purchase-card" style={f.gratuit ? 'display:none;' : ''}>
+            <div class="purchase-price">{f.prix / 100}€</div>
+            <p class="purchase-info">Accès 1 an · PDF inclus</p>
+            <button class="btn btn-aurora btn-full" id="btn-buy" data-slug={f.slug}>
+              Acheter cette formation →
+            </button>
+            <div class="purchase-divider">ou</div>
+            <a href="/formations/" class="btn btn-outline btn-full">
+              Voir le pack complet (39€)
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .breadcrumb {
+    font-size: 13px;
+    color: var(--gray-500);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .breadcrumb a {
+    color: var(--aurora);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .formation-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .formation-tag {
+    display: inline-block;
+    background: var(--aurora-pale);
+    color: var(--aurora);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .formation-tag-free {
+    background: #dcfce7;
+    color: #16a34a;
+  }
+
+  .fd-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    color: var(--black);
+    margin: 0 0 12px;
+  }
+  .fd-description {
+    font-size: 16px;
+    color: var(--gray-500);
+    line-height: 1.65;
+    margin: 0 0 24px;
+  }
+  .fd-h2 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin: 32px 0 16px;
+  }
+
+  /* ─── VALEUR BOX ─── */
+  .valeur-box {
+    background: var(--gray-50);
+    border-left: 3px solid var(--aurora);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 0 0 24px;
+  }
+  .valeur-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--aurora);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .valeur-text {
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ─── POINTS ─── */
+  .points-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .points-list li {
+    font-size: 15px;
+    color: var(--gray-700);
+    line-height: 1.5;
+    padding-left: 20px;
+    position: relative;
+  }
+  .points-list li::before {
+    content: "→";
+    color: var(--aurora);
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+  }
+
+  /* ─── PDF ─── */
+  .pdf-included {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gray-50);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-top: 24px;
+  }
+
+  /* ─── SIDEBAR ─── */
+  .purchase-card {
+    background: white;
+    border: 1px solid var(--gray-100);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    position: sticky;
+    top: 100px;
+  }
+  .purchase-price {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--aurora);
+    margin-bottom: 4px;
+  }
+  .purchase-info {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin: 0 0 20px;
+  }
+  .purchase-divider {
+    text-align: center;
+    color: var(--gray-400);
+    font-size: 13px;
+    margin: 12px 0;
+    position: relative;
+  }
+  .btn-full {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ─── LOOM ─── */
+  .loom-placeholder {
+    background: var(--gray-50);
+    border: 1.5px dashed var(--gray-300);
+    border-radius: 12px;
+    padding: 64px 24px;
+    text-align: center;
+    color: var(--gray-500);
+    font-size: 14px;
+  }
+  .loom-placeholder p {
+    margin: 12px 0 0;
+  }
+  .loom-icon {
+    display: inline-flex;
+  }
+
+  @media (max-width: 768px) {
+    .formation-detail-layout {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .purchase-card {
+      position: static;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var slug = document.getElementById('btn-buy')?.dataset.slug;
+    var hasAccess = sessionStorage.getItem('formations-access') === 'true';
+    var achats = JSON.parse(sessionStorage.getItem('formations-achetees') || '[]');
+    var hasFormation = achats.includes(slug) || achats.includes('pack-complet');
+
+    var videoContainer = document.getElementById('video-container');
+    var purchaseCard = document.getElementById('purchase-card');
+
+    if (hasAccess || hasFormation) {
+      if (videoContainer) videoContainer.style.display = '';
+      if (purchaseCard) purchaseCard.style.display = 'none';
+    }
+
+    // Bouton achat
+    var btnBuy = document.getElementById('btn-buy');
+    if (btnBuy) {
+      btnBuy.addEventListener('click', function() {
+        btnBuy.disabled = true;
+        btnBuy.textContent = 'Redirection…';
+        fetch('/api/create-formation-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug: slug }),
+        })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.url) {
+              window.location.href = data.url;
+            } else {
+              alert('Erreur : ' + (data.error || 'Impossible de créer le paiement'));
+              btnBuy.disabled = false;
+              btnBuy.textContent = 'Acheter cette formation →';
+            }
+          })
+          .catch(function() {
+            alert('Erreur réseau, veuillez réessayer.');
+            btnBuy.disabled = false;
+            btnBuy.textContent = 'Acheter cette formation →';
+          });
+      });
+    }
+  });
+</script>
