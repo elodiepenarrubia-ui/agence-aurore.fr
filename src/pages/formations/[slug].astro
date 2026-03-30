@@ -59,10 +59,33 @@ const f = formation;
             ))}
           </ul>
 
-          <!-- PDF inclus -->
+          <!-- PDF inclus (mention) -->
           <div class="pdf-included">
             <span aria-hidden="true">&#x1F4C4;</span>
             <span>Inclus : {f.pdf}</span>
+          </div>
+
+          <!-- PDF téléchargeables (visible après accès) -->
+          <div class="pdf-downloads" id="pdf-downloads" style="display:none;">
+            <h2 class="fd-h2">Vos documents</h2>
+            <div class="pdf-download-list">
+              <a href={f.pdfFile} download class="pdf-download-item">
+                <span class="pdf-download-icon">&#x1F4C4;</span>
+                <div>
+                  <span class="pdf-download-name">{f.pdf}</span>
+                  <span class="pdf-download-type">PDF - Checklist</span>
+                </div>
+                <span class="pdf-download-action">Télécharger →</span>
+              </a>
+              <a href={f.pdfFile2} download class="pdf-download-item">
+                <span class="pdf-download-icon">&#x1F4D6;</span>
+                <div>
+                  <span class="pdf-download-name">{f.pdfLabel2}</span>
+                  <span class="pdf-download-type">PDF - Guide</span>
+                </div>
+                <span class="pdf-download-action">Télécharger →</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -223,6 +246,54 @@ const f = formation;
     margin-top: 24px;
   }
 
+  /* ─── PDF DOWNLOADS ─── */
+  .pdf-download-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .pdf-download-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gray-50);
+    border: 1.5px solid var(--gray-100);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .pdf-download-item:hover {
+    border-color: var(--aurora);
+    box-shadow: 0 2px 12px rgba(255, 107, 26, 0.1);
+  }
+  .pdf-download-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .pdf-download-item div {
+    flex: 1;
+    min-width: 0;
+  }
+  .pdf-download-name {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--black);
+  }
+  .pdf-download-type {
+    display: block;
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 2px;
+  }
+  .pdf-download-action {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--aurora);
+    white-space: nowrap;
+  }
+
   /* ─── SIDEBAR ─── */
   .purchase-card {
     background: white;
@@ -293,10 +364,12 @@ const f = formation;
 
     var videoContainer = document.getElementById('video-container');
     var purchaseCard = document.getElementById('purchase-card');
+    var pdfDownloads = document.getElementById('pdf-downloads');
 
     if (hasAccess || hasFormation) {
       if (videoContainer) videoContainer.style.display = '';
       if (purchaseCard) purchaseCard.style.display = 'none';
+      if (pdfDownloads) pdfDownloads.style.display = '';
     }
 
     // Bouton achat
