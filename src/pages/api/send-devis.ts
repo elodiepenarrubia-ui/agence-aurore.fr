@@ -66,7 +66,7 @@ function buildEmailHTML(params: {
               <span style="display:inline-block;width:24px;height:24px;background:#FF6B1A;color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:13px;font-weight:700;">1</span>
             </td>
             <td style="padding:8px 0;color:#1a1a1a;font-size:14px;line-height:1.6;">
-              Prenez un RDV dans mon agenda
+              Si besoin, prenez rendez-vous dans mon agenda
               <br>
               <a href="https://calendly.com/elodie-agence-aurore" target="_blank" style="display:inline-block;margin-top:8px;padding:10px 22px;border:1.5px solid #FF6B1A;border-radius:100px;color:#FF6B1A;background:#ffffff;font-size:13px;font-weight:600;text-decoration:none;font-family:'Outfit',Helvetica,Arial,sans-serif;">Prendre rendez-vous</a>
             </td>
