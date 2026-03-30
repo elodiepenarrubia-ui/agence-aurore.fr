@@ -26,7 +26,7 @@ export const POST: APIRoute = async ({ request }) => {
       metaDescription: extractMeta(html, 'description'),
       h1: extractH1(html),
       h2Count: countTags(html, 'h2'),
-      hasGoogleAnalytics: html.includes('gtag') || html.includes('GA_MEASUREMENT_ID') || html.includes('G-'),
+      hasGoogleAnalytics: html.includes('gtag') || html.includes('googletagmanager') || /G-[A-Z0-9]{8,}/.test(html) || html.includes('google-analytics'),
       hasGTM: html.includes('googletagmanager'),
       platform: detectPlatform(html),
       hasViewport: html.includes('name="viewport"'),
@@ -43,12 +43,16 @@ export const POST: APIRoute = async ({ request }) => {
       perf,
     };
 
-    try {
-      const sitemapRes = await fetch(`${new URL(url).origin}/sitemap.xml`, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; AuroraAudit/1.0)' }
-      });
-      results.hasSitemap = sitemapRes.ok;
-    } catch {}
+    const sitemapPaths = ['/sitemap.xml', '/sitemap-index.xml', '/sitemap_index.xml'];
+    const origin = new URL(url).origin;
+    for (const path of sitemapPaths) {
+      try {
+        const sitemapRes = await fetch(`${origin}${path}`, {
+          headers: { 'User-Agent': 'Mozilla/5.0 (compatible; AuroraAudit/1.0)' }
+        });
+        if (sitemapRes.ok) { results.hasSitemap = true; break; }
+      } catch {}
+    }
 
     try {
       const robotsRes = await fetch(`${new URL(url).origin}/robots.txt`, {
@@ -167,13 +171,13 @@ function countTags(html: string, tag: string): number {
 }
 
 function detectPlatform(html: string): string {
+  if (html.includes('/_astro/') || html.includes('astro-island')) return 'Astro';
   if (html.includes('wp-content') || html.includes('wp-includes')) return 'WordPress';
   if (html.includes('wix.com') || html.includes('wixsite')) return 'Wix';
   if (html.includes('squarespace')) return 'Squarespace';
   if (html.includes('webador') || html.includes('jouwweb')) return 'Webador';
   if (html.includes('shopify')) return 'Shopify';
   if (html.includes('jimdo')) return 'Jimdo';
-  if (html.includes('astro') || html.includes('_astro')) return 'Astro';
   return 'Inconnu';
 }
 
@@ -194,7 +198,7 @@ function detectKeywordStuffing(html: string): boolean {
   const freq: Record<string, number> = {};
   words.forEach(w => freq[w] = (freq[w] || 0) + 1);
   const maxFreq = Math.max(...Object.values(freq));
-  return maxFreq > 20;
+  return maxFreq > 35;
 }
 
 function countInternalLinks(html: string, url: string): number {
