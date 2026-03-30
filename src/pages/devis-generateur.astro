@@ -140,7 +140,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
             17 rue Fermée, 13100 Aix-en-Provence<br/>
             elodie@agence-aurore.fr<br/>
             06 59 65 92 18<br/>
-            SIREN 913875431 - Code APE 62.01Z
+            SIRET 91387543100029 - Code APE 62.01Z
           </div>
           <div class="paper-devis-info">
             <p>Devis n° <strong id="p-numero"></strong></p>
@@ -209,7 +209,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
 
         <!-- Pied de page -->
         <div class="paper-footer">
-          Aurore - Élodie Penarrubia - SIREN 913875431 - agence-aurore.fr
+          Aurore - Élodie Penarrubia - SIRET 91387543100029 - agence-aurore.fr
         </div>
       </div>
     </div>
@@ -949,7 +949,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
     { label: 'Migration', prix: 190 },
     { label: 'Logo seul', prix: 150 },
     { label: 'Charte graphique', prix: 100 },
-    { label: 'Page supplémentaire', prix: 120 },
+    { label: 'Page supplémentaire', prix: 80 },
     { label: 'Formulaire contact', prix: 60 },
     { label: 'SEO on-page', prix: 150 },
     { label: 'Fiche Google Business', prix: 90 },
@@ -958,6 +958,9 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
     { label: 'Decap CMS', prix: 150 },
     { label: 'Emails pro (Zoho)', prix: 80 },
     { label: 'Domaine + config', prix: 60 },
+    { label: 'Espace rédaction (Starter/Migration)', prix: 150 },
+    { label: 'Session de modifications', prix: 30 },
+    { label: 'Pack landing pages (10 pages SEO)', prix: 190 },
     { label: 'Support marketing', prix: 80 },
     { label: 'Maintenance technique', prix: 19 },
     { label: 'Maintenance + support', prix: 29 },
@@ -1438,7 +1441,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
         '17 rue Ferm\u00E9e, 13100 Aix-en-Provence',
         'elodie@agence-aurore.fr',
         '06 59 65 92 18',
-        'SIREN 913875431 - Code APE 62.01Z'
+        'SIRET 91387543100029 - Code APE 62.01Z'
       ];
       emLines.forEach(function(line) {
         doc.text(line, emetteurX, emY);
@@ -1670,7 +1673,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
 
       doc.setFontSize(6.5);
       doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
-      doc.text('Aurore - \u00C9lodie Penarrubia - SIREN 913875431 - agence-aurore.fr', pageW / 2, y, { align: 'center' });
+      doc.text('Aurore - \u00C9lodie Penarrubia - SIRET 91387543100029 - agence-aurore.fr', pageW / 2, y, { align: 'center' });
 
       // ─── Return compatible interface ───
       return {

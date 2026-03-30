@@ -39,7 +39,7 @@ déployer selon l'offre choisie.
 ## Périmètre strict par offre
 
 ### Pack Starter (290€) - INCLUS
-- Site 3 pages : Accueil, Services, Contact
+- Site 5 pages : Accueil, Services, Contact + 2 pages incluses
 - Design personnalisé aux couleurs du client
 - Formulaire de contact (Resend)
 - Responsive mobile
@@ -53,14 +53,14 @@ déployer selon l'offre choisie.
 ### Pack Starter (290€) - EXCLU
 - CMS / espace rédaction
 - Blog
-- Pages supplémentaires (facturable 120€/page)
+- Pages supplémentaires (facturable 50 à 80€/page selon le contenu)
 - Logo / charte graphique (facturable)
 - Stripe / paiement en ligne
 - Emails automatisés
 - Réservation en ligne
 
 ### Vitrine (690€) - INCLUS
-- Site jusqu'à 6 pages
+- Site jusqu'à 8 pages (6 + 2 incluses)
 - Tout le Starter inclus
 - Formulaire de contact avancé
 - CMS Firebase (modifier textes + créer pages + blog)
@@ -73,11 +73,11 @@ déployer selon l'offre choisie.
 - Réservation en ligne
 - Stripe / paiement en ligne
 - Emails automatisés
-- Pages supplémentaires au-delà de 6 (120€/page)
+- Pages supplémentaires au-delà de 8 (50 à 80€/page selon le contenu)
 - Logo / charte graphique (facturable)
 
 ### Pro (1290€) - INCLUS
-- Site jusqu'à 10 pages + blog
+- Site jusqu'à 12 pages (10 + 2 incluses) + blog
 - Tout le Vitrine inclus
 - Réservation en ligne
 - Stripe paiement en ligne
@@ -92,7 +92,7 @@ déployer selon l'offre choisie.
 - Formation vidéo Loom complète
 
 ### Pro (1290€) - EXCLU
-- Pages supplémentaires au-delà de 10 (120€/page)
+- Pages supplémentaires au-delà de 12 (50 à 80€/page selon le contenu)
 - Logo / charte graphique (facturable)
 
 ### Migration (190€) - INCLUS
