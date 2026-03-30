@@ -1,0 +1,511 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const apiToken = import.meta.env.API_SECRET_TOKEN;
+const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
+---
+
+<BaseLayout
+  title="Audit SEO - aurore"
+  description="Outil interne d'audit SEO"
+  slug="audit-seo"
+  noindex={true}
+>
+
+<!-- ─── ÉCRAN CONNEXION ─── -->
+<div id="login-screen" class="audit-login" data-pw={devisPassword}>
+  <div class="login-box">
+    <span class="logo logo-lg">aur<span class="logo-o">o</span>re</span>
+    <p class="login-subtitle">Espace privé - Audit SEO</p>
+    <form id="login-form" class="login-form">
+      <input type="password" id="login-password" class="input" placeholder="Mot de passe" autocomplete="off" />
+      <p id="login-error" class="login-error" style="display:none;">Mot de passe incorrect</p>
+      <button type="submit" class="btn btn-aurora">Accéder</button>
+    </form>
+  </div>
+</div>
+
+<!-- ─── APP ─── -->
+<div id="audit-app" class="audit-app" style="display:none;" data-api-token={apiToken}>
+  <section class="container" style="padding-top:120px;padding-bottom:64px;">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:8px;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <h1 class="audit-page-title">Audit SEO</h1>
+        <a href="/devis-generateur/" class="audit-nav-link">Générateur de devis →</a>
+      </div>
+      <button type="button" id="btn-logout" style="background:none;border:none;color:var(--gray-500);font-size:13px;cursor:pointer;padding:4px 8px;border-radius:4px;transition:var(--transition);">Déconnexion →</button>
+    </div>
+
+    <!-- Formulaire -->
+    <div class="audit-form">
+      <div class="audit-form-fields">
+        <div class="field">
+          <label for="audit-url">URL du site à analyser</label>
+          <input type="url" id="audit-url" class="input" placeholder="https://www.exemple.com" />
+        </div>
+        <div class="field">
+          <label for="audit-name">Nom du prospect</label>
+          <input type="text" id="audit-name" class="input" placeholder="Nicolas Pécard - BlackWoodDeck" />
+        </div>
+        <div class="field">
+          <label for="audit-email">Email du prospect <span style="color:var(--gray-500);font-weight:400;">(optionnel)</span></label>
+          <input type="email" id="audit-email" class="input" placeholder="contact@exemple.com" />
+        </div>
+      </div>
+      <button id="btn-analyze" class="btn btn-aurora btn-lg" style="margin-top:16px;">Analyser le site →</button>
+      <p id="analyze-error" style="display:none;color:#dc2626;font-size:13px;margin-top:8px;"></p>
+    </div>
+
+    <!-- Résultats -->
+    <div id="audit-results" style="display:none;margin-top:40px;"></div>
+
+  </section>
+</div>
+
+<!-- ─── TOASTS ─── -->
+<div id="toast-container" class="toast-container"></div>
+
+<style>
+  /* ─── LOGIN ─── */
+  .audit-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+    text-align: center;
+  }
+  .login-box {
+    max-width: 320px;
+    width: 100%;
+  }
+  .login-subtitle {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin: 8px 0 24px;
+  }
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .login-error {
+    color: #dc2626;
+    font-size: 13px;
+    margin: 0;
+  }
+
+  /* ─── PAGE ─── */
+  .audit-page-title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin: 0;
+  }
+  .audit-nav-link {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--aurora);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  .audit-nav-link:hover {
+    color: var(--aurora-dark);
+    text-decoration: underline;
+  }
+
+  /* ─── FORM ─── */
+  .audit-form {
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+  }
+  .audit-form-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+
+  /* ─── RESULTS ─── */
+  .audit-header {
+    margin-bottom: 24px;
+  }
+  .audit-header h2 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin: 0 0 4px;
+  }
+  .audit-header a {
+    font-size: 13px;
+    color: var(--aurora);
+    text-decoration: none;
+  }
+  .audit-header a:hover { text-decoration: underline; }
+  .audit-score {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 800;
+    margin-top: 12px;
+  }
+  .audit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .audit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+  }
+  .audit-icon {
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .audit-item-content {
+    min-width: 0;
+  }
+  .audit-label {
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    color: var(--black);
+  }
+  .audit-value {
+    font-size: 12px;
+    display: block;
+    margin-top: 2px;
+    color: var(--gray-700);
+    word-break: break-word;
+  }
+  .audit-detail {
+    font-size: 11px;
+    color: var(--gray-500);
+    display: block;
+    margin-top: 4px;
+    font-style: italic;
+  }
+  .audit-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* ─── LOADING ─── */
+  .audit-loading {
+    text-align: center;
+    padding: 48px 0;
+  }
+  .audit-spinner {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--gray-200);
+    border-top-color: var(--aurora);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .audit-form-fields {
+      grid-template-columns: 1fr;
+    }
+    .audit-form {
+      padding: 20px 16px;
+    }
+  }
+</style>
+
+<script is:inline>
+(function() {
+  // ─── AUTHENTIFICATION ───
+  var loginScreen = document.getElementById('login-screen');
+  var auditApp = document.getElementById('audit-app');
+  var API_TOKEN = auditApp.dataset.apiToken;
+  var loginForm = document.getElementById('login-form');
+  var loginPassword = document.getElementById('login-password');
+  var loginError = document.getElementById('login-error');
+  var AUDIT_PW = loginScreen.dataset.pw;
+
+  function showApp() {
+    loginScreen.style.display = 'none';
+    auditApp.style.display = 'block';
+  }
+
+  if (sessionStorage.getItem('devis-auth') === AUDIT_PW) {
+    showApp();
+  } else {
+    loginScreen.style.display = 'flex';
+    auditApp.style.display = 'none';
+  }
+
+  loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (loginPassword.value === AUDIT_PW) {
+      sessionStorage.setItem('devis-auth', AUDIT_PW);
+      showApp();
+    } else {
+      loginError.style.display = '';
+      loginPassword.focus();
+    }
+  });
+
+  // Déconnexion
+  document.getElementById('btn-logout').addEventListener('click', function() {
+    sessionStorage.removeItem('devis-auth');
+    loginScreen.style.display = 'flex';
+    auditApp.style.display = 'none';
+  });
+
+  // ─── TOASTS ───
+  function showToast(message, type) {
+    var container = document.getElementById('toast-container');
+    var toast = document.createElement('div');
+    toast.className = 'toast toast-' + (type || 'success');
+    toast.textContent = message;
+    container.appendChild(toast);
+    setTimeout(function() { toast.classList.add('toast-visible'); }, 10);
+    setTimeout(function() {
+      toast.classList.remove('toast-visible');
+      setTimeout(function() { toast.remove(); }, 300);
+    }, 3000);
+  }
+
+  // ─── VARIABLES D'ÉTAT ───
+  var lastAuditData = null;
+  var lastProspectName = '';
+  var lastChecks = [];
+  var lastScore = 0;
+
+  // ─── ANALYSE ───
+  document.getElementById('btn-analyze').addEventListener('click', function() {
+    var url = document.getElementById('audit-url').value.trim();
+    var name = document.getElementById('audit-name').value.trim();
+    var errorEl = document.getElementById('analyze-error');
+    errorEl.style.display = 'none';
+
+    if (!url) { errorEl.textContent = 'Veuillez saisir une URL'; errorEl.style.display = 'block'; return; }
+    if (!name) { errorEl.textContent = 'Veuillez saisir le nom du prospect'; errorEl.style.display = 'block'; return; }
+
+    // Ajouter https si manquant
+    if (!url.startsWith('http')) url = 'https://' + url;
+
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Analyse en cours...';
+
+    var resultsDiv = document.getElementById('audit-results');
+    resultsDiv.style.display = 'block';
+    resultsDiv.innerHTML = '<div class="audit-loading"><div class="audit-spinner"></div><p style="margin-top:12px;color:var(--gray-500);font-size:14px;">Analyse de ' + url + '...</p></div>';
+
+    fetch('/api/audit-seo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-token': API_TOKEN },
+      body: JSON.stringify({ url: url })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.error) {
+        resultsDiv.innerHTML = '<div class="audit-loading"><p style="color:#dc2626;">' + data.error + '</p></div>';
+      } else {
+        lastAuditData = data;
+        lastProspectName = name;
+        resultsDiv.innerHTML = renderResults(data, name);
+        attachCopyHandler();
+      }
+      btn.disabled = false;
+      btn.textContent = 'Analyser le site \u2192';
+    })
+    .catch(function(err) {
+      resultsDiv.innerHTML = '<div class="audit-loading"><p style="color:#dc2626;">Erreur : ' + err.message + '</p></div>';
+      btn.disabled = false;
+      btn.textContent = 'Analyser le site \u2192';
+    });
+  });
+
+  // ─── RENDU RÉSULTATS ───
+  function renderResults(data, prospectName) {
+    var checks = [
+      {
+        label: 'HTTPS activ\u00E9',
+        status: data.httpsEnabled ? 'ok' : 'error',
+        value: data.httpsEnabled ? 'Oui' : 'Non',
+        detail: data.httpsEnabled ? '' : 'Le site n\u2019utilise pas HTTPS - p\u00E9nalit\u00E9 Google',
+      },
+      {
+        label: 'Balise Title',
+        status: data.title ? (data.title.length > 30 && data.title.length < 65 ? 'ok' : 'warning') : 'error',
+        value: data.title || 'Absente',
+        detail: data.title ? data.title.length + ' caract\u00E8res (id\u00E9al : 50-60)' : 'Aucune balise title trouv\u00E9e',
+      },
+      {
+        label: 'Meta Description',
+        status: data.metaDescription ? (data.metaDescription.length > 100 ? 'ok' : 'warning') : 'error',
+        value: data.metaDescription ? data.metaDescription.length + ' caract\u00E8res' : 'Absente',
+        detail: data.metaDescription || 'Aucune meta description - Google g\u00E9n\u00E8re ses propres extraits',
+      },
+      {
+        label: 'Balise H1',
+        status: data.h1 ? 'ok' : 'error',
+        value: data.h1 || 'Absente',
+        detail: data.h1 ? '' : 'Aucun H1 trouv\u00E9 - signal SEO manquant',
+      },
+      {
+        label: 'Schema.org (donn\u00E9es structur\u00E9es)',
+        status: data.hasSchema ? 'ok' : 'error',
+        value: data.hasSchema ? 'Pr\u00E9sent' : 'Absent',
+        detail: data.hasSchema ? '' : 'Pas de donn\u00E9es structur\u00E9es - invisible pour les IA g\u00E9n\u00E9ratives',
+      },
+      {
+        label: 'Google Analytics',
+        status: data.hasGoogleAnalytics ? 'ok' : 'warning',
+        value: data.hasGoogleAnalytics ? 'D\u00E9tect\u00E9' : 'Non d\u00E9tect\u00E9',
+        detail: data.hasGoogleAnalytics ? '' : 'Pas de suivi des visites',
+      },
+      {
+        label: 'Balise Canonical',
+        status: data.hasCanonical ? 'ok' : 'warning',
+        value: data.hasCanonical ? 'Pr\u00E9sente' : 'Absente',
+        detail: '',
+      },
+      {
+        label: 'Sitemap XML',
+        status: data.hasSitemap ? 'ok' : 'warning',
+        value: data.hasSitemap ? 'Pr\u00E9sent' : 'Absent',
+        detail: data.hasSitemap ? '' : 'Pas de sitemap - Google indexe moins facilement',
+      },
+      {
+        label: 'Robots.txt',
+        status: data.hasRobots ? 'ok' : 'warning',
+        value: data.hasRobots ? 'Pr\u00E9sent' : 'Absent',
+        detail: '',
+      },
+      {
+        label: 'Images sans attribut alt',
+        status: data.imagesWithoutAlt === 0 ? 'ok' : data.imagesWithoutAlt < 3 ? 'warning' : 'error',
+        value: data.imagesWithoutAlt + ' / ' + data.imageCount + ' images',
+        detail: data.imagesWithoutAlt > 0 ? 'Images sans texte alternatif - invisible pour Google' : '',
+      },
+      {
+        label: 'Keyword stuffing',
+        status: data.keywordStuffing ? 'error' : 'ok',
+        value: data.keywordStuffing ? 'D\u00E9tect\u00E9' : 'Non d\u00E9tect\u00E9',
+        detail: data.keywordStuffing ? 'R\u00E9p\u00E9tition excessive de mots-cl\u00E9s - p\u00E9nalit\u00E9 Google' : '',
+      },
+      {
+        label: 'Plateforme d\u00E9tect\u00E9e',
+        status: ['WordPress', 'Wix', 'Webador', 'Jimdo', 'Squarespace'].indexOf(data.platform) !== -1 ? 'warning' : 'ok',
+        value: data.platform,
+        detail: ['WordPress', 'Wix', 'Webador', 'Jimdo', 'Squarespace'].indexOf(data.platform) !== -1
+          ? data.platform + ' limite les optimisations SEO techniques' : '',
+      },
+    ];
+
+    lastChecks = checks;
+    var okCount = checks.filter(function(c) { return c.status === 'ok'; }).length;
+    var score = Math.round((okCount / checks.length) * 10);
+    lastScore = score;
+    var scoreColor = score >= 7 ? '#16A34A' : score >= 4 ? '#D97706' : '#DC2626';
+
+    var html = '<div class="audit-header">' +
+      '<h2>' + escapeHtml(prospectName) + '</h2>' +
+      '<a href="' + escapeHtml(data.url) + '" target="_blank">' + escapeHtml(data.url) + '</a>' +
+      '<div class="audit-score" style="color:' + scoreColor + '">Score SEO : <strong>' + score + '/10</strong></div>' +
+      '</div><div class="audit-grid">';
+
+    checks.forEach(function(check) {
+      var icon = check.status === 'ok' ? '\u2713' : check.status === 'warning' ? '\u26A0' : '\u2717';
+      var color = check.status === 'ok' ? '#16A34A' : check.status === 'warning' ? '#D97706' : '#DC2626';
+      var bg = check.status === 'ok' ? '#F0FDF4' : check.status === 'warning' ? '#FFFBEB' : '#FEF2F2';
+      html += '<div class="audit-item" style="background:' + bg + ';">' +
+        '<span class="audit-icon" style="color:' + color + '">' + icon + '</span>' +
+        '<div class="audit-item-content">' +
+        '<span class="audit-label">' + check.label + '</span>' +
+        '<span class="audit-value">' + escapeHtml(check.value) + '</span>' +
+        (check.detail ? '<span class="audit-detail">' + escapeHtml(check.detail) + '</span>' : '') +
+        '</div></div>';
+    });
+
+    html += '</div><div class="audit-actions">' +
+      '<button id="btn-copy-report" class="btn btn-outline">Copier le rapport</button>' +
+      '</div>';
+
+    return html;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ─── COPIER LE RAPPORT ───
+  function attachCopyHandler() {
+    var btn = document.getElementById('btn-copy-report');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      var report = generateTextReport();
+      navigator.clipboard.writeText(report).then(function() {
+        showToast('Rapport copi\u00E9 dans le presse-papier', 'success');
+      });
+    });
+  }
+
+  function generateTextReport() {
+    var errors = lastChecks.filter(function(c) { return c.status === 'error'; });
+    var warnings = lastChecks.filter(function(c) { return c.status === 'warning'; });
+    var oks = lastChecks.filter(function(c) { return c.status === 'ok'; });
+
+    var text = 'Audit SEO - ' + lastProspectName + '\n' +
+      'URL : ' + lastAuditData.url + '\n' +
+      'Score : ' + lastScore + '/10\n\n';
+
+    if (errors.length > 0) {
+      text += 'POINTS CRITIQUES :\n';
+      errors.forEach(function(c) {
+        text += '\u2717 ' + c.label + ' : ' + c.value + (c.detail ? ' - ' + c.detail : '') + '\n';
+      });
+      text += '\n';
+    }
+
+    if (warnings.length > 0) {
+      text += 'POINTS \u00C0 AM\u00C9LIORER :\n';
+      warnings.forEach(function(c) {
+        text += '\u26A0 ' + c.label + ' : ' + c.value + (c.detail ? ' - ' + c.detail : '') + '\n';
+      });
+      text += '\n';
+    }
+
+    if (oks.length > 0) {
+      text += 'POINTS POSITIFS :\n';
+      oks.forEach(function(c) {
+        text += '\u2713 ' + c.label + '\n';
+      });
+      text += '\n';
+    }
+
+    text += 'Rapport g\u00E9n\u00E9r\u00E9 par Aurore - agence-aurore.fr';
+    return text;
+  }
+
+})();
+</script>
+
+</BaseLayout>

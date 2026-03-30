@@ -31,7 +31,10 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
     <!-- ─── COLONNE GAUCHE : FORMULAIRE ─── -->
     <div class="form-col">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-        <h1 class="devis-page-title" style="margin:0;">Générateur de devis</h1>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <h1 class="devis-page-title" style="margin:0;">Générateur de devis</h1>
+          <a href="/audit-seo/" style="font-size:13px;font-weight:500;color:var(--aurora);text-decoration:none;">Audit SEO →</a>
+        </div>
         <button type="button" id="btn-logout" style="background:none;border:none;color:var(--gray-500);font-size:13px;cursor:pointer;padding:4px 8px;border-radius:4px;transition:var(--transition);">Déconnexion →</button>
       </div>
 
