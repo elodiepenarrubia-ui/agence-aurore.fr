@@ -379,4 +379,147 @@
     if(o.length>0){t+='POSITIFS :\n';o.forEach(function(c){t+='\u2713 '+c.label+'\n';});t+='\n';}
     t+='Rapport g\u00E9n\u00E9r\u00E9 par Aurore - agence-aurore.fr';return t;
   }
+
+  // ═══════════════════════════════════════════
+  // ÉDITEUR D'ARTICLES
+  // ═══════════════════════════════════════════
+  var ART_API = 'https://aurore-api.vercel.app/api/publish-article';
+  var ART_PW = 'Sh48yf51&*';
+  var artStep = 0;
+
+  function artToSlug(str) {
+    return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  function artCanNext0() {
+    return document.getElementById('art-titre').value.length > 3 && document.getElementById('art-description').value.length > 10;
+  }
+  function artCanNext1() {
+    return document.getElementById('art-intro').value.length > 20 && document.getElementById('art-corps').value.length > 50;
+  }
+
+  function artGoToStep(n) {
+    if (n === 1 && !artCanNext0()) return;
+    if (n === 2 && !artCanNext1()) return;
+    if (n === 2) artUpdatePreview();
+    // Panels
+    document.querySelectorAll('.editor-panel').forEach(function(p) { p.classList.remove('active'); });
+    var panel = document.getElementById('epanel-' + n);
+    if (panel) panel.classList.add('active');
+    // Steps
+    var steps = document.querySelectorAll('.estep');
+    var lines = document.querySelectorAll('.estep-line');
+    for (var i = 0; i < steps.length; i++) {
+      steps[i].classList.remove('active', 'done');
+      if (i < n) steps[i].classList.add('done');
+      else if (i === n) steps[i].classList.add('active');
+      var dot = steps[i].querySelector('.estep-dot');
+      dot.textContent = i < n ? '\u2713' : String(i + 1);
+    }
+    for (var j = 0; j < lines.length; j++) {
+      if (j < n) lines[j].classList.add('done');
+      else lines[j].classList.remove('done');
+    }
+    artStep = n;
+  }
+
+  function artUpdatePreview() {
+    var titre = document.getElementById('art-titre').value;
+    var desc = document.getElementById('art-description').value;
+    var intro = document.getElementById('art-intro').value;
+    var corps = document.getElementById('art-corps').value;
+    var slug = artToSlug(titre);
+    var readTime = Math.max(1, Math.round(corps.split(/\s+/).length / 200));
+    var today = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('epc-meta').textContent = today + ' \u00B7 ' + readTime + ' min de lecture';
+    document.getElementById('epc-titre').textContent = titre;
+    document.getElementById('epc-desc').textContent = desc;
+    document.getElementById('epc-intro').textContent = intro;
+    document.getElementById('epc-corps').textContent = corps.slice(0, 200) + '...';
+    document.getElementById('epc-url').textContent = 'agence-aurore.fr/blog/' + slug + '/';
+  }
+
+  // Titre -> slug
+  var artTitre = document.getElementById('art-titre');
+  if (artTitre) {
+    artTitre.addEventListener('input', function() {
+      var slug = artToSlug(artTitre.value);
+      var preview = document.getElementById('art-slug-preview');
+      var display = document.getElementById('art-slug-display');
+      if (artTitre.value.length > 0) { preview.style.display = 'block'; display.textContent = 'agence-aurore.fr/blog/' + slug + '/'; }
+      else { preview.style.display = 'none'; }
+      document.getElementById('art-btn-next-0').disabled = !artCanNext0();
+    });
+  }
+
+  // Description char count
+  var artDesc = document.getElementById('art-description');
+  if (artDesc) {
+    artDesc.addEventListener('input', function() {
+      var len = artDesc.value.length;
+      var el = document.getElementById('art-charcount');
+      el.textContent = len + '/160';
+      el.className = 'editor-charcount' + (len > 140 ? ' warn' : '');
+      document.getElementById('art-btn-next-0').disabled = !artCanNext0();
+    });
+  }
+
+  // Content validation
+  var artIntro = document.getElementById('art-intro');
+  var artCorps = document.getElementById('art-corps');
+  if (artIntro) artIntro.addEventListener('input', function() { document.getElementById('art-btn-next-1').disabled = !artCanNext1(); });
+  if (artCorps) artCorps.addEventListener('input', function() { document.getElementById('art-btn-next-1').disabled = !artCanNext1(); });
+
+  // Step navigation buttons
+  var btnNext0 = document.getElementById('art-btn-next-0');
+  if (btnNext0) btnNext0.addEventListener('click', function() { artGoToStep(1); });
+  var btnBack1 = document.getElementById('art-btn-back-1');
+  if (btnBack1) btnBack1.addEventListener('click', function() { artGoToStep(0); });
+  var btnNext1 = document.getElementById('art-btn-next-1');
+  if (btnNext1) btnNext1.addEventListener('click', function() { artGoToStep(2); });
+  var btnBack2 = document.getElementById('art-btn-back-2');
+  if (btnBack2) btnBack2.addEventListener('click', function() { artGoToStep(1); });
+
+  // Step dots clickable
+  document.querySelectorAll('.estep').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var step = parseInt(el.dataset.step);
+      artGoToStep(step);
+    });
+  });
+
+  // Publish
+  var btnPublish = document.getElementById('art-btn-publish');
+  if (btnPublish) {
+    btnPublish.addEventListener('click', function() {
+      var titre = document.getElementById('art-titre').value;
+      var description = document.getElementById('art-description').value;
+      var intro = document.getElementById('art-intro').value;
+      var corps = document.getElementById('art-corps').value;
+      var slug = artToSlug(titre);
+      var contenu = intro + '\n\n' + corps;
+      var container = document.getElementById('art-status-container');
+
+      btnPublish.disabled = true;
+      btnPublish.textContent = 'Publication en cours...';
+      container.innerHTML = '';
+
+      fetch(ART_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ART_PW },
+        body: JSON.stringify({ slug: slug, titre: titre, description: description, date: new Date().toISOString(), contenu: contenu })
+      })
+      .then(function(res) { if (!res.ok) throw new Error('Erreur ' + res.status); return res.json(); })
+      .then(function() {
+        btnPublish.textContent = 'Publi\u00E9 \u2713';
+        container.innerHTML = '<div class="art-status-success"><span style="font-size:20px">\u2705</span><div><strong>Article publi\u00E9 avec succ\u00E8s !</strong><p>En ligne dans ~1 minute sur agence-aurore.fr/blog/' + slug + '/</p></div></div>';
+      })
+      .catch(function(err) {
+        btnPublish.disabled = false;
+        btnPublish.textContent = 'R\u00E9essayer';
+        container.innerHTML = '<div class="art-status-error">\u274C Erreur : ' + err.message + '</div>';
+      });
+    });
+  }
+
 })();
