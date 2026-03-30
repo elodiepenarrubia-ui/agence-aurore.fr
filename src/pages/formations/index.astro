@@ -24,16 +24,18 @@ const totalPrix = formations.reduce((sum, f) => sum + f.prix, 0);
   <section class="section">
     <div class="container">
 
-      <!-- ─── PACK MIS EN AVANT ─── -->
-      <div class="pack-card">
-        <span class="pack-badge">Meilleure valeur</span>
-        <h2 class="pack-title">Pack complet — 7 formations</h2>
-        <p class="pack-desc">Toutes les formations + tous les PDFs. Accès 1 an.</p>
-        <div class="pack-price">{pack.prix / 100}€ <span>au lieu de {totalPrix / 100}€</span></div>
-        <button class="btn btn-aurora" id="btn-pack">Accéder au pack →</button>
+      <!-- ─── SECTION VERROUILLÉE (tarifs + achat) ─── -->
+      <div id="formations-locked">
+        <div class="pack-card">
+          <span class="pack-badge">Meilleure valeur</span>
+          <h2 class="pack-title">Pack complet — 7 formations</h2>
+          <p class="pack-desc">Toutes les formations + tous les PDFs. Accès 1 an.</p>
+          <div class="pack-price">{pack.prix / 100}€ <span>au lieu de {totalPrix / 100}€</span></div>
+          <button class="btn btn-aurora" id="btn-pack">Accéder au pack →</button>
+        </div>
       </div>
 
-      <!-- ─── GRILLE DES FORMATIONS ─── -->
+      <!-- ─── GRILLE DES FORMATIONS (toujours visible) ─── -->
       <div class="formations-grid">
         {formations.map((f) => (
           <div class="formation-card">
@@ -51,7 +53,7 @@ const totalPrix = formations.reduce((sum, f) => sum + f.prix, 0);
               ))}
             </ul>
             <div class="formation-footer">
-              <span class="formation-price">{f.gratuit ? 'Gratuit' : `${f.prix / 100}€`}</span>
+              <span class="formation-price formations-price-tag">{f.gratuit ? 'Gratuit' : `${f.prix / 100}€`}</span>
               <a href={`/formations/${f.slug}/`} class="btn btn-outline btn-sm">
                 Voir la formation →
               </a>
@@ -60,11 +62,20 @@ const totalPrix = formations.reduce((sum, f) => sum + f.prix, 0);
         ))}
       </div>
 
+      <!-- ─── SECTION DÉVERROUILLÉE (visible après connexion) ─── -->
+      <div id="formations-unlocked" style="display:none;">
+        <div class="fm-access-badge">Accès activé</div>
+        <div class="formations-resource">
+          <p>&#x1F4C4; Guide de prise en main - PDF</p>
+          <a href="/formations/guide-formations-aurore.pdf" download class="btn btn-outline">Télécharger le guide →</a>
+        </div>
+      </div>
+
       <!-- ─── CODE CLIENT ─── -->
-      <div class="client-code-section">
+      <div id="client-code-section" class="client-code-section">
         <p class="client-code-text">Déjà client Aurore ? Accédez gratuitement à toutes les formations.</p>
         <div class="code-input-group">
-          <input type="text" id="code-input" class="input" placeholder="PADT2825-AURORE" autocomplete="off" />
+          <input type="text" id="code-input" class="input" placeholder="Entrez votre code d'accès" autocomplete="off" />
           <button id="btn-code" class="btn btn-aurora">Accéder</button>
         </div>
         <p id="code-error" class="code-error">Code incorrect</p>
@@ -274,6 +285,35 @@ const totalPrix = formations.reduce((sum, f) => sum + f.prix, 0);
     margin-top: 8px;
   }
 
+  /* ─── ACCÈS ACTIVÉ ─── */
+  .fm-access-badge {
+    display: inline-block;
+    background: #dcfce7;
+    color: #16a34a;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .formations-resource {
+    background: var(--gray-50);
+    border: 1.5px solid var(--gray-100);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .formations-resource p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+  }
+
   @media (max-width: 768px) {
     .fm-hero { padding: 120px 0 56px; }
     .formations-grid { grid-template-columns: 1fr; }
@@ -281,12 +321,32 @@ const totalPrix = formations.reduce((sum, f) => sum + f.prix, 0);
 </style>
 
 <script define:vars={{ formationsCode }}>
-  // Pack achat
+  // ─── GESTION ACCÈS ───
+  function showFormations() {
+    var locked = document.getElementById('formations-locked');
+    var unlocked = document.getElementById('formations-unlocked');
+    var codeSection = document.getElementById('client-code-section');
+    // Masquer tarifs et code client
+    if (locked) locked.style.display = 'none';
+    if (codeSection) codeSection.style.display = 'none';
+    // Masquer les prix individuels dans la grille
+    var priceTags = document.querySelectorAll('.formations-price-tag');
+    for (var i = 0; i < priceTags.length; i++) { priceTags[i].style.display = 'none'; }
+    // Afficher section déverrouillée
+    if (unlocked) unlocked.style.display = 'block';
+  }
+
+  // Vérifier si déjà connecté
+  if (sessionStorage.getItem('formations-access') === 'true') {
+    showFormations();
+  }
+
+  // ─── PACK ACHAT ───
   var btnPack = document.getElementById('btn-pack');
   if (btnPack) {
     btnPack.addEventListener('click', function() {
       btnPack.disabled = true;
-      btnPack.textContent = 'Redirection…';
+      btnPack.textContent = 'Redirection\u2026';
       fetch('/api/create-formation-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -297,20 +357,20 @@ const totalPrix = formations.reduce((sum, f) => sum + f.prix, 0);
           if (data.url) {
             window.location.href = data.url;
           } else {
-            alert('Erreur : ' + (data.error || 'Impossible de créer le paiement'));
+            alert('Erreur : ' + (data.error || 'Impossible de cr\u00E9er le paiement'));
             btnPack.disabled = false;
-            btnPack.textContent = 'Accéder au pack →';
+            btnPack.textContent = 'Acc\u00E9der au pack \u2192';
           }
         })
         .catch(function() {
-          alert('Erreur réseau, veuillez réessayer.');
+          alert('Erreur r\u00E9seau, veuillez r\u00E9essayer.');
           btnPack.disabled = false;
-          btnPack.textContent = 'Accéder au pack →';
+          btnPack.textContent = 'Acc\u00E9der au pack \u2192';
         });
     });
   }
 
-  // Code client
+  // ─── CODE CLIENT ───
   var btnCode = document.getElementById('btn-code');
   if (btnCode) {
     btnCode.addEventListener('click', function() {
@@ -318,7 +378,7 @@ const totalPrix = formations.reduce((sum, f) => sum + f.prix, 0);
       var code = input.value.trim().toUpperCase();
       if (code === formationsCode) {
         sessionStorage.setItem('formations-access', 'true');
-        window.location.reload();
+        showFormations();
       } else {
         document.getElementById('code-error').style.display = 'block';
       }

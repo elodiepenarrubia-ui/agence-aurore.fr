@@ -33,6 +33,8 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    const origin = import.meta.env.SITE_URL || new URL(request.url).origin;
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [{
@@ -49,8 +51,8 @@ export const POST: APIRoute = async ({ request }) => {
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: `${import.meta.env.SITE_URL}/formations/merci/?formation=${slug}`,
-      cancel_url: `${import.meta.env.SITE_URL}/formations/${slug === 'pack-complet' ? '' : slug + '/'}`,
+      success_url: `${origin}/formations/merci/?formation=${slug}`,
+      cancel_url: `${origin}/formations/${slug === 'pack-complet' ? '' : slug + '/'}`,
     });
 
     return new Response(
