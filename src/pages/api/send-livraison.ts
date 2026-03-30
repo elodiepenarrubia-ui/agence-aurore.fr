@@ -15,6 +15,7 @@ export const POST: APIRoute = async ({ request }) => {
   } = await request.json();
 
   const resend = new Resend(import.meta.env.RESEND_API_KEY);
+  const formationsCode = import.meta.env.PUBLIC_FORMATIONS_CODE;
 
   const cmsSection = cmsUrl ? `
     <div style="background:#F9F9F9;border-radius:8px;padding:20px;margin:20px 0;">
@@ -57,14 +58,17 @@ export const POST: APIRoute = async ({ request }) => {
       ${comptesSection}
       <div style="background:#F9F9F9;border-radius:8px;padding:20px;margin:20px 0;">
         <p style="margin:0 0 8px;font-size:13px;font-weight:700;text-transform:uppercase;
-          letter-spacing:0.05em;color:#FF6B1A;">Votre formation</p>
-        <p style="margin:0 0 12px;font-size:14px;line-height:1.7;">
-          Une formation vid\u00E9o vous explique comment g\u00E9rer votre site en autonomie.
+          letter-spacing:0.05em;color:#FF6B1A;">Vos formations vid\u00E9o</p>
+        <p style="margin:0 0 8px;font-size:14px;line-height:1.7;">
+          Des formations vid\u00E9o vous expliquent comment g\u00E9rer votre site en autonomie.
         </p>
-        <a href="https://loom.com/share/votre-lien-generique" target="_blank"
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.7;">
+          Code d'acc\u00E8s : <strong style="color:#FF6B1A;letter-spacing:0.04em;">${formationsCode}</strong>
+        </p>
+        <a href="https://www.agence-aurore.fr/formations/" target="_blank"
            style="display:inline-block;padding:10px 20px;background:#1a1a1a;color:white;
            border-radius:100px;font-size:13px;font-weight:600;text-decoration:none;">
-          Voir la formation \u2192
+          Acc\u00E9der aux formations \u2192
         </a>
       </div>
       <div style="background:#FFF4EE;border-radius:8px;padding:20px;margin:20px 0;">

@@ -1,0 +1,374 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const formationsCode = import.meta.env.PUBLIC_FORMATIONS_CODE;
+---
+
+<BaseLayout
+  title="Formations vidéo — Gérez votre présence en ligne | aurore"
+  description="Formations vidéo gratuites et premium pour gérer votre site web, Google Business, Search Console, Analytics et votre espace rédaction. Par aurore, Aix-en-Provence."
+  slug="formations"
+>
+
+  <!-- ─── HERO ─── -->
+  <section class="fm-hero section-aurora-gradient">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line" aria-hidden="true"></span>
+        Formations · aurore
+        <span class="eyebrow-line" aria-hidden="true"></span>
+      </div>
+      <h1 class="fm-h1">Formations vidéo<br /><span class="hero-serif">Gérez votre présence en ligne.</span></h1>
+      <p class="fm-sub">Tout ce qu'il faut savoir pour tirer le meilleur de votre site web et de vos outils digitaux.</p>
+    </div>
+  </section>
+
+  <!-- ─── VIDÉO GRATUITE ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="formation-card formation-free fade-in">
+        <span class="formation-badge">Gratuit</span>
+        <h2 class="formation-title">Google Business Profile</h2>
+        <p class="formation-desc">Comment créer, optimiser et gérer votre fiche Google pour apparaître sur Google Maps.</p>
+        <div class="loom-embed">
+          <div class="loom-placeholder">
+            <span class="loom-placeholder-icon" aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="var(--aurora-pale)"/><path d="M20 16l12 8-12 8V16z" fill="var(--aurora)"/></svg>
+            </span>
+            <p>Vidéo disponible prochainement</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FORMATIONS VERROUILLÉES ─── -->
+  <section class="section" style="background:var(--gray-50);">
+    <div class="container">
+
+      <div class="formations-locked" id="formations-locked">
+        <span class="section-label fade-in">Formations complètes</span>
+        <h2 class="section-title fade-in">Accédez à toutes les formations</h2>
+
+        <div class="formations-grid fade-in">
+          <div class="formation-card locked">
+            <span class="lock-icon" aria-hidden="true">🔒</span>
+            <h3 class="formation-title-sm">Google Search Console</h3>
+            <p class="formation-desc-sm">Comprendre ce que voit Google, détecter les erreurs, suivre vos positions.</p>
+          </div>
+          <div class="formation-card locked">
+            <span class="lock-icon" aria-hidden="true">🔒</span>
+            <h3 class="formation-title-sm">Google Analytics</h3>
+            <p class="formation-desc-sm">Lire vos statistiques, comprendre d'où viennent vos visiteurs.</p>
+          </div>
+          <div class="formation-card locked">
+            <span class="lock-icon" aria-hidden="true">🔒</span>
+            <h3 class="formation-title-sm">Espace rédaction</h3>
+            <p class="formation-desc-sm">Publier un article, modifier une page, ajouter des photos.</p>
+          </div>
+          <div class="formation-card locked">
+            <span class="lock-icon" aria-hidden="true">🔒</span>
+            <h3 class="formation-title-sm">Votre charte graphique</h3>
+            <p class="formation-desc-sm">Utiliser vos couleurs, polices et logo de façon cohérente.</p>
+          </div>
+        </div>
+
+        <div class="access-options fade-in">
+          <div class="access-box">
+            <p class="access-title">Vous êtes client Aurore ?</p>
+            <p class="access-subtitle">Entrez le code reçu dans votre email de livraison</p>
+            <input type="text" id="code-input" class="input" placeholder="AURORE-XXXX" autocomplete="off" />
+            <button id="btn-code" class="btn btn-aurora" style="width:100%;justify-content:center;margin-top:12px;">Accéder gratuitement</button>
+            <p id="code-error" style="display:none;color:#dc2626;font-size:13px;margin-top:8px;">Code incorrect</p>
+          </div>
+          <div class="access-box">
+            <p class="access-title">Pas encore client ?</p>
+            <p class="access-subtitle">Accès 1 an à toutes les formations</p>
+            <p class="access-price">7€</p>
+            <a href="/formations/acces/" class="btn btn-outline" style="width:100%;justify-content:center;">Acheter l'accès →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── FORMATIONS DÉVERROUILLÉES ─── -->
+      <div class="formations-unlocked" id="formations-unlocked" style="display:none;">
+        <span class="section-label">Vos formations</span>
+        <h2 class="section-title">Toutes les formations</h2>
+        <p class="fm-access-note">Accès activé</p>
+
+        <div class="formations-grid" style="margin-top:32px;">
+          <div class="formation-card">
+            <span class="formation-badge">Inclus</span>
+            <h3 class="formation-title-sm">Google Search Console</h3>
+            <p class="formation-desc-sm">Comprendre ce que voit Google, détecter les erreurs, suivre vos positions.</p>
+            <div class="loom-embed">
+              <div class="loom-placeholder loom-placeholder-sm">
+                <span class="loom-placeholder-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="var(--aurora-pale)"/><path d="M20 16l12 8-12 8V16z" fill="var(--aurora)"/></svg></span>
+                <p>Vidéo disponible prochainement</p>
+              </div>
+            </div>
+          </div>
+          <div class="formation-card">
+            <span class="formation-badge">Inclus</span>
+            <h3 class="formation-title-sm">Google Analytics</h3>
+            <p class="formation-desc-sm">Lire vos statistiques, comprendre d'où viennent vos visiteurs.</p>
+            <div class="loom-embed">
+              <div class="loom-placeholder loom-placeholder-sm">
+                <span class="loom-placeholder-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="var(--aurora-pale)"/><path d="M20 16l12 8-12 8V16z" fill="var(--aurora)"/></svg></span>
+                <p>Vidéo disponible prochainement</p>
+              </div>
+            </div>
+          </div>
+          <div class="formation-card">
+            <span class="formation-badge">Inclus</span>
+            <h3 class="formation-title-sm">Espace rédaction</h3>
+            <p class="formation-desc-sm">Publier un article, modifier une page, ajouter des photos.</p>
+            <div class="loom-embed">
+              <div class="loom-placeholder loom-placeholder-sm">
+                <span class="loom-placeholder-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="var(--aurora-pale)"/><path d="M20 16l12 8-12 8V16z" fill="var(--aurora)"/></svg></span>
+                <p>Vidéo disponible prochainement</p>
+              </div>
+            </div>
+          </div>
+          <div class="formation-card">
+            <span class="formation-badge">Inclus</span>
+            <h3 class="formation-title-sm">Votre charte graphique</h3>
+            <p class="formation-desc-sm">Utiliser vos couleurs, polices et logo de façon cohérente.</p>
+            <div class="loom-embed">
+              <div class="loom-placeholder loom-placeholder-sm">
+                <span class="loom-placeholder-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="var(--aurora-pale)"/><path d="M20 16l12 8-12 8V16z" fill="var(--aurora)"/></svg></span>
+                <p>Vidéo disponible prochainement</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section class="section fade-in">
+    <div class="container">
+      <div class="cta-section">
+        <h2>Besoin d'un site web professionnel ?</h2>
+        <p>Votre site en ligne en 2 semaines, avec toutes les formations incluses.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="/tarifs/" class="btn btn-aurora btn-lg">Voir les offres →</a>
+          <a href="/contact/" class="btn btn-outline btn-lg">Demander un devis</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .fm-hero {
+    padding: 160px 0 80px;
+    text-align: center;
+  }
+  .fm-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    color: var(--black);
+    margin: 20px 0 16px;
+  }
+  .fm-sub {
+    font-size: clamp(15px, 1.3vw, 18px);
+    color: var(--gray-500);
+    line-height: 1.65;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ─── CARDS ─── */
+  .formation-card {
+    background: white;
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    position: relative;
+  }
+  .formation-card.formation-free {
+    border-color: rgba(255, 107, 26, 0.2);
+    background: var(--aurora-pale);
+  }
+  .formation-card.locked {
+    opacity: 0.6;
+    filter: blur(0.5px);
+  }
+  .formation-badge {
+    display: inline-block;
+    background: var(--aurora-light);
+    color: var(--aurora);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+  .lock-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 18px;
+  }
+  .formation-title {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin: 0 0 8px;
+  }
+  .formation-title-sm {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin: 0 0 6px;
+  }
+  .formation-desc {
+    font-size: 15px;
+    color: var(--gray-500);
+    line-height: 1.65;
+    margin: 0 0 20px;
+    max-width: 600px;
+  }
+  .formation-desc-sm {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.6;
+    margin: 0 0 16px;
+  }
+
+  /* ─── LOOM EMBED ─── */
+  .loom-embed {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .loom-placeholder {
+    background: var(--gray-50);
+    border: 1.5px dashed var(--gray-300);
+    border-radius: var(--radius-md);
+    padding: 64px 24px;
+    text-align: center;
+    color: var(--gray-500);
+    font-size: 14px;
+  }
+  .loom-placeholder-sm {
+    padding: 32px 16px;
+  }
+  .loom-placeholder p {
+    margin: 12px 0 0;
+  }
+  .loom-placeholder-icon {
+    display: inline-flex;
+  }
+
+  /* ─── GRID ─── */
+  .formations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  /* ─── ACCESS OPTIONS ─── */
+  .access-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .access-box {
+    background: white;
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .access-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--black);
+    margin: 0 0 4px;
+  }
+  .access-subtitle {
+    color: var(--gray-500);
+    font-size: 13px;
+    margin: 0 0 16px;
+    line-height: 1.5;
+  }
+  .access-price {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--aurora);
+    margin: 0 0 16px;
+  }
+
+  .fm-access-note {
+    display: inline-block;
+    background: #dcfce7;
+    color: #16a34a;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .fm-hero { padding: 120px 0 56px; }
+    .access-options { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script define:vars={{ formationsCode }}>
+  // Vérifier si déjà connecté
+  if (sessionStorage.getItem('formations-access') === 'true') {
+    showFormations();
+  }
+
+  var btnCode = document.getElementById('btn-code');
+  if (btnCode) {
+    btnCode.addEventListener('click', function() {
+      var input = document.getElementById('code-input');
+      var code = input.value.trim().toUpperCase();
+      if (code === formationsCode) {
+        sessionStorage.setItem('formations-access', 'true');
+        showFormations();
+      } else {
+        document.getElementById('code-error').style.display = 'block';
+      }
+    });
+  }
+
+  // Enter key sur le champ code
+  var codeInput = document.getElementById('code-input');
+  if (codeInput) {
+    codeInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('btn-code').click();
+      }
+      document.getElementById('code-error').style.display = 'none';
+    });
+  }
+
+  function showFormations() {
+    var locked = document.getElementById('formations-locked');
+    var unlocked = document.getElementById('formations-unlocked');
+    if (locked) locked.style.display = 'none';
+    if (unlocked) unlocked.style.display = 'block';
+  }
+</script>
