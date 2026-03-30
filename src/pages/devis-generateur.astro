@@ -1033,6 +1033,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
     var prestationsList = document.getElementById('prestations-list');
     var addBtn = document.getElementById('add-prestation');
     var downloadBtn = document.getElementById('btn-download');
+    if (!prestationsList || !addBtn) { console.error('initDevis: éléments DOM introuvables', { prestationsList: !!prestationsList, addBtn: !!addBtn }); return; }
     var currentTotalHT = 0;
 
     // Numéro de devis auto
@@ -1179,14 +1180,15 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
 
       // Prestations
       var tbody = document.getElementById('p-prestations-body');
+      if (!tbody) return;
       tbody.innerHTML = '';
-      var rows = prestationsList.querySelectorAll('.presta-row');
+      var rows = prestationsList ? prestationsList.querySelectorAll('.presta-row') : [];
       var totalHT = 0;
 
       if (rows.length === 0) {
         tbody.innerHTML = '<tr class="empty-row"><td colspan="4">Aucune prestation ajout\u00E9e</td></tr>';
       } else {
-        rows.forEach(function(row) {
+        Array.prototype.forEach.call(rows, function(row) {
           var desc = row.querySelectorAll('input')[0].value || row.querySelector('select').value || '-';
           var qty = parseFloat(row.querySelectorAll('input')[1].value) || 0;
           var pu = parseFloat(row.querySelectorAll('input')[2].value) || 0;
@@ -1399,10 +1401,11 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
       }
 
       // Prestations data
-      var rows = document.getElementById('prestations-list').querySelectorAll('.presta-row');
+      var plEl = document.getElementById('prestations-list');
+      var rows = plEl ? plEl.querySelectorAll('.presta-row') : [];
       var prestations = [];
       var totalHT = 0;
-      rows.forEach(function(row) {
+      Array.prototype.forEach.call(rows, function(row) {
         var inputs = row.querySelectorAll('input');
         var desc = inputs[0].value || row.querySelector('select').value || '-';
         var qty = parseFloat(inputs[1].value) || 0;
