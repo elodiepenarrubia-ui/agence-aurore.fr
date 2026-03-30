@@ -186,16 +186,17 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
     font-weight: 600;
     display: block;
     color: var(--black);
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
   .audit-value {
     font-size: 12px;
-    display: block;
+    display: inline-block;
     color: var(--gray-700);
     word-break: break-word;
-    padding: 2px 0;
-    border-top: 1px solid rgba(0,0,0,0.06);
-    margin-top: 4px;
+    background: rgba(0,0,0,0.04);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 2px;
   }
   .audit-detail {
     font-size: 11px;
@@ -363,34 +364,58 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
     var content = data.content || {};
     var perf = data.perf || {};
 
+    // ─── SCORE PONDÉRÉ (calculé d'abord) ───
+    var scorePenalties = 0;
+    // Title : absent -2, trop court/long -1
+    if (!data.title) scorePenalties += 2;
+    else if (data.title.length <= 30 || data.title.length >= 65) scorePenalties += 1;
+    // Meta description absente : -1
+    if (!data.metaDescription) scorePenalties += 1;
+    // H1 absent : -2
+    if (!data.h1) scorePenalties += 2;
+    // Schema LocalBusiness absent : -1
+    if (!schema.hasLocalBusiness) scorePenalties += 1;
+    // HTTPS absent : -2
+    if (!data.httpsEnabled) scorePenalties += 2;
+    // Keyword stuffing : -2
+    if (data.keywordStuffing) scorePenalties += 2;
+    // Plateforme limitante : -1
+    if (['Wix', 'Webador', 'Squarespace'].indexOf(data.platform) !== -1) scorePenalties += 1;
+    // Contenu < 150 mots : -1
+    if (content.wordCount < 150) scorePenalties += 1;
+
     var checks = [
       {
         label: 'HTTPS activ\u00E9',
         status: data.httpsEnabled ? 'ok' : 'error',
         value: data.httpsEnabled ? 'Oui' : 'Non',
-        detail: data.httpsEnabled ? '' : 'Le site n\u2019utilise pas HTTPS - p\u00E9nalit\u00E9 Google',
+        detail: data.httpsEnabled ? '' : 'Le site n\u2019utilise pas HTTPS - p\u00E9nalit\u00E9 Google (-2 pts)',
       },
       {
         label: 'Balise Title',
         status: data.title ? (data.title.length > 30 && data.title.length < 65 ? 'ok' : 'warning') : 'error',
         value: data.title || 'Absente',
-        detail: data.title ? data.title.length + ' caract\u00E8res (id\u00E9al : 50-60)' : 'Aucune balise title trouv\u00E9e',
+        detail: data.title
+          ? data.title.length + ' caract\u00E8res (id\u00E9al : 50-60)' + (data.title.length <= 30 || data.title.length >= 65 ? ' (-1 pt)' : '')
+          : 'Aucune balise title trouv\u00E9e (-2 pts)',
       },
       {
         label: 'Meta Description',
         status: data.metaDescription ? (data.metaDescription.length > 100 ? 'ok' : 'warning') : 'error',
         value: data.metaDescription ? data.metaDescription.length + ' caract\u00E8res' : 'Absente',
-        detail: data.metaDescription || 'Aucune meta description - Google g\u00E9n\u00E8re ses propres extraits',
+        detail: data.metaDescription
+          ? (data.metaDescription.length <= 100 ? 'Un peu courte (id\u00E9al : 120-160 caract\u00E8res)' : '')
+          : 'Aucune meta description - Google g\u00E9n\u00E8re ses propres extraits (-1 pt)',
       },
       {
         label: 'Balise H1',
         status: data.h1 ? 'ok' : 'error',
         value: data.h1 || 'Absente',
-        detail: data.h1 ? '' : 'Aucun H1 trouv\u00E9 - signal SEO manquant',
+        detail: data.h1 ? '' : 'Aucun H1 trouv\u00E9 - signal SEO manquant (-2 pts)',
       },
       {
         label: 'Schema.org (donn\u00E9es structur\u00E9es)',
-        status: schema.hasSchema ? 'ok' : 'error',
+        status: schema.hasSchema ? 'ok' : 'warning',
         value: schema.hasSchema ? schema.types.length + ' type(s) d\u00E9tect\u00E9(s)' : 'Absent',
         detail: schema.hasSchema ? '' : 'Pas de donn\u00E9es structur\u00E9es - invisible pour les IA g\u00E9n\u00E9ratives',
         extra: schema.types && schema.types.length > 0 ? schema.types : null,
@@ -399,7 +424,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
         label: 'Schema LocalBusiness',
         status: schema.hasLocalBusiness ? 'ok' : 'error',
         value: schema.hasLocalBusiness ? 'Pr\u00E9sent' : 'Absent',
-        detail: schema.hasLocalBusiness ? '' : 'Google ne sait pas que vous \u00EAtes un commerce local - impact fort sur le SEO local',
+        detail: schema.hasLocalBusiness ? '' : 'Google ne sait pas que vous \u00EAtes un commerce local (-1 pt)',
       },
       {
         label: 'Schema FAQPage',
@@ -423,7 +448,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
         label: 'Balise Canonical',
         status: data.hasCanonical ? 'ok' : 'warning',
         value: data.hasCanonical ? 'Pr\u00E9sente' : 'Absente',
-        detail: '',
+        detail: data.hasCanonical ? '' : 'Balise canonical manquante',
       },
       {
         label: 'Sitemap XML',
@@ -435,11 +460,11 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
         label: 'Robots.txt',
         status: data.hasRobots ? 'ok' : 'warning',
         value: data.hasRobots ? 'Pr\u00E9sent' : 'Absent',
-        detail: '',
+        detail: data.hasRobots ? '' : 'Fichier robots.txt manquant',
       },
       {
         label: 'Images sans attribut alt',
-        status: data.imagesWithoutAlt === 0 ? 'ok' : data.imagesWithoutAlt < 3 ? 'warning' : 'error',
+        status: data.imagesWithoutAlt === 0 ? 'ok' : 'warning',
         value: data.imagesWithoutAlt + ' / ' + data.imageCount + ' images',
         detail: data.imagesWithoutAlt > 0 ? 'Images sans texte alternatif - invisible pour Google' : '',
       },
@@ -447,7 +472,9 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
         label: 'Contenu textuel',
         status: content.wordCount > 300 ? 'ok' : content.wordCount > 150 ? 'warning' : 'error',
         value: content.wordCount + ' mots',
-        detail: content.wordCount < 300 ? 'Contenu insuffisant pour un bon r\u00E9f\u00E9rencement (minimum 300 mots)' : '',
+        detail: content.wordCount < 150
+          ? 'Contenu tr\u00E8s insuffisant (minimum 150 mots) (-1 pt)'
+          : content.wordCount < 300 ? 'Contenu un peu l\u00E9ger (id\u00E9al : 300+ mots)' : '',
       },
       {
         label: 'Section FAQ',
@@ -471,17 +498,17 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
         label: 'Keyword stuffing',
         status: data.keywordStuffing ? 'error' : 'ok',
         value: data.keywordStuffing ? 'D\u00E9tect\u00E9' : 'Non d\u00E9tect\u00E9',
-        detail: data.keywordStuffing ? 'R\u00E9p\u00E9tition excessive de mots-cl\u00E9s - p\u00E9nalit\u00E9 Google' : '',
+        detail: data.keywordStuffing ? 'R\u00E9p\u00E9tition excessive de mots-cl\u00E9s - p\u00E9nalit\u00E9 Google (-2 pts)' : '',
       },
       {
         label: 'Taille de la page',
-        status: perf.pageSizeKb < 200 ? 'ok' : perf.pageSizeKb < 500 ? 'warning' : 'error',
+        status: perf.pageSizeKb < 200 ? 'ok' : 'warning',
         value: perf.pageSizeKb + ' Ko',
         detail: perf.pageSizeKb > 200 ? 'Page lourde - impact n\u00E9gatif sur la vitesse et le SEO' : '',
       },
       {
         label: 'Scripts JavaScript',
-        status: perf.scriptCount < 10 ? 'ok' : perf.scriptCount < 20 ? 'warning' : 'error',
+        status: perf.scriptCount < 10 ? 'ok' : 'warning',
         value: perf.scriptCount + ' scripts',
         detail: perf.scriptCount >= 10 ? 'Trop de scripts - ralentit le chargement' : '',
       },
@@ -499,29 +526,19 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
       },
       {
         label: 'Plateforme d\u00E9tect\u00E9e',
-        status: ['WordPress', 'Wix', 'Webador', 'Jimdo', 'Squarespace'].indexOf(data.platform) !== -1 ? 'warning' : 'ok',
+        status: ['Wix', 'Webador', 'Squarespace'].indexOf(data.platform) !== -1 ? 'error'
+          : ['WordPress', 'Jimdo'].indexOf(data.platform) !== -1 ? 'warning' : 'ok',
         value: data.platform,
-        detail: ['WordPress', 'Wix', 'Webador', 'Jimdo', 'Squarespace'].indexOf(data.platform) !== -1
-          ? data.platform + ' limite les optimisations SEO techniques' : '',
+        detail: ['Wix', 'Webador', 'Squarespace'].indexOf(data.platform) !== -1
+          ? data.platform + ' limite les optimisations SEO techniques (-1 pt)'
+          : ['WordPress', 'Jimdo'].indexOf(data.platform) !== -1
+            ? data.platform + ' - optimisations SEO limit\u00E9es' : '',
       },
     ];
 
     lastChecks = checks;
 
-    // ─── SCORE PONDÉRÉ ───
-    var totalPoints = 10;
-    var penalties = 0;
-    checks.forEach(function(c) {
-      if (c.status === 'error') penalties += 1;
-      else if (c.status === 'warning') penalties += 0.4;
-    });
-    // Malus supplémentaires
-    if (data.keywordStuffing) penalties += 2; // -3 total (1 de base + 2 extra)
-    if (!schema.hasLocalBusiness) penalties += 1; // -2 total (1 de base + 1 extra)
-    if (!schema.hasFAQPage) penalties += 0.6; // -1 extra en plus du warning
-
-    var score = Math.max(0, Math.round(totalPoints - penalties));
-    if (score > 10) score = 10;
+    var score = Math.max(0, Math.min(10, 10 - scorePenalties));
     lastScore = score;
     var scoreColor = score >= 7 ? '#16A34A' : score >= 4 ? '#D97706' : '#DC2626';
 
