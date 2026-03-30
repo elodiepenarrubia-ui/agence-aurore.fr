@@ -423,6 +423,8 @@ const schemaJson = schema
         flex-direction: column;
         gap: 10px;
         max-height: 280px;
+        scrollbar-width: thin !important;
+        scrollbar-color: #E5E7EB transparent !important;
       }
       .chat-msg {
         padding: 10px 14px;
@@ -451,18 +453,26 @@ const schemaJson = schema
         font-weight: 700;
         margin-top: 2px;
       }
-      .chat-msg.bot {
-        background: #F3F4F6;
-        color: #1a1a1a;
-        border-radius: 4px 12px 12px 12px;
+      #chat-window .chat-msg.bot {
+        background: #F3F4F6 !important;
+        color: #1a1a1a !important;
+        align-self: flex-start !important;
+        border-radius: 4px 12px 12px 12px !important;
+        padding: 10px 14px !important;
+        font-size: 13px !important;
+        line-height: 1.6 !important;
+        white-space: pre-line !important;
+        max-width: 85% !important;
         flex: 1;
       }
-      .chat-msg.user {
-        background: #FF6B1A;
-        color: white;
-        align-self: flex-end;
-        border-radius: 12px 4px 12px 12px;
-        max-width: 75%;
+      #chat-window .chat-msg.user {
+        background: #FF6B1A !important;
+        color: white !important;
+        align-self: flex-end !important;
+        border-radius: 12px 4px 12px 12px !important;
+        padding: 10px 14px !important;
+        font-size: 13px !important;
+        max-width: 75% !important;
       }
 
       /* ─── CHATBOT : Options ─── */
@@ -472,22 +482,25 @@ const schemaJson = schema
         flex-direction: column;
         gap: 8px;
       }
-      .chat-option {
-        background: white;
-        border: 1.5px solid #FF6B1A;
-        color: #FF6B1A;
-        border-radius: 100px;
-        padding: 9px 16px;
-        font-size: 13px;
-        font-weight: 600;
-        cursor: pointer;
-        text-align: center;
+      #chat-window .chat-option {
+        display: block !important;
+        width: 100% !important;
+        background: white !important;
+        border: 1.5px solid #FF6B1A !important;
+        color: #FF6B1A !important;
+        border-radius: 100px !important;
+        padding: 9px 16px !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        cursor: pointer !important;
+        text-align: center !important;
+        margin-bottom: 6px !important;
+        box-sizing: border-box !important;
         transition: all 0.15s ease;
-        width: 100%;
       }
-      .chat-option:hover {
-        background: #FF6B1A;
-        color: white;
+      #chat-window .chat-option:hover {
+        background: #FF6B1A !important;
+        color: white !important;
       }
 
       /* ─── CHATBOT : Input ─── */
