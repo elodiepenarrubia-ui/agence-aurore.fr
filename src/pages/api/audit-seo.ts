@@ -16,13 +16,16 @@ export const POST: APIRoute = async ({ request }) => {
     });
     const html = await response.text();
 
+    const schema = analyzeSchema(html);
+    const content = analyzeContent(html);
+    const perf = analyzePerformance(html);
+
     const results: Record<string, any> = {
       url,
       title: extractTag(html, 'title'),
       metaDescription: extractMeta(html, 'description'),
       h1: extractH1(html),
       h2Count: countTags(html, 'h2'),
-      hasSchema: html.includes('application/ld+json'),
       hasGoogleAnalytics: html.includes('gtag') || html.includes('GA_MEASUREMENT_ID') || html.includes('G-'),
       hasGTM: html.includes('googletagmanager'),
       platform: detectPlatform(html),
@@ -35,6 +38,9 @@ export const POST: APIRoute = async ({ request }) => {
       keywordStuffing: detectKeywordStuffing(html),
       internalLinks: countInternalLinks(html, url),
       httpsEnabled: url.startsWith('https'),
+      schema,
+      content,
+      perf,
     };
 
     try {
@@ -57,6 +63,88 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ error: "Impossible d'analyser ce site" }), { status: 400 });
   }
 };
+
+// ─── SCHEMA.ORG ───
+
+function analyzeSchema(html: string) {
+  const schemas: string[] = [];
+  const regex = /application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi;
+  let match;
+  while ((match = regex.exec(html)) !== null) {
+    try {
+      const json = JSON.parse(match[1]);
+      const items = Array.isArray(json) ? json : [json];
+      for (const item of items) {
+        const type = item['@type'] || '';
+        if (Array.isArray(type)) schemas.push(...type);
+        else if (type) schemas.push(type);
+        // Check @graph
+        if (item['@graph'] && Array.isArray(item['@graph'])) {
+          for (const g of item['@graph']) {
+            const gt = g['@type'] || '';
+            if (Array.isArray(gt)) schemas.push(...gt);
+            else if (gt) schemas.push(gt);
+          }
+        }
+      }
+    } catch {}
+  }
+  return {
+    hasSchema: schemas.length > 0,
+    types: [...new Set(schemas)],
+    hasLocalBusiness: schemas.some(t =>
+      ['LocalBusiness', 'ProfessionalService', 'Store', 'Restaurant',
+       'MedicalBusiness', 'HealthAndBeautyBusiness', 'LegalService',
+       'RealEstateAgent', 'AutoRepair', 'FinancialService'].includes(t)
+    ),
+    hasFAQPage: schemas.includes('FAQPage'),
+    hasReview: schemas.some(t => ['Review', 'AggregateRating'].includes(t)),
+    hasService: schemas.includes('Service'),
+  };
+}
+
+// ─── CONTENT ───
+
+function analyzeContent(html: string) {
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+  const bodyHtml = bodyMatch ? bodyMatch[1] : '';
+  const bodyText = bodyHtml.replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const wordCount = bodyText.split(' ').filter(w => w.length > 2).length;
+
+  const hasFAQ = html.includes('FAQPage') ||
+    html.includes('<details') ||
+    /question|faq|frequemment|frequently/i.test(html);
+
+  const hasBlog = /blog|article|actualit|news/i.test(html);
+
+  const hasAddress = /\d{5}/.test(html);
+
+  const hasPhone = /0[1-9][\s.\-]?(\d{2}[\s.\-]?){4}/.test(html) ||
+    /\+33/.test(html);
+
+  const textLength = bodyText.length;
+  const htmlLength = html.length;
+  const textHtmlRatio = htmlLength > 0 ? Math.round((textLength / htmlLength) * 100) : 0;
+
+  return { wordCount, hasFAQ, hasBlog, hasAddress, hasPhone, textHtmlRatio };
+}
+
+// ─── PERFORMANCE ───
+
+function analyzePerformance(html: string) {
+  return {
+    pageSizeKb: Math.round(html.length / 1024),
+    scriptCount: (html.match(/<script/gi) || []).length,
+    hasWebP: html.includes('.webp'),
+    hasLazyLoading: html.includes('loading="lazy"') || html.includes("loading='lazy'"),
+  };
+}
+
+// ─── EXISTING HELPERS ───
 
 function extractTag(html: string, tag: string): string | null {
   const match = html.match(new RegExp(`<${tag}[^>]*>([^<]*)</${tag}>`, 'i'));
