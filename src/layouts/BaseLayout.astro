@@ -381,6 +381,12 @@ const schemaJson = schema
         font-family: Arial, sans-serif;
       }
       #chat-window.open { display: flex; }
+      #chat-window:not(.open) {
+        pointer-events: none;
+      }
+      #chat-bubble {
+        pointer-events: auto;
+      }
 
       /* ─── CHATBOT : Header ─── */
       #chat-header {
