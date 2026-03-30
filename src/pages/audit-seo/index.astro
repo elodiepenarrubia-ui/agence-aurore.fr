@@ -288,7 +288,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
     auditApp.style.display = 'block';
   }
 
-  if (sessionStorage.getItem('devis-auth') === AUDIT_PW) {
+  if (sessionStorage.getItem('audit-auth') === AUDIT_PW) {
     showApp();
   } else {
     loginScreen.style.display = 'flex';
@@ -298,7 +298,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
   loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
     if (loginPassword.value === AUDIT_PW) {
-      sessionStorage.setItem('devis-auth', AUDIT_PW);
+      sessionStorage.setItem('audit-auth', AUDIT_PW);
       showApp();
     } else {
       loginError.style.display = '';
@@ -308,7 +308,7 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
 
   // Déconnexion
   document.getElementById('btn-logout').addEventListener('click', function() {
-    sessionStorage.removeItem('devis-auth');
+    sessionStorage.removeItem('audit-auth');
     loginScreen.style.display = 'flex';
     auditApp.style.display = 'none';
   });
