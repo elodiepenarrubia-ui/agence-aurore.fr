@@ -286,7 +286,7 @@ function formatDelai(val: string): string {
 }
 
 function buildDevisUrl(params: { prenom: string; nom: string; email: string; telephone: string; projectType: string }): string {
-  const url = new URL('https://www.agence-aurore.fr/devis-generateur/');
+  const url = new URL('https://www.agence-aurore.fr/admin/');
   if (params.prenom) url.searchParams.set('prenom', params.prenom);
   if (params.nom) url.searchParams.set('nom', params.nom);
   if (params.email) url.searchParams.set('email', params.email);
