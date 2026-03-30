@@ -425,43 +425,65 @@ const schemaJson = schema
         max-height: 280px;
       }
       .chat-msg {
-        max-width: 80%;
         padding: 10px 14px;
-        border-radius: 12px;
         font-size: 13px;
-        line-height: 1.5;
+        line-height: 1.6;
+        white-space: pre-line;
+      }
+      .chat-msg-row.bot {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        align-self: flex-start;
+        max-width: 85%;
+      }
+      .chat-bot-icon {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        background: #FF6B1A;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        margin-top: 2px;
       }
       .chat-msg.bot {
         background: #F3F4F6;
         color: #1a1a1a;
-        align-self: flex-start;
-        border-bottom-left-radius: 4px;
+        border-radius: 4px 12px 12px 12px;
+        flex: 1;
       }
       .chat-msg.user {
         background: #FF6B1A;
         color: white;
         align-self: flex-end;
-        border-bottom-right-radius: 4px;
+        border-radius: 12px 4px 12px 12px;
+        max-width: 75%;
       }
 
       /* ─── CHATBOT : Options ─── */
       #chat-options {
-        padding: 0 16px 8px;
+        padding: 8px 16px 12px;
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 8px;
       }
       .chat-option {
         background: white;
         border: 1.5px solid #FF6B1A;
         color: #FF6B1A;
         border-radius: 100px;
-        padding: 8px 14px;
-        font-size: 12px;
+        padding: 9px 16px;
+        font-size: 13px;
         font-weight: 600;
         cursor: pointer;
-        text-align: left;
-        transition: all 0.15s;
+        text-align: center;
+        transition: all 0.15s ease;
+        width: 100%;
       }
       .chat-option:hover {
         background: #FF6B1A;
@@ -620,10 +642,24 @@ const schemaJson = schema
       };
 
       function addMessage(text, type) {
-        var div = document.createElement('div');
-        div.className = 'chat-msg ' + type;
-        div.textContent = text;
-        messages.appendChild(div);
+        if (type === 'bot') {
+          var wrapper = document.createElement('div');
+          wrapper.className = 'chat-msg-row bot';
+          var icon = document.createElement('span');
+          icon.className = 'chat-bot-icon';
+          icon.textContent = 'É';
+          var div = document.createElement('div');
+          div.className = 'chat-msg bot';
+          div.textContent = text;
+          wrapper.appendChild(icon);
+          wrapper.appendChild(div);
+          messages.appendChild(wrapper);
+        } else {
+          var div = document.createElement('div');
+          div.className = 'chat-msg user';
+          div.textContent = text;
+          messages.appendChild(div);
+        }
         messages.scrollTop = messages.scrollHeight;
       }
 
