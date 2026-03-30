@@ -159,11 +159,32 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
     font-weight: 800;
     margin-top: 12px;
   }
+  .audit-section {
+    margin-bottom: 24px;
+  }
+  .audit-section-title {
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  .audit-section-title.error {
+    background: #FEF2F2;
+    color: #DC2626;
+  }
+  .audit-section-title.warning {
+    background: #FFFBEB;
+    color: #D97706;
+  }
+  .audit-section-title.ok {
+    background: #F0FDF4;
+    color: #16A34A;
+  }
   .audit-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 12px;
-    margin: 24px 0;
   }
   .audit-item {
     display: flex;
@@ -358,6 +379,57 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
     });
   });
 
+  // ─── HELPERS RENDU ───
+  function getRecommendation(score) {
+    if (score <= 4) return {
+      text: 'Ce site n\u00E9cessite une refonte compl\u00E8te pour \u00EAtre comp\u00E9titif sur Google.',
+      action: 'Migration recommand\u00E9e : reconstruire sur une base technique solide avec SEO int\u00E9gr\u00E9 d\u00E8s le d\u00E9part.',
+      color: '#DC2626',
+      bg: '#FEF2F2',
+    };
+    if (score <= 6) return {
+      text: 'Des corrections cibl\u00E9es peuvent significativement am\u00E9liorer le r\u00E9f\u00E9rencement.',
+      action: 'Priorit\u00E9 : corriger les points critiques identifi\u00E9s en rouge ci-dessous.',
+      color: '#D97706',
+      bg: '#FFFBEB',
+    };
+    if (score <= 8) return {
+      text: 'Bon niveau technique g\u00E9n\u00E9ral, quelques optimisations recommand\u00E9es.',
+      action: 'Focus sur les points orange pour atteindre un excellent niveau SEO.',
+      color: '#2563EB',
+      bg: '#EFF6FF',
+    };
+    return {
+      text: 'Excellent niveau SEO technique.',
+      action: 'Continuez \u00E0 publier du contenu r\u00E9guli\u00E8rement pour maintenir et am\u00E9liorer vos positions.',
+      color: '#16A34A',
+      bg: '#F0FDF4',
+    };
+  }
+
+  function renderCheck(check) {
+    var icon = check.status === 'ok' ? '\u2713' : check.status === 'warning' ? '\u26A0' : '\u2717';
+    var color = check.status === 'ok' ? '#16A34A' : check.status === 'warning' ? '#D97706' : '#DC2626';
+    var bg = check.status === 'ok' ? '#F0FDF4' : check.status === 'warning' ? '#FFFBEB' : '#FEF2F2';
+    var html = '<div class="audit-item" style="background:' + bg + ';">' +
+      '<span class="audit-icon" style="color:' + color + '">' + icon + '</span>' +
+      '<div class="audit-item-content">' +
+      '<span class="audit-label">' + check.label + '</span>' +
+      '<span class="audit-value">' + escapeHtml(check.value) + '</span>' +
+      (check.detail ? '<span class="audit-detail">' + escapeHtml(check.detail) + '</span>' : '');
+
+    if (check.extra && check.extra.length > 0) {
+      html += '<span class="audit-schema-types">Types d\u00E9tect\u00E9s : ';
+      check.extra.forEach(function(t) {
+        html += '<code>' + escapeHtml(t) + '</code>';
+      });
+      html += '</span>';
+    }
+
+    html += '</div></div>';
+    return html;
+  }
+
   // ─── RENDU RÉSULTATS ───
   function renderResults(data, prospectName) {
     var schema = data.schema || {};
@@ -542,36 +614,44 @@ const devisPassword = import.meta.env.DEVIS_PASSWORD || 'dauphin83';
     lastScore = score;
     var scoreColor = score >= 7 ? '#16A34A' : score >= 4 ? '#D97706' : '#DC2626';
 
+    var reco = getRecommendation(score);
+
     var html = '<div class="audit-header">' +
       '<h2>' + escapeHtml(prospectName) + '</h2>' +
       '<a href="' + escapeHtml(data.url) + '" target="_blank">' + escapeHtml(data.url) + '</a>' +
       '<div class="audit-score" style="color:' + scoreColor + '">Score SEO : <strong>' + score + '/10</strong></div>' +
-      '</div><div class="audit-grid">';
+      '<div style="background:' + reco.bg + ';border-radius:8px;padding:16px 20px;margin-top:16px;border-left:4px solid ' + reco.color + ';">' +
+      '<p style="margin:0 0 4px;font-weight:700;color:' + reco.color + ';font-size:14px;">' + reco.text + '</p>' +
+      '<p style="margin:0;color:#1a1a1a;font-size:13px;">' + reco.action + '</p>' +
+      '</div>' +
+      '</div>';
 
-    checks.forEach(function(check) {
-      var icon = check.status === 'ok' ? '\u2713' : check.status === 'warning' ? '\u26A0' : '\u2717';
-      var color = check.status === 'ok' ? '#16A34A' : check.status === 'warning' ? '#D97706' : '#DC2626';
-      var bg = check.status === 'ok' ? '#F0FDF4' : check.status === 'warning' ? '#FFFBEB' : '#FEF2F2';
-      html += '<div class="audit-item" style="background:' + bg + ';">' +
-        '<span class="audit-icon" style="color:' + color + '">' + icon + '</span>' +
-        '<div class="audit-item-content">' +
-        '<span class="audit-label">' + check.label + '</span>' +
-        '<span class="audit-value">' + escapeHtml(check.value) + '</span>' +
-        (check.detail ? '<span class="audit-detail">' + escapeHtml(check.detail) + '</span>' : '');
+    var errors = checks.filter(function(c) { return c.status === 'error'; });
+    var warnings = checks.filter(function(c) { return c.status === 'warning'; });
+    var oks = checks.filter(function(c) { return c.status === 'ok'; });
 
-      // Schema types list
-      if (check.extra && check.extra.length > 0) {
-        html += '<span class="audit-schema-types">Types d\u00E9tect\u00E9s : ';
-        check.extra.forEach(function(t) {
-          html += '<code>' + escapeHtml(t) + '</code>';
-        });
-        html += '</span>';
-      }
+    if (errors.length > 0) {
+      html += '<div class="audit-section">' +
+        '<h3 class="audit-section-title error">\u2717 Points critiques (' + errors.length + ')</h3>' +
+        '<div class="audit-grid">' + errors.map(function(c) { return renderCheck(c); }).join('') + '</div>' +
+        '</div>';
+    }
 
-      html += '</div></div>';
-    });
+    if (warnings.length > 0) {
+      html += '<div class="audit-section">' +
+        '<h3 class="audit-section-title warning">\u26A0 Points \u00E0 am\u00E9liorer (' + warnings.length + ')</h3>' +
+        '<div class="audit-grid">' + warnings.map(function(c) { return renderCheck(c); }).join('') + '</div>' +
+        '</div>';
+    }
 
-    html += '</div><div class="audit-actions">' +
+    if (oks.length > 0) {
+      html += '<div class="audit-section">' +
+        '<h3 class="audit-section-title ok">\u2713 Points positifs (' + oks.length + ')</h3>' +
+        '<div class="audit-grid">' + oks.map(function(c) { return renderCheck(c); }).join('') + '</div>' +
+        '</div>';
+    }
+
+    html += '<div class="audit-actions">' +
       '<button id="btn-copy-report" class="btn btn-outline">Copier le rapport</button>' +
       '</div>';
 
