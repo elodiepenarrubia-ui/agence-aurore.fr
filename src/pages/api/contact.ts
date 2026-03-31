@@ -64,7 +64,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Build situation section based on project type
     let situationHtml = '';
-    if (projectType === 'site-vitrine' || projectType === 'site-reservation') {
+    if (projectType === 'site-vitrine' || projectType === 'site-reservation' || projectType === 'site-starter') {
       situationHtml = `
         ${row('Logo existant', hasLogo || 'Non renseigné')}
         ${row('Nom de domaine', hasDomain || 'Non renseigné')}
@@ -85,6 +85,11 @@ export const POST: APIRoute = async ({ request }) => {
       situationHtml = `
         ${row('Prestations', prestLabels)}
         ${row('Site existant', hasSite === 'oui' ? `Oui — ${escapeHtml(plateforme || '')}` : (hasSite === 'non' ? 'Non' : 'Non renseigné'))}
+        ${row('Budget estimé', formatBudget(budgetCarte))}
+      `;
+    } else if (projectType === 'migration') {
+      situationHtml = `
+        ${row('Plateforme actuelle', plateforme || 'Non renseignée')}
         ${row('Budget estimé', formatBudget(budgetCarte))}
       `;
     }
@@ -126,7 +131,7 @@ export const POST: APIRoute = async ({ request }) => {
             <p style="margin:0 0 12px;font-size:13px;color:#6B6B6B;">
               Créer le devis pour ce client :
             </p>
-            <a href="${buildDevisUrl({ prenom, nom, email, telephone, projectType })}"
+            <a href="${buildDevisUrl({ prenom, nom, email, telephone, projectType, activite, ville, messageComplementaire })}"
               target="_blank"
               style="display:inline-block;padding:12px 28px;
               background:#FF6B1A;color:white;border-radius:100px;
@@ -285,21 +290,35 @@ function formatDelai(val: string): string {
   return labels[val] || 'Non renseigné';
 }
 
-function buildDevisUrl(params: { prenom: string; nom: string; email: string; telephone: string; projectType: string }): string {
+function buildDevisUrl(data: {
+  prenom: string; nom: string; email: string; telephone: string;
+  projectType: string; activite?: string; ville?: string; messageComplementaire?: string;
+}): string {
   const url = new URL('https://www.agence-aurore.fr/admin/');
-  if (params.prenom) url.searchParams.set('prenom', params.prenom);
-  if (params.nom) url.searchParams.set('nom', params.nom);
-  if (params.email) url.searchParams.set('email', params.email);
-  if (params.telephone) url.searchParams.set('tel', params.telephone);
 
   const offreMap: Record<string, string> = {
+    'site-starter': 'starter',
     'site-vitrine': 'vitrine',
     'site-reservation': 'pro',
-    'logiciel-metier': '',
-    'prestation-carte': '',
+    'logiciel-metier': 'logiciel',
+    'prestation-carte': 'carte',
+    'migration': 'migration',
   };
-  const offre = offreMap[params.projectType] || '';
-  if (offre) url.searchParams.set('offre', offre);
+
+  const fields: Record<string, string> = {
+    prenom: data.prenom || '',
+    nom: data.nom || '',
+    email: data.email || '',
+    tel: data.telephone || '',
+    offre: offreMap[data.projectType] || '',
+    activite: data.activite || '',
+    ville: data.ville || '',
+    message: data.messageComplementaire || '',
+  };
+
+  for (const [key, val] of Object.entries(fields)) {
+    if (val) url.searchParams.set(key, val);
+  }
 
   return url.toString();
 }

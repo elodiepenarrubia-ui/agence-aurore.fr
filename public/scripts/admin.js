@@ -172,9 +172,18 @@
     if (params.get('email')) document.getElementById('client-email').value = params.get('email');
     if (params.get('tel')) document.getElementById('client-tel').value = params.get('tel');
     if (params.get('entreprise')) document.getElementById('client-entreprise').value = params.get('entreprise');
+    if (params.get('activite')) { var el = document.getElementById('client-activite'); if (el) el.value = params.get('activite'); }
+    if (params.get('ville')) { var el = document.getElementById('client-ville'); if (el) el.value = params.get('ville'); }
+
+    // Message du client pré-rempli
+    if (params.get('message')) {
+      var msgBox = document.getElementById('message-prefill-box');
+      var msgText = document.getElementById('client-message-prefill');
+      if (msgBox && msgText) { msgText.textContent = params.get('message'); msgBox.style.display = 'block'; }
+    }
 
     var offreParam = params.get('offre');
-    if (offreParam) { var presetMap = { 'starter': 'Pack Starter', 'vitrine': 'Site Vitrine Essentiel', 'pro': 'Site Vitrine Autonome', 'migration': 'Migration' }; var pl = presetMap[offreParam.toLowerCase()]; if (pl) createPrestaRow(pl); else createPrestaRow(); } else { createPrestaRow(); }
+    if (offreParam) { var presetMap = { 'starter': 'Pack Starter', 'vitrine': 'Site Vitrine Essentiel', 'pro': 'Site Vitrine Autonome', 'logiciel': 'Logiciel métier', 'carte': 'Prestation à la carte', 'migration': 'Migration' }; var pl = presetMap[offreParam.toLowerCase()]; if (pl) createPrestaRow(pl); else createPrestaRow(); } else { createPrestaRow(); }
     updatePreview();
 
     // ─── LOCALSTORAGE DEVIS ───
