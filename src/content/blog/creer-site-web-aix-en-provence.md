@@ -28,7 +28,7 @@ Accessibles, mais avec des limites réelles : performances SEO inférieures, co�
 
 ### aurore, spécialiste des TPE d'Aix-en-Provence
 
-C'est ce que je fais : des sites web sur mesure, pensés pour les indépendants et petites entreprises qui ont besoin d'une vraie présence en ligne sans les tarifs d'une grande agence. À partir de 590 € tout compris (domaine, emails, SEO, Google Business).
+C'est ce que je fais : des sites web sur mesure, pensés pour les indépendants et petites entreprises qui ont besoin d'une vraie présence en ligne sans les tarifs d'une grande agence. À partir de 290 € tout compris (domaine, emails, SEO, Google Business).
 
 ## Ce que doit inclure un site web professionnel à Aix-en-Provence
 

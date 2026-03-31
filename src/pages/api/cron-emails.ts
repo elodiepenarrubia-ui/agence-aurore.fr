@@ -170,7 +170,7 @@ export const GET: APIRoute = async ({ request }) => {
     const prenom = lead.prenom || lead.nom?.split(' ')[0] || 'there';
 
     try {
-      // J+1 — Rappel devis non payé
+      // J+1  -  Rappel devis non payé
       if (
         lead.status === 'devis-envoyé' &&
         daysSinceCreation === 1 &&
@@ -179,14 +179,14 @@ export const GET: APIRoute = async ({ request }) => {
         await resend.emails.send({
           from: 'Élodie - Aurore <elodie@agence-aurore.fr>',
           to: [lead.email],
-          subject: 'Votre devis Aurore — une question ?',
+          subject: 'Votre devis Aurore  -  une question ?',
           html: buildJ1HTML({ prenom }),
         });
         await doc.ref.update({ emailJ1Sent: true });
         results.sent++;
       }
 
-      // J+7 — Relance devis non payé
+      // J+7  -  Relance devis non payé
       if (
         lead.status === 'devis-envoyé' &&
         daysSinceCreation === 7 &&
@@ -195,14 +195,14 @@ export const GET: APIRoute = async ({ request }) => {
         await resend.emails.send({
           from: 'Élodie - Aurore <elodie@agence-aurore.fr>',
           to: [lead.email],
-          subject: 'Votre projet web — toujours disponible',
+          subject: 'Votre projet web  -  toujours disponible',
           html: buildJ7HTML({ prenom }),
         });
         await doc.ref.update({ emailJ7Sent: true });
         results.sent++;
       }
 
-      // J+7 post-livraison — "Tout se passe bien ?"
+      // J+7 post-livraison  -  "Tout se passe bien ?"
       if (
         lead.status === 'soldé' &&
         onboardingCompletedAt &&
@@ -212,14 +212,14 @@ export const GET: APIRoute = async ({ request }) => {
         await resend.emails.send({
           from: 'Élodie - Aurore <elodie@agence-aurore.fr>',
           to: [lead.email],
-          subject: 'Votre site — tout se passe bien ?',
+          subject: 'Votre site  -  tout se passe bien ?',
           html: buildPostLivraisonJ7HTML({ prenom }),
         });
         await doc.ref.update({ emailPostLivraisonJ7Sent: true });
         results.sent++;
       }
 
-      // J+30 post-livraison — Demande de témoignage
+      // J+30 post-livraison  -  Demande de témoignage
       if (
         lead.status === 'soldé' &&
         onboardingCompletedAt &&

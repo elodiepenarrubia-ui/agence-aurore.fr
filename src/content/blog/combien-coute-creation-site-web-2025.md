@@ -32,7 +32,7 @@ C'est la fourchette la plus large, et la plus difficile à interpréter. Un free
 - Ce qui est inclus (SEO, emails, hébergement, formation)
 - Le suivi après livraison
 
-### 4. Le site statique sur mesure (590 à 2 000 €)
+### 4. Le site statique sur mesure (290 à 1 290 €)
 
 C'est l'approche qu'aurore propose : un site généré statiquement avec Astro, hébergé gratuitement sur GitHub Pages. Aucun frais d'hébergement récurrent, performances excellentes, SEO optimisé dès le départ.
 

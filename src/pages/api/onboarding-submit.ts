@@ -188,7 +188,7 @@ function generateClaudeMd(data: any, lead: any): string {
   };
 
   // Common header
-  let md = `# CLAUDE.md — ${data.nomCommercial || lead.nom}
+  let md = `# CLAUDE.md  -  ${data.nomCommercial || lead.nom}
 
 ## Offre
 ${lead.offre || lead.typeProjet || 'Starter'}
@@ -223,7 +223,7 @@ ${data.instagram ? `- Instagram : ${data.instagram}` : ''}
 ${data.facebook ? `- Facebook : ${data.facebook}` : ''}
 ${data.linkedin ? `- LinkedIn : ${data.linkedin}` : ''}
 ${data.tiktok ? `- TikTok : ${data.tiktok}` : ''}
-${data.avisGoogle === 'oui' ? `- Avis Google : Oui — ${data.lienGBP || 'lien à récupérer'}` : '- Avis Google : Non'}
+${data.avisGoogle === 'oui' ? `- Avis Google : Oui  -  ${data.lienGBP || 'lien à récupérer'}` : '- Avis Google : Non'}
 
 ## Identité visuelle
 - Couleurs : ${data.couleurs?.filter(Boolean).join(', ') || 'À définir'}

@@ -188,7 +188,7 @@ const articleSchema = {
 
   // Badges étapes numérotées dans les titres H2/H3
   document.querySelectorAll('.article-content h2, .article-content h3').forEach(heading => {
-    const match = heading.textContent.match(/^[ÉéEe]tape\s+(\d+)\s*[:\s—–-]\s*/i);
+    const match = heading.textContent.match(/^[ÉéEe]tape\s+(\d+)\s*[:\s - –-]\s*/i);
     if (match) {
       const badge = document.createElement('span');
       badge.className = 'step-badge';

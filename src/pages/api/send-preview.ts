@@ -15,7 +15,7 @@ export const POST: APIRoute = async ({ request }) => {
   await resend.emails.send({
     from: 'Élodie - Aurore <elodie@agence-aurore.fr>',
     to: [clientEmail],
-    subject: `Votre site est prêt à valider — DEV-${devisNumber}`,
+    subject: `Votre site est prêt à valider  -  DEV-${devisNumber}`,
     html: `<!DOCTYPE html>
 <html lang="fr">
 <head><meta charset="UTF-8"></head>

@@ -125,7 +125,7 @@ export const POST: APIRoute = async ({ request }) => {
   const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
 
   if (!RESEND_API_KEY) {
-    console.error('[send-devis] RESEND_API_KEY manquante — impossible d\'envoyer le devis');
+    console.error('[send-devis] RESEND_API_KEY manquante  -  impossible d\'envoyer le devis');
     return new Response(
       JSON.stringify({ success: false, error: 'Configuration email manquante (RESEND_API_KEY)' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }

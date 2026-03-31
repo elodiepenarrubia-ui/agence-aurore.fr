@@ -41,7 +41,7 @@ export const POST: APIRoute = async ({ request }) => {
         price_data: {
           currency: 'eur',
           product_data: {
-            name: `Formation Aurore — ${item.titre}`,
+            name: `Formation Aurore  -  ${item.titre}`,
             description: slug === 'pack-complet'
               ? 'Accès 1 an à toutes les formations + tous les PDFs'
               : 'Accès 1 an + PDF checklist inclus',

@@ -121,7 +121,7 @@ export const POST: APIRoute = async ({ request }) => {
     const invoiceUrl = finalizedInvoice.hosted_invoice_url;
     const clientPrenom = clientName.split(' ')[0];
 
-    // Email 1 — Au client
+    // Email 1  -  Au client
     await resend.emails.send({
       from: 'Élodie - Aurore <elodie@agence-aurore.fr>',
       to: clientEmail,
@@ -150,7 +150,7 @@ export const POST: APIRoute = async ({ request }) => {
       `,
     });
 
-    // Email 2 — Copie à Élodie
+    // Email 2  -  Copie à Élodie
     await resend.emails.send({
       from: 'Élodie - Aurore <elodie@agence-aurore.fr>',
       to: 'elodie@agence-aurore.fr',

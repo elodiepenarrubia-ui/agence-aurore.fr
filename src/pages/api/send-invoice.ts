@@ -119,7 +119,7 @@ export const POST: APIRoute = async ({ request }) => {
     const montant = (amountInCents / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const clientPrenom = clientName.split(' ')[0];
 
-    // Email 1 — Au client
+    // Email 1  -  Au client
     await resend.emails.send({
       from: 'Élodie - Aurore <elodie@agence-aurore.fr>',
       to: clientEmail,
@@ -148,7 +148,7 @@ export const POST: APIRoute = async ({ request }) => {
       `,
     });
 
-    // Email 2 — Copie à Élodie
+    // Email 2  -  Copie à Élodie
     await resend.emails.send({
       from: 'Élodie - Aurore <elodie@agence-aurore.fr>',
       to: 'elodie@agence-aurore.fr',

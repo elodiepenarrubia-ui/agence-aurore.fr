@@ -74,7 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
     } else if (projectType === 'logiciel-metier') {
       situationHtml = `
         ${row('Besoin décrit', besoin || 'Non renseigné')}
-        ${row('Outils existants', hasTools === 'oui' ? `Oui — ${escapeHtml(outils || '')}` : (hasTools === 'non' ? 'Non' : 'Non renseigné'))}
+        ${row('Outils existants', hasTools === 'oui' ? `Oui  -  ${escapeHtml(outils || '')}` : (hasTools === 'non' ? 'Non' : 'Non renseigné'))}
         ${row('Budget estimé', formatBudget(budgetLogiciel))}
         ${row('Délai souhaité', formatDelai(delaiLogiciel))}
       `;
@@ -84,13 +84,13 @@ export const POST: APIRoute = async ({ request }) => {
         : 'Non renseigné';
       situationHtml = `
         ${row('Prestations', prestLabels)}
-        ${row('Site existant', hasSite === 'oui' ? `Oui — ${escapeHtml(plateforme || '')}` : (hasSite === 'non' ? 'Non' : 'Non renseigné'))}
+        ${row('Site existant', hasSite === 'oui' ? `Oui  -  ${escapeHtml(plateforme || '')}` : (hasSite === 'non' ? 'Non' : 'Non renseigné'))}
         ${row('Budget estimé', formatBudget(budgetCarte))}
       `;
     }
 
     const fullName = `${escapeHtml(prenom)} ${escapeHtml(nom)}`;
-    const subject = `Nouvelle demande ${escapeHtml(projectTypeLabel || projectType)} — ${fullName} — ${escapeHtml(ville || 'Ville non renseignée')}`;
+    const subject = `Nouvelle demande ${escapeHtml(projectTypeLabel || projectType)}  -  ${fullName}  -  ${escapeHtml(ville || 'Ville non renseignée')}`;
 
     await resend.emails.send({
       from: 'contact@agence-aurore.fr',
@@ -155,7 +155,7 @@ export const POST: APIRoute = async ({ request }) => {
       from: 'elodie@agence-aurore.fr',
       to: email,
       replyTo: 'elodie@agence-aurore.fr',
-      subject: 'Votre demande a bien été reçue — aurore',
+      subject: 'Votre demande a bien été reçue  -  aurore',
       html: `
         <div style="font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #FFFFFF;">
           <!-- Header -->

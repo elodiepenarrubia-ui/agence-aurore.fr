@@ -111,7 +111,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
       <form id="onboarding-form" data-token={token} data-offre={lead.offre || ''} data-offer-type={offerType} data-total={steps.count} data-steps={JSON.stringify(steps.labels)}>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- SITE — Step 1: Activité                        -->
+        <!-- SITE  -  Step 1: Activité                        -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="1" data-offer="site" style="display:none;">
           <h2 class="step-title">Votre activité</h2>
@@ -242,7 +242,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- SITE — Step 2: Identité visuelle               -->
+        <!-- SITE  -  Step 2: Identité visuelle               -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="2" data-offer="site,migration" style="display:none;">
           <h2 class="step-title">Votre identité visuelle</h2>
@@ -288,7 +288,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- SITE — Step 3: Contenu                         -->
+        <!-- SITE  -  Step 3: Contenu                         -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="3" data-offer="site" style="display:none;">
           <h2 class="step-title">Votre contenu</h2>
@@ -346,7 +346,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- SITE — Step 4: SEO                             -->
+        <!-- SITE  -  Step 4: SEO                             -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="4" data-offer="site" style="display:none;">
           <h2 class="step-title">SEO &amp; visibilité</h2>
@@ -392,7 +392,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- SITE — Step 5: Récap                           -->
+        <!-- SITE  -  Step 5: Récap                           -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="5" data-offer="site" style="display:none;">
           <h2 class="step-title">Récapitulatif</h2>
@@ -410,7 +410,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- MIGRATION — Step 1: Site actuel                -->
+        <!-- MIGRATION  -  Step 1: Site actuel                -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="1" data-offer="migration" style="display:none;">
           <h2 class="step-title">Votre site actuel</h2>
@@ -498,12 +498,12 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- MIGRATION — Step 2: Identité (shared with site)-->
+        <!-- MIGRATION  -  Step 2: Identité (shared with site)-->
         <!-- (uses data-offer="site,migration" above)       -->
         <!-- ═══════════════════════════════════════════════ -->
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- MIGRATION — Step 3: SEO actuel                 -->
+        <!-- MIGRATION  -  Step 3: SEO actuel                 -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="3" data-offer="migration" style="display:none;">
           <h2 class="step-title">SEO actuel</h2>
@@ -526,7 +526,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- MIGRATION — Step 4: Récap                      -->
+        <!-- MIGRATION  -  Step 4: Récap                      -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="4" data-offer="migration" style="display:none;">
           <h2 class="step-title">Récapitulatif</h2>
@@ -544,7 +544,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- SEO — Step 1: Situation                        -->
+        <!-- SEO  -  Step 1: Situation                        -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="1" data-offer="seo" style="display:none;">
           <h2 class="step-title">Votre situation SEO</h2>
@@ -617,7 +617,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- SEO — Step 2: Objectifs                        -->
+        <!-- SEO  -  Step 2: Objectifs                        -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="2" data-offer="seo" style="display:none;">
           <h2 class="step-title">Vos objectifs SEO</h2>
@@ -649,7 +649,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- SEO — Step 3: Récap                            -->
+        <!-- SEO  -  Step 3: Récap                            -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="3" data-offer="seo" style="display:none;">
           <h2 class="step-title">Récapitulatif</h2>
@@ -666,7 +666,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- AUTO — Step 1: Situation                       -->
+        <!-- AUTO  -  Step 1: Situation                       -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="1" data-offer="auto" style="display:none;">
           <h2 class="step-title">Votre situation</h2>
@@ -726,7 +726,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- AUTO — Step 2: Accès                           -->
+        <!-- AUTO  -  Step 2: Accès                           -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="2" data-offer="auto" style="display:none;">
           <h2 class="step-title">Accès et résultat attendu</h2>
@@ -741,7 +741,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- AUTO — Step 3: Récap                           -->
+        <!-- AUTO  -  Step 3: Récap                           -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="3" data-offer="auto" style="display:none;">
           <h2 class="step-title">Récapitulatif</h2>
@@ -758,7 +758,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- GBP — Step 1: Fiche Google                     -->
+        <!-- GBP  -  Step 1: Fiche Google                     -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="1" data-offer="gbp" style="display:none;">
           <h2 class="step-title">Votre fiche Google</h2>
@@ -837,7 +837,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- GBP — Step 2: Récap                            -->
+        <!-- GBP  -  Step 2: Récap                            -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="2" data-offer="gbp" style="display:none;">
           <h2 class="step-title">Récapitulatif</h2>
@@ -855,7 +855,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- LOGICIEL — Step 1: Projet                      -->
+        <!-- LOGICIEL  -  Step 1: Projet                      -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="1" data-offer="logiciel" style="display:none;">
           <h2 class="step-title">Votre projet</h2>
@@ -913,7 +913,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- LOGICIEL — Step 2: Technique                   -->
+        <!-- LOGICIEL  -  Step 2: Technique                   -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="2" data-offer="logiciel" style="display:none;">
           <h2 class="step-title">Aspects techniques</h2>
@@ -942,7 +942,7 @@ const steps = stepConfigs[offerType] || stepConfigs.site;
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
-        <!-- LOGICIEL — Step 3: Récap                       -->
+        <!-- LOGICIEL  -  Step 3: Récap                       -->
         <!-- ═══════════════════════════════════════════════ -->
         <div class="step" data-step="3" data-offer="logiciel" style="display:none;">
           <h2 class="step-title">Récapitulatif</h2>
