@@ -6,10 +6,6 @@
   var loginScreen = document.getElementById('login-screen');
   var adminApp = document.getElementById('admin-app');
   var API_TOKEN = adminApp.dataset.apiToken;
-  var loginForm = document.getElementById('login-form');
-  var loginPassword = document.getElementById('login-password');
-  var loginError = document.getElementById('login-error');
-  var ADMIN_PW = loginScreen.dataset.pw;
 
   function showAdmin() {
     loginScreen.style.display = 'none';
@@ -20,17 +16,113 @@
   if (sessionStorage.getItem(ADMIN_KEY) === 'ok') { showAdmin(); }
   else { loginScreen.style.display = 'flex'; adminApp.style.display = 'none'; }
 
-  loginForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (loginPassword.value === ADMIN_PW) {
-      sessionStorage.setItem(ADMIN_KEY, 'ok');
-      showAdmin();
-    } else { loginError.style.display = 'block'; loginPassword.focus(); }
-  });
-  loginPassword.addEventListener('keydown', function() { loginError.style.display = 'none'; });
+  // Étape 1 : mot de passe vérifié côté serveur
+  var btnPassword = document.getElementById('btn-password');
+  var loginPassword = document.getElementById('login-password');
+  var passwordError = document.getElementById('password-error');
+
+  if (btnPassword) {
+    btnPassword.addEventListener('click', function() {
+      var val = loginPassword.value;
+      if (!val) return;
+      btnPassword.textContent = 'Vérification...';
+      btnPassword.disabled = true;
+      passwordError.style.display = 'none';
+
+      fetch('/api/admin-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'generate', password: val })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (!data.success) {
+          passwordError.style.display = 'block';
+          btnPassword.textContent = 'Continuer \u2192';
+          btnPassword.disabled = false;
+          return;
+        }
+        sessionStorage.setItem('admin-pw', val);
+        document.getElementById('step-password').style.display = 'none';
+        document.getElementById('step-otp').style.display = 'block';
+        document.getElementById('otp-input').focus();
+      })
+      .catch(function() {
+        btnPassword.textContent = 'Continuer \u2192';
+        btnPassword.disabled = false;
+        alert('Erreur de connexion');
+      });
+    });
+  }
+
+  if (loginPassword) {
+    loginPassword.addEventListener('keydown', function(e) {
+      passwordError.style.display = 'none';
+      if (e.key === 'Enter') { e.preventDefault(); btnPassword.click(); }
+    });
+  }
+
+  // Étape 2 : vérification OTP
+  var btnOtp = document.getElementById('btn-otp');
+  var otpInput = document.getElementById('otp-input');
+  var otpError = document.getElementById('otp-error');
+
+  if (btnOtp) {
+    btnOtp.addEventListener('click', function() {
+      var code = otpInput.value.trim();
+      if (code.length !== 6) return;
+      btnOtp.textContent = 'Vérification...';
+      btnOtp.disabled = true;
+      otpError.style.display = 'none';
+
+      fetch('/api/admin-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'verify', code: code })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.valid) {
+          sessionStorage.setItem(ADMIN_KEY, 'ok');
+          showAdmin();
+        } else {
+          otpError.style.display = 'block';
+          btnOtp.textContent = 'Acc\u00E9der \u2192';
+          btnOtp.disabled = false;
+        }
+      })
+      .catch(function() {
+        alert('Erreur de connexion');
+        btnOtp.textContent = 'Acc\u00E9der \u2192';
+        btnOtp.disabled = false;
+      });
+    });
+  }
+
+  if (otpInput) {
+    otpInput.addEventListener('keydown', function(e) {
+      otpError.style.display = 'none';
+      if (e.key === 'Enter') { e.preventDefault(); btnOtp.click(); }
+    });
+  }
+
+  // Renvoyer le code
+  var btnResend = document.getElementById('btn-resend');
+  if (btnResend) {
+    btnResend.addEventListener('click', function() {
+      btnResend.textContent = 'Code renvoyé !';
+      fetch('/api/admin-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'generate', password: sessionStorage.getItem('admin-pw') || '' })
+      });
+      setTimeout(function() { btnResend.textContent = 'Renvoyer le code'; }, 3000);
+    });
+  }
 
   document.getElementById('btn-logout').addEventListener('click', function() {
     sessionStorage.removeItem(ADMIN_KEY);
+    sessionStorage.removeItem('admin-pw');
     location.reload();
   });
 
@@ -528,6 +620,81 @@
         btnPublish.textContent = 'R\u00E9essayer';
         container.innerHTML = '<div class="art-status-error">\u274C Erreur : ' + err.message + '</div>';
       });
+    });
+  }
+
+  // ─── AGENT IA ───
+  var btnGenerate = document.getElementById('btn-generate');
+  if (btnGenerate) {
+    btnGenerate.addEventListener('click', function() {
+      var claudemd = document.getElementById('agent-claudemd').value.trim();
+      if (!claudemd) { alert("Collez d'abord le contenu du CLAUDE.md"); return; }
+
+      document.getElementById('agent-loading').style.display = 'block';
+      document.getElementById('agent-results').style.display = 'none';
+      btnGenerate.disabled = true;
+      btnGenerate.textContent = 'Génération en cours...';
+
+      fetch('/api/agent-generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-token': API_TOKEN },
+        body: JSON.stringify({ claudemd: claudemd }),
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        document.getElementById('agent-loading').style.display = 'none';
+        btnGenerate.disabled = false;
+        btnGenerate.textContent = '\uD83E\uDD16 Générer le contenu \u2192';
+
+        if (data.error) { alert('Erreur : ' + data.error + (data.raw ? '\n\n' + data.raw : '')); return; }
+
+        document.getElementById('result-hero').textContent =
+          'H1: ' + (data.hero && data.hero.h1 || '') + '\nTagline: ' + (data.hero && data.hero.tagline || '') + '\nDescription: ' + (data.hero && data.hero.description || '');
+        document.getElementById('result-seo').textContent =
+          'Title: ' + (data.seo && data.seo.metaTitle || '') + '\nDescription: ' + (data.seo && data.seo.metaDescription || '');
+        document.getElementById('result-services').textContent =
+          (data.services || []).map(function(s) { return s.nom + '\n\u2192 ' + s.description + '\n\u2192 Bénéfice : ' + s.benefice; }).join('\n\n');
+        document.getElementById('result-apropos').textContent =
+          (data.apropos && data.apropos.titre || '') + '\n\n' + (data.apropos && data.apropos.texte || '');
+        document.getElementById('result-faq').textContent =
+          (data.faq || []).map(function(f) { return 'Q: ' + f.question + '\nR: ' + f.reponse; }).join('\n\n');
+        document.getElementById('result-jsonld').textContent = JSON.stringify(data.jsonld, null, 2);
+
+        document.getElementById('agent-results').style.display = 'block';
+      })
+      .catch(function() {
+        document.getElementById('agent-loading').style.display = 'none';
+        btnGenerate.disabled = false;
+        btnGenerate.textContent = '\uD83E\uDD16 Générer le contenu \u2192';
+        alert('Erreur de connexion');
+      });
+    });
+  }
+
+  document.querySelectorAll('.btn-copy').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetId = btn.dataset.target;
+      var content = document.getElementById(targetId);
+      if (content) navigator.clipboard.writeText(content.textContent || '');
+      btn.textContent = '\u2713 Copié';
+      setTimeout(function() { btn.textContent = 'Copier'; }, 2000);
+    });
+  });
+
+  var btnCopyAll = document.getElementById('btn-copy-all');
+  if (btnCopyAll) {
+    btnCopyAll.addEventListener('click', function() {
+      var sections = ['result-hero', 'result-seo', 'result-services', 'result-apropos', 'result-faq', 'result-jsonld'];
+      var titles = ['HERO', 'SEO', 'SERVICES', '\u00C0 PROPOS', 'FAQ', 'JSON-LD'];
+      var full = '# CONTENU G\u00C9N\u00C9R\u00C9 PAR AGENT IA AURORE\n\n';
+      sections.forEach(function(id, i) {
+        var el = document.getElementById(id);
+        var content = el ? el.textContent : '';
+        if (content) full += '## ' + titles[i] + '\n\n' + content + '\n\n---\n\n';
+      });
+      navigator.clipboard.writeText(full);
+      btnCopyAll.textContent = '\u2713 Tout copié !';
+      setTimeout(function() { btnCopyAll.textContent = '\uD83D\uDCCB Tout copier pour Claude Code'; }, 2000);
     });
   }
 
