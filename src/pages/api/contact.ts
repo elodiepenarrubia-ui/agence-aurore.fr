@@ -64,7 +64,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Build situation section based on project type
     let situationHtml = '';
-    if (projectType === 'site-vitrine' || projectType === 'site-reservation' || projectType === 'site-starter') {
+    if (projectType === 'site-new' || projectType === 'site-reservation') {
       situationHtml = `
         ${row('Logo existant', hasLogo || 'Non renseigné')}
         ${row('Nom de domaine', hasDomain || 'Non renseigné')}
@@ -297,12 +297,11 @@ function buildDevisUrl(data: {
   const url = new URL('https://www.agence-aurore.fr/admin/');
 
   const offreMap: Record<string, string> = {
-    'site-starter': 'starter',
-    'site-vitrine': 'vitrine',
+    'site-new': 'vitrine',
+    'migration': 'migration',
     'site-reservation': 'pro',
     'logiciel-metier': 'logiciel',
     'prestation-carte': 'carte',
-    'migration': 'migration',
   };
 
   const fields: Record<string, string> = {
