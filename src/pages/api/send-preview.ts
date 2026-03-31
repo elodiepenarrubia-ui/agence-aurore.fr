@@ -45,8 +45,9 @@ export const POST: APIRoute = async ({ request }) => {
       <p style="margin:0 0 4px;font-size:15px;">\u00C0 tr\u00E8s vite,</p>
       <p style="margin:0;font-size:15px;font-weight:600;">\u00C9lodie</p>
     </div>
-    <div style="text-align:center;padding:16px 0;">
-      <p style="margin:0;color:#999;font-size:11px;">Aurore - agence-aurore.fr</p>
+    <!-- Signature -->
+    <div style="margin-top:32px;padding-top:16px;border-top:1px solid #E5E7EB;">
+      <table cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;font-size:13px;color:#1a1a1a;"><tr><td style="padding-right:16px;border-right:2px solid #FF6B1A;vertical-align:top;"><div style="font-size:18px;font-weight:900;letter-spacing:-0.5px;">aur<span style="color:#FF6B1A;">o</span>re</div></td><td style="padding-left:16px;vertical-align:top;line-height:1.8;"><div style="font-weight:700;font-size:13px;">Élodie Penarrubia</div><div style="color:#6B6B6B;font-size:11px;">Création de sites web pour TPE et indépendants</div><div style="margin-top:4px;"><a href="https://www.agence-aurore.fr" style="color:#FF6B1A;text-decoration:none;font-size:11px;">agence-aurore.fr</a>&nbsp;·&nbsp;<a href="https://wa.me/33659659218" style="color:#FF6B1A;text-decoration:none;font-size:11px;">WhatsApp</a>&nbsp;·&nbsp;<a href="https://share.google/JgmyXhr73QGCq4yAx" style="color:#FF6B1A;text-decoration:none;font-size:11px;">★ Avis Google</a></div></td></tr></table>
     </div>
   </div>
 </body>

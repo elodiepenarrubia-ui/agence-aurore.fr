@@ -201,17 +201,11 @@ export const POST: APIRoute = async ({ request }) => {
             </div>
           </div>
 
-          <!-- Séparateur -->
-          <hr style="border: none; border-top: 1px solid #F2F2F2; margin: 0 32px;" />
-
-          <!-- Pied de page -->
-          <div style="padding: 24px 32px 16px; text-align: center;">
-            <p style="font-size: 14px; color: #3D3D3D; margin: 0 0 4px; font-weight: 600;">
-              Élodie — <span style="font-weight: 700; letter-spacing: -0.03em;">aur<span style="color: #FF6B1A;">o</span>re</span>
-            </p>
-            <p style="font-size: 13px; color: #6B6B6B; margin: 0 0 2px;">
-              agence-aurore.fr · elodie@agence-aurore.fr · 06 59 65 92 18
-            </p>
+          <!-- Signature -->
+          <div style="padding: 0 32px 16px;">
+            <div style="margin-top:32px;padding-top:16px;border-top:1px solid #E5E7EB;">
+              <table cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;font-size:13px;color:#1a1a1a;"><tr><td style="padding-right:16px;border-right:2px solid #FF6B1A;vertical-align:top;"><div style="font-size:18px;font-weight:900;letter-spacing:-0.5px;">aur<span style="color:#FF6B1A;">o</span>re</div></td><td style="padding-left:16px;vertical-align:top;line-height:1.8;"><div style="font-weight:700;font-size:13px;">Élodie Penarrubia</div><div style="color:#6B6B6B;font-size:11px;">Création de sites web pour TPE et indépendants</div><div style="margin-top:4px;"><a href="https://www.agence-aurore.fr" style="color:#FF6B1A;text-decoration:none;font-size:11px;">agence-aurore.fr</a>&nbsp;·&nbsp;<a href="https://wa.me/33659659218" style="color:#FF6B1A;text-decoration:none;font-size:11px;">WhatsApp</a>&nbsp;·&nbsp;<a href="https://share.google/JgmyXhr73QGCq4yAx" style="color:#FF6B1A;text-decoration:none;font-size:11px;">★ Avis Google</a></div></td></tr></table>
+            </div>
           </div>
 
           <!-- Mention RGPD -->
