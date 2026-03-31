@@ -64,7 +64,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Build situation section based on project type
     let situationHtml = '';
-    if (projectType === 'site-new' || projectType === 'site-reservation') {
+    if (projectType === 'site-vitrine' || projectType === 'site-reservation') {
       situationHtml = `
         ${row('Logo existant', hasLogo || 'Non renseigné')}
         ${row('Nom de domaine', hasDomain || 'Non renseigné')}
@@ -85,11 +85,6 @@ export const POST: APIRoute = async ({ request }) => {
       situationHtml = `
         ${row('Prestations', prestLabels)}
         ${row('Site existant', hasSite === 'oui' ? `Oui — ${escapeHtml(plateforme || '')}` : (hasSite === 'non' ? 'Non' : 'Non renseigné'))}
-        ${row('Budget estimé', formatBudget(budgetCarte))}
-      `;
-    } else if (projectType === 'migration') {
-      situationHtml = `
-        ${row('Plateforme actuelle', plateforme || 'Non renseignée')}
         ${row('Budget estimé', formatBudget(budgetCarte))}
       `;
     }
@@ -297,8 +292,7 @@ function buildDevisUrl(data: {
   const url = new URL('https://www.agence-aurore.fr/admin/');
 
   const offreMap: Record<string, string> = {
-    'site-new': 'vitrine',
-    'migration': 'migration',
+    'site-vitrine': 'vitrine',
     'site-reservation': 'pro',
     'logiciel-metier': 'logiciel',
     'prestation-carte': 'carte',
