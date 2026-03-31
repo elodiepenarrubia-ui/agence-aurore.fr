@@ -118,7 +118,7 @@ function buildJ30HTML(params: { prenom: string }) {
         m'aiderait énormément à me faire connaître - ça prend 2 minutes.
       </p>
       <div style="text-align:center;margin:28px 0;">
-        <a href="https://maps.app.goo.gl/ufBFSYzddh9PQzhw6"
+        <a href="https://share.google/JgmyXhr73QGCq4yAx"
            target="_blank"
            style="display:inline-block;padding:14px 32px;background:#FF6B1A;
            color:white;border-radius:100px;font-size:15px;font-weight:600;
