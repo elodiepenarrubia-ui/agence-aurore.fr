@@ -191,14 +191,13 @@ export const POST: APIRoute = async ({ request }) => {
               </table>
             </div>
 
+            ${['site-vitrine', 'site-reservation'].includes(projectType) ? `
             <p style="font-size: 15px; line-height: 1.6; color: #3D3D3D; margin: 0 0 24px;">
-              En attendant, vous pouvez utiliser notre simulateur pour estimer vos économies potentielles.
+              En attendant, vous pouvez estimer votre budget avec notre simulateur en ligne.
             </p>
-
-            <!-- Bouton CTA -->
             <div style="text-align: center; margin-bottom: 36px;">
               <a href="https://agence-aurore.fr/simulateur/" style="display: inline-block; background: #FF6B1A; color: #FFFFFF; font-size: 15px; font-weight: 600; text-decoration: none; padding: 14px 32px; border-radius: 100px;">Voir le simulateur</a>
-            </div>
+            </div>` : ''}
           </div>
 
           <!-- Signature -->
