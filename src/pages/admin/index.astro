@@ -65,9 +65,12 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
 
     <!-- ═══ SECTION DEVIS ═══ -->
     <div id="section-devis" class="admin-section active">
+      <div class="admin-section-header">
+        <h2>Générateur de devis</h2>
+        <p>Créez et envoyez vos devis en quelques clics</p>
+      </div>
       <section class="devis-layout">
         <div class="form-col">
-          <h1 class="devis-page-title">Générateur de devis</h1>
           <div id="message-prefill-box" class="message-prefill-box" style="display:none;">
             <p class="message-prefill-label">Message du client</p>
             <p id="client-message-prefill" class="message-prefill-text"></p>
@@ -120,19 +123,29 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
 
     <!-- ═══ SECTION AUDIT ═══ -->
     <div id="section-audit" class="admin-section" style="display:none;">
-      <h1 class="audit-page-title">Audit SEO</h1>
+      <div class="admin-section-header">
+        <h2>Audit SEO</h2>
+        <p>Analysez le référencement d'un site prospect</p>
+      </div>
       <div class="audit-form"><div class="audit-form-fields"><div class="field"><label for="audit-url">URL du site à analyser</label><input type="url" id="audit-url" class="input" placeholder="https://www.exemple.com" /></div><div class="field"><label for="audit-name">Nom du prospect</label><input type="text" id="audit-name" class="input" placeholder="Nicolas Pécard - BlackWoodDeck" /></div><div class="field"><label for="audit-email">Email du prospect <span style="color:var(--gray-500);font-weight:400;">(optionnel)</span></label><input type="email" id="audit-email" class="input" placeholder="contact@exemple.com" /></div></div><button id="btn-analyze" class="btn btn-aurora btn-lg" style="margin-top:16px;">Analyser le site →</button><p id="analyze-error" style="display:none;color:#dc2626;font-size:13px;margin-top:8px;"></p></div>
       <div id="audit-results" style="display:none;margin-top:40px;"></div>
     </div>
 
     <!-- ═══ SECTION DASHBOARD ═══ -->
     <div id="section-dashboard" class="admin-section" style="display:none;">
-      <h2 class="devis-legend" style="margin-bottom:24px;">Devis r&eacute;cents</h2>
+      <div class="admin-section-header">
+        <h2>Dashboard</h2>
+        <p>Historique et suivi de vos devis</p>
+      </div>
       <div class="dashboard-table-wrap"><table class="dashboard-table" id="dashboard-table"><thead><tr><th>N&deg; devis</th><th>Date</th><th>Client</th><th>Total HT</th><th>Statut</th><th>Actions</th></tr></thead><tbody id="dashboard-body"><tr class="dashboard-empty"><td colspan="6">Aucun devis envoy&eacute;</td></tr></tbody></table></div>
     </div>
 
     <!-- ═══ SECTION ARTICLES ═══ -->
     <div id="section-articles" class="admin-section" style="display:none;">
+      <div class="admin-section-header">
+        <h2>Articles</h2>
+        <p>Rédigez et publiez des articles sur le blog</p>
+      </div>
       <div class="editor-container">
 
         <!-- Steps -->
@@ -231,33 +244,38 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
 
 <style is:global>
 /* ─── ADMIN LAYOUT ─── */
-#admin-app{display:flex;min-height:100vh;background:#F9F9F9}
-#admin-sidebar{width:220px;min-width:220px;background:#1A1A1A;display:flex;flex-direction:column;padding:24px 0;position:fixed;top:0;left:0;height:100vh;z-index:100}
-.sidebar-logo{font-family:var(--font-display);font-size:22px;font-weight:900;color:white;padding:0 20px 24px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:16px;letter-spacing:-0.04em}
-.sidebar-logo span{color:#FF6B1A}
+#admin-app{display:flex;min-height:100vh;background:var(--gray-50);font-family:var(--font-display)}
+#admin-sidebar{width:240px;min-width:240px;background:white;border-right:1px solid var(--gray-100);display:flex;flex-direction:column;padding:24px 0;position:fixed;top:0;left:0;height:100vh;z-index:100}
+.sidebar-logo{font-family:var(--font-display);font-size:22px;font-weight:900;color:var(--black);padding:0 24px 24px;border-bottom:1px solid var(--gray-100);margin-bottom:12px;letter-spacing:-0.5px}
+.sidebar-logo span{color:var(--aurora)}
 .sidebar-nav{display:flex;flex-direction:column}
-.sidebar-item{display:flex;align-items:center;gap:12px;width:100%;padding:12px 20px;background:none;border:none;color:rgba(255,255,255,0.6);font-family:var(--font-display);font-size:14px;font-weight:500;cursor:pointer;text-align:left;transition:all 0.15s}
-.sidebar-item:hover{background:rgba(255,255,255,0.05);color:white}
-.sidebar-item.active{background:rgba(255,107,26,0.15);color:#FF6B1A;border-right:3px solid #FF6B1A}
-.sidebar-icon{font-size:16px}
-.sidebar-logout{margin-top:auto;padding:12px 20px;background:none;border:none;color:rgba(255,255,255,0.4);font-family:var(--font-display);font-size:13px;cursor:pointer;text-align:left;transition:color 0.15s}
+.sidebar-item{display:flex;align-items:center;gap:10px;width:100%;padding:11px 24px;background:none;border:none;border-right:3px solid transparent;color:var(--gray-500);font-family:var(--font-display);font-size:14px;font-weight:500;cursor:pointer;text-align:left;transition:all 0.15s ease}
+.sidebar-item:hover{background:var(--gray-50);color:var(--black)}
+.sidebar-item.active{background:var(--aurora-pale);color:var(--aurora);border-right-color:var(--aurora);font-weight:600}
+.sidebar-icon{font-size:15px}
+.sidebar-logout{margin-top:auto;padding:12px 24px;background:none;border:none;color:var(--gray-300);font-family:var(--font-display);font-size:13px;cursor:pointer;text-align:left;transition:color 0.15s;border-top:1px solid var(--gray-100)}
 .sidebar-logout:hover{color:#DC2626}
-#admin-main{margin-left:220px;flex:1;padding:32px;min-height:100vh}
+#admin-main{margin-left:240px;flex:1;padding:40px;min-height:100vh}
+/* ─── SECTION HEADER ─── */
+.admin-section-header{margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--gray-100)}
+.admin-section-header h2{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--black);margin:0 0 4px;letter-spacing:-0.3px}
+.admin-section-header p{font-size:14px;color:var(--gray-500);margin:0}
 /* ─── LOGIN ─── */
-.admin-login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#F9F9F9}
-.login-box{background:white;border-radius:16px;padding:40px;width:100%;max-width:360px;box-shadow:0 4px 24px rgba(0,0,0,0.08);text-align:center}
-.login-logo{font-family:var(--font-display);font-size:32px;font-weight:900;letter-spacing:-0.04em;margin-bottom:8px}
-.login-title{font-family:var(--font-display);font-size:16px;font-weight:500;color:var(--gray-500);margin:0 0 24px}
+.admin-login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--gray-50)}
+.login-box{background:white;border-radius:16px;padding:48px 40px;width:100%;max-width:380px;box-shadow:0 4px 24px rgba(0,0,0,0.06);text-align:center;border:1px solid var(--gray-100)}
+.login-logo{font-family:var(--font-display);font-size:36px;font-weight:900;color:var(--black);letter-spacing:-1px;margin-bottom:8px}
+.login-logo span{color:var(--aurora)}
+.login-box h1{font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--black);margin:0 0 24px}
 .login-form{display:flex;flex-direction:column;gap:12px}
 .login-error{color:#dc2626;font-size:13px;margin:0}
 /* ─── DEVIS ─── */
 .devis-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-.devis-page-title{font-family:var(--font-display);font-size:28px;font-weight:700;letter-spacing:-0.03em;margin-bottom:32px}
-.message-prefill-box{background:#FFF4EE;border-left:3px solid #FF6B1A;padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:20px}
-.message-prefill-label{font-size:11px;font-weight:700;color:#FF6B1A;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 6px}
-.message-prefill-text{font-size:13px;color:#1a1a1a;margin:0;line-height:1.6}
+.devis-page-title{display:none}
+.message-prefill-box{background:var(--aurora-pale);border-left:3px solid var(--aurora);padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:20px}
+.message-prefill-label{font-size:11px;font-weight:700;color:var(--aurora);text-transform:uppercase;letter-spacing:0.05em;margin:0 0 6px}
+.message-prefill-text{font-size:13px;color:var(--black);margin:0;line-height:1.6}
 .devis-fieldset{border:none;padding:0;margin:0 0 32px}
-.devis-legend{font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--aurora);margin-bottom:16px;display:block}
+.devis-legend{font-family:var(--font-display);font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--aurora);margin-bottom:16px;display:block}
 .field{margin-bottom:12px}
 .field label{display:block;font-size:13px;font-weight:500;color:var(--gray-700);margin-bottom:4px}
 .field-opt{color:var(--gray-500);font-weight:400}
@@ -269,7 +287,7 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
 .total-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;margin-top:16px;border-top:2px solid var(--black);font-size:18px;font-weight:600}
 .tva-mention{font-size:12px;color:var(--gray-500);margin-top:4px}
 .preview-col{position:sticky;top:32px}
-.devis-paper{background:var(--white);border:1px solid var(--gray-300);border-radius:var(--radius-md);overflow:visible;padding:48px 40px;box-shadow:0 4px 24px rgba(0,0,0,0.06);font-size:12px;line-height:1.5;color:var(--black)}
+.devis-paper{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius-md);overflow:visible;padding:48px 40px;box-shadow:0 4px 24px rgba(0,0,0,0.06);font-size:12px;line-height:1.5;color:var(--black)}
 .paper-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px}
 .paper-header-line{height:3px;background:var(--aurora);margin-bottom:24px}
 .paper-header .logo{font-size:24px}
@@ -286,11 +304,11 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
 .paper-table th:first-child{border-radius:4px 0 0 4px}
 .paper-table th:last-child{border-radius:0 4px 4px 0}
 .paper-table td{padding:8px 6px;border-bottom:1px solid var(--gray-100);font-size:12px}
-.paper-table tbody tr:nth-child(even) td{background:#FFF4EE}
+.paper-table tbody tr:nth-child(even) td{background:var(--aurora-pale)}
 .col-qty,.col-pu,.col-total{text-align:right}
 .paper-table th.col-qty,.paper-table th.col-pu,.paper-table th.col-total{text-align:right}
 .empty-row td{text-align:center;color:var(--gray-500);font-style:italic;padding:24px 6px}
-.paper-total{display:flex;justify-content:space-between;align-items:center;padding:12px 8px;border-top:2px solid var(--aurora);background:#FFF4EE;border-radius:0 0 4px 4px;font-size:16px;font-weight:700}
+.paper-total{display:flex;justify-content:space-between;align-items:center;padding:12px 8px;border-top:2px solid var(--aurora);background:var(--aurora-pale);border-radius:0 0 4px 4px;font-size:16px;font-weight:700}
 .paper-total strong{color:var(--aurora)}
 .paper-tva{font-size:11px;color:var(--gray-500);margin-bottom:24px}
 .paper-conditions{margin-bottom:20px;font-size:12px;line-height:1.7}
@@ -321,27 +339,31 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
 .toast a{color:white;text-decoration:underline}
 @keyframes toastin{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
 /* ─── DASHBOARD ─── */
-.dashboard-table-wrap{overflow-x:auto}
+.dashboard-table-wrap{overflow-x:auto;background:white;border:1px solid var(--gray-100);border-radius:12px}
 .dashboard-table{width:100%;border-collapse:collapse;font-family:var(--font-display);font-size:13px}
-.dashboard-table thead th{text-align:left;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-500);padding:10px 12px;border-bottom:1.5px solid var(--gray-100);white-space:nowrap}
-.dashboard-table tbody td{padding:12px;border-bottom:1px solid var(--gray-100);vertical-align:middle}
+.dashboard-table thead th{text-align:left;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-500);padding:12px 16px;border-bottom:1.5px solid var(--gray-100);white-space:nowrap;background:var(--gray-50)}
+.dashboard-table tbody td{padding:12px 16px;border-bottom:1px solid var(--gray-100);vertical-align:middle}
 .dashboard-table tbody tr:hover{background:var(--gray-50)}
 .dashboard-empty td{text-align:center;color:var(--gray-500);padding:24px 12px;font-style:italic}
-.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;white-space:nowrap}
-.badge-envoye{background:#dbeafe;color:#1d4ed8}.badge-facture{background:#dcfce7;color:#16a34a}.badge-refuse{background:#fee2e2;color:#dc2626}.badge-solde{background:#ede9fe;color:#7c3aed}.badge-livre{background:#F0FDF4;color:#16A34A}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;white-space:nowrap;font-family:var(--font-display)}
+.badge-envoye{background:#DBEAFE;color:#1D4ED8}
+.badge-facture{background:#DCFCE7;color:#16A34A}
+.badge-refuse{background:#FEE2E2;color:#DC2626}
+.badge-solde{background:#EDE9FE;color:#7C3AED}
+.badge-livre{background:#DCFCE7;color:#16A34A}
 .dashboard-actions{display:flex;gap:6px;flex-wrap:nowrap}
-.btn-dash{font-family:var(--font-display);font-size:11px;font-weight:500;padding:5px 10px;border-radius:100px;border:1.5px solid;background:white;cursor:pointer;white-space:nowrap;transition:background 0.2s}
-.btn-dash-invoice{border-color:#16a34a;color:#16a34a}.btn-dash-invoice:hover{background:#f0fdf4}
-.btn-dash-refuse{border-color:#dc2626;color:#dc2626}.btn-dash-refuse:hover{background:#fef2f2}
-.btn-dash-paid{border-color:#16a34a;color:#16a34a}.btn-dash-paid:hover{background:#f0fdf4}
-.btn-dash-solde{border-color:#7c3aed;color:#7c3aed}.btn-dash-solde:hover{background:#f5f3ff}
-.btn-dash-delete{border-color:var(--gray-300);color:var(--gray-500)}.btn-dash-delete:hover{background:var(--gray-50)}
-.btn-dash-preview{background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE}.btn-dash-preview:hover{background:#DBEAFE}
-.btn-dash-livraison{background:#F0FDF4;color:#16A34A;border:1px solid #BBF7D0}.btn-dash-livraison:hover{background:#DCFCE7}
+.btn-dash{font-family:var(--font-display);font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:all 0.15s}
+.btn-dash-invoice{background:#DBEAFE;color:#1D4ED8}.btn-dash-invoice:hover{background:#1D4ED8;color:white}
+.btn-dash-refuse{background:#FEE2E2;color:#DC2626}.btn-dash-refuse:hover{background:#DC2626;color:white}
+.btn-dash-paid{background:#DCFCE7;color:#16A34A}.btn-dash-paid:hover{background:#16A34A;color:white}
+.btn-dash-solde{background:#EDE9FE;color:#7C3AED}.btn-dash-solde:hover{background:#7C3AED;color:white}
+.btn-dash-preview{background:#DBEAFE;color:#1D4ED8}.btn-dash-preview:hover{background:#1D4ED8;color:white}
+.btn-dash-livraison{background:#DCFCE7;color:#16A34A}.btn-dash-livraison:hover{background:#16A34A;color:white}
+.btn-dash-delete{background:#FEE2E2;color:#DC2626}.btn-dash-delete:hover{background:#DC2626;color:white}
 .btn-dash:disabled{opacity:0.5;cursor:not-allowed}
 /* ─── AUDIT ─── */
-.audit-page-title{font-family:var(--font-display);font-size:clamp(22px,3vw,28px);font-weight:700;letter-spacing:-0.03em;color:var(--black);margin:0 0 24px}
-.audit-form{background:var(--gray-50);border-radius:var(--radius-lg);padding:28px 32px}
+.audit-page-title{display:none}
+.audit-form{background:white;border:1px solid var(--gray-100);border-radius:12px;padding:28px 32px}
 .audit-form-fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 .audit-header{margin-bottom:24px}
 .audit-header h2{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:-0.03em;color:var(--black);margin:0 0 4px}
@@ -364,7 +386,7 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
 .audit-schema-types code{background:rgba(0,0,0,0.05);padding:1px 5px;border-radius:3px;font-size:10px;margin-right:4px}
 .audit-actions{display:flex;gap:12px;flex-wrap:wrap}
 .audit-loading{text-align:center;padding:48px 0}
-.audit-spinner{display:inline-block;width:32px;height:32px;border:3px solid var(--gray-200);border-top-color:var(--aurora);border-radius:50%;animation:adminspin 0.7s linear infinite}
+.audit-spinner{display:inline-block;width:32px;height:32px;border:3px solid var(--gray-100);border-top-color:var(--aurora);border-radius:50%;animation:adminspin 0.7s linear infinite}
 /* ─── EDITOR ARTICLES ─── */
 .editor-container{max-width:680px}
 .editor-steps{display:flex;align-items:center;margin-bottom:40px}
@@ -403,8 +425,8 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
 .art-status-error{background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:10px;padding:14px 16px;font-size:13px;color:#DC2626}
 /* ─── RESPONSIVE ─── */
 @media(max-width:1024px){.devis-layout{grid-template-columns:1fr}.preview-col{position:static}.presta-row{grid-template-columns:1fr}.devis-actions{grid-template-columns:1fr}.audit-form-fields{grid-template-columns:1fr}}
-@media(max-width:768px){#admin-sidebar{width:60px;min-width:60px}.sidebar-logo,.sidebar-label,.sidebar-logout{display:none}.sidebar-item{justify-content:center;padding:12px 0}#admin-main{margin-left:60px;padding:16px}}
-@media print{.form-col,.devis-page-title,#main-nav,.nav,.footer,.scroll-progress,.cookie-banner,.admin-login,.devis-actions,.toast-container,#admin-sidebar,header,footer,nav,aside{display:none!important}body{margin:0;padding:0;background:white!important}main{padding:0!important;margin:0!important}#admin-main{margin-left:0!important;padding:0!important}.devis-layout{display:block;max-width:none;padding:0;margin:0}.preview-col{position:static;width:100%}.devis-paper{border:none;box-shadow:none;padding:24px;border-radius:0;margin:0}.paper-footer,.paper-signature,.paper-legales{page-break-inside:avoid}}
+@media(max-width:768px){#admin-sidebar{width:56px;min-width:56px}.sidebar-logo{padding:0 12px 16px;text-align:center}.sidebar-label,.sidebar-logout{display:none}.sidebar-item{justify-content:center;padding:12px 0}.sidebar-item span:last-child{display:none}#admin-main{margin-left:56px;padding:20px 16px}}
+@media print{.form-col,.devis-page-title,.admin-section-header,#main-nav,.nav,.footer,.scroll-progress,.cookie-banner,.admin-login,.devis-actions,.toast-container,#admin-sidebar,header,footer,nav,aside{display:none!important}body{margin:0;padding:0;background:white!important}main{padding:0!important;margin:0!important}#admin-main{margin-left:0!important;padding:0!important}.devis-layout{display:block;max-width:none;padding:0;margin:0}.preview-col{position:static;width:100%}.devis-paper{border:none;box-shadow:none;padding:24px;border-radius:0;margin:0}.paper-footer,.paper-signature,.paper-legales{page-break-inside:avoid}}
 </style>
 
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
