@@ -703,7 +703,7 @@
     width: 100%;
   }
 
-  .nav-links.open a {
+  .nav-links.open a:not(.nav-mobile-cta .btn) {
     font-size: 18px;
     font-weight: 600;
     padding: 12px 24px;
