@@ -512,6 +512,7 @@ strong { font-weight: 600; color: var(--black); }
     width: 100%;
     justify-content: center;
     display: inline-flex;
+    font-size: 22px;
   }
 
   .nav-burger { display: flex; }
