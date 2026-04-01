@@ -46,7 +46,7 @@ Si votre score est inférieur à 70, c'est urgent. Entre 70 et 90, il y a des am
 
 ## Ce qu'on fait différemment chez aurore
 
-Les sites que je crée sont construits en HTML statique pur avec Astro : pas de base de données, pas de PHP, pas de WordPress. Le résultat est un ensemble de fichiers HTML, CSS et JavaScript purs, hébergés sur GitHub Pages, un CDN mondial gratuit.
+Les sites que je crée sont construits en HTML statique pur avec Astro : pas de base de données, pas de PHP, pas de WordPress. Le résultat est un ensemble de fichiers HTML, CSS et JavaScript purs, hébergés sur Vercel, un CDN mondial gratuit.
 
 Concrètement, ça donne quoi ? Des scores PageSpeed entre 95 et 100 systématiquement. Des temps de chargement inférieurs à 1 seconde. Et un hébergement à 0 € par mois.
 

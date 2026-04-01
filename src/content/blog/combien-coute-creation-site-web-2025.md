@@ -1,7 +1,7 @@
 ---
-title: "Combien coûte la création d'un site web en 2025 ?"
+title: "Combien coûte la création d'un site web en 2026 ?"
 date: 2026-01-05
-description: "Prix d'un site web en 2025 : freelance, agence, template ou sur mesure. Ce que vous payez vraiment, et pourquoi les écarts sont si importants."
+description: "Prix d'un site web en 2026 : freelance, agence, template ou sur mesure. Ce que vous payez vraiment, et pourquoi les écarts sont si importants."
 ---
 
 Quand on cherche à créer un site web pour son activité, la première question est toujours la même : **combien ça coûte ?** Et la réponse honnête est : ça dépend. Mais ça dépend de quoi exactement ?
@@ -34,7 +34,7 @@ C'est la fourchette la plus large, et la plus difficile à interpréter. Un free
 
 ### 4. Le site statique sur mesure (290 à 1 290 €)
 
-C'est l'approche qu'aurore propose : un site généré statiquement avec Astro, hébergé gratuitement sur GitHub Pages. Aucun frais d'hébergement récurrent, performances excellentes, SEO optimisé dès le départ.
+C'est l'approche qu'aurore propose : un site généré statiquement avec Astro, hébergé gratuitement sur Vercel. Aucun frais d'hébergement récurrent, performances excellentes, SEO optimisé dès le départ.
 
 ## Ce que cache souvent le "prix d'un site web"
 

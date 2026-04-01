@@ -1,7 +1,7 @@
 ---
-title: "Créer un site web à Aix-en-Provence : guide complet 2025"
+title: "Créer un site web à Aix-en-Provence : guide complet 2026"
 date: 2026-01-19
-description: "Tout ce qu'il faut savoir pour créer un site web professionnel à Aix-en-Provence en 2025 : prestataires, prix, délais et pièges à éviter."
+description: "Tout ce qu'il faut savoir pour créer un site web professionnel à Aix-en-Provence en 2026 : prestataires, prix, délais et pièges à éviter."
 ---
 
 Vous êtes artisan, thérapeute, consultant ou indépendant à Aix-en-Provence, et vous cherchez à créer ou refaire votre site web ? Ce guide vous donne une vue complète et honnête de ce que vous trouverez sur le marché local, et ce que ça coûte vraiment.
@@ -46,7 +46,7 @@ Plus de 70 % des recherches locales se font depuis un smartphone. Votre site doi
 
 ### Un hébergement rapide
 
-La vitesse de chargement impacte directement votre SEO et l'expérience utilisateur. GitHub Pages (hébergement gratuit, CDN mondial) offre des performances excellentes pour un site statique. Les hébergements mutualisés bas de gamme peuvent pénaliser votre site sur les Core Web Vitals de Google.
+La vitesse de chargement impacte directement votre SEO et l'expérience utilisateur. Vercel (hébergement gratuit, CDN mondial) offre des performances excellentes pour un site statique. Les hébergements mutualisés bas de gamme peuvent pénaliser votre site sur les Core Web Vitals de Google.
 
 ## Les questions à poser à votre prestataire
 

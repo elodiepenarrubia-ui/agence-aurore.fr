@@ -96,11 +96,11 @@ Plus de mises a jour WordPress. Plus de mises a jour d'extensions. Plus de confl
 
 ### La propriété totale de votre site
 
-Votre site vous appartient. Pas de dépendance a un hébergeur spécifique, pas de dépendance a un écosystème d'extensions. Vous pouvez héberger un site statique n'importe ou, y compris gratuitement sur des plateformes comme GitHub Pages. Si vous changez de prestataire, vous emportez votre site avec vous sans aucune difficulté.
+Votre site vous appartient. Pas de dépendance a un hébergeur spécifique, pas de dépendance a un écosystème d'extensions. Vous pouvez héberger un site statique n'importe ou, y compris gratuitement sur des plateformes comme Vercel. Si vous changez de prestataire, vous emportez votre site avec vous sans aucune difficulté.
 
 ### 0 euro par mois en frais récurrents
 
-C'est le changement le plus concret. Plus d'hébergement a payer. Plus d'extensions a renouveler. Plus de maintenance mensuelle. L'hébergement sur GitHub Pages est gratuit, sans limite de bande passante, avec un certificat SSL inclus. Votre seul coût récurrent est le nom de domaine, soit environ 12 euros par an.
+C'est le changement le plus concret. Plus d'hébergement a payer. Plus d'extensions a renouveler. Plus de maintenance mensuelle. L'hébergement sur Vercel est gratuit, sans limite de bande passante, avec un certificat SSL inclus. Votre seul coût récurrent est le nom de domaine, soit environ 12 euros par an.
 
 ## Conclusion
 
