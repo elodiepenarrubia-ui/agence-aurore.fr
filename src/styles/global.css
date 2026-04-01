@@ -474,12 +474,16 @@ strong { font-weight: 600; color: var(--black); }
     display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    transform: none;
     background: #ffffff;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 32px;
     z-index: 99999;
+    box-sizing: border-box;
   }
 
   .nav-links.open { display: flex; }
