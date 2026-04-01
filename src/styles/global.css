@@ -342,7 +342,7 @@ strong { font-weight: 600; color: var(--black); }
   flex-wrap: wrap;
 }
 
-.footer-brand .logo { font-size: 20px; display: block; margin-bottom: 12px; }
+.footer-brand .logo { font-size: 48px; letter-spacing: -1px; display: block; margin-bottom: 12px; }
 .footer-brand p { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
 
 .footer-nav { display: flex; gap: 64px; flex-wrap: wrap; }
