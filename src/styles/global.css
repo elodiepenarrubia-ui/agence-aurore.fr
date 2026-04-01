@@ -587,7 +587,7 @@ strong { font-weight: 600; color: var(--black); }
 
 /* CTA footer */
 .mm-footer {
-  padding: 20px 24px 40px;
+  padding: 20px 24px 24px;
   flex-shrink: 0;
 }
 .mm-cta {
