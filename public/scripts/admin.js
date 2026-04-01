@@ -7,6 +7,36 @@
   var adminApp = document.getElementById('admin-app');
   var API_TOKEN = adminApp.dataset.apiToken;
 
+  var PRESETS = [
+    { label: 'Pack Starter', prix: 290 },
+    { label: 'Site Vitrine Essentiel', prix: 590 },
+    { label: 'Site Vitrine Autonome', prix: 790 },
+    { label: 'Vitrine Complet Essentiel', prix: 1100 },
+    { label: 'Vitrine Complet Autonome', prix: 1490 },
+    { label: 'Site R\u00E9servation Essentiel', prix: 1400 },
+    { label: 'Site R\u00E9servation Autonome', prix: 1800 },
+    { label: 'Migration', prix: 190 },
+    { label: 'Logo seul', prix: 150 },
+    { label: 'Charte graphique', prix: 100 },
+    { label: 'Page suppl\u00E9mentaire', prix: 80 },
+    { label: 'Formulaire contact', prix: 60 },
+    { label: 'SEO on-page', prix: 150 },
+    { label: 'Fiche Google Business', prix: 90 },
+    { label: 'Search Console', prix: 60 },
+    { label: 'Automatisation', prix: 100 },
+    { label: 'Decap CMS', prix: 150 },
+    { label: 'Emails pro (Zoho)', prix: 80 },
+    { label: 'Domaine + config', prix: 60 },
+    { label: 'Espace r\u00E9daction (Starter/Migration)', prix: 150 },
+    { label: 'Session de modifications', prix: 30 },
+    { label: 'Pack landing pages (10 pages SEO)', prix: 190 },
+    { label: 'Support marketing', prix: 80 },
+    { label: 'Maintenance technique', prix: 19 },
+    { label: 'Maintenance + support', prix: 29 },
+    { label: 'Cadrage logiciel m\u00E9tier', prix: 300 },
+    { label: 'Personnalis\u00E9', prix: 0 },
+  ];
+
   function showAdmin() {
     loginScreen.style.display = 'none';
     adminApp.style.display = 'flex';
@@ -170,36 +200,6 @@
   // ═══════════════════════════════════════════
   // GÉNÉRATEUR DE DEVIS
   // ═══════════════════════════════════════════
-  var PRESETS = [
-    { label: 'Pack Starter', prix: 290 },
-    { label: 'Site Vitrine Essentiel', prix: 590 },
-    { label: 'Site Vitrine Autonome', prix: 790 },
-    { label: 'Vitrine Complet Essentiel', prix: 1100 },
-    { label: 'Vitrine Complet Autonome', prix: 1490 },
-    { label: 'Site R\u00E9servation Essentiel', prix: 1400 },
-    { label: 'Site R\u00E9servation Autonome', prix: 1800 },
-    { label: 'Migration', prix: 190 },
-    { label: 'Logo seul', prix: 150 },
-    { label: 'Charte graphique', prix: 100 },
-    { label: 'Page suppl\u00E9mentaire', prix: 80 },
-    { label: 'Formulaire contact', prix: 60 },
-    { label: 'SEO on-page', prix: 150 },
-    { label: 'Fiche Google Business', prix: 90 },
-    { label: 'Search Console', prix: 60 },
-    { label: 'Automatisation', prix: 100 },
-    { label: 'Decap CMS', prix: 150 },
-    { label: 'Emails pro (Zoho)', prix: 80 },
-    { label: 'Domaine + config', prix: 60 },
-    { label: 'Espace r\u00E9daction (Starter/Migration)', prix: 150 },
-    { label: 'Session de modifications', prix: 30 },
-    { label: 'Pack landing pages (10 pages SEO)', prix: 190 },
-    { label: 'Support marketing', prix: 80 },
-    { label: 'Maintenance technique', prix: 19 },
-    { label: 'Maintenance + support', prix: 29 },
-    { label: 'Cadrage logiciel m\u00E9tier', prix: 300 },
-    { label: 'Personnalis\u00E9', prix: 0 },
-  ];
-
   function initDevis() {
     var prestationsList = document.getElementById('prestations-list');
     var addBtn = document.getElementById('add-prestation');
