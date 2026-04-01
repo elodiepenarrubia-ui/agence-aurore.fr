@@ -547,7 +547,6 @@ strong { font-weight: 600; color: var(--black); }
 
 /* Navigation */
 .mm-nav {
-  flex: 1;
   padding: 0 24px;
   display: flex;
   flex-direction: column;
@@ -587,7 +586,7 @@ strong { font-weight: 600; color: var(--black); }
 
 /* CTA footer */
 .mm-footer {
-  padding: 20px 24px 24px;
+  padding: 16px 24px;
   flex-shrink: 0;
 }
 .mm-cta {
