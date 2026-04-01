@@ -289,12 +289,75 @@
     if (offreParam) { var presetMap = { 'starter': 'Pack Starter', 'vitrine': 'Site Vitrine Essentiel', 'pro': 'Site Vitrine Autonome', 'logiciel': 'Logiciel métier', 'carte': 'Prestation à la carte', 'migration': 'Migration' }; var pl = presetMap[offreParam.toLowerCase()]; if (pl) createPrestaRow(pl); else createPrestaRow(); } else { createPrestaRow(); }
     updatePreview();
 
-    // ─── LOCALSTORAGE DEVIS ───
+    // ─── LOCALSTORAGE CACHE ───
     function getDevisHistory() { try { return JSON.parse(localStorage.getItem('devis-history') || '[]'); } catch(e) { return []; } }
     function saveDevisHistory(h) { localStorage.setItem('devis-history', JSON.stringify(h)); }
-    function saveDevisToHistory(entry) { var h = getDevisHistory(); if (!h.some(function(d) { return d.id === entry.id; })) { h.unshift(entry); if (h.length > 50) h = h.slice(0, 50); saveDevisHistory(h); } renderDashboard(); }
-    function updateDevisStatus(id, statut) { var h = getDevisHistory(); h.forEach(function(d) { if (d.id === id) d.statut = statut; }); saveDevisHistory(h); renderDashboard(); }
-    function deleteDevis(id) { saveDevisHistory(getDevisHistory().filter(function(d) { return d.id !== id; })); renderDashboard(); }
+
+    // ─── FIRESTORE DEVIS ───
+    function saveDevisToFirestore(entry) {
+      fetch('/api/devis-firestore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-token': API_TOKEN },
+        body: JSON.stringify({ action: 'save', devis: entry })
+      }).catch(function(err) { console.error('Erreur sauvegarde Firestore:', err); });
+      // Cache local
+      var h = getDevisHistory();
+      if (!h.some(function(d) { return d.id === entry.id; })) { h.unshift(entry); if (h.length > 50) h = h.slice(0, 50); saveDevisHistory(h); }
+      renderDashboard();
+    }
+
+    function loadDevisFromFirestore() {
+      fetch('/api/devis-firestore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-token': API_TOKEN },
+        body: JSON.stringify({ action: 'get-all' })
+      }).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.devis && data.devis.length > 0) {
+          saveDevisHistory(data.devis);
+          renderDashboard();
+        } else {
+          renderDashboard();
+        }
+      }).catch(function(err) {
+        console.error('Erreur chargement Firestore:', err);
+        renderDashboard();
+      });
+    }
+
+    function updateDevisStatus(id, statut) {
+      var h = getDevisHistory(); h.forEach(function(d) { if (d.id === id) d.statut = statut; }); saveDevisHistory(h); renderDashboard();
+      fetch('/api/devis-firestore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-token': API_TOKEN },
+        body: JSON.stringify({ action: 'update-statut', devisId: id, devis: { statut: statut } })
+      }).catch(function(err) { console.error('Erreur update statut Firestore:', err); });
+    }
+
+    function deleteDevis(id, clientEmail) {
+      saveDevisHistory(getDevisHistory().filter(function(d) { return d.id !== id; })); renderDashboard();
+      fetch('/api/devis-firestore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-token': API_TOKEN },
+        body: JSON.stringify({ action: 'delete', devisId: id, clientEmail: clientEmail || '' })
+      }).catch(function(err) { console.error('Erreur suppression Firestore:', err); });
+    }
+
+    function migrateLocalStorageToFirestore() {
+      if (localStorage.getItem('devis-migrated-firestore')) return;
+      var localDevis = getDevisHistory();
+      if (localDevis.length === 0) { localStorage.setItem('devis-migrated-firestore', 'true'); return; }
+      var promises = localDevis.map(function(d) {
+        return fetch('/api/devis-firestore', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-api-token': API_TOKEN },
+          body: JSON.stringify({ action: 'save', devis: d })
+        });
+      });
+      Promise.all(promises).then(function() {
+        localStorage.setItem('devis-migrated-firestore', 'true');
+        console.log(localDevis.length + ' devis migrés vers Firestore');
+      }).catch(function(err) { console.error('Erreur migration:', err); });
+    }
 
     function clearFieldError(id) { var el = document.getElementById(id); if (!el) return; el.classList.remove('input-error'); var err = el.parentNode.querySelector('.field-error'); if (err) err.remove(); }
     function setFieldError(id, msg) { var el = document.getElementById(id); if (!el) return; clearFieldError(id); el.classList.add('input-error'); var errP = document.createElement('p'); errP.className = 'field-error'; errP.textContent = msg; el.parentNode.appendChild(errP); }
@@ -362,7 +425,7 @@
         if (data.success) { showToast('Devis envoy\u00E9 \u00E0 ' + email, 'success'); sendBtn.innerHTML = '&#10003; Envoy\u00E9';
           var nt = 0; prestationsList.querySelectorAll('.presta-row').forEach(function(row) { var q = parseFloat(row.querySelectorAll('input')[1].value) || 0; var p = parseFloat(row.querySelectorAll('input')[2].value) || 0; nt += q * p; });
           var dv = document.getElementById('devis-date').value; var dp = dv ? dv.split('-') : []; var df = dp.length === 3 ? dp[2]+'/'+dp[1]+'/'+dp[0] : dv;
-          saveDevisToHistory({ id: devisNumber, date: df, clientName: (prenom+' '+nom).trim(), clientEmail: email, totalHT: nt, acomptePct: parseFloat(document.getElementById('devis-acompte').value) || 50, statut: 'envoy\u00E9' });
+          saveDevisToFirestore({ id: devisNumber, date: df, clientName: (prenom+' '+nom).trim(), clientEmail: email, totalHT: nt, acomptePct: parseFloat(document.getElementById('devis-acompte').value) || 50, statut: 'envoy\u00E9' });
         } else { showToast(data.error || 'Erreur envoi', 'error'); sendBtn.disabled = false; sendBtn.innerHTML = '&#9993; Envoyer au client'; }
       }).catch(function(err) { showToast('Erreur : ' + err.message, 'error'); sendBtn.disabled = false; sendBtn.innerHTML = '&#9993; Envoyer au client'; });
     });
@@ -409,7 +472,7 @@
     document.getElementById('dashboard-body').addEventListener('click', function(e) {
       var btn = e.target.closest('[data-action]'); if (!btn) return;
       var action = btn.dataset.action, id = btn.dataset.id, history = getDevisHistory(), devis = history.find(function(d){return d.id===id;}); if (!devis) return;
-      if(action==='delete'){if(!confirm('Supprimer '+id+' ?'))return;deleteDevis(id);return;}
+      if(action==='delete'){window._deleteDevisId=id;window._deleteDevisEmail=devis.clientEmail||'';document.getElementById('modal-delete-id').textContent=id;document.getElementById('modal-delete').style.display='flex';return;}
       if(action==='refuse'){updateDevisStatus(id,'refus\u00E9');return;}
       if(action==='paid'){updateDevisStatus(id,'factur\u00E9');showToast('Devis '+id+' marqu\u00E9 pay\u00E9','success');return;}
       if(action==='invoice'){btn.disabled=true;btn.textContent='...';var ap=devis.acomptePct||50;fetch('/api/send-invoice',{method:'POST',headers:{'Content-Type':'application/json','x-api-token':API_TOKEN},body:JSON.stringify({clientEmail:devis.clientEmail,clientName:devis.clientName,devisNumber:devis.id,totalHT:devis.totalHT,acomptePct:ap,description:'Acompte '+ap+'% - Devis '+devis.id})}).then(function(r){return r.json();}).then(function(data){if(data.success){updateDevisStatus(id,'factur\u00E9');var m=(devis.totalHT*ap/100).toFixed(2).replace('.',',');showToast('Facture envoy\u00E9e \u00E0 '+devis.clientEmail+' - '+m+' \u20AC','success');}else{showToast(data.error||'Erreur','error');btn.disabled=false;btn.textContent='\u20AC Facturer';}}).catch(function(err){showToast('Erreur : '+err.message,'error');btn.disabled=false;btn.textContent='\u20AC Facturer';});}
@@ -427,7 +490,14 @@
     document.getElementById('modal-livraison').addEventListener('click',function(e){if(e.target===this)this.style.display='none';});
     document.getElementById('btn-confirm-livraison').addEventListener('click',function(){var url=document.getElementById('livraison-url').value.trim();if(!url){showToast('URL requise','error');return;}var id=window._livraisonDevisId;var h=getDevisHistory();var d=h.find(function(x){return x.id===id;});if(!d)return;var b=document.getElementById('btn-confirm-livraison');b.disabled=true;b.textContent='Envoi...';fetch('/api/send-livraison',{method:'POST',headers:{'Content-Type':'application/json','x-api-token':API_TOKEN},body:JSON.stringify({clientEmail:d.clientEmail,clientPrenom:d.clientName?d.clientName.split(' ')[0]:'',siteUrl:url,cmsUrl:document.getElementById('livraison-cms-login').value.trim(),cmsPassword:document.getElementById('livraison-cms-password').value.trim(),comptes:document.getElementById('livraison-comptes').value.trim(),devisNumber:d.id})}).then(function(r){return r.json();}).then(function(data){if(data.success){updateDevisStatus(id,'livr\u00E9');document.getElementById('modal-livraison').style.display='none';showToast('Email livraison envoy\u00E9','success');}else showToast(data.error||'Erreur','error');b.disabled=false;b.textContent='Envoyer l\u2019email de livraison';}).catch(function(err){showToast('Erreur : '+err.message,'error');b.disabled=false;b.textContent='Envoyer l\u2019email de livraison';});});
 
-    renderDashboard();
+    // ─── MODALE SUPPRESSION RGPD ───
+    document.getElementById('btn-cancel-delete').addEventListener('click',function(){document.getElementById('modal-delete').style.display='none';});
+    document.getElementById('modal-delete').addEventListener('click',function(e){if(e.target===this)this.style.display='none';});
+    document.getElementById('btn-confirm-delete').addEventListener('click',function(){var id=window._deleteDevisId;var email=window._deleteDevisEmail;document.getElementById('modal-delete').style.display='none';deleteDevis(id,email);showToast('Devis '+id+' supprimé (données RGPD effacées)','success');});
+
+    // ─── CHARGEMENT INITIAL ───
+    migrateLocalStorageToFirestore();
+    loadDevisFromFirestore();
   }
 
   // ═══════════════════════════════════════════

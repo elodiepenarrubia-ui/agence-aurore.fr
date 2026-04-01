@@ -238,6 +238,22 @@ const apiToken = import.meta.env.API_SECRET_TOKEN;
 <!-- Modales -->
 <div id="modal-preview" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;"><div style="background:white;border-radius:12px;padding:32px;max-width:480px;width:90%;"><h3 style="margin:0 0 16px;font-size:18px;font-weight:700;">Envoyer le lien de preview</h3><p style="color:#6B6B6B;font-size:14px;margin:0 0 20px;">Le client recevra un email avec le lien pour valider son site.</p><label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px;">URL de preview Vercel</label><input id="preview-url-input" type="url" placeholder="https://aurore-dupont.vercel.app" style="width:100%;padding:10px 12px;border:1px solid #E5E7EB;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:20px;" /><div style="display:flex;gap:12px;justify-content:flex-end;"><button id="btn-cancel-preview" class="btn btn-outline">Annuler</button><button id="btn-confirm-preview" class="btn btn-aurora">Envoyer au client</button></div></div></div>
 <div id="modal-livraison" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;"><div style="background:white;border-radius:12px;padding:32px;max-width:520px;width:90%;max-height:90vh;overflow-y:auto;"><h3 style="margin:0 0 16px;font-size:18px;font-weight:700;">Email de livraison</h3><p style="color:#6B6B6B;font-size:14px;margin:0 0 20px;">Ces informations seront envoyées au client.</p><label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px;">URL du site en ligne *</label><input id="livraison-url" type="url" placeholder="https://www.nom-client.fr" style="width:100%;padding:10px 12px;border:1px solid #E5E7EB;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:16px;" /><label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px;">Identifiants CMS</label><input id="livraison-cms-login" type="text" placeholder="URL admin" style="width:100%;padding:10px 12px;border:1px solid #E5E7EB;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:8px;" /><input id="livraison-cms-password" type="text" placeholder="Mot de passe" style="width:100%;padding:10px 12px;border:1px solid #E5E7EB;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:16px;" /><label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px;">Comptes clients créés</label><textarea id="livraison-comptes" placeholder="Google Business - email / mdp&#10;Zoho Mail - email / mdp" style="width:100%;padding:10px 12px;border:1px solid #E5E7EB;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:16px;height:100px;resize:vertical;"></textarea><div style="display:flex;gap:12px;justify-content:flex-end;"><button id="btn-cancel-livraison" class="btn btn-outline">Annuler</button><button id="btn-confirm-livraison" class="btn btn-aurora">Envoyer l'email de livraison</button></div></div></div>
+<div id="modal-delete" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:white;border-radius:12px;padding:32px;max-width:400px;width:90%;">
+    <h3 style="margin:0 0 8px;font-size:18px;font-weight:700;">Supprimer ce devis ?</h3>
+    <p style="color:#6B6B6B;font-size:14px;margin:0 0 4px;">Devis <strong id="modal-delete-id"></strong></p>
+    <p style="color:#6B6B6B;font-size:14px;margin:0 0 8px;">Cette action est irréversible et supprime :</p>
+    <ul style="color:#6B6B6B;font-size:13px;margin:0 0 20px;padding-left:20px;">
+      <li>Le devis de votre dashboard</li>
+      <li>Le lead associé dans la base de données</li>
+      <li>Toutes les données personnelles du client (conformité RGPD)</li>
+    </ul>
+    <div style="display:flex;gap:12px;justify-content:flex-end;">
+      <button id="btn-cancel-delete" class="btn btn-outline">Annuler</button>
+      <button id="btn-confirm-delete" class="btn" style="background:#DC2626;color:white;">Supprimer définitivement</button>
+    </div>
+  </div>
+</div>
 <div id="toast-container" class="toast-container"></div>
 
 </BaseLayout>
