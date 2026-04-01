@@ -110,6 +110,34 @@ const schemaJson = schema
     <!-- ─── NAVIGATION ─── -->
     <Nav />
 
+    <!-- ─── MENU MOBILE PLEIN ÉCRAN ─── -->
+    <div id="mobile-menu" aria-hidden="true">
+      <div class="mm-header">
+        <span class="mm-logo">aur<span>o</span>re</span>
+        <button id="burger-close" aria-label="Fermer le menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="mm-bar"></div>
+      <nav class="mm-nav">
+        <a href="/" class="mm-link" data-num="01">Accueil</a>
+        <a href="/creation-site-web/" class="mm-link" data-num="02">Création de site web</a>
+        <a href="/identite-visuelle/" class="mm-link" data-num="03">Identité visuelle</a>
+        <a href="/referencement-seo/" class="mm-link" data-num="04">Référencement SEO</a>
+        <a href="/automatisation/" class="mm-link" data-num="05">Automatisation</a>
+        <a href="/realisations/" class="mm-link" data-num="06">Réalisations</a>
+        <a href="/tarifs/" class="mm-link" data-num="07">Tarifs</a>
+        <a href="/blog/" class="mm-link" data-num="08">Blog</a>
+      </nav>
+      <div class="mm-footer">
+        <a href="/contact/" class="btn btn-aurora mm-cta">Démarrer mon projet →</a>
+      </div>
+    </div>
+    <div id="mobile-overlay"></div>
+
     <!-- ─── CONTENU DE LA PAGE ─── -->
     <main>
       <slot />
@@ -202,50 +230,52 @@ const schemaJson = schema
         }, { passive: true });
       }
 
-      // ─── Burger menu mobile ───
-      const burger = document.getElementById('nav-burger');
-      const navLinks = document.getElementById('nav-links');
+      // ─── Menu mobile plein écran ───
+      (function() {
+        const burgerBtn = document.getElementById('burger-btn');
+        const burgerClose = document.getElementById('burger-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        const links = document.querySelectorAll('.mm-link');
 
-      if (burger && navLinks) {
-        // Sur mobile, déplacer nav-links dans le body pour échapper au stacking context du nav (backdrop-filter)
-        function setupMobileMenu() {
-          if (window.innerWidth <= 768) {
-            if (navLinks.parentElement !== document.body) {
-              document.body.appendChild(navLinks);
-            }
-          }
+        function openMenu() {
+          mobileMenu.classList.add('open');
+          overlay.classList.add('open');
+          mobileMenu.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+
+          // Animation cascade des liens (stagger 50ms)
+          links.forEach((link, i) => {
+            setTimeout(() => {
+              link.classList.add('visible');
+            }, i * 50);
+          });
         }
-
-        setupMobileMenu();
-        window.addEventListener('resize', setupMobileMenu);
 
         function closeMenu() {
-          navLinks.classList.remove('open');
-          burger.setAttribute('aria-expanded', 'false');
-          burger.setAttribute('aria-label', 'Ouvrir le menu');
-          document.documentElement.style.overflow = '';
+          mobileMenu.classList.remove('open');
+          overlay.classList.remove('open');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+
+          // Reset animations
+          links.forEach(link => link.classList.remove('visible'));
         }
 
-        burger.addEventListener('click', () => {
-          const isOpen = navLinks.classList.toggle('open');
-          burger.setAttribute('aria-expanded', String(isOpen));
-          burger.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
-          document.documentElement.style.overflow = isOpen ? 'hidden' : '';
-        });
+        burgerBtn?.addEventListener('click', openMenu);
+        burgerClose?.addEventListener('click', closeMenu);
+        overlay?.addEventListener('click', closeMenu);
 
-        // Fermer le menu au clic sur un lien (attaché une seule fois)
-        navLinks.querySelectorAll('a').forEach(link => {
+        // Fermer au clic sur un lien
+        links.forEach(link => {
           link.addEventListener('click', closeMenu);
         });
 
-        // Fermer avec Escape (attaché une seule fois)
+        // Fermer avec Escape
         document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && navLinks.classList.contains('open')) {
-            closeMenu();
-            burger.focus();
-          }
+          if (e.key === 'Escape') closeMenu();
         });
-      }
+      })();
 
       // ─── Dropdown Services (Nav) ───
       document.querySelectorAll('.nav-dropdown-parent').forEach(parent => {

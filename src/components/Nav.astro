@@ -34,23 +34,16 @@ const isServicePage = path.startsWith('/creation-site-web') || path === '/identi
       <li><a href="/realisations/" class={path.startsWith('/realisations') ? 'nav-active' : ''}>Réalisations</a></li>
       <li><a href="/tarifs/" class={path === '/tarifs/' ? 'nav-active' : ''}>Tarifs</a></li>
       <li><a href="/blog/" class={path.startsWith('/blog') ? 'nav-active' : ''}>Blog</a></li>
-      <li class="nav-mobile-cta">
-        <a href="/contact/" class="btn btn-outline" style="color: var(--aurora); border-color: var(--aurora);">Devis gratuit →</a>
-      </li>
     </ul>
 
     <div class="nav-cta">
       <a href="/contact/" class="btn btn-primary">Devis gratuit →</a>
-      <button
-        class="nav-burger"
-        id="nav-burger"
-        aria-label="Ouvrir le menu"
-        aria-expanded="false"
-        aria-controls="nav-links"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
+      <button id="burger-btn" aria-label="Ouvrir le menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
       </button>
     </div>
   </nav>
@@ -156,77 +149,4 @@ const isServicePage = path.startsWith('/creation-site-web') || path === '/identi
     font-weight: 600;
   }
 
-  /* ─── Mobile dropdown ─── */
-  @media (max-width: 768px) {
-    .nav-dropdown-trigger {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      gap: 0;
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--black);
-      padding: 12px 0;
-      text-align: center;
-      border-bottom: 1px solid var(--gray-100);
-      background: transparent;
-    }
-
-    .nav-dropdown-trigger:hover {
-      color: var(--black);
-    }
-
-    .nav-dropdown-trigger.nav-active {
-      color: var(--aurora);
-    }
-
-    .nav-dropdown-trigger svg {
-      position: relative;
-      margin-left: 6px;
-      width: 12px;
-      height: 7px;
-    }
-
-    .nav-dropdown {
-      position: static;
-      transform: none;
-      box-shadow: none;
-      border-radius: 0;
-      padding: 0;
-      margin-top: 0;
-      min-width: auto;
-      background: transparent;
-    }
-
-    .nav-dropdown::before {
-      display: none;
-    }
-
-    .nav-dropdown-parent.open .nav-dropdown {
-      opacity: 1;
-    }
-
-    .nav-dropdown a {
-      font-size: 22px;
-      font-weight: 500;
-      color: var(--gray-700);
-      padding: 10px 24px;
-      text-align: center;
-      border-radius: 0;
-      border-bottom: 1px solid var(--gray-100);
-      background: transparent;
-      width: 100%;
-    }
-
-    .nav-dropdown a:hover {
-      background: transparent;
-      color: var(--gray-700);
-    }
-
-    .nav-dropdown a.nav-active {
-      background: transparent;
-      color: var(--aurora);
-    }
-  }
 </style>
