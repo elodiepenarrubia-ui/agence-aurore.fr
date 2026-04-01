@@ -10,6 +10,15 @@
   function showAdmin() {
     loginScreen.style.display = 'none';
     adminApp.style.display = 'flex';
+    var saved = sessionStorage.getItem('admin-section') || 'devis';
+    var savedBtn = document.querySelector('[data-section="' + saved + '"]');
+    var savedEl = document.getElementById('section-' + saved);
+    if (savedBtn && savedEl) {
+      document.querySelectorAll('.sidebar-item').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.admin-section').forEach(function(s) { s.style.display = 'none'; });
+      savedBtn.classList.add('active');
+      savedEl.style.display = 'block';
+    }
     initDevis();
   }
 
@@ -133,12 +142,14 @@
 
   document.querySelectorAll('.sidebar-item').forEach(function(btn) {
     btn.addEventListener('click', function() {
+      var section = btn.dataset.section;
+      sessionStorage.setItem('admin-section', section);
       document.querySelectorAll('.sidebar-item').forEach(function(b) { b.classList.remove('active'); });
       document.querySelectorAll('.admin-section').forEach(function(s) { s.style.display = 'none'; });
       btn.classList.add('active');
-      var el = document.getElementById('section-' + btn.dataset.section);
+      var el = document.getElementById('section-' + section);
       if (el) el.style.display = 'block';
-      if (btn.dataset.section === 'dashboard' && typeof renderDashboard === 'function') renderDashboard();
+      if (section === 'dashboard' && typeof renderDashboard === 'function') renderDashboard();
     });
   });
 
