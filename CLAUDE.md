@@ -1,957 +1,205 @@
-# CLAUDE.md — Projet Site Web Aurore
+# CLAUDE.md
 
-## Contexte du projet
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Tu construis le site vitrine **agence-aurore.fr** pour Aurore, une auto-entreprise de création de présence digitale clé en main basée à Aix-en-Provence. La propriétaire s'appelle Élodie.
+## Projet
 
-Le site est construit avec **Astro** (génération statique), hébergé sur **GitHub Pages**, avec **Decap CMS** pour l'édition autonome du blog. Astro génère du HTML statique pur au build — zéro JS côté client par défaut, idéal pour le SEO. Pas de framework UI (pas de React, pas de Vue). Astro vanilla uniquement.
+Site vitrine **agence-aurore.fr** — Aurore, auto-entreprise de création de présence digitale clé en main (Aix-en-Provence, propriétaire : Élodie Penarrubia). Astro + Vercel SSR, avec Firebase (Firestore), Resend (emails) et Stripe (paiements). Pas de framework UI (ni React, ni Vue, ni Tailwind).
 
----
+## Commandes
+
+```bash
+npm run dev      # Dev server Astro (http://localhost:4321)
+npm run build    # Build prod (sortie dans dist/)
+npm run preview  # Preview local du build
+```
+
+Pas de tests, pas de linter configurés. Le déploiement est automatique sur Vercel à chaque push sur `main` (voir `vercel.json`). `.github/workflows/` est vide — ne pas y ajouter de workflow de deploy sans en parler.
+
+## Stack réelle
+
+- **Astro 6** avec `output: 'server'` et adapter `@astrojs/vercel` — SSR, pas de site statique.
+- **Sitemap** auto-généré via `@astrojs/sitemap` (filtre `/devis-generateur/`). Ne pas maintenir `public/sitemap.xml` à la main.
+- **Firebase Admin** (`src/lib/firebase-admin.ts`) — singleton Firestore/Storage initialisé via variables d'env.
+- **Resend** — tous les emails transactionnels (contact, confirmations, devis, relances J+7, factures, solde).
+- **Stripe** — paiements acompte/solde, webhook dans `src/pages/api/stripe-webhook.ts`.
+- **Astro Content Collections** pour le blog (`src/content.config.ts` + `src/content/blog/*.md`). **Pas de Decap CMS** — la rédaction passe par l'admin maison.
+- **GSAP 3.12** chargé via CDN dans `BaseLayout.astro` (pas de package npm).
+
+## Architecture
+
+### Pages (`src/pages/`)
+
+- **Accueil, tarifs, a-propos, contact, mentions-legales, cgv, 404**
+- **Pages services** : `identite-visuelle`, `referencement-seo`, `automatisation`, `migration`, `site-web-architecte`
+- **Cluster création de site** : `creation-site-web/{index,site-vitrine,site-reservation,logiciel-metier}`
+- **Programmatic SEO par métier** : `site-web-{artisan,auto-entrepreneur,avocat,coach,coiffeur,conciergerie,immobilier,massotherapeute,medecin,photographe,restaurant,therapeute}`
+- **Pages "alternatives"** (SEO comparatif) : `alternatives-{agences,squarespace,wix,wordpress}`, `comparatif-creation-site-web`
+- **Outils** : `simulateur` (devis en ligne), `devis-generateur` (interne, exclu du sitemap), `audit-seo/`
+- **Flows client authentifiés** : `admin/` (OTP), `onboarding/[token]`
+- **Réalisations** : `realisations/{index,delphine-millot-massage-brignoles,le-mazarin-conciergerie-aix}`
+- **Blog** : `blog/{index,[...slug]}`
+
+Avant de créer une nouvelle page métier/alternative, regarder la structure des pages similaires existantes — elles suivent toutes le même gabarit (hero + FAQ Schema + CTA).
+
+### API routes (`src/pages/api/`)
+
+Toutes en SSR. **Chaque handler doit commencer par `export const prerender = false;`** sinon Astro tente de pré-rendre et casse le build.
+
+- `contact.ts` — formulaire multi-step : crée un lead dans Firestore, envoie notif à Élodie + confirmation au client, inclut un lien vers `/admin/` pré-rempli pour générer le devis.
+- `onboarding-submit.ts` — dossier client complet envoyé après signature du devis, met à jour `leads/{token}`, génère un `CLAUDE.md` projet et l'envoie par email.
+- `devis-firestore.ts`, `create-lead-from-devis.ts`, `send-devis.ts`, `send-preview.ts`, `send-invoice.ts`, `send-solde.ts` — cycle devis/facturation.
+- `stripe-webhook.ts` — traitement des events Stripe (acompte/solde payés).
+- `admin-otp.ts` — auth admin par OTP email (code 6 chiffres, 10 min).
+- `audit-seo.ts` — audit SEO public (formulaire dédié).
+- `cron-emails.ts` — relances J+7 sur devis en attente (appelé par un cron externe).
+
+### Lead lifecycle
+
+```
+contact form → POST /api/contact
+  → Firestore leads/{token} { status: 'nouveau', onboardingCompleted: false }
+  → email Élodie (avec lien devis pré-rempli) + email confirmation client
+
+Élodie ouvre /admin/ (OTP) → génère devis → POST /api/send-devis
+  → email client avec lien signature
+
+Client signe + paie acompte → Stripe webhook → /api/stripe-webhook
+  → email client avec lien onboarding /onboarding/{token}
+
+Client remplit onboarding → POST /api/onboarding-submit
+  → leads/{token}.onboardingCompleted = true
+  → email Élodie avec CLAUDE.md projet généré
+
+Fin de projet → /api/send-solde → Stripe paiement solde → /api/send-invoice
+```
+
+Le token `leads/{id}` est l'identifiant unique qui circule dans toute la chaîne (URL d'onboarding, métadonnée Stripe, etc.). Ne pas le régénérer en cours de flow.
+
+### Admin (`/admin/`)
+
+Auth par OTP email : mot de passe maître (`DEVIS_PASSWORD`) → code 6 chiffres envoyé à `elodie@agence-aurore.fr`, stocké dans `admin-otp/current` Firestore, valide 10 min. Générateur de devis, envoi d'aperçus, facturation. Script client : `public/scripts/admin.js`. Ces routes sont en `noindex`.
+
+### Layouts & composants (`src/layouts/`, `src/components/`)
+
+- `BaseLayout.astro` — head SEO complet (title, description, canonical auto-calculé depuis `slug`, OG, Twitter, favicon, fonts, GSAP CDN, JSON-LD), nav, mobile menu plein écran, footer, barre de progression scroll. Props : `title`, `description`, `slug`, `ogImage`, `schema` (objet ou tableau), `noindex`, `bodyClass`.
+- `Nav.astro`, `Footer.astro` — seuls composants partagés. Le reste du markup est inline dans chaque page (pattern assumé — ne pas extraire de composants sans raison).
+
+### Content collection blog
+
+Défini dans `src/content.config.ts` avec loader glob + schema Zod (`title`, `date`, `description`, `thumbnail?`). Pour ajouter un article : créer un `.md`/`.mdx` dans `src/content/blog/` avec le frontmatter requis. Le routing dynamique est dans `src/pages/blog/[...slug].astro`.
+
+### Firebase
+
+- Singleton : `import { db, storage } from '../../lib/firebase-admin'` (jamais réinstancier).
+- Collections : `leads` (principale), `admin-otp` (document `current`), devis.
+- `firestore.rules` : `leads/{token}` lecture publique (nécessaire pour `/onboarding/[token]`), écriture interdite côté client. Toute mutation passe par les API routes SSR avec Admin SDK.
+
+## Variables d'environnement
+
+Voir `.env.example`. Toutes sont requises en prod Vercel :
+
+```
+FIREBASE_PROJECT_ID
+FIREBASE_CLIENT_EMAIL
+FIREBASE_PRIVATE_KEY       # avec \n literaux, remplacés par replace(/\\n/g, '\n')
+FIREBASE_STORAGE_BUCKET
+RESEND_API_KEY
+STRIPE_SECRET_KEY
+STRIPE_WEBHOOK_SECRET
+API_SECRET_TOKEN           # auth /api/devis-* internes
+DEVIS_PASSWORD             # mot de passe maître admin
+```
+
+Dans le code, toujours via `import.meta.env.XXX`, jamais `process.env`.
 
 ## Identité de marque
 
 ### Nom & tagline
-- **Nom** : aurore (toujours en minuscules)
-- **Logo** : uniquement le mot `aurore` en Outfit 700, avec le **"o" en #FF6B1A**
+- **Nom** : `aurore` (toujours en minuscules).
+- **Logo HTML** partout : `<span class="logo">aur<span class="logo-o">o</span>re</span>` — le "o" en `--aurora`.
 - **Tagline** : *Faites passer votre entreprise de l'ombre à la lumière.*
-- **Positionnement** : Premium, clé en main, accessible — Apple / Linear / Squarespace
+- **Positionnement** : Premium, clé en main, accessible (référence Apple / Linear / Squarespace).
 
-### Couleurs
-```css
-:root {
-  --black:        #0A0A0A;
-  --white:        #FFFFFF;
-  --gray-700:     #3D3D3D;
-  --gray-500:     #6B6B6B;
-  --gray-300:     #C4C4C4;
-  --gray-100:     #F2F2F2;
-  --gray-50:      #F8F8F8;
-
-  --aurora:       #FF6B1A;
-  --aurora-dark:  #C2510A;
-  --aurora-mid:   #FF8C42;
-  --aurora-light: #FFB380;
-  --aurora-pale:  #FFF3EB;
-  --aurora-glow:  rgba(255, 107, 26, 0.10);
-
-  --radius-sm:    8px;
-  --radius-md:    14px;
-  --radius-lg:    22px;
-  --radius-xl:    36px;
-
-  --transition:   all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-}
-```
-
-### Typographies (Google Fonts)
-```html
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-```
-
-- **--font-display** : `'Outfit', sans-serif` → titres, nav, boutons, logo
-- **--font-serif** : `'Instrument Serif', serif` → accroche italic hero uniquement
-
-### Logo HTML (à utiliser partout)
-```html
-<span class="logo">aur<span class="logo-o">o</span>re</span>
-```
-```css
-.logo     { font-family: 'Outfit', sans-serif; font-weight: 700; letter-spacing: -0.04em; color: var(--black); }
-.logo-o   { color: var(--aurora); }
-```
-
----
-
-## Architecture du site
-
-```
-agence-aurore.fr/
-├── astro.config.mjs              ← Config Astro (output: static, GitHub Pages)
-├── package.json
-├── tsconfig.json
-├── .nojekyll                     ← Obligatoire GitHub Pages (dans /public)
-│
-├── public/                       ← Fichiers copiés tels quels au build
-│   ├── .nojekyll
-│   ├── robots.txt
-│   ├── sitemap.xml
-│   └── assets/
-│       └── images/
-│           └── og-image.jpg      ← 1200x630px Open Graph
-│
-├── src/
-│   ├── layouts/
-│   │   ├── BaseLayout.astro      ← Layout principal (head SEO, nav, footer)
-│   │   └── BlogLayout.astro      ← Layout articles de blog
-│   │
-│   ├── components/
-│   │   ├── Nav.astro
-│   │   ├── Footer.astro
-│   │   ├── Hero.astro
-│   │   ├── ServiceCard.astro
-│   │   ├── RealisationCard.astro
-│   │   └── CTABanner.astro
-│   │
-│   ├── pages/
-│   │   ├── index.astro                          ← Accueil
-│   │   ├── tarifs.astro
-│   │   ├── a-propos.astro
-│   │   ├── contact.astro
-│   │   ├── mentions-legales.astro
-│   │   ├── creation-site-web/
-│   │   │   ├── index.astro                      ← Page pilier SEO
-│   │   │   ├── site-vitrine.astro
-│   │   │   ├── site-reservation.astro
-│   │   │   └── logiciel-metier.astro
-│   │   ├── identite-visuelle.astro
-│   │   ├── referencement-seo.astro
-│   │   ├── automatisation.astro
-│   │   ├── realisations/
-│   │   │   ├── index.astro                      ← Galerie
-│   │   │   ├── delphine-millot-massage-brignoles.astro
-│   │   │   └── le-mazarin-conciergerie-aix.astro
-│   │   └── blog/
-│   │       ├── index.astro                      ← Liste articles
-│   │       └── [...slug].astro                  ← Template article
-│   │
-│   ├── content/
-│   │   └── blog/                                ← Articles Markdown (Decap CMS)
-│   │       └── exemple-article.md
-│   │
-│   └── styles/
-│       ├── global.css                           ← Variables CSS + reset + base
-│       ├── components.css                       ← Boutons, cartes, badges
-│       └── animations.css                       ← Keyframes CSS
-│
-└── admin/                                       ← Decap CMS
-    ├── index.html
-    └── config.yml
-```
-
----
-
-## SEO & GEO — Règles absolues
-
-### BaseLayout.astro — Head SEO type
-```astro
----
-const { title, description, canonical, ogImage = '/assets/images/og-image.jpg' } = Astro.props;
----
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} | aurore — Aix-en-Provence</title>
-  <meta name="description" content={description}>
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href={`https://agence-aurore.fr${canonical}`}>
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={title}>
-  <meta property="og:description" content={description}>
-  <meta property="og:image" content={`https://agence-aurore.fr${ogImage}`}>
-  <meta property="og:url" content={`https://agence-aurore.fr${canonical}`}>
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_FR">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content={title}>
-  <meta name="twitter:description" content={description}>
-  <meta name="twitter:image" content={`https://agence-aurore.fr${ogImage}`}>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-
-  <!-- Schema.org JSON-LD (slot pour chaque page) -->
-  <slot name="schema" />
-</head>
-
-### Schema.org — Page d'accueil
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Aurore",
-  "description": "Création de présence digitale clé en main pour TPE et professionnels. Logo, site web, emails, SEO et automatisations.",
-  "url": "https://agence-aurore.fr",
-  "email": "contact@agence-aurore.fr",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Aix-en-Provence",
-    "addressRegion": "Provence-Alpes-Côte d'Azur",
-    "addressCountry": "FR"
-  },
-  "areaServed": "France",
-  "serviceType": ["Création de site web", "Identité visuelle", "SEO", "Automatisation email"],
-  "priceRange": "€€",
-  "founder": {
-    "@type": "Person",
-    "name": "Élodie",
-    "jobTitle": "Fondatrice"
-  }
-}
-</script>
-```
-
-### Schema.org — Pages services
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "[Nom du service]",
-  "provider": { "@type": "LocalBusiness", "name": "Aurore" },
-  "areaServed": "France",
-  "description": "[Description du service]",
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "EUR",
-    "price": "[prix de départ]"
-  }
-}
-</script>
-```
-
-### FAQ Schema — À inclure sur chaque page de service
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "[Question]",
-      "acceptedAnswer": { "@type": "Answer", "text": "[Réponse complète]" }
-    }
-  ]
-}
-</script>
-```
-
-### Règles de contenu pour le GEO
-- Chaque page de service doit contenir une section **FAQ visible** (h2 "Questions fréquentes") avec 4-6 questions
-- Mentionner **"Aix-en-Provence"** et **"France"** naturellement dans le contenu
-- Les réponses FAQ doivent être complètes et directes — les IA citent les pages qui répondent clairement
-- Le nom "Élodie" et sa spécialité doivent apparaître dans `/a-propos/` avec suffisamment de détails
-
----
-
-## Composants CSS — Standards
-
-## Styles CSS
-
-Les styles sont dans `src/styles/` et importés dans `BaseLayout.astro` :
-
-```astro
-import '../styles/global.css';
-import '../styles/components.css';
-import '../styles/animations.css';
-```
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 48px;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid transparent;
-  transition: var(--transition);
-}
-.nav.scrolled {
-  border-bottom-color: var(--gray-100);
-  padding: 16px 48px;
-}
-```
-
-### Boutons
-```css
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--font-display); font-size: 14px; font-weight: 500;
-  padding: 13px 24px; border-radius: 100px;
-  border: none; cursor: pointer; text-decoration: none;
-  letter-spacing: -0.01em; transition: var(--transition);
-}
-.btn-primary  { background: var(--black); color: white; }
-.btn-primary:hover { background: var(--gray-700); transform: translateY(-1px); }
-.btn-aurora   { background: var(--aurora); color: white; font-weight: 600; }
-.btn-aurora:hover { background: var(--aurora-dark); transform: translateY(-1px); }
-.btn-outline  { background: transparent; color: var(--black); border: 1.5px solid var(--gray-300); }
-.btn-outline:hover { border-color: var(--black); }
-.btn-ghost    { background: var(--gray-100); color: var(--black); }
-```
-
-### Hero — Structure type
-```html
-<section class="hero">
-  <div class="hero-eyebrow">
-    <span class="eyebrow-line"></span>
-    Présence digitale · Aix-en-Provence
-    <span class="eyebrow-line"></span>
-  </div>
-  <h1 class="hero-h1">
-    De l'ombre à la
-    <span class="hero-serif">lumière.</span>
-  </h1>
-  <p class="hero-sub">Logo, site web, emails, SEO et automatisations — tout ce dont votre entreprise a besoin pour exister en ligne.</p>
-  <div class="hero-ctas">
-    <a href="/tarifs/" class="btn btn-primary">Voir les offres →</a>
-    <a href="/contact/" class="btn btn-outline">Demander un devis</a>
-  </div>
-</section>
-```
+### Couleurs (variables définies dans `src/styles/global.css`)
 
 ```css
-.hero-h1 {
-  font-family: var(--font-display); font-size: clamp(42px, 6vw, 72px);
-  font-weight: 700; letter-spacing: -0.05em; line-height: 1;
-  color: var(--black);
-}
-.hero-serif {
-  font-family: var(--font-serif); font-style: italic; font-weight: 400;
-  color: var(--aurora); display: block;
-  font-size: clamp(44px, 6.5vw, 76px); letter-spacing: -0.02em; line-height: 1.1;
-}
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 12px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--aurora); margin-bottom: 28px;
-}
-.eyebrow-line { width: 20px; height: 1px; background: var(--aurora); }
+--black: #0A0A0A;  --white: #FFFFFF;
+--gray-700: #3D3D3D;  --gray-500: #6B6B6B;
+--gray-300: #C4C4C4;  --gray-100: #F2F2F2;  --gray-50: #F8F8F8;
+--aurora: #FF6B1A;  --aurora-dark: #C2510A;
+--aurora-mid: #FF8C42;  --aurora-light: #FFB380;
+--aurora-pale: #FFF3EB;  --aurora-glow: rgba(255,107,26,0.10);
+--radius-sm: 8px;  --radius-md: 14px;  --radius-lg: 22px;  --radius-xl: 36px;
+--transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 ```
 
-### Cartes
-```css
-.card {
-  background: var(--white); border: 1.5px solid var(--gray-100);
-  border-radius: var(--radius-lg); padding: 28px 32px;
-  transition: var(--transition);
-}
-.card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+### Typographies
 
-.card-aurora {
-  background: var(--aurora-pale); border: 1.5px solid rgba(255,107,26,0.2);
-  position: relative;
-}
-.card-aurora::before {
-  content:''; position:absolute; top:0; left:24px; right:24px; height:2px;
-  background: linear-gradient(90deg, transparent, var(--aurora), transparent);
-  border-radius: 2px;
-}
-```
+Via Google Fonts (préchargé dans `BaseLayout`) :
+- `--font-display` : `'Outfit', sans-serif` → titres, nav, boutons, logo.
+- `--font-serif` : `'Instrument Serif', serif` → accroche italic hero uniquement.
 
-### Section layout type
-```css
-.section {
-  padding: 96px 0;
-}
-.section-label {
-  font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--aurora); margin-bottom: 12px;
-}
-.section-title {
-  font-family: var(--font-display); font-size: clamp(28px, 4vw, 48px);
-  font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;
-  color: var(--black);
-}
-.container {
-  max-width: 1120px; margin: 0 auto; padding: 0 48px;
-}
-@media (max-width: 768px) {
-  .container { padding: 0 24px; }
-  .section { padding: 64px 0; }
-}
-```
+## Conventions CSS
 
----
+Les styles vivent dans `src/styles/` (`global.css`, `components.css`, `animations.css`) et sont importés une seule fois dans `BaseLayout.astro`. Ne jamais réimporter ailleurs.
 
-## Animations — GSAP
+- Toujours utiliser les variables CSS — **pas de couleurs ou radius hardcodés**.
+- `clamp()` pour les tailles de police responsive.
+- Classes de composant standards : `.btn` / `.btn-primary` / `.btn-aurora` / `.btn-outline` / `.btn-ghost`, `.card` / `.card-aurora`, `.section` / `.section-title` / `.section-label`, `.container` (max-width 1120px, padding 48px / 24px mobile).
+- Hero : `.hero-eyebrow`, `.hero-h1`, `.hero-serif`, `.hero-sub`, `.hero-ctas`.
+- Pas de Tailwind, pas de framework CSS. Pas de `!important`. Pas de styles inline sauf exceptions GSAP ou templates email HTML.
 
-GSAP est chargé via CDN dans BaseLayout.astro. Les scripts d'animation sont intégrés dans chaque composant Astro via `<script>` inline ou dans un fichier `src/scripts/animations.js` importé.
+## Animations GSAP
 
-### Exemple dans un composant Astro
-```astro
----
-// Hero.astro
----
-<section class="hero">
-  <!-- contenu -->
-</section>
+GSAP + ScrollTrigger chargés en CDN. Les animations sont écrites en `<script>` inline dans chaque composant Astro concerné (pas de module global).
 
-<script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
+Classes conventionnelles à réutiliser :
+- `.reveal` — fade/translate in au scroll (start `top 85%`).
+- `.reveal-stagger` — les enfants directs apparaissent en cascade.
+- `[data-count]` — compteurs animés de 0 à `data-count`.
+- `.js-loaded` ajouté sur `html` et `body` au chargement — utilisé pour masquer les éléments pré-animation et éviter le flash.
 
-  // Hero stagger
-  gsap.from('.hero-eyebrow', { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.1 });
-  gsap.from('.hero-h1',      { y: 28, opacity: 0, duration: 0.7, ease: 'power2.out', delay: 0.2 });
-  gsap.from('.hero-serif',   { clipPath: 'inset(0 100% 0 0)', duration: 0.9, ease: 'power3.out', delay: 0.35 });
-  gsap.from('.hero-sub',     { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.45 });
-  gsap.from('.hero-ctas',    { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out', delay: 0.55 });
-</script>
-```
-```javascript
-gsap.registerPlugin(ScrollTrigger);
+Respecter le pattern : import `gsap` + `ScrollTrigger` dans le script, `gsap.registerPlugin(ScrollTrigger)`, puis les animations.
 
-// ─── PAGE LOAD : Hero stagger ───
-function initHeroAnimation() {
-  const tl = gsap.timeline({ delay: 0.1 });
-  tl.from('.hero-eyebrow',  { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out' })
-    .from('.hero-h1',       { y: 28, opacity: 0, duration: 0.7, ease: 'power2.out' }, '-=0.3')
-    .from('.hero-serif',    { clipPath: 'inset(0 100% 0 0)', duration: 0.9, ease: 'power3.out' }, '-=0.4')
-    .from('.hero-sub',      { y: 20, opacity: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
-    .from('.hero-ctas',     { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out' }, '-=0.2')
-    .from('.hero-metrics .metric', { y: 20, opacity: 0, stagger: 0.08, duration: 0.5, ease: 'power2.out' }, '-=0.2');
-}
+## SEO & GEO — règles
 
-// ─── SCROLL REVEAL : Sections ───
-function initScrollAnimations() {
-  gsap.utils.toArray('.reveal').forEach(el => {
-    gsap.from(el, {
-      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
-      y: 40, opacity: 0, duration: 0.65, ease: 'power2.out'
-    });
-  });
+- Chaque page passe par `BaseLayout` avec `title`, `description` uniques et `slug` (pour canonical propre).
+- Schema.org : passer un objet ou tableau d'objets via la prop `schema` du layout — il les injecte en `<script type="application/ld+json">`. Ne pas écrire les `<script>` à la main dans les pages.
+- **Toute page de service doit avoir** : un `LocalBusiness`/`Service`/`ProfessionalService` Schema + un `FAQPage` Schema + une section FAQ HTML visible (h2 "Questions fréquentes") avec 4-8 réponses complètes et directes (les IA citent les pages qui répondent clairement).
+- Mentionner **"Aix-en-Provence"** et **"France"** naturellement dans le contenu.
+- `/a-propos/` doit contenir le nom "Élodie Penarrubia" et sa spécialité (important pour le GEO — les IA citent des personnes identifiées).
 
-  gsap.utils.toArray('.reveal-stagger').forEach(container => {
-    gsap.from(container.children, {
-      scrollTrigger: { trigger: container, start: 'top 80%' },
-      y: 32, opacity: 0, stagger: 0.1, duration: 0.6, ease: 'power2.out'
-    });
-  });
-}
+## Pages critiques — notes de contenu
 
-// ─── ORBE AMBIENT HERO ───
-function initAuroraOrb() {
-  const orb = document.querySelector('.aurora-orb');
-  if (!orb) return;
-  gsap.to(orb, {
-    scale: 1.25, opacity: 0.12,
-    duration: 8, repeat: -1, yoyo: true, ease: 'sine.inOut'
-  });
-}
-
-// ─── NAV : Scroll behavior ───
-function initNav() {
-  const nav = document.querySelector('.nav');
-  if (!nav) return;
-  ScrollTrigger.create({
-    start: 'top -60',
-    onUpdate: self => nav.classList.toggle('scrolled', self.progress > 0)
-  });
-}
-
-// ─── COMPTEURS MÉTRIQUES ───
-function initCounters() {
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const target = parseInt(el.dataset.count);
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 85%',
-      onEnter: () => {
-        gsap.to({ val: 0 }, {
-          val: target, duration: 1.2, ease: 'power1.out',
-          onUpdate: function() { el.textContent = Math.round(this.targets()[0].val); }
-        });
-      }
-    });
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initHeroAnimation();
-  initScrollAnimations();
-  initAuroraOrb();
-  initNav();
-  initCounters();
-});
-```
-
----
-
-## Pages — Contenu & structure
-
-### index.astro — Page d'accueil
-
-**Sections dans l'ordre :**
-1. `<nav>` — Navigation fixe avec logo + liens + CTA "Devis gratuit →"
-2. `<section class="hero">` — Accroche principale (voir composant hero ci-dessus)
-   - Orbe ambient derrière le titre
-   - Métriques : `2 sem.` / `590 €` / `100 %` / `0 € hébergement`
-3. `<section class="services">` — Les 5 familles de services en grille de cartes
-   - Création de site web
-   - Identité visuelle
-   - Référencement SEO
-   - Automatisation
-   - Logiciel métier
-4. `<section class="how">` — Comment ça marche (3 étapes : Briefing → Création → Livraison)
-5. `<section class="why">` — Pourquoi Aurore (3-4 différenciateurs clés)
-6. `<section class="testimonials">` — Témoignages (3 placeholders)
-7. `<section class="faq">` — 5 questions fréquentes (avec FAQ Schema)
-8. `<section class="cta">` — CTA final : "Parlons de votre projet"
-9. `<footer>` — Liens, mentions légales, copyright
-
-**Title SEO** : `Création de site web Aix-en-Provence — Présence digitale clé en main | aurore`
-**Description** : `Aurore crée votre présence digitale de A à Z : logo, site web, emails professionnels, SEO et automatisations. Basé à Aix-en-Provence. À partir de 590 €.`
-
----
-
-### tarifs.astro — Page Tarifs
-
-**C'est la page la plus importante pour la conversion.**
-
-Structure :
-1. Bandeau offre de lancement (tant que places disponibles)
-2. Hero court : "Tarifs transparents, sans surprise."
-3. Pack Starter en avant — offre de lancement
-4. Grille d'offres complète
-5. Prestations à la carte
-6. FAQ tarifs (6 questions)
-7. CTA devis
-
-**Grille tarifaire complète :**
-
-```
-OFFRE DE LANCEMENT ⭐
-Pack Starter — 290 € (5 places · offre limitée)
-├── Site web 3 pages (Accueil, Services, Contact)
-├── Design responsive mobile
-├── Nom de domaine + configuration
-├── Emails professionnels (Zoho)
-├── Mise en ligne GitHub Pages
-├── Fiche Google Business créée et optimisée
-└── Options disponibles en supplément :
-    ├── Pages supplémentaires      120 €/page
-    ├── Logo + charte graphique    250 €
-    ├── SEO on-page                150 €
-    ├── Formulaire de contact       60 €
-    ├── Decap CMS                  150 €
-    ├── Google Search Console       60 €
-    └── Automatisations            100 €/automatisation
-
-SITE STATIQUE
-├── Essentiel — 590 €
-│   ├── Jusqu'à 4 pages
-│   ├── Logo + charte graphique
-│   ├── Domaine + emails pro
-│   ├── SEO on-page
-│   ├── Fiche Google Business + Search Console
-│   └── Modifications : contacter Aurore
-└── Autonome — 790 €
-    ├── Tout Essentiel +
-    ├── Decap CMS (édition autonome)
-    └── Formation 30 min
-
-SITE VITRINE COMPLET
-├── Essentiel — 1 100 €
-│   ├── Jusqu'à 8 pages + blog
-│   ├── Formulaire contact + notifications
-│   ├── Prise de RDV en ligne
-│   ├── Automatisation email
-│   ├── Logo + charte complète
-│   ├── Domaine + emails pro
-│   ├── SEO avancé
-│   └── Fiche Google + Search Console
-└── Autonome — 1 490 €
-    ├── Tout Essentiel +
-    ├── Decap CMS
-    └── Formation 1h
-
-SITE AVEC RÉSERVATION
-├── Essentiel — 1 400 €
-│   ├── Jusqu'à 8 pages
-│   ├── Système de réservation en ligne
-│   ├── Emails transactionnels automatisés
-│   ├── Paiement en ligne (Stripe)
-│   └── Tout l'Essentiel Vitrine
-└── Autonome — 1 800 €
-    ├── Tout Essentiel +
-    ├── Decap CMS
-    └── Formation 1h30
-
-LOGICIEL MÉTIER
-├── Cadrage — 300 €
-│   └── (déduit si projet signé)
-└── Développement — Sur devis
-
-PRESTATIONS À LA CARTE
-Logo seul                    150 €
-Charte graphique             100 €
-Support marketing            80 €/support
-Domaine + config             60 € + coût domaine
-Emails pro (Zoho)            80 €
-Page web supplémentaire      120 €/page
-Decap CMS                    150 €
-Formulaire contact           60 €
-Automatisation               100 €/automatisation
-SEO on-page                  150 €
-Fiche Google Business        90 €
-Search Console               60 €
-
-MAINTENANCE MENSUELLE
-Technique (sauvegardes, sécurité)    19 €/mois
-Technique + support (30 min/mois)    29 €/mois
-```
-
----
-
-### realisations/index.astro — Page Réalisations
-
-**Page galerie** listant toutes les réalisations. Affichage en grille de cartes cliquables.
-
-Structure de chaque carte :
-- Capture d'écran du site (image)
-- Nom du projet
-- Secteur + ville
-- Tags des prestations réalisées (site vitrine, logo, SEO…)
-- Lien "Voir le projet →"
-
-**Schema.org à inclure sur la page galerie :**
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Réalisations Aurore",
-  "description": "Sites web et présences digitales créés par Aurore pour des TPE et professionnels partout en France.",
-  "itemListElement": [
-    {
-      "@type": "CreativeWork",
-      "position": 1,
-      "name": "Site web — Delphine Millot, massothérapeute",
-      "url": "https://agence-aurore.fr/realisations/delphine-millot-massage-brignoles/"
-    },
-    {
-      "@type": "CreativeWork",
-      "position": 2,
-      "name": "Site web — Le Mazarin, conciergerie",
-      "url": "https://agence-aurore.fr/realisations/le-mazarin-conciergerie-aix/"
-    }
-  ]
-}
-</script>
-```
-
-**Title SEO** : `Nos réalisations — Sites web créés par aurore | Aix-en-Provence`
-**Description** : `Découvrez les sites web, identités visuelles et présences digitales créés par Aurore pour des artisans, professionnels et TPE partout en France.`
-
----
-
-### realisations/delphine-millot-massage-brignoles.astro — Réalisation 1
-
-**Fiche projet complète :**
-
-| Champ | Valeur |
-|---|---|
-| Client | Delphine Millot |
-| Activité | Massothérapeute & praticienne Qi Gong |
-| Ville | Brignoles (83) |
-| URL du site livré | [URL du site de Delphine] |
-| Prestations réalisées | Site vitrine, hébergement GitHub Pages |
-| Délai de livraison | [À compléter] |
-
-Sections de la page :
-1. Hero : nom du projet + capture plein écran du site
-2. Contexte : qui est le client, quel était son besoin
-3. Solution apportée : prestations réalisées, choix techniques
-4. Résultat : capture desktop + mobile, lien vers le site live
-5. Témoignage client (si accord de Delphine)
-6. CTA : "Votre projet ressemble à celui-ci ? Parlons-en →"
-
-**Schema.org :**
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": "Site web — Delphine Millot, massothérapeute à Brignoles",
-  "creator": { "@type": "Organization", "name": "Aurore" },
-  "description": "Création du site vitrine de Delphine Millot, massothérapeute et praticienne Qi Gong à Brignoles (Var).",
-  "url": "[URL du site de Delphine]",
-  "locationCreated": { "@type": "Place", "name": "Brignoles, Var, France" }
-}
-</script>
-```
-
----
-
-### realisations/le-mazarin-conciergerie-aix.astro — Réalisation 2
-
-**Fiche projet complète :**
-
-| Champ | Valeur |
-|---|---|
-| Client | Le Mazarin |
-| Activité | Conciergerie de location saisonnière |
-| Ville | Aix-en-Provence (13) |
-| URL du site livré | lemazarin.com |
-| Prestations réalisées | Site vitrine, identité visuelle, SEO, fiche Google |
-| Délai de livraison | [À compléter] |
-
-Sections de la page : identiques à la fiche Delphine Millot.
-
-**Schema.org :**
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": "Site web — Le Mazarin, conciergerie à Aix-en-Provence",
-  "creator": { "@type": "Organization", "name": "Aurore" },
-  "description": "Création du site vitrine de Le Mazarin, conciergerie de location saisonnière à Aix-en-Provence.",
-  "url": "https://lemazarin.com",
-  "locationCreated": { "@type": "Place", "name": "Aix-en-Provence, Bouches-du-Rhône, France" }
-}
-</script>
-```
-
----
-
-### a-propos.astro — Page À propos
-
-**Crucial pour le GEO** — les IA citent des personnes identifiées, pas des entités anonymes.
-
-Contenu :
-- Photo placeholder (alt text descriptif)
-- Présentation d'Élodie : fondatrice d'Aurore, basée à Aix-en-Provence
-- Son parcours : gestion d'une conciergerie de location saisonnière (Le Mazarin), expertise terrain des besoins digitaux des TPE
-- Ses valeurs : transparence, livraison clé en main, autonomie du client
-- Ce qui la différencie : elle a elle-même vécu les problèmes qu'elle résout
-- Localisation : Aix-en-Provence, intervention dans toute la France
-- Schema.org Person sur cette page
-
----
-
-### contact.astro — Page Contact
-
-- Formulaire : Nom, Email, Téléphone, Type de projet (select), Message, Budget estimé (select)
-- Email de contact : contact@agence-aurore.fr
-- Réponse sous 48h ouvrées
-- Pas de téléphone affiché publiquement (à la discrétion d'Élodie)
-- Lien vers Calendly si disponible plus tard (prévoir un emplacement)
-
----
-
-### blog/index.astro — Page Blog
-
-- Liste des articles avec Decap CMS
-- Structure article : titre H1, date, temps de lecture, contenu, CTA en bas
-- Premiers articles à créer (placeholders) :
-  - "Combien coûte la création d'un site web en 2025 ?"
-  - "Pourquoi votre entreprise a besoin d'une fiche Google Business"
-  - "Créer un site web à Aix-en-Provence : guide complet"
-
----
-
-## Decap CMS — Configuration
-
-### admin/config.yml
-```yaml
-backend:
-  name: github
-  repo: elodiepenarrubia-ui/agence-aurore.fr
-  branch: main
-
-media_folder: "public/assets/images/blog"
-public_folder: "/assets/images/blog"
-
-collections:
-  - name: "blog"
-    label: "Articles de blog"
-    folder: "src/content/blog"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "Titre", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Description SEO", name: "description", widget: "string" }
-      - { label: "Image à la une", name: "thumbnail", widget: "image", required: false }
-      - { label: "Contenu", name: "body", widget: "markdown" }
-```
-
-### admin/index.html
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>aurore — Administration</title>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-</head>
-<body></body>
-</html>
-```
-
----
-
-## sitemap.xml
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://agence-aurore.fr/</loc><priority>1.0</priority></url>
-  <url><loc>https://agence-aurore.fr/creation-site-web/</loc><priority>0.9</priority></url>
-  <url><loc>https://agence-aurore.fr/creation-site-web/site-vitrine/</loc><priority>0.8</priority></url>
-  <url><loc>https://agence-aurore.fr/creation-site-web/site-reservation/</loc><priority>0.8</priority></url>
-  <url><loc>https://agence-aurore.fr/creation-site-web/logiciel-metier/</loc><priority>0.8</priority></url>
-  <url><loc>https://agence-aurore.fr/realisations/</loc><priority>0.8</priority></url>
-  <url><loc>https://agence-aurore.fr/realisations/delphine-millot-massage-brignoles/</loc><priority>0.7</priority></url>
-  <url><loc>https://agence-aurore.fr/realisations/le-mazarin-conciergerie-aix/</loc><priority>0.7</priority></url>
-  <url><loc>https://agence-aurore.fr/identite-visuelle/</loc><priority>0.8</priority></url>
-  <url><loc>https://agence-aurore.fr/referencement-seo/</loc><priority>0.8</priority></url>
-  <url><loc>https://agence-aurore.fr/automatisation/</loc><priority>0.8</priority></url>
-  <url><loc>https://agence-aurore.fr/tarifs/</loc><priority>0.9</priority></url>
-  <url><loc>https://agence-aurore.fr/a-propos/</loc><priority>0.7</priority></url>
-  <url><loc>https://agence-aurore.fr/contact/</loc><priority>0.8</priority></url>
-  <url><loc>https://agence-aurore.fr/blog/</loc><priority>0.7</priority></url>
-</urlset>
-```
-
-## robots.txt
-```
-User-agent: *
-Allow: /
-Disallow: /admin/
-Sitemap: https://agence-aurore.fr/sitemap.xml
-```
-
----
-
-## Footer — Structure standard
-```html
-<footer class="footer">
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <span class="logo">aur<span class="logo-o">o</span>re</span>
-        <p>Faites passer votre entreprise<br>de l'ombre à la lumière.</p>
-      </div>
-      <nav class="footer-nav">
-        <div>
-          <strong>Services</strong>
-          <a href="/creation-site-web/">Création de site web</a>
-          <a href="/identite-visuelle/">Identité visuelle</a>
-          <a href="/referencement-seo/">Référencement SEO</a>
-          <a href="/automatisation/">Automatisation</a>
-        </div>
-        <div>
-          <strong>Aurore</strong>
-          <a href="/realisations/">Réalisations</a>
-          <a href="/tarifs/">Tarifs</a>
-          <a href="/a-propos/">À propos</a>
-          <a href="/blog/">Blog</a>
-          <a href="/contact/">Contact</a>
-        </div>
-      </nav>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 Aurore — Élodie [NOM] · Auto-entrepreneur · Aix-en-Provence</p>
-      <a href="/mentions-legales/">Mentions légales</a>
-    </div>
-  </div>
-</footer>
-```
-
----
+- **`/tarifs/`** — la plus importante pour la conversion. La grille tarifaire vit dans la page (`src/pages/tarifs.astro`) ; la modifier là est la source de vérité. Le Schema `Service` avec ses `offers` doit rester synchrone avec les prix affichés.
+- **`/realisations/`** — galerie + fiches projet (Delphine Millot, Le Mazarin). Chaque fiche a un Schema `CreativeWork`.
+- **`/a-propos/`** — page pivot GEO, doit contenir Schema `Person` pour Élodie.
 
 ## Règles de développement
 
-### Ce qu'on fait
-- Composants Astro réutilisables pour Nav, Footer, Hero, cards
-- CSS dans `src/styles/` importé via BaseLayout
-- HTML sémantique strict dans les composants (`<main>`, `<article>`, `<section>`, `<nav>`, `<header>`, `<footer>`)
-- CSS custom properties pour tout (jamais de valeurs hardcodées)
-- `clamp()` pour les tailles de police responsive
-- Attributs `alt` descriptifs sur toutes les images
-- `loading="lazy"` sur toutes les images hors viewport
-- Commentaires de section dans les composants
-- Schema.org via `<slot name="schema">` dans BaseLayout
+**À faire** :
+- HTML sémantique strict (`<main>`, `<article>`, `<section>`, `<nav>`, `<header>`, `<footer>`).
+- `alt` descriptifs sur toutes les images ; `loading="lazy"` hors viewport.
+- Images en WebP quand dispo (voir `public/` — `.png` + `.webp` en parallèle).
+- Pour tout nouvel endpoint SSR : `export const prerender = false;` en haut du fichier.
+- Toujours passer par les variables CSS et les classes existantes avant d'écrire du CSS ad hoc.
 
-### Ce qu'on ne fait pas
-- Pas de React, Vue ou autre framework UI dans Astro
-- Pas de framework CSS (Bootstrap, Tailwind...)
-- Pas de JavaScript inutile côté client
-- Pas d'inline styles (sauf exceptions GSAP)
-- Pas de `!important`
-- Pas de lorem ipsum — tout le contenu est réel ou placeholder réaliste
+**À ne pas faire** :
+- Pas de React/Vue/Svelte. Astro vanilla uniquement.
+- Pas de Tailwind ni autre framework CSS.
+- Pas de `process.env` — utiliser `import.meta.env`.
+- Pas de réécriture de `public/sitemap.xml` (auto-généré).
+- Pas de Decap CMS, pas de GitHub Pages, pas de GitHub Actions pour le deploy — tout passe par Vercel.
+- Pas de lorem ipsum — contenu réel ou placeholder réaliste.
+- Pas d'instanciation directe de `firebase-admin` ailleurs que dans `src/lib/firebase-admin.ts`.
 
-### Config Astro pour GitHub Pages
-```js
-// astro.config.mjs
-import { defineConfig } from 'astro/config';
+## Outillage Claude Code
 
-export default defineConfig({
-  site: 'https://agence-aurore.fr',
-  output: 'static',
-});
-```
+- `.claude/agents/` contient 11 subagents marketing/design (growth-hacker, seo-specialist, ui-designer, brand-guardian, etc.) — invoquer via l'outil Agent quand le besoin correspond.
+- `skills/` contient 23 skills custom (aurore-astro-setup, aurore-firebase-cms, aurore-resend, aurore-stripe-workflow, aurore-landing-metier, schema-markup, etc.) — consulter la liste avant de réimplémenter des patterns récurrents.
 
-### GitHub Actions — Deploy automatique
-```yaml
-# .github/workflows/deploy.yml
-name: Deploy to GitHub Pages
-on:
-  push:
-    branches: [main]
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/deploy-pages@v4
-        with:
-          folder: dist
-```
+## Informations à compléter avant facturation
 
-### Performance
-- Fonts Google en `preconnect` + `display=swap`
-- Images en WebP si possible
-- GSAP chargé via CDN avec `defer`
-- Astro génère du HTML statique — Core Web Vitals excellents par défaut
-
-### Responsive
-- Mobile-first
-- Breakpoints : 480px / 768px / 1024px / 1280px
-- La navigation devient un burger menu sur mobile
-
----
-
-## Ordre de construction recommandé
-
-1. `astro.config.mjs` — Config Astro + GitHub Pages
-2. `src/styles/global.css` — Variables CSS + reset + base typographique
-3. `src/styles/components.css` — Composants UI
-4. `src/styles/animations.css` — Keyframes CSS
-5. `src/layouts/BaseLayout.astro` — Layout principal avec head SEO
-6. `src/components/Nav.astro` + `src/components/Footer.astro`
-7. `src/pages/index.astro` — Page d'accueil complète
-8. `src/pages/tarifs.astro`
-9. `src/pages/realisations/index.astro` + fiches réalisations
-10. `src/pages/a-propos.astro`
-11. `src/pages/contact.astro`
-12. Pages services (une par une)
-13. `src/pages/blog/` + Decap CMS
-14. `public/sitemap.xml` + `public/robots.txt` + `public/.nojekyll`
-15. `.github/workflows/deploy.yml` — GitHub Actions
-
----
-
-## Informations de contact à compléter avant livraison
-
-- `[TON-COMPTE]` → ton nom d'utilisateur GitHub
-- `[NOM]` → ton nom de famille
-- `SIRET` → à compléter après immatriculation INPI
-- `IBAN` → coordonnées bancaires dans les mentions légales
+- SIRET (après immatriculation INPI)
+- IBAN dans les mentions légales
