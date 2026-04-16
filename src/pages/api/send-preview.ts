@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import { db } from '../../lib/firebase-admin';
 
 export const prerender = false;
 
@@ -10,6 +11,21 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const { clientEmail, clientPrenom, previewUrl, devisNumber } = await request.json();
+
+  // Vérifier que le projet est un site ou logiciel (pas une prestation à la carte, identité visuelle, etc.)
+  const leadsSnapshot = await db.collection('leads').where('email', '==', clientEmail).limit(1).get();
+  if (!leadsSnapshot.empty) {
+    const lead = leadsSnapshot.docs[0].data();
+    const typeProjet = (lead.typeProjet || '').toLowerCase();
+    const isSiteOrLogiciel = typeProjet.includes('site') || typeProjet.includes('logiciel');
+    if (!isSiteOrLogiciel) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'L\'email de preview n\'est disponible que pour les projets de type site web ou logiciel.' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+  }
+
   const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
   await resend.emails.send({

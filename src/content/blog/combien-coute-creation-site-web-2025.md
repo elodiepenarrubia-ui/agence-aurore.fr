@@ -29,7 +29,7 @@ C'est la fourchette la plus large, et la plus difficile à interpréter. Un free
 
 - L'expérience et la spécialisation
 - La qualité du design (sur mesure vs template customisé)
-- Ce qui est inclus (SEO, emails, hébergement, formation)
+- Ce qui est inclus (SEO, emails, hébergement)
 - Le suivi après livraison
 
 ### 4. Le site statique sur mesure (290 à 1 290 €)

@@ -133,8 +133,8 @@ export const POST: APIRoute = async ({ request }) => {
           </div>
           <div style="padding:32px;">
             <p style="font-size:16px;line-height:1.6;">Bonjour ${clientPrenom},</p>
-            <p style="font-size:16px;line-height:1.6;">Votre projet avance bien ! Voici la facture de solde du devis n° <strong>${devisNumber}</strong> d'un montant de <strong>${montantEuros}</strong>.</p>
-            <p style="font-size:16px;line-height:1.6;">Pour régler le solde en ligne, cliquez ici :</p>
+            <p style="font-size:16px;line-height:1.6;">Votre projet est terminé et prêt à être livré ! Voici la facture de solde du devis n° <strong>${devisNumber}</strong> d'un montant de <strong>${montantEuros}</strong>.</p>
+            <p style="font-size:16px;line-height:1.6;">Dès réception du paiement, je procède à la mise en ligne :</p>
             <div style="text-align:center;margin:32px 0;">
               <a href="${invoiceUrl}" style="display:inline-block;background:#FF6B1A;color:#fff;font-family:'Outfit',Helvetica,Arial,sans-serif;font-size:15px;font-weight:600;padding:14px 32px;border-radius:100px;text-decoration:none;">Payer le solde</a>
             </div>

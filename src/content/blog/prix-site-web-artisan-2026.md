@@ -42,7 +42,7 @@ Pour un site vitrine de 5 a 8 pages, comptez entre 3 000 et 10 000 euros selon l
 
 ### Aurore : entre 290 et 1 290 euros, tout compris
 
-Chez aurore, nous avons concu des offres specifiquement pour les artisans et les TPE. Le Pack Starter a 290 euros comprend un site 5 pages, le nom de domaine, les emails professionnels et la mise en ligne. Les offres Essentiel et Autonome montent jusqu'a 1 290 euros pour un site vitrine complet avec SEO, blog et formation a l'autonomie.
+Chez aurore, nous avons concu des offres specifiquement pour les artisans et les TPE. Le Pack Starter a 290 euros comprend un site 5 pages, le nom de domaine, les emails professionnels et la mise en ligne. Les offres Essentiel et Autonome montent jusqu'a 1 290 euros pour un site vitrine complet avec SEO et blog.
 
 L'hebergement est gratuit (Vercel), il n'y a pas de frais mensuels caches, et vous etes proprietaire de votre site des la livraison.
 
