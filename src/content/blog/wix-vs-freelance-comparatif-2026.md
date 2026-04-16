@@ -134,4 +134,4 @@ Pour resumer les differences essentielles entre les deux approches :
 
 Le choix entre Wix et un freelance depend de votre situation. Si vous testez une idee avec un budget de zero euro, Wix peut depanner temporairement. Si vous construisez une activite durable et que vous voulez etre visible sur Google, un site professionnel cree par un freelance est un investissement bien plus rentable.
 
-Chez aurore, nous creons des sites web pour les artisans, therapeutes et TPE a partir de 290 euros, tout compris. Votre site vous appartient, il est optimise pour Google et livre cle en main. [Parlons de votre projet](/contact/) pour trouver la solution qui vous correspond.
+Chez aurore, nous creons des sites web pour les artisans, therapeutes et TPE a partir de 490 euros, tout compris. Votre site vous appartient, il est optimise pour Google et livre cle en main. [Parlons de votre projet](/contact/) pour trouver la solution qui vous correspond.

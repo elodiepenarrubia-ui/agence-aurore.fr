@@ -7,34 +7,34 @@ const serviceSchema = {
   "name": "Création de présence digitale clé en main",
   "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
   "areaServed": "France",
-  "description": "Création de site web, identité visuelle, SEO et automatisations pour TPE et professionnels. À partir de 290 €, livraison en 2 semaines, hébergement gratuit.",
+  "description": "Création de site web, identité visuelle, SEO et automatisations pour TPE et professionnels. À partir de 490 €, livraison en 2 semaines, hébergement gratuit.",
   "offers": [
     {
       "@type": "Offer",
       "name": "Starter",
       "priceCurrency": "EUR",
-      "price": "290",
+      "price": "490",
       "description": "Site 5 pages (3 + 2 incluses), responsive, domaine, emails pro, fiche Google Business, SEO on-page."
     },
     {
       "@type": "Offer",
       "name": "Vitrine",
       "priceCurrency": "EUR",
-      "price": "1035",
+      "price": "890",
       "description": "Site jusqu'à 8 pages (6 + 2 incluses), SEO complet + Schema.org, formulaire de contact, fiche Google Business optimisée, espace rédaction."
     },
     {
       "@type": "Offer",
       "name": "Pro",
       "priceCurrency": "EUR",
-      "price": "1290",
+      "price": "1390",
       "description": "Site jusqu'à 12 pages (10 + 2 incluses) + blog, réservation en ligne + Stripe, emails automatisés, SEO avancé + maillage interne."
     },
     {
       "@type": "Offer",
       "name": "Migration",
       "priceCurrency": "EUR",
-      "price": "285",
+      "price": "390",
       "description": "Récupération contenu existant, reconstruction en code pur, conservation domaine, SEO de base."
     }
   ]
@@ -70,10 +70,10 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "Le Starter est-il vraiment à 290 € tout compris ?",
+      "name": "Le Starter est-il vraiment à 490 € tout compris ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, le Starter à 290 € inclut : site 5 pages responsive, domaine, emails pro, SEO on-page de base, fiche Google Business + Search Console, mise en ligne et hébergement inclus. Les options comme le logo, les pages supplémentaires ou les automatisations sont disponibles en supplément à des tarifs fixes."
+        "text": "Oui, le Starter à 490 € inclut : site 5 pages responsive, domaine, emails pro, SEO on-page de base, fiche Google Business + Search Console, mise en ligne et hébergement inclus. Les options comme le logo, les pages supplémentaires ou les automatisations sont disponibles en supplément à des tarifs fixes."
       }
     },
     {
@@ -101,14 +101,14 @@ const atLaCarte = [
   { label: "Automatisation et connexion API", prix: "À partir de 100 €" },
   { label: "Maintenance technique",      prix: "19 €/mois" },
   { label: "Espace rédaction (Starter et Migration)", prix: "150 €" },
-  { label: "Session de modifications",  prix: "30 €" },
-  { label: "Pack landing pages (10 pages SEO)", prix: "190 €" },
+  { label: "Session de modifications",  prix: "50 €" },
+  { label: "Pack landing pages (10 pages SEO)", prix: "250 €" },
 ];
 ---
 
 <BaseLayout
   title="Tarifs création de site web, Transparents, sans surprise | aurore"
-  description="Découvrez les tarifs d'aurore : Starter à 290 €, Vitrine à 1 035 €, Pro à 1 290 €. SEO et fiche Google inclus dans toutes les formules. Hébergement gratuit, livraison en 2 semaines."
+  description="Découvrez les tarifs d'aurore : Starter à 490 €, Vitrine à 890 €, Pro à 1 390 €. SEO et fiche Google inclus dans toutes les formules. Hébergement gratuit, livraison en 2 semaines."
   slug="tarifs"
   schema={[serviceSchema, faqSchema]}
 >
@@ -144,7 +144,7 @@ const atLaCarte = [
             <div class="pricing-name">Starter</div>
             <div class="pricing-price">
               <span class="pricing-currency">€</span>
-              <span class="pricing-amount">290</span>
+              <span class="pricing-amount">490</span>
             </div>
             <p class="pricing-desc">Vos clients vous trouvent sur Google et vous contactent directement.</p>
           </div>
@@ -175,7 +175,7 @@ const atLaCarte = [
             <div class="pricing-name">Vitrine</div>
             <div class="pricing-price">
               <span class="pricing-currency">€</span>
-              <span class="pricing-amount">1 035</span>
+              <span class="pricing-amount">890</span>
             </div>
             <p class="pricing-desc">Vos clients vous trouvent, vous contactent et vous font confiance au premier regard.</p>
           </div>
@@ -205,7 +205,7 @@ const atLaCarte = [
             <div class="pricing-name">Pro</div>
             <div class="pricing-price">
               <span class="pricing-currency">€</span>
-              <span class="pricing-amount">1 290</span>
+              <span class="pricing-amount">1 390</span>
             </div>
             <p class="pricing-desc">Vos clients réservent, paient en ligne et reçoivent une confirmation immédiate.</p>
           </div>
@@ -275,7 +275,7 @@ const atLaCarte = [
           </ul>
         </div>
         <div class="migration-cta-col">
-          <div class="migration-price">285<span class="migration-price-symbol">€</span></div>
+          <div class="migration-price">390<span class="migration-price-symbol">€</span></div>
           <p class="migration-price-note">investissement unique</p>
           <a href="/contact/" class="btn btn-aurora" style="width:100%; justify-content:center;">Demander ma migration →</a>
           <a href="/simulateur/" class="migration-link">Calculer mon économie →</a>
@@ -320,11 +320,11 @@ const atLaCarte = [
             <span class="option-label">Espace rédaction (Starter et Migration)</span>
           </div>
           <div class="option-item">
-            <span class="option-price">+30 €</span>
+            <span class="option-price">+50 €</span>
             <span class="option-label">Session de modifications</span>
           </div>
           <div class="option-item">
-            <span class="option-price">+190 €</span>
+            <span class="option-price">+250 €</span>
             <span class="option-label">Pack landing pages (10 pages SEO)</span>
           </div>
         </div>
@@ -373,11 +373,11 @@ const atLaCarte = [
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            Le Starter est-il vraiment tout compris à 290 € ?
+            Le Starter est-il vraiment tout compris à 490 € ?
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer">
-            Oui. Pour 290 €, vos clients vous trouvent sur Google, découvrent votre activité et vous contactent. Concrètement : votre site 5 pages, votre adresse web, vos emails pro et votre visibilité Google. Si vous voulez aller plus loin (logo, pages supplémentaires, automatisations), les tarifs sont affichés et fixes.
+            Oui. Pour 490 €, vos clients vous trouvent sur Google, découvrent votre activité et vous contactent. Concrètement : votre site 5 pages, votre adresse web, vos emails pro et votre visibilité Google. Si vous voulez aller plus loin (logo, pages supplémentaires, automatisations), les tarifs sont affichés et fixes.
           </div>
         </div>
 

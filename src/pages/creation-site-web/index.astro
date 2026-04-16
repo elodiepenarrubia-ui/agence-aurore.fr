@@ -9,9 +9,9 @@ const serviceSchema = {
   "areaServed": "France",
   "description": "Création de sites web professionnels pour TPE et indépendants : site vitrine, site avec réservation, logiciel métier. Hébergement gratuit, livraison en 2 semaines. Basé à Aix-en-Provence.",
   "offers": [
-    { "@type": "Offer", "name": "Starter",  "priceCurrency": "EUR", "price": "290"  },
-    { "@type": "Offer", "name": "Vitrine",  "priceCurrency": "EUR", "price": "1035"  },
-    { "@type": "Offer", "name": "Pro",      "priceCurrency": "EUR", "price": "1290" },
+    { "@type": "Offer", "name": "Starter",  "priceCurrency": "EUR", "price": "490"  },
+    { "@type": "Offer", "name": "Vitrine",  "priceCurrency": "EUR", "price": "890"  },
+    { "@type": "Offer", "name": "Pro",      "priceCurrency": "EUR", "price": "1390" },
   ],
 };
 
@@ -20,7 +20,7 @@ const faqSchema = {
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Combien coûte la création d'un site web à Aix-en-Provence ?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Les tarifs d'aurore commencent à 290 € pour le Starter (site 5 pages, domaine, emails, Google Business, SEO inclus). La formule Vitrine est à 1 035 € et la formule Pro avec réservation en ligne à 1 290 €. Le SEO on-page et la fiche Google Business sont inclus dans toutes les formules." }},
+      "acceptedAnswer": { "@type": "Answer", "text": "Les tarifs d'aurore commencent à 490 € pour le Starter (site 5 pages, domaine, emails, Google Business, SEO inclus). La formule Vitrine est à 890 € et la formule Pro avec réservation en ligne à 1 390 €. Le SEO on-page et la fiche Google Business sont inclus dans toutes les formules." }},
     { "@type": "Question", "name": "Combien de temps faut-il pour créer un site web ?",
       "acceptedAnswer": { "@type": "Answer", "text": "La plupart des sites vitrines sont livrés en 2 semaines à compter du briefing et de la réception de vos contenus. Les sites avec réservation ou les logiciels métier peuvent nécessiter 3 à 4 semaines selon la complexité." }},
     { "@type": "Question", "name": "Quel est l'avantage de Vercel par rapport à un hébergement classique ?",
@@ -35,8 +35,8 @@ const faqSchema = {
 };
 
 const sousServices = [
-  { href: "/creation-site-web/site-vitrine/",   titre: "Site vitrine",         desc: "Vos clients vous trouvent, vous contactent et vous font confiance. Jusqu'à 8 pages, visibilité Google complète.", prix: "1 035 €" },
-  { href: "/creation-site-web/site-reservation/", titre: "Site avec réservation", desc: "Vos clients réservent et paient en ligne pendant que vous travaillez. Confirmations automatiques incluses.", prix: "1 290 €" },
+  { href: "/creation-site-web/site-vitrine/",   titre: "Site vitrine",         desc: "Vos clients vous trouvent, vous contactent et vous font confiance. Jusqu'à 8 pages, visibilité Google complète.", prix: "890 €" },
+  { href: "/creation-site-web/site-reservation/", titre: "Site avec réservation", desc: "Vos clients réservent et paient en ligne pendant que vous travaillez. Confirmations automatiques incluses.", prix: "1 390 €" },
   { href: "/creation-site-web/logiciel-metier/",  titre: "Logiciel métier",      desc: "Un outil taillé pour votre activité. Vos clients et votre équipe gagnent du temps au quotidien.", prix: "Sur devis" },
 ];
 
@@ -60,9 +60,9 @@ const catalogSchema = {
     "@type": "OfferCatalog",
     "name": "Offres création de site web",
     "itemListElement": [
-      { "@type": "Offer", "name": "Pack Starter", "price": "290", "priceCurrency": "EUR", "description": "Site 5 pages, domaine, emails pro, SEO on-page, fiche Google Business inclus." },
-      { "@type": "Offer", "name": "Pack Vitrine", "price": "1035", "priceCurrency": "EUR", "description": "Jusqu'à 8 pages, blog, espace rédaction, SEO avancé, fiche Google Business inclus." },
-      { "@type": "Offer", "name": "Pack Pro", "price": "1290", "priceCurrency": "EUR", "description": "Jusqu'à 12 pages, réservation en ligne, paiement Stripe, blog, automatisations inclus." }
+      { "@type": "Offer", "name": "Pack Starter", "price": "490", "priceCurrency": "EUR", "description": "Site 5 pages, domaine, emails pro, SEO on-page, fiche Google Business inclus." },
+      { "@type": "Offer", "name": "Pack Vitrine", "price": "890", "priceCurrency": "EUR", "description": "Jusqu'à 8 pages, blog, espace rédaction, SEO avancé, fiche Google Business inclus." },
+      { "@type": "Offer", "name": "Pack Pro", "price": "1390", "priceCurrency": "EUR", "description": "Jusqu'à 12 pages, réservation en ligne, paiement Stripe, blog, automatisations inclus." }
     ]
   }
 };
@@ -70,7 +70,7 @@ const catalogSchema = {
 
 <BaseLayout
   title="Création de site web Aix-en-Provence, Site vitrine, réservation | aurore"
-  description="Aurore crée votre site web à Aix-en-Provence et partout en France : Starter dès 290 €, Vitrine 1 035 €, Pro 1 290 €. SEO et fiche Google inclus. Hébergement gratuit, livraison 2 semaines."
+  description="Aurore crée votre site web à Aix-en-Provence et partout en France : Starter dès 490 €, Vitrine 890 €, Pro 1 390 €. SEO et fiche Google inclus. Hébergement gratuit, livraison 2 semaines."
   slug="creation-site-web"
   schema={[serviceSchema, faqSchema, catalogSchema]}
 >
@@ -84,7 +84,7 @@ const catalogSchema = {
         <span class="eyebrow-line" aria-hidden="true"></span>
       </div>
       <h1 class="service-h1">Votre site web professionnel,<br /><span class="hero-serif">livré en 2 semaines.</span></h1>
-      <p class="service-sub">Vos clients vous trouvent sur Google, vous contactent directement et reviennent. En ligne avant la fin du mois, à partir de 290 €.</p>
+      <p class="service-sub">Vos clients vous trouvent sur Google, vous contactent directement et reviennent. En ligne avant la fin du mois, à partir de 490 €.</p>
       <div class="hero-ctas">
         <a href="/contact/" class="btn btn-primary btn-lg">Demander un devis →</a>
         <a href="/tarifs/" class="btn btn-outline btn-lg">Voir les tarifs</a>

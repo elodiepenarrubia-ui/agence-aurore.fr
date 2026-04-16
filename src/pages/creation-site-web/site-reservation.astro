@@ -7,9 +7,9 @@ const serviceSchema = {
   "name": "Création de site web avec réservation en ligne",
   "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://agence-aurore.fr" },
   "areaServed": "France",
-  "description": "Site web avec système de réservation en ligne, paiement Stripe et emails transactionnels automatisés. Pour thérapeutes, coachs, hébergements et prestataires de services. 1 290 €, SEO et fiche Google inclus.",
+  "description": "Site web avec système de réservation en ligne, paiement Stripe et emails transactionnels automatisés. Pour thérapeutes, coachs, hébergements et prestataires de services. 1 390 €, SEO et fiche Google inclus.",
   "offers": [
-    { "@type": "Offer", "name": "Pro", "priceCurrency": "EUR", "price": "1290" },
+    { "@type": "Offer", "name": "Pro", "priceCurrency": "EUR", "price": "1390" },
   ],
 };
 
@@ -39,13 +39,13 @@ const catalogSchema = {
   "description": "Création de site web avec prise de rendez-vous et paiement en ligne via Stripe. Idéal pour thérapeutes, coachs, restaurants et prestataires de services.",
   "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
   "areaServed": "France",
-  "offers": { "@type": "Offer", "name": "Pack Pro avec réservation", "price": "1290", "priceCurrency": "EUR", "description": "Site avec réservation en ligne, paiement Stripe, blog, automatisations et espace rédaction." }
+  "offers": { "@type": "Offer", "name": "Pack Pro avec réservation", "price": "1390", "priceCurrency": "EUR", "description": "Site avec réservation en ligne, paiement Stripe, blog, automatisations et espace rédaction." }
 };
 ---
 
 <BaseLayout
   title="Site web avec réservation en ligne, Paiement Stripe intégré | aurore"
-  description="Créez votre site avec réservation en ligne et paiement sécurisé. Système automatisé d'emails, gestion des RDV, Stripe intégré. Dès 1 290 €, livraison 2 semaines."
+  description="Créez votre site avec réservation en ligne et paiement sécurisé. Système automatisé d'emails, gestion des RDV, Stripe intégré. Dès 1 390 €, livraison 2 semaines."
   slug="creation-site-web/site-reservation"
   schema={[serviceSchema, faqSchema, catalogSchema]}
 >
@@ -116,7 +116,7 @@ const catalogSchema = {
         <div class="pricing-card pricing-card-featured">
           <span class="pricing-badge">Tout inclus</span>
           <div class="pricing-name">Pro</div>
-          <div class="pricing-price"><span class="pricing-currency">€</span><span class="pricing-amount">1 290</span></div>
+          <div class="pricing-price"><span class="pricing-currency">€</span><span class="pricing-amount">1 390</span></div>
           <p class="pricing-desc">Tout Vitrine + réservation, blog et automatisations.</p>
           <ul class="pricing-features">
             {["Site jusqu'à 12 pages + blog","Réservation en ligne + Stripe","Emails automatisés","SEO avancé + maillage interne","Tout Vitrine inclus","Prise en main complète incluse"].map(f => (

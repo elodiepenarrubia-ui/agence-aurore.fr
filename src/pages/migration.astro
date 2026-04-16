@@ -9,13 +9,13 @@ const schema = [
     "provider": { "@type": "LocalBusiness", "name": "Aurore" },
     "areaServed": "France",
     "description": "Migration de votre site WordPress, Wix ou Squarespace vers du code Astro propre. Arrêtez de payer un abonnement mensuel.",
-    "offers": { "@type": "Offer", "priceCurrency": "EUR", "price": "285" }
+    "offers": { "@type": "Offer", "priceCurrency": "EUR", "price": "390" }
   },
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      { "@type": "Question", "name": "Que comprend la migration à 285 € ?", "acceptedAnswer": { "@type": "Answer", "text": "Récupération de votre contenu existant (textes, images), reconstruction en code Astro propre, conservation de votre domaine, configuration hébergement gratuit et mise en ligne." } },
+      { "@type": "Question", "name": "Que comprend la migration à 390 € ?", "acceptedAnswer": { "@type": "Answer", "text": "Récupération de votre contenu existant (textes, images), reconstruction en code Astro propre, conservation de votre domaine, configuration hébergement gratuit et mise en ligne." } },
       { "@type": "Question", "name": "Est-ce que je perds mon référencement en migrant ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Les URLs sont conservées ou redirigées, et le code propre améliore généralement les performances et donc le SEO." } },
       { "@type": "Question", "name": "Combien de temps prend une migration ?", "acceptedAnswer": { "@type": "Answer", "text": "En moyenne 5 à 7 jours ouvrés selon la taille du site." } },
       { "@type": "Question", "name": "Est-ce que je garde mon nom de domaine ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, absolument. Votre domaine est transféré ou reconfiguré pour pointer vers votre nouveau site." } },
@@ -45,12 +45,12 @@ const options = [
   { label: 'Logo professionnel', prix: '150 €' },
   { label: 'Formulaire de contact', prix: '60 €' },
   { label: 'Publiez vos contenus vous-même', prix: '150 €' },
-  { label: 'Session de modifications', prix: '30 €' },
-  { label: 'Pack landing pages (10 pages SEO)', prix: '190 €' },
+  { label: 'Session de modifications', prix: '50 €' },
+  { label: 'Pack landing pages (10 pages SEO)', prix: '250 €' },
 ];
 
 const faqMigration = [
-  { q: "Que comprend la migration à 285 € ?", r: "Récupération de votre contenu existant (textes, images), reconstruction en site rapide et léger, conservation de votre domaine, configuration hébergement gratuit et mise en ligne." },
+  { q: "Que comprend la migration à 390 € ?", r: "Récupération de votre contenu existant (textes, images), reconstruction en site rapide et léger, conservation de votre domaine, configuration hébergement gratuit et mise en ligne." },
   { q: "Est-ce que je perds mon référencement en migrant ?", r: "Non. Les URLs sont conservées ou redirigées, et le code propre améliore généralement les performances et donc le SEO." },
   { q: "Combien de temps prend une migration ?", r: "En moyenne 5 à 7 jours ouvrés selon la taille du site." },
   { q: "Est-ce que je garde mon nom de domaine ?", r: "Oui, absolument. Votre domaine est transféré ou reconfiguré pour pointer vers votre nouveau site." },
@@ -65,13 +65,13 @@ const catalogSchema = {
   "description": "Migration de site WordPress, Wix ou Squarespace vers un site rapide, sécurisé et sans abonnement. Conservation du SEO et du domaine.",
   "provider": { "@type": "LocalBusiness", "name": "Aurore", "url": "https://www.agence-aurore.fr" },
   "areaServed": "France",
-  "offers": { "@type": "Offer", "name": "Migration site web", "price": "285", "priceCurrency": "EUR", "description": "Migration complète depuis WordPress, Wix ou Squarespace. Conservation du domaine, du contenu et du SEO." }
+  "offers": { "@type": "Offer", "name": "Migration site web", "price": "390", "priceCurrency": "EUR", "description": "Migration complète depuis WordPress, Wix ou Squarespace. Conservation du domaine, du contenu et du SEO." }
 };
 ---
 
 <BaseLayout
   title="Migration WordPress, Wix, Squarespace → code propre | aurore"
-  description="Migrez votre site WordPress, Wix ou Squarespace pour 285 €. Arrêtez de payer un abonnement mensuel. Hébergement gratuit, code en propre."
+  description="Migrez votre site WordPress, Wix ou Squarespace pour 390 €. Arrêtez de payer un abonnement mensuel. Hébergement gratuit, code en propre."
   slug="migration"
   schema={[...schema, catalogSchema]}
 >
@@ -103,7 +103,7 @@ const catalogSchema = {
   <section class="section">
     <div class="container" style="max-width:820px;">
       <span class="section-label">L'offre</span>
-      <h2 class="section-title">Pour 285 €, vous arrêtez de payer un abonnement qui vous coûte des centaines d'euros par an</h2>
+      <h2 class="section-title">Pour 390 €, vous arrêtez de payer un abonnement qui vous coûte des centaines d'euros par an</h2>
 
       <div class="mig-inclus">
         {inclus.map(item => (
@@ -117,7 +117,7 @@ const catalogSchema = {
       </div>
 
       <div class="mig-prix-bloc">
-        <div class="mig-prix-tag">285 €</div>
+        <div class="mig-prix-tag">390 €</div>
         <div class="mig-prix-detail">
           <span>Prix unique, tout inclus</span>
           <span class="mig-prix-note">Puis 0 € par mois. Vos seuls frais : ~15 €/an pour le domaine</span>
@@ -149,7 +149,7 @@ const catalogSchema = {
         <div class="mig-table-row mig-table-aurore">
           <span class="mig-table-name">aurore (migration)</span>
           <span>0 €/mois</span>
-          <span class="mig-table-total">285 € + 45 € domaine = 330 €</span>
+          <span class="mig-table-total">390 € + 45 € domaine = 435 €</span>
         </div>
       </div>
     </div>

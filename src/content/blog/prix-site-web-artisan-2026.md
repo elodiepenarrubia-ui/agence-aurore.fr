@@ -40,9 +40,9 @@ Les agences proposent un accompagnement plus complet : ateliers de cadrage, desi
 
 Pour un site vitrine de 5 a 8 pages, comptez entre 3 000 et 10 000 euros selon l'agence et la region. Les delais sont aussi plus longs, souvent 2 a 4 mois entre le premier contact et la mise en ligne.
 
-### Aurore : entre 290 et 1 290 euros, tout compris
+### Aurore : entre 490 et 1 390 euros, tout compris
 
-Chez aurore, nous avons concu des offres specifiquement pour les artisans et les TPE. Le Pack Starter a 290 euros comprend un site 5 pages, le nom de domaine, les emails professionnels et la mise en ligne. Les offres Essentiel et Autonome montent jusqu'a 1 290 euros pour un site vitrine complet avec SEO et blog.
+Chez aurore, nous avons concu des offres specifiquement pour les artisans et les TPE. Le Pack Starter a 490 euros comprend un site 5 pages, le nom de domaine, les emails professionnels et la mise en ligne. Les offres Essentiel et Autonome montent jusqu'a 1 390 euros pour un site vitrine complet avec SEO et blog.
 
 L'hebergement est gratuit (Vercel), il n'y a pas de frais mensuels caches, et vous etes proprietaire de votre site des la livraison.
 
@@ -108,6 +108,6 @@ Les plateformes comme Leboncoin, Houzz ou les annuaires professionnels peuvent c
 
 ## Conclusion : investissez au bon endroit
 
-Le prix d'un site web artisan en 2026 varie enormement selon la solution choisie. L'important n'est pas de depenser le moins possible, mais de depenser intelligemment. Un site a 290 euros qui vous appartient et qui est bien reference vaut infiniment plus qu'un abonnement a 50 euros par mois sur une plateforme que vous ne controlez pas.
+Le prix d'un site web artisan en 2026 varie enormement selon la solution choisie. L'important n'est pas de depenser le moins possible, mais de depenser intelligemment. Un site a 490 euros qui vous appartient et qui est bien reference vaut infiniment plus qu'un abonnement a 50 euros par mois sur une plateforme que vous ne controlez pas.
 
 Si vous etes artisan et que vous souhaitez un site professionnel, bien reference sur Google et livre cle en main, [contactez-nous](/contact/). Nous vous proposerons une solution adaptee a votre activite et a votre budget, sans surprise et sans engagement.
