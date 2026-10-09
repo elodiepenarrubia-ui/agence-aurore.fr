@@ -2,33 +2,33 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const projet = {
-  client:      "Le Mazarin",
-  activite:    "Agence immobilière",
+  client:      "Blackwood Deck",
+  activite:    "Terrasses en bois sur mesure",
   ville:       "Aix-en-Provence (13)",
-  url:         "https://lemazarin.com",
-  urlLabel:    "lemazarin.com",
-  prestations: ["Site vitrine", "Identité visuelle", "SEO"],
-  delai:       "2 semaines",
-  annee:       "2024",
+  url:         "https://blackwooddeck.com",
+  urlLabel:    "blackwooddeck.com",
+  prestations: ["Refonte complète", "Site vitrine", "SEO local", "Identité visuelle", "Fiche Google"],
+  delai:       "Clé en main",
+  annee:       "2025",
 };
 
 const schema = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
-  "name": "Site web, Le Mazarin, agence immobilière à Aix-en-Provence",
+  "name": "Site web, Blackwood Deck, terrasses en bois à Aix-en-Provence",
   "creator": { "@type": "Organization", "name": "Aurore", "url": "https://agence-aurore.fr" },
-  "description": "Création du site vitrine de Le Mazarin, agence immobilière à Aix-en-Provence. Logo, identité visuelle et SEO local.",
-  "url": "https://lemazarin.com",
+  "description": "Refonte complète du site de Blackwood Deck, artisan spécialiste des terrasses en bois sur mesure à Aix-en-Provence : site vitrine, SEO local et identité visuelle.",
+  "url": "https://blackwooddeck.com",
   "locationCreated": { "@type": "Place", "name": "Aix-en-Provence, Bouches-du-Rhône, France" },
-  "dateCreated": "2024",
-  "keywords": "site vitrine agence immobilière, identité visuelle immobilier, SEO local Aix-en-Provence"
+  "dateCreated": "2025",
+  "keywords": "site terrasse bois, artisan terrasse Aix-en-Provence, SEO local artisan"
 };
 ---
 
 <BaseLayout
-  title="Réalisation, Site vitrine Le Mazarin, agence immobilière à Aix-en-Provence | aurore"
-  description="Découvrez comment aurore a créé la présence digitale complète du Mazarin, agence immobilière à Aix-en-Provence : logo, site et SEO local."
-  slug="realisations/le-mazarin-conciergerie-aix"
+  title="Réalisation, Site Blackwood Deck, terrasses en bois à Aix-en-Provence | aurore"
+  description="Comment aurore a refondu le site de Blackwood Deck, artisan de terrasses en bois à Aix-en-Provence : site vitrine, SEO local et identité visuelle. 5 demandes de devis dont 3 signées dès la mise en ligne."
+  slug="realisations/blackwood-deck-terrasse-bois-aix"
   schema={schema}
 >
 
@@ -44,12 +44,12 @@ const schema = {
             ))}
           </div>
           <h1 class="fiche-h1">
-            Le Mazarin<br />
-            <span class="hero-serif">Immobilier.</span>
+            Blackwood Deck<br />
+            <span class="hero-serif">Terrasses bois.</span>
           </h1>
           <p class="fiche-sub">
-            Présence digitale complète pour une agence immobilière à Aix-en-Provence.
-            Logo, site web et SEO local, livré clé en main en {projet.delai}.
+            Refonte complète du site d'un artisan haut de gamme spécialiste de la terrasse
+            en bois sur mesure à Aix-en-Provence. Site vitrine, SEO local et identité visuelle.
           </p>
 
           <!-- Tableau client -->
@@ -84,17 +84,16 @@ const schema = {
                 <th scope="row">Prestations</th>
                 <td>{projet.prestations.join(", ")}</td>
               </tr>
-              <tr>
-                <th scope="row">Délai</th>
-                <td>{projet.delai}</td>
-              </tr>
             </tbody>
           </table>
         </div>
 
-        <!-- Capture du site -->
+        <!-- Couverture (fond uni) -->
         <div class="fiche-hero-capture">
-          <img src="/lemazarin-portrait.webp" alt="Le Mazarin, agence immobilière à Aix-en-Provence" style="max-width:320px; margin:0 auto; display:block; border-radius:var(--radius-md); object-fit:cover; object-position:center top; aspect-ratio:3/4;" />
+          <div class="fiche-cover" style="background: #EDE4D8;">
+            <div class="fiche-cover-name" style="color: #2B2219;">Blackwood Deck</div>
+            <div class="fiche-cover-sub" style="color: #8A6D4B;">Terrasses bois · Aix-en-Provence</div>
+          </div>
         </div>
       </div>
     </div>
@@ -107,11 +106,11 @@ const schema = {
         <span class="section-label">01, Contexte</span>
       </div>
       <div class="fiche-section-content">
-        <h2 class="section-title fade-in">Le besoin du Mazarin.</h2>
+        <h2 class="section-title fade-in">Un savoir-faire premium, un site qui ne suivait pas.</h2>
         <div class="fiche-text fade-in">
-          <p>Le Mazarin est une agence immobilière basée à Aix-en-Provence, spécialisée dans la gestion locative et la transaction immobilière.</p>
-          <p>Le Mazarin avait perdu son site du jour au lendemain suite à la fermeture de son hébergeur, se retrouvant <strong>sans présence digitale pendant plusieurs mois</strong>. Les clients potentiels ne pouvaient plus les trouver en ligne. Pour une agence immobilière, l'absence de site web signifie une perte de crédibilité et de contacts directs.</p>
-          <p>Le projet : reconstruire une <strong>présence digitale complète</strong>, avec un logo, un site qui inspire confiance et un référencement local solide. Grâce au nouveau site, les demandes ont explosé et la prospection n'est plus nécessaire.</p>
+          <p>Blackwood Deck conçoit et pose des terrasses en bois noble sur mesure dans le Pays d'Aix : bois certifié, garantie décennale, et vingt ans de savoir-faire artisanal.</p>
+          <p>Le problème : un site réalisé en interne sur un outil grand public (Webador) qui <strong>ne reflétait pas le positionnement haut de gamme</strong> de l'activité et générait peu de demandes qualifiées. L'image en ligne était en décalage avec la qualité du travail réel.</p>
+          <p>L'objectif : une <strong>refonte complète</strong> à la hauteur du savoir-faire, pensée pour inspirer confiance et transformer les visiteurs en demandes de devis concrètes.</p>
         </div>
       </div>
     </div>
@@ -124,27 +123,18 @@ const schema = {
         <span class="section-label">02, Solution</span>
       </div>
       <div class="fiche-section-content">
-        <h2 class="section-title fade-in">Une présence complète, clé en main.</h2>
+        <h2 class="section-title fade-in">Une refonte clé en main, orientée conversion.</h2>
         <div class="fiche-text fade-in">
-          <p>Contrairement au projet de Delphine, Le Mazarin avait besoin de repartir de zéro sur tout, marque, design, web et SEO local. C'est le cas d'usage idéal pour notre pack complet.</p>
+          <p>Site reconstruit intégralement en code pur, rapide et pensé pour le référencement local. Chaque page met en valeur la matière, le savoir-faire et les réalisations.</p>
         </div>
         <div class="solution-grid fade-in" style="margin-top: 32px;">
-          <div class="solution-item">
-            <div class="solution-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </div>
-            <div>
-              <h3>Logo + identité visuelle</h3>
-              <p>Création d'un logotype élégant, palette de couleurs et typographies cohérentes avec le positionnement premium de l'agence.</p>
-            </div>
-          </div>
           <div class="solution-item">
             <div class="solution-icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
             </div>
             <div>
               <h3>Site vitrine complet</h3>
-              <p>Présentation des services, secteurs d'intervention, processus et formulaire de contact. Navigation claire, copywriting orienté conversion.</p>
+              <p>Pages savoir-faire, essences de bois, réalisations et guides pratiques. Navigation claire et copywriting orienté demande de devis.</p>
             </div>
           </div>
           <div class="solution-item">
@@ -152,8 +142,35 @@ const schema = {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-6-6m6 6v-4.8m0 4.8h-4.8"/><path d="M3 16.2V21m0 0h4.8M3 21l6-6"/><path d="M21 7.8V3m0 0h-4.8M21 3l-6 6"/><path d="M3 7.8V3m0 0h4.8M3 3l6 6"/></svg>
             </div>
             <div>
-              <h3>SEO local optimisé</h3>
-              <p>Optimisation on-page sur les mots-clés "agence immobilière Aix-en-Provence" et "gestion immobilière 13". Balises, structure, contenu.</p>
+              <h3>SEO local</h3>
+              <p>Optimisation sur « terrasse bois Aix-en-Provence » et les communes du Pays d'Aix. Pages zones d'intervention et contenu pensé pour Google.</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div>
+              <h3>Identité visuelle</h3>
+              <p>Palette bois naturel, noir et blanc, typographies soignées : une direction visuelle qui exprime l'exigence artisanale, du premier coup d'œil.</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h3"/></svg>
+            </div>
+            <div>
+              <h3>Formulaire de devis</h3>
+              <p>Demande de devis gratuite avec notification instantanée, pour capter chaque contact qualifié directement depuis le site.</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <h3>Fiche Google Business</h3>
+              <p>Création et optimisation de la fiche Google Business : zone d'intervention, photos et lien vers le site, pour apparaître dans les recherches locales.</p>
             </div>
           </div>
         </div>
@@ -161,93 +178,59 @@ const schema = {
     </div>
   </section>
 
-  <!-- ─── SECTION 3 : IDENTITÉ VISUELLE ─── -->
+  <!-- ─── SECTION 3 : RÉSULTAT ─── -->
   <section class="section fiche-section">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">03, Identité</span>
+        <span class="section-label">03, Résultat</span>
       </div>
       <div class="fiche-section-content">
-        <h2 class="section-title fade-in">Une marque qui inspire confiance.</h2>
+        <h2 class="section-title fade-in">Des demandes de devis dès la mise en ligne.</h2>
         <div class="fiche-text fade-in">
-          <p>Pour une agence immobilière, la confiance est tout. Les propriétaires confient leurs biens, parfois leur résidence principale ou un investissement de plusieurs centaines de milliers d'euros. L'identité visuelle devait le refléter.</p>
-          <p>Nous avons opté pour une palette sobre et élégante, une typographie Serif avec empattements qui évoque la tradition et le soin, et un logo qui fonctionne aussi bien sur un site web que sur un document contractuel ou une carte de visite.</p>
-        </div>
-        <div class="identite-showcase fade-in" style="margin-top: 32px;">
-          <div class="identite-card" style="background: #FAF7F2;">
-            <div class="identite-logo-mock" aria-hidden="true">
-              <div class="logo-mock-text" style="color: #0A2342;">Le Mazarin</div>
-              <div class="logo-mock-sub" style="color: #C2A978;">Immobilier · Aix-en-Provence</div>
-            </div>
-          </div>
-          <div class="identite-colors" aria-label="Palette de couleurs">
-            <div class="color-swatch" style="background: #0A2342;" title="Prussian Blue"></div>
-            <div class="color-swatch" style="background: #C2A978;" title="Soft Fawn"></div>
-            <div class="color-swatch" style="background: #FAF7F2;" title="Parchment"></div>
-            <div class="color-swatch" style="background: #FFFFFF; border: 1px solid #E8E0DB;" title="White"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── SECTION 4 : RÉSULTAT ─── -->
-  <section class="section fiche-section" style="background: var(--gray-50);">
-    <div class="container fiche-container">
-      <div class="fiche-section-label">
-        <span class="section-label">04, Résultat</span>
-      </div>
-      <div class="fiche-section-content">
-        <h2 class="section-title fade-in">Livré en 2 semaines, visible sur Google.</h2>
-        <div class="fiche-text fade-in">
-          <p>En deux semaines, Le Mazarin est passé de zéro présence à un écosystème digital complet : logo, site en ligne sur <a href="https://lemazarin.com" target="_blank" rel="noopener noreferrer" class="table-link">lemazarin.com</a>, emails professionnels configurés et Search Console raccordée.</p>
-        </div>
-
-        <div class="resultat-screens fade-in" style="margin-top: 32px;">
-          <img src="/lemazarin-1.webp" alt="Site web Le Mazarin, agence immobilière à Aix-en-Provence" style="width:100%; border-radius:var(--radius-md); object-fit:contain; background:var(--gray-50, #f9f9f9);" loading="lazy" />
+          <p>Dès le lancement du nouveau site, Blackwood Deck a reçu <strong>5 demandes de devis, dont 3 signées</strong>, puis des demandes qualifiées de façon régulière. Les clients mentionnent spontanément la qualité du site lors de la prise de contact.</p>
         </div>
 
         <div class="metrics-row fade-in" style="margin-top:32px;">
           <div class="metric-card">
-            <div class="metric-card-value">2 sem.</div>
-            <div class="metric-card-label">Délai tout compris</div>
+            <div class="metric-card-value" data-counter>5</div>
+            <div class="metric-card-label">Devis reçus dès le lancement</div>
           </div>
           <div class="metric-card">
             <div class="metric-card-value" data-counter>3</div>
-            <div class="metric-card-label">Prestations livrées</div>
+            <div class="metric-card-label">Projets signés</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card-value">20 ans</div>
+            <div class="metric-card-label">Savoir-faire mis en valeur</div>
           </div>
           <div class="metric-card">
             <div class="metric-card-value">0 €</div>
             <div class="metric-card-label">Hébergement mensuel</div>
           </div>
-          <div class="metric-card">
-            <div class="metric-card-value">SEO</div>
-            <div class="metric-card-label">Référencement local optimisé</div>
-          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─── SECTION 5 : TÉMOIGNAGE ─── -->
-  <section class="section fiche-section">
+  <!-- ─── SECTION 4 : TÉMOIGNAGE ─── -->
+  <section class="section fiche-section" style="background: var(--gray-50);">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">05, Témoignage</span>
+        <span class="section-label">04, Témoignage</span>
       </div>
       <div class="fiche-section-content">
         <div class="temoignage-block fade-in">
           <div class="temoignage-quote-mark" aria-hidden="true">"</div>
           <blockquote class="temoignage-texte">
-            Notre site a été livré clé en main en deux semaines, logo, site, SEO, tout était prêt. On est maintenant en première page sur nos mots-clés à Aix-en-Provence. Les clients qui nous contactent nous disent souvent qu'ils ont trouvé notre site en cherchant sur Google. Depuis, les demandes ont explosé et la prospection n'est plus nécessaire.
+            Merci pour le site, il marche très bien : j'ai des demandes de devis qualifiées régulières et les clients me disent tout de suite que le site est très bien foutu !
           </blockquote>
           <div class="temoignage-auteur">
-            <div class="temoignage-avatar" style="background: #0A2342;" aria-hidden="true">
-              <span>LM</span>
+            <div class="temoignage-avatar" style="background: #2B2219;" aria-hidden="true">
+              <span>BD</span>
             </div>
             <div>
-              <div class="temoignage-nom">Le Mazarin</div>
-              <div class="temoignage-role">Agence immobilière · Aix-en-Provence</div>
+              <div class="temoignage-nom">Nicolas</div>
+              <div class="temoignage-role">Blackwood Deck · Terrasses bois, Aix-en-Provence</div>
             </div>
           </div>
         </div>
@@ -255,16 +238,16 @@ const schema = {
     </div>
   </section>
 
-  <!-- ─── SECTION 6 : CTA PROJET SIMILAIRE ─── -->
-  <section class="section fiche-section" style="background: var(--gray-50);">
+  <!-- ─── SECTION 5 : CTA PROJET SIMILAIRE ─── -->
+  <section class="section fiche-section">
     <div class="container fiche-container">
       <div class="fiche-section-label">
-        <span class="section-label">06, Et vous ?</span>
+        <span class="section-label">05, Et vous ?</span>
       </div>
       <div class="fiche-section-content">
-        <h2 class="section-title fade-in">Votre projet ressemble à celui-ci ?</h2>
+        <h2 class="section-title fade-in">Un site qui ne vous ressemble plus ?</h2>
         <div class="fiche-text fade-in">
-          <p>Vous lancez une activité ou une entreprise et vous avez besoin de construire votre présence digitale de zéro, logo, site et SEO local ? C'est exactement ce que propose le pack Vitrine Complet d'aurore.</p>
+          <p>Vous avez un site fait maison qui ne reflète pas la qualité de votre travail et ne génère pas de demandes ? La refonte clé en main d'aurore remet votre image en ligne à la hauteur de votre savoir-faire.</p>
           <p>Basée à Aix-en-Provence, j'interviens dans toute la France. Un formulaire de 2 minutes suffit pour recevoir un devis détaillé sous 48h.</p>
         </div>
         <div class="fiche-cta-buttons fade-in">
@@ -280,13 +263,13 @@ const schema = {
   <nav class="fiche-nav" aria-label="Navigation entre les réalisations">
     <div class="container">
       <div class="fiche-nav-inner">
-        <a href="/realisations/delphine-millot-massage-brignoles/" class="fiche-nav-prev-link">
+        <a href="/realisations/le-mazarin-conciergerie-aix/" class="fiche-nav-prev-link">
           <span class="fiche-nav-label">Réalisation précédente</span>
-          <span class="fiche-nav-titre">← Delphine Millot, Massothérapeute</span>
+          <span class="fiche-nav-titre">← Le Mazarin, Conciergerie</span>
         </a>
-        <a href="/realisations/blackwood-deck-terrasse-bois-aix/" class="fiche-nav-prev-link fiche-nav-next">
+        <a href="/realisations/cv-bebe-en-provence-location/" class="fiche-nav-prev-link fiche-nav-next">
           <span class="fiche-nav-label">Réalisation suivante</span>
-          <span class="fiche-nav-titre">Blackwood Deck, Terrasses bois →</span>
+          <span class="fiche-nav-titre">C&amp;V Bébé en Provence →</span>
         </a>
       </div>
     </div>
@@ -322,6 +305,35 @@ const schema = {
     color: var(--gray-500);
     line-height: 1.65;
     margin-bottom: 32px;
+  }
+
+  /* Couverture fond uni */
+  .fiche-cover {
+    border-radius: var(--radius-lg);
+    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 32px;
+    text-align: center;
+    border: 1.5px solid rgba(0,0,0,0.06);
+  }
+
+  .fiche-cover-name {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+  }
+
+  .fiche-cover-sub {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 
   /* Tableau client */
@@ -428,63 +440,7 @@ const schema = {
     margin: 0;
   }
 
-  /* ─── IDENTITÉ SHOWCASE ─── */
-  .identite-showcase {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .identite-card {
-    border-radius: var(--radius-lg);
-    padding: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 160px;
-    border: 1.5px solid rgba(0,0,0,0.06);
-  }
-
-  .identite-logo-mock {
-    text-align: center;
-  }
-
-  .logo-mock-text {
-    font-family: var(--font-serif);
-    font-size: 32px;
-    font-weight: 400;
-    color: #0A2342;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-
-  .logo-mock-sub {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #C2A978;
-  }
-
-  .identite-colors {
-    display: flex;
-    gap: 8px;
-  }
-
-  .color-swatch {
-    flex: 1;
-    height: 40px;
-    border-radius: var(--radius-sm);
-  }
-
   /* ─── RÉSULTAT ─── */
-  .resultat-screens {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Métriques */
   .metrics-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -608,11 +564,6 @@ const schema = {
     margin-bottom: 4px;
   }
 
-  .fiche-nav-empty {
-    font-size: 14px;
-    color: var(--gray-300);
-  }
-
   .fiche-nav-next {
     text-align: right;
   }
@@ -664,8 +615,5 @@ const schema = {
       width: 100%;
       justify-content: center;
     }
-
-    .identite-card { padding: 32px 24px; }
   }
 </style>
-

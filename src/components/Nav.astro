@@ -2,7 +2,7 @@
 // ─── Nav.astro, Navigation principale réutilisable
 // agence-aurore.fr
 const path = Astro.url.pathname;
-const isServicePage = path.startsWith('/creation-site-web') || path === '/identite-visuelle/' || path === '/referencement-seo/' || path === '/automatisation/';
+const isServicePage = path.startsWith('/creation-site-web') || path === '/referencement-seo/' || path === '/automatisation/';
 ---
 
 <header>
@@ -26,7 +26,6 @@ const isServicePage = path.startsWith('/creation-site-web') || path === '/identi
         </button>
         <ul class="nav-dropdown" role="list">
           <li><a href="/creation-site-web/" class={path.startsWith('/creation-site-web') ? 'nav-active' : ''}>Création de site web</a></li>
-          <li><a href="/identite-visuelle/" class={path === '/identite-visuelle/' ? 'nav-active' : ''}>Identité visuelle</a></li>
           <li><a href="/referencement-seo/" class={path === '/referencement-seo/' ? 'nav-active' : ''}>Référencement SEO</a></li>
           <li><a href="/automatisation/" class={path === '/automatisation/' ? 'nav-active' : ''}>Automatisation</a></li>
         </ul>

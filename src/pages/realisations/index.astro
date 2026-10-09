@@ -10,15 +10,44 @@ const projets = [
     prestations: ["Site vitrine", "Hébergement Vercel"],
     description: "Site vitrine élégant pour une massothérapeute et praticienne Qi Gong. Design épuré, axé sur la confiance et la sérénité.",
     couleur:    "#E8F4F0",
+    image:      "/delphine-1.webp",
   },
   {
     slug:       "le-mazarin-conciergerie-aix",
     titre:      "Le Mazarin, Conciergerie",
     secteur:    "Location saisonnière",
     ville:      "Aix-en-Provence (13)",
-    prestations: ["Site vitrine", "Identité visuelle", "SEO", "Fiche Google"],
-    description: "Présence digitale complète pour une conciergerie de location saisonnière à Aix-en-Provence. Logo, site, SEO local.",
+    prestations: ["Site vitrine", "Identité visuelle", "SEO"],
+    description: "Présence digitale complète pour une conciergerie de location saisonnière à Aix-en-Provence. Site, identité visuelle et SEO local.",
     couleur:    "#F0EBE8",
+    image:      "/lemazarin-1.webp",
+  },
+  {
+    slug:       "blackwood-deck-terrasse-bois-aix",
+    titre:      "Blackwood Deck, Terrasses bois",
+    secteur:    "Artisanat & extérieur",
+    ville:      "Aix-en-Provence (13)",
+    prestations: ["Refonte complète", "Site vitrine", "SEO local", "Identité visuelle", "Fiche Google"],
+    description: "Refonte complète du site d'un artisan terrassier haut de gamme. 5 demandes de devis dont 3 signées dès la mise en ligne.",
+    couleur:    "#EDE4D8",
+  },
+  {
+    slug:       "cv-bebe-en-provence-location",
+    titre:      "C&V Bébé en Provence, Location",
+    secteur:    "Location de matériel bébé",
+    ville:      "Sénas (13)",
+    prestations: ["Site e-commerce", "Réservation en ligne", "Paiement Stripe", "Identité visuelle"],
+    description: "Site de réservation en ligne avec paiement Stripe pour une jeune entreprise de location de matériel bébé. Lancement clé en main.",
+    couleur:    "#EAF0EC",
+  },
+  {
+    slug:       "le-mazarin-logiciel-conciergerie",
+    titre:      "Le Mazarin, Logiciel métier",
+    secteur:    "Conciergerie & location courte durée",
+    ville:      "Aix-en-Provence (13)",
+    prestations: ["Logiciel métier sur mesure", "Réservations & finances", "Portails multi-rôles"],
+    description: "Logiciel de gestion sur mesure centralisant réservations, finances, ménage, propriétaires et livret voyageur pour une conciergerie.",
+    couleur:    "#E7EAF1",
   },
 ];
 
@@ -39,6 +68,24 @@ const itemListSchema = {
       "position": 2,
       "name": "Site web, Le Mazarin, conciergerie",
       "url": "https://agence-aurore.fr/realisations/le-mazarin-conciergerie-aix/"
+    },
+    {
+      "@type": "CreativeWork",
+      "position": 3,
+      "name": "Site web, Blackwood Deck, terrasses bois à Aix-en-Provence",
+      "url": "https://agence-aurore.fr/realisations/blackwood-deck-terrasse-bois-aix/"
+    },
+    {
+      "@type": "CreativeWork",
+      "position": 4,
+      "name": "Site web, C&V Bébé en Provence, location de matériel bébé",
+      "url": "https://agence-aurore.fr/realisations/cv-bebe-en-provence-location/"
+    },
+    {
+      "@type": "CreativeWork",
+      "position": 5,
+      "name": "Logiciel métier sur mesure, Le Mazarin conciergerie",
+      "url": "https://agence-aurore.fr/realisations/le-mazarin-logiciel-conciergerie/"
     }
   ]
 };
@@ -67,7 +114,7 @@ const itemListSchema = {
       </div>
       <div class="hero-metrics">
         <div class="metric">
-          <span class="metric-value" data-counter data-target="2">2</span>
+          <span class="metric-value" data-counter data-target="5">5</span>
           <span class="metric-label">projets livrés</span>
         </div>
         <div class="metric-sep" aria-hidden="true"></div>
@@ -102,12 +149,18 @@ const itemListSchema = {
               aria-label={`Voir le projet ${projet.titre}`}
               tabindex="-1"
             >
-              <img
-                src={projet.slug === 'delphine-millot-massage-brignoles' ? '/delphine-1.webp' : '/lemazarin-1.webp'}
-                alt={`Site web ${projet.titre}`}
-                loading="lazy"
-                style={`width:100%;height:100%;object-fit:contain;border-radius:var(--radius-lg);background:var(--gray-50);`}
-              />
+              {projet.image ? (
+                <img
+                  src={projet.image}
+                  alt={`Site web ${projet.titre}`}
+                  loading="lazy"
+                  style={`width:100%;height:100%;object-fit:contain;border-radius:var(--radius-lg);background:var(--gray-50);`}
+                />
+              ) : (
+                <div class="projet-card-cover" style={`background:${projet.couleur};`}>
+                  <span class="projet-card-cover-name">{projet.titre}</span>
+                </div>
+              )}
               <div class="image-number" aria-hidden="true">0{i + 1}</div>
             </a>
 
@@ -249,6 +302,24 @@ const itemListSchema = {
     justify-content: center;
     padding: 32px;
     transition: transform 0.4s ease;
+  }
+
+  .projet-card-cover {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .projet-card-cover-name {
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 2.4vw, 34px);
+    color: var(--black);
+    letter-spacing: -0.01em;
+    line-height: 1.12;
   }
 
   .projet-card:hover .image-placeholder {

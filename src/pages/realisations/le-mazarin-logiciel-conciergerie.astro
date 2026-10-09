@@ -1,0 +1,513 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projet = {
+  client:      "Le Mazarin",
+  activite:    "Conciergerie & location courte durée",
+  ville:       "Aix-en-Provence (13)",
+  type:        "Logiciel métier interne",
+  prestations: ["Logiciel métier sur mesure", "Réservations & finances", "Portails multi-rôles", "Automatisations"],
+  annee:       "2025",
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Logiciel de gestion sur mesure, Le Mazarin, conciergerie à Aix-en-Provence",
+  "creator": { "@type": "Organization", "name": "Aurore", "url": "https://agence-aurore.fr" },
+  "description": "Conception d'un logiciel de gestion sur mesure pour Le Mazarin, conciergerie de location courte durée à Aix-en-Provence : réservations, finances, opérations terrain et portails multi-rôles.",
+  "locationCreated": { "@type": "Place", "name": "Aix-en-Provence, Bouches-du-Rhône, France" },
+  "dateCreated": "2025",
+  "keywords": "logiciel métier sur mesure, logiciel conciergerie, gestion location courte durée, outil interne"
+};
+---
+
+<BaseLayout
+  title="Réalisation, Logiciel métier sur mesure, Le Mazarin conciergerie | aurore"
+  description="Comment aurore a conçu un logiciel de gestion sur mesure pour Le Mazarin, conciergerie de location courte durée à Aix-en-Provence : réservations, finances, ménage et portails dédiés, tout centralisé."
+  slug="realisations/le-mazarin-logiciel-conciergerie"
+  schema={schema}
+>
+
+
+  <!-- ─── HERO ─── -->
+  <section class="fiche-hero">
+    <div class="container">
+      <div class="fiche-hero-inner">
+        <div class="fiche-hero-content">
+          <div class="tags" style="margin-bottom: 20px;">
+            {projet.prestations.map(p => (
+              <span class="badge badge-aurora">{p}</span>
+            ))}
+          </div>
+          <h1 class="fiche-h1">
+            Le Mazarin<br />
+            <span class="hero-serif">Logiciel métier.</span>
+          </h1>
+          <p class="fiche-sub">
+            Un logiciel de gestion sur mesure pour une conciergerie de location courte durée :
+            réservations, finances, ménage, propriétaires et voyageurs, tout centralisé dans un seul outil.
+          </p>
+
+          <!-- Tableau client -->
+          <table class="client-table" aria-label="Informations du projet">
+            <tbody>
+              <tr>
+                <th scope="row">Client</th>
+                <td>{projet.client}</td>
+              </tr>
+              <tr>
+                <th scope="row">Activité</th>
+                <td>{projet.activite}</td>
+              </tr>
+              <tr>
+                <th scope="row">Ville</th>
+                <td>{projet.ville}</td>
+              </tr>
+              <tr>
+                <th scope="row">Type</th>
+                <td>{projet.type}</td>
+              </tr>
+              <tr>
+                <th scope="row">Prestations</th>
+                <td>{projet.prestations.join(", ")}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Couverture (fond uni) -->
+        <div class="fiche-hero-capture">
+          <div class="fiche-cover" style="background: #E7EAF1;">
+            <div class="fiche-cover-name" style="color: #0A2342;">Le Mazarin</div>
+            <div class="fiche-cover-sub" style="color: #8A94A6;">Logiciel de conciergerie</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 1 : CONTEXTE ─── -->
+  <section class="section fiche-section">
+    <div class="container fiche-container">
+      <div class="fiche-section-label">
+        <span class="section-label">01, Contexte</span>
+      </div>
+      <div class="fiche-section-content">
+        <h2 class="section-title fade-in">Trop d'outils, trop de temps perdu.</h2>
+        <div class="fiche-text fade-in">
+          <p>Le Mazarin gère de la location courte durée pour le compte de propriétaires à Aix-en-Provence : réservations, séjours voyageurs, ménage, suivi financier et comptes-rendus aux propriétaires.</p>
+          <p>Au quotidien, cette gestion reposait sur des <strong>outils éparpillés et des solutions du marché mal adaptées</strong> au métier : saisies en double, suivi financier laborieux, coordination du ménage par téléphone. Chronophage et source d'erreurs.</p>
+          <p>L'objectif : un <strong>logiciel unique, taillé sur mesure</strong> pour le fonctionnement réel de la conciergerie, qui centralise tout et automatise les tâches répétitives.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 2 : SOLUTION ─── -->
+  <section class="section fiche-section" style="background: var(--gray-50);">
+    <div class="container fiche-container">
+      <div class="fiche-section-label">
+        <span class="section-label">02, Solution</span>
+      </div>
+      <div class="fiche-section-content">
+        <h2 class="section-title fade-in">Un outil unique, pensé pour le métier.</h2>
+        <div class="fiche-text fade-in">
+          <p>Un logiciel sur mesure qui réunit toute l'activité au même endroit, avec un espace dédié à chaque intervenant.</p>
+        </div>
+        <div class="solution-grid fade-in" style="margin-top: 32px;">
+          <div class="solution-item">
+            <div class="solution-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <h3>Portails multi-rôles</h3>
+              <p>Un espace dédié pour le gestionnaire, les propriétaires, les prestataires de ménage et les voyageurs. Chacun voit exactement ce qui le concerne.</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <div>
+              <h3>Réservations centralisées</h3>
+              <p>Les réservations issues des différentes plateformes sont synchronisées et pilotées depuis une seule interface, sans double saisie.</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div>
+              <h3>Finances &amp; propriétaires</h3>
+              <p>Suivi des revenus, décomptes et documents pour chaque propriétaire, générés automatiquement et consultables en ligne.</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <div>
+              <h3>Ménage &amp; livret voyageur</h3>
+              <p>Planning et checklists pour les prestataires de ménage, et un livret d'accueil en ligne pour les voyageurs, accessible par QR code.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 3 : RÉSULTAT ─── -->
+  <section class="section fiche-section">
+    <div class="container fiche-container">
+      <div class="fiche-section-label">
+        <span class="section-label">03, Résultat</span>
+      </div>
+      <div class="fiche-section-content">
+        <h2 class="section-title fade-in">Toute l'activité dans un seul outil.</h2>
+        <div class="fiche-text fade-in">
+          <p>Fini les outils éparpillés et les saisies en double : la conciergerie pilote désormais réservations, finances et opérations terrain depuis une interface unique, pensée pour son métier et automatisant les tâches récurrentes.</p>
+        </div>
+
+        <div class="metrics-row fade-in" style="margin-top:32px;">
+          <div class="metric-card">
+            <div class="metric-card-value" data-counter>5</div>
+            <div class="metric-card-label">Portails métier dédiés</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card-value">100 %</div>
+            <div class="metric-card-label">Gestion centralisée</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card-value">Sur mesure</div>
+            <div class="metric-card-label">Développé pour le métier</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card-value">Auto.</div>
+            <div class="metric-card-label">Tâches récurrentes automatisées</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 4 : CTA PROJET SIMILAIRE ─── -->
+  <section class="section fiche-section" style="background: var(--gray-50);">
+    <div class="container fiche-container">
+      <div class="fiche-section-label">
+        <span class="section-label">04, Et vous ?</span>
+      </div>
+      <div class="fiche-section-content">
+        <h2 class="section-title fade-in">Un logiciel qui colle à votre métier ?</h2>
+        <div class="fiche-text fade-in">
+          <p>Vous jonglez entre plusieurs outils mal adaptés et vous perdez du temps en saisies manuelles ? aurore conçoit des logiciels métier sur mesure qui centralisent votre activité et automatisent le répétitif.</p>
+          <p>Basée à Aix-en-Provence, j'interviens dans toute la France. Décrivez-moi votre fonctionnement : je vous réponds sous 48h.</p>
+        </div>
+        <div class="fiche-cta-buttons fade-in">
+          <a href="/contact/" class="btn btn-aurora btn-lg">Décrire mon besoin →</a>
+          <a href="/creation-site-web/logiciel-metier/" class="btn btn-outline btn-lg">En savoir plus</a>
+          <a href="/realisations/" class="btn btn-ghost btn-lg">Voir toutes les réalisations</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── NAVIGATION ENTRE FICHES ─── -->
+  <nav class="fiche-nav" aria-label="Navigation entre les réalisations">
+    <div class="container">
+      <div class="fiche-nav-inner">
+        <a href="/realisations/cv-bebe-en-provence-location/" class="fiche-nav-prev-link">
+          <span class="fiche-nav-label">Réalisation précédente</span>
+          <span class="fiche-nav-titre">← C&amp;V Bébé en Provence</span>
+        </a>
+        <div class="fiche-nav-next" aria-label="Pas de projet suivant">
+          <span class="fiche-nav-label">Réalisation suivante</span>
+          <span class="fiche-nav-empty">Dernière réalisation</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+</BaseLayout>
+
+<style>
+  /* ─── HERO FICHE ─── */
+  .fiche-hero {
+    padding: 32px 0 80px;
+  }
+
+  .fiche-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .fiche-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4.5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    color: var(--black);
+    margin-bottom: 16px;
+  }
+
+  .fiche-sub {
+    font-size: clamp(15px, 1.2vw, 17px);
+    color: var(--gray-500);
+    line-height: 1.65;
+    margin-bottom: 32px;
+  }
+
+  /* Couverture fond uni */
+  .fiche-cover {
+    border-radius: var(--radius-lg);
+    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 32px;
+    text-align: center;
+    border: 1.5px solid rgba(0,0,0,0.06);
+  }
+
+  .fiche-cover-name {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+  }
+
+  .fiche-cover-sub {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* Tableau client */
+  .client-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .client-table tr {
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .client-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .client-table th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--black);
+    padding: 10px 16px 10px 0;
+    width: 130px;
+    vertical-align: top;
+  }
+
+  .client-table td {
+    color: var(--gray-500);
+    padding: 10px 0;
+    vertical-align: top;
+  }
+
+  .table-link {
+    color: var(--aurora);
+    font-weight: 500;
+    transition: var(--transition);
+  }
+
+  .table-link:hover {
+    color: var(--aurora-dark);
+  }
+
+  /* ─── LAYOUT SECTIONS ─── */
+  .fiche-section { padding: 80px 0; }
+
+  .fiche-container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .fiche-section-label { padding-top: 6px; }
+
+  .fiche-text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .fiche-text p {
+    font-size: 16px;
+    color: var(--gray-500);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  /* ─── SOLUTION GRID ─── */
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .solution-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .solution-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--aurora-pale);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--aurora);
+    flex-shrink: 0;
+  }
+
+  .solution-item h3 {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .solution-item p {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ─── RÉSULTAT ─── */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .metric-card {
+    background: var(--white);
+    border: 1.5px solid var(--gray-100);
+    border-radius: var(--radius-md);
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .metric-card-value {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .metric-card-label {
+    font-size: 12px;
+    color: var(--gray-500);
+    line-height: 1.4;
+  }
+
+  /* ─── CTA BOUTONS FICHE ─── */
+  .fiche-cta-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  /* ─── NAVIGATION FICHES ─── */
+  .fiche-nav {
+    border-top: 1px solid var(--gray-100);
+    padding: 32px 0;
+  }
+
+  .fiche-nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .fiche-nav-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    margin-bottom: 4px;
+  }
+
+  .fiche-nav-empty {
+    font-size: 14px;
+    color: var(--gray-300);
+  }
+
+  .fiche-nav-next {
+    text-align: right;
+  }
+
+  .fiche-nav-prev-link {
+    display: block;
+  }
+
+  .fiche-nav-titre {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    transition: var(--transition);
+  }
+
+  .fiche-nav-prev-link:hover .fiche-nav-titre {
+    color: var(--aurora);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .fiche-hero-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .fiche-container {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .fiche-section-label { padding-top: 0; }
+  }
+
+  @media (max-width: 768px) {
+    .fiche-hero { padding: 16px 0 56px; }
+
+    .solution-grid { grid-template-columns: 1fr; }
+
+    .metrics-row { grid-template-columns: 1fr 1fr; }
+
+    .fiche-cta-buttons { flex-direction: column; }
+
+    .fiche-cta-buttons .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
