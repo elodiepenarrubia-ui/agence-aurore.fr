@@ -19,8 +19,9 @@ const projets = [
     ville:      "Aix-en-Provence (13)",
     prestations: ["Site vitrine", "Identité visuelle", "SEO"],
     description: "Présence digitale complète pour une conciergerie de location saisonnière à Aix-en-Provence. Site, identité visuelle et SEO local.",
-    couleur:    "#F0EBE8",
+    couleur:    "#F0EDE8",
     image:      "/lemazarin-1.webp",
+    video:      "/lemazarin-site.mp4",
   },
   {
     slug:       "blackwood-deck-terrasse-bois-aix",
@@ -49,7 +50,7 @@ const projets = [
     ville:      "Aix-en-Provence (13)",
     prestations: ["Logiciel métier sur mesure", "Réservations & finances", "Portails multi-rôles"],
     description: "Logiciel de gestion sur mesure centralisant réservations, finances, ménage, propriétaires et livret voyageur pour une conciergerie.",
-    couleur:    "#E7EAF1",
+    couleur:    "#EDEAE5",
   },
 ];
 
@@ -151,7 +152,20 @@ const itemListSchema = {
               aria-label={`Voir le projet ${projet.titre}`}
               tabindex="-1"
             >
-              {projet.image ? (
+              {projet.video ? (
+                <video
+                  data-autoplay-inview
+                  src={projet.video}
+                  poster={projet.image}
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-label={`Aperçu animé du site ${projet.titre}`}
+                  style={`width:100%;height:100%;object-fit:cover;border-radius:var(--radius-lg);background:var(--gray-50);display:block;`}
+                ></video>
+              ) : projet.image ? (
                 <img
                   src={projet.image}
                   alt={`Site web ${projet.titre}`}
@@ -224,6 +238,19 @@ const itemListSchema = {
       </div>
     </div>
   </section>
+
+  <script>
+    document.querySelectorAll('video[data-autoplay-inview]').forEach((v) => {
+      v.muted = true;
+      const tryPlay = () => { const p = v.play(); if (p) p.catch(() => {}); };
+      tryPlay();
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) tryPlay(); else v.pause(); });
+        }, { threshold: 0.25 }).observe(v);
+      }
+    });
+  </script>
 
 </BaseLayout>
 
