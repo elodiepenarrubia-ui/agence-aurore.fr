@@ -205,6 +205,7 @@ const schema = {
 
         <div class="resultat-screens fade-in" style="margin-top: 32px;">
           <video
+            data-autoplay-inview
             src="/lemazarin-site.mp4"
             poster="/lemazarin-1.webp"
             autoplay
@@ -301,6 +302,21 @@ const schema = {
       </div>
     </div>
   </nav>
+
+  <script>
+    const v = document.querySelector('video[data-autoplay-inview]');
+    if (v) {
+      v.muted = true;
+      const tryPlay = () => { const p = v.play(); if (p) p.catch(() => {}); };
+      tryPlay();
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) tryPlay(); else v.pause(); });
+        }, { threshold: 0.25 });
+        io.observe(v);
+      }
+    }
+  </script>
 
 </BaseLayout>
 
