@@ -163,14 +163,14 @@ const itemListSchema = {
                   playsinline
                   preload="metadata"
                   aria-label={`Aperçu animé du site ${projet.titre}`}
-                  style={`width:100%;height:100%;object-fit:cover;object-position:center top;background:var(--gray-50);display:block;`}
+                  style={`width:100%;height:100%;object-fit:contain;background:var(--gray-50);display:block;`}
                 ></video>
               ) : projet.image ? (
                 <img
                   src={projet.image}
                   alt={`Site web ${projet.titre}`}
                   loading="lazy"
-                  style={`width:100%;height:100%;object-fit:cover;object-position:center top;background:var(--gray-50);display:block;`}
+                  style={`width:100%;height:100%;object-fit:contain;background:var(--gray-50);display:block;`}
                 />
               ) : (
                 <div class="projet-card-cover" style={`background:${projet.couleur};`}>
@@ -292,7 +292,8 @@ const itemListSchema = {
 
   .projet-card {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.35fr 1fr;
+    align-items: center;
     border: 1.5px solid var(--gray-100);
     border-radius: var(--radius-xl);
     overflow: hidden;
@@ -317,7 +318,7 @@ const itemListSchema = {
     display: block;
     position: relative;
     overflow: hidden;
-    min-height: 420px;
+    aspect-ratio: 2 / 1;
     text-decoration: none;
   }
 
@@ -553,7 +554,7 @@ const itemListSchema = {
     }
 
     .projet-card-image {
-      min-height: 240px;
+      aspect-ratio: 16 / 10;
     }
 
     .projet-card-body {
